@@ -1,0 +1,864 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ==== DARK MODE CSS VARIABLES ==== */
+:root {
+  --bg-primary: #F0F4F7;
+  --bg-secondary: #FFFFFF;
+  --bg-gradient-start: #F0F4F7;
+  --bg-gradient-middle: #E1E8ED;
+  --bg-gradient-end: #D0D9E0;
+  --text-primary: #111111;
+  --text-secondary: #37422F;
+  --border-primary: #000000;
+  --border-secondary: #E0E0E0;
+  --accent-primary: #194D25;
+  --accent-secondary: #0F4C5C;
+  --tile-bg: #FFFFFF;
+  --tile-bg-hover: #EBF0E8;
+}
+
+.dark {
+  --bg-primary: #1a1a1a;
+  --bg-secondary: #2d2d2d;
+  --text-primary: #e5e5e5;
+  --text-secondary: #b0b0b0;
+  --border-primary: #404040;
+  --border-secondary: #333333;
+  --accent-primary: #2ecc71;
+  --accent-secondary: #e74c3c;
+  --tile-bg: #2d2d2d;
+  --tile-bg-hover: #3a4a3a;
+}
+
+/* Apply color variables */
+body {
+  background-color: var(--bg-primary);
+  background-image: linear-gradient(to bottom, var(--bg-gradient-start) 0%, var(--bg-gradient-middle) 60%, var(--bg-gradient-end) 100%);
+  background-attachment: fixed;
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+@keyframes beam-in {
+  0% {
+    opacity: 0;
+    transform: scale(1.05) translateY(-10px);
+    filter: brightness(2.5) blur(5px) grayscale(100%);
+    /* Intense silver energy start */
+  }
+
+  10% {
+    opacity: 0.3;
+    transform: translate(-3px, 0);
+    filter: brightness(2) blur(3px) grayscale(100%);
+  }
+
+  30% {
+    opacity: 0.6;
+    transform: translate(-3px, -1px);
+    filter: brightness(1.5) blur(1px) grayscale(100%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(0, 0);
+    /* End at "Atoms/Energy" state: Stark B&W, atoms forming */
+    filter: brightness(1.2) blur(4px) contrast(200%) grayscale(100%);
+  }
+}
+
+@keyframes atom-reconstruct {
+  0% {
+    opacity: 1;
+    /* Start from "Atoms/Energy" state: Stark B&W */
+    filter: brightness(1.2) blur(4px) contrast(200%) grayscale(100%);
+  }
+
+  50% {
+    /* Halfway: Gaining color, reducing blur */
+    filter: brightness(1.1) blur(2px) contrast(150%) grayscale(50%);
+  }
+
+  100% {
+    opacity: 1;
+    /* End at "Complete" state: Full Color */
+    filter: brightness(1) blur(0) contrast(100%) grayscale(0%);
+  }
+}
+
+.animate-beam-in {
+  /* Sequence: Beam-in (0.5s) -> Atom Reconstruct (0.5s) */
+  animation: beam-in 0.5s ease-out forwards, atom-reconstruct 0.5s ease-out 0.5s forwards;
+}
+
+@keyframes buggy-lighter-border {
+  0% {
+    border-color: #4A6572;
+  }
+
+  /* slate-blue-600 */
+  5% {
+    border-color: #344955;
+    border-width: 1.5px;
+  }
+
+  /* slate-blue-800 */
+  10% {
+    border-color: transparent;
+  }
+
+  15% {
+    border-color: #4A6572;
+    border-width: 1px;
+  }
+
+  25% {
+    border-color: #232F34;
+  }
+
+  /* slate-blue-900 */
+  30% {
+    border-color: transparent;
+  }
+
+  74% {
+    border-color: #4A6572;
+  }
+
+  50% {
+    border-color: #344955;
+    border-width: 1.5px;
+  }
+
+  60% {
+    border-color: #4A6572;
+  }
+
+  70% {
+    border-color: transparent;
+    border-width: 1px;
+  }
+
+  80% {
+    border-color: #232F34;
+  }
+
+  90% {
+    border-color: #4A6572;
+  }
+
+  100% {
+    border-color: #344955;
+  }
+}
+
+.animate-buggy-border {
+  animation: buggy-lighter-border 1.8s infinite linear;
+}
+
+@keyframes tv-static-border {
+
+  0%,
+  100% {
+    border-color: black;
+    border-width: 0.67px;
+    filter: blur(0px);
+    /* No blur */
+  }
+
+  50% {
+    border-color: rgba(0, 0, 0, 0.8);
+    border-width: 0.67px;
+    filter: blur(0px);
+    /* No blur */
+  }
+
+  25%,
+  75% {
+    border-color: rgba(0, 0, 0, 0.1);
+    border-width: 0.67px;
+    filter: blur(0.5px);
+    /* Subtle blur */
+  }
+}
+
+.animate-tv-static-border {
+  animation: tv-static-border 1.2s infinite alternate;
+  /* 50% slower */
+}
+
+@keyframes buggy-static-border {
+  0% {
+    border-color: rgba(0, 0, 0, 0.8);
+    border-width: 0.67px;
+    filter: blur(0.3px);
+  }
+
+  5% {
+    border-color: rgba(0, 0, 0, 0.5);
+    border-width: 0.8px;
+    filter: blur(0.8px);
+  }
+
+  10% {
+    border-color: rgba(0, 0, 0, 0.9);
+    border-width: 0.6px;
+    filter: blur(0.2px);
+  }
+
+  15% {
+    border-color: rgba(0, 0, 0, 0.4);
+    border-width: 0.9px;
+    filter: blur(1px);
+  }
+
+  /* Noise spike */
+  20% {
+    border-color: rgba(0, 0, 0, 0.8);
+    border-width: 0.67px;
+    filter: blur(0.3px);
+  }
+
+  50% {
+    border-color: rgba(0, 0, 0, 0.8);
+    border-width: 0.67px;
+    filter: blur(0.3px);
+  }
+
+  /* Stable period */
+  55% {
+    border-color: rgba(0, 0, 0, 0.3);
+    border-width: 0.5px;
+    filter: blur(1.5px);
+  }
+
+  /* Deep blur noise */
+  60% {
+    border-color: rgba(0, 0, 0, 0.9);
+    border-width: 0.7px;
+    filter: blur(0.2px);
+  }
+
+  80% {
+    border-color: rgba(0, 0, 0, 0.6);
+    border-width: 0.67px;
+    filter: blur(0.5px);
+  }
+
+  100% {
+    border-color: rgba(0, 0, 0, 0.8);
+    border-width: 0.67px;
+    filter: blur(0.3px);
+  }
+}
+
+.animate-buggy-static-border {
+  animation: buggy-static-border 2.5s infinite linear;
+  /* 40% less fast */
+}
+
+@keyframes wander {
+  0% {
+    top: 10%;
+    left: 10%;
+    transform: rotate(90deg);
+  }
+
+  22% {
+    top: 10%;
+    left: 85%;
+    transform: rotate(90deg);
+  }
+
+  25% {
+    top: 10%;
+    left: 85%;
+    transform: rotate(180deg);
+  }
+
+  47% {
+    top: 85%;
+    left: 85%;
+    transform: rotate(180deg);
+  }
+
+  50% {
+    top: 85%;
+    left: 85%;
+    transform: rotate(270deg);
+  }
+
+  72% {
+    top: 85%;
+    left: 10%;
+    transform: rotate(270deg);
+  }
+
+  75% {
+    top: 85%;
+    left: 10%;
+    transform: rotate(0deg);
+  }
+
+  97% {
+    top: 10%;
+    left: 10%;
+    transform: rotate(0deg);
+  }
+
+  100% {
+    top: 10%;
+    left: 10%;
+    transform: rotate(90deg);
+  }
+}
+
+.animate-wander {
+  animation: wander 1.25s linear infinite;
+}
+
+/* Intro Animation: Appear, Fast Rotate, Point, Buggy Disappear */
+@keyframes arrow-intro-sequence {
+  0% {
+    opacity: 0;
+    transform: rotate(90deg) scale(0.8);
+  }
+
+  10% {
+    opacity: 1;
+    transform: rotate(360deg) scale(1.1);
+  }
+
+  20% {
+    transform: rotate(0deg) scale(1);
+    /* Pointing Left */
+  }
+
+  60% {
+    transform: rotate(0deg) scale(1);
+    /* Stay pointing */
+    opacity: 1;
+    filter: blur(0px);
+  }
+
+  /* Buggy Disappear Phase */
+  65% {
+    transform: translate(2px, -2px) rotate(2deg);
+    filter: blur(1px);
+    opacity: 0.8;
+  }
+
+  70% {
+    transform: translate(-2px, 2px) rotate(-2deg);
+    filter: blur(0px);
+    opacity: 0.6;
+  }
+
+  75% {
+    transform: translate(0, 0) rotate(0deg);
+    filter: blur(2px);
+    opacity: 0.4;
+  }
+
+  100% {
+    transform: rotate(0deg);
+    opacity: 0;
+    filter: blur(0px);
+  }
+}
+
+/* Static Noise for Hover */
+@keyframes static-noise-jitter {
+  0% {
+    transform: translate(0, 0);
+    filter: blur(0px);
+  }
+
+  25% {
+    transform: translate(0.5px, 0.5px);
+    filter: blur(0.3px);
+  }
+
+  50% {
+    transform: translate(-0.5px, -0.5px);
+    filter: blur(0px);
+  }
+
+  75% {
+    transform: translate(-0.5px, 0.5px);
+    filter: blur(0.2px);
+  }
+
+  100% {
+    transform: translate(0, 0);
+    filter: blur(0px);
+  }
+}
+
+.animate-arrow-intro {
+  animation: arrow-intro-sequence 0.5s ease-out forwards;
+}
+
+/* Cross Intro: Very subtle, 75% less intense than arrow */
+@keyframes cross-intro-sequence {
+  0% {
+    opacity: 0;
+    transform: scale(0.5) rotate(-45deg);
+  }
+
+  20% {
+    opacity: 0.3;
+    /* Low opacity */
+    transform: scale(0.7) rotate(0deg);
+  }
+
+  60% {
+    opacity: 0.3;
+    transform: scale(0.7) rotate(0deg);
+    filter: blur(0.5px);
+  }
+
+  /* Buggy Disappear */
+  75% {
+    opacity: 0.1;
+    transform: scale(0.6) rotate(10deg);
+    filter: blur(1px);
+  }
+
+  100% {
+    opacity: 0;
+    transform: scale(0.5) rotate(0deg);
+    filter: blur(0px);
+  }
+}
+
+.animate-cross-intro {
+  animation: cross-intro-sequence 0.5s ease-out forwards;
+}
+
+.animate-arrow-hover {
+  animation: static-noise-jitter 0.3s infinite linear;
+}
+
+.bg-subtle-tv-noise {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.05' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E");
+}
+
+.filter-text-noise {
+  filter: blur(0.2px);
+  /* Very subtle blur */
+}
+
+.bg-accent-light {
+  background-color: #B6C3AC;
+}
+
+.code-text-noise {
+  filter: blur(0.5px);
+  opacity: 0.9;
+  text-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
+}
+
+/* Reduce motion for users who prefer it */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --mk-focus: #000000;
+    --mk-focus-offset: 3px;
+  }
+
+  button:focus-visible,
+  [role='button']:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible,
+  a:focus-visible {
+    outline-width: 3px;
+  }
+}
+
+/* Focus states voor betere toegankelijkheid */
+:root {
+  --mk-focus: #194D25;
+  --mk-focus-offset: 2px;
+}
+
+button:focus-visible,
+[role='button']:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--mk-focus);
+  outline-offset: var(--mk-focus-offset);
+}
+
+/* Skip to main content link for screen readers */
+.skip-to-main {
+  position: absolute;
+  left: -9999px;
+  z-index: 999;
+}
+
+.skip-to-main:focus {
+  left: 50%;
+  transform: translateX(-50%);
+  top: 1rem;
+  padding: 0.5rem 1rem;
+  background: var(--mk-focus);
+  color: white;
+  text-decoration: none;
+  font-family: monospace;
+  font-size: 0.875rem;
+  border-radius: 0.25rem;
+}
+
+/* Animation for fade-in */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.3s ease-out;
+}
+
+@keyframes modal-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(11px);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.animate-modal-pop {
+  animation: modal-pop 0.33s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+}
+
+/* Improved contrast for better accessibility - moved to component level where needed */
+
+/* Responsive typography using clamp for fluid scaling */
+/* Responsive typography using clamp for fluid scaling */
+html {
+  /* 
+   * Base size: 16px
+   * Minimum: 14px (for very small screens)
+   * Fluid: 1rem + 0.5vw (scales gently with viewport)
+   * Maximum: 18px (prevents text from getting too large on huge screens)
+   * Using % or rem for base ensures browser zoom works correctly
+   */
+  font-size: clamp(14px, 100% + 0.25vw, 18px);
+  height: 100%;
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+  /* Prevent horizontal scroll */
+  width: 100%;
+}
+
+/* Ensure minimum touch target sizes for mobile accessibility */
+@media (max-width: 768px) {
+
+  button,
+  [role='button'],
+  a[href],
+  input[type='button'],
+  input[type='submit'],
+  input[type='file']::file-selector-button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* Improve focus visibility on all interactive elements */
+*:focus-visible {
+  outline: 2px solid var(--mk-focus);
+  outline-offset: var(--mk-focus-offset);
+}
+
+/* ContactForm placeholder styling */
+input::placeholder,
+textarea::placeholder {
+  color: #9CA3AF;
+  /* gray-400 */
+  opacity: 1;
+}
+
+/* Plane fly away animation - buggy draaien dan recht omhoog */
+@keyframes plane-fly-away {
+
+  /* Buggy draaien - eerste rondje */
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 1;
+    color: #194D25;
+  }
+
+  8% {
+    transform: translate(0, 0) rotate(90deg);
+    opacity: 1;
+    color: #0F4C5C;
+  }
+
+  16% {
+    transform: translate(0, 0) rotate(180deg);
+    opacity: 1;
+    color: #1E6075;
+  }
+
+  24% {
+    transform: translate(0, 0) rotate(270deg);
+    opacity: 1;
+    color: #2D748E;
+  }
+
+  /* Tweede rondje */
+  32% {
+    transform: translate(0, 0) rotate(360deg);
+    opacity: 1;
+    color: #3C88A7;
+  }
+
+  40% {
+    transform: translate(0, 0) rotate(450deg);
+    opacity: 1;
+    color: #4B9CC0;
+  }
+
+  /* Derde rondje - roder */
+  48% {
+    transform: translate(0, 0) rotate(540deg);
+    opacity: 1;
+    color: #43AA8B;
+  }
+
+  56% {
+    transform: translate(0, 0) rotate(630deg);
+    opacity: 1;
+    color: #5BC0A2;
+  }
+
+  /* Stop met draaien, klaar voor omhoog */
+  60% {
+    transform: translate(0, 0) rotate(720deg);
+    opacity: 1;
+    color: #90BE6D;
+  }
+
+  /* Recht omhoog vliegen */
+  70% {
+    transform: translate(0, -100px) rotate(720deg);
+    opacity: 1;
+    color: #F9C74F;
+  }
+
+  80% {
+    transform: translate(0, -250px) rotate(720deg);
+    opacity: 0.8;
+    color: #F9844A;
+  }
+
+  90% {
+    transform: translate(0, -400px) rotate(720deg);
+    opacity: 0.4;
+    color: #F3722C;
+  }
+
+  100% {
+    transform: translate(0, -600px) rotate(720deg);
+    opacity: 0;
+    color: #F94144;
+  }
+
+}
+
+.animate-plane-fly-away {
+  animation: plane-fly-away 2.5s ease-out forwards;
+  transform-origin: center center;
+}
+
+/* Bordeaux hover effect for contact tile icon */
+.icon-hover-bordeaux {
+  transition: color 0.2s ease-out;
+}
+
+.group:hover .icon-hover-bordeaux {
+  color: #0F4C5C !important;
+}
+
+/* Custom hover effect for tile icons using CSS variable */
+.icon-hover-custom {
+  transition: color 0.2s ease-out;
+}
+
+.group:hover .icon-hover-custom {
+  color: var(--icon-hover-color) !important;
+}
+
+/* New Visual Improvements */
+
+/* Smooth Hover Scale */
+.hover-scale-sm {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-scale-sm:hover {
+  transform: scale(1.02);
+}
+
+.hover-scale-blog {
+  transition: transform 200ms ease-out;
+}
+
+.hover-scale-blog:hover {
+  transform: scale(1.02);
+}
+
+/* Smooth Shadow */
+.hover-shadow-smooth {
+  transition: box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.hover-shadow-smooth:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Staggered Fade In */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+  opacity: 0;
+  /* Start hidden */
+}
+
+/* Stagger delays for grid items (up to 12 items) */
+.stagger-1 {
+  animation-delay: 100ms;
+}
+
+.stagger-2 {
+  animation-delay: 200ms;
+}
+
+.stagger-3 {
+  animation-delay: 300ms;
+}
+
+.stagger-4 {
+  animation-delay: 400ms;
+}
+
+.stagger-5 {
+  animation-delay: 500ms;
+}
+
+.stagger-6 {
+  animation-delay: 600ms;
+}
+
+/* Button Polish */
+.btn-primary-hover {
+  transition: all 0.2s ease-out;
+}
+
+.btn-primary-hover:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.btn-primary-hover:active {
+  transform: translateY(0);
+}
+
+/* ==== RESPONSIVE TYPOGRAPHY ==== */
+.hero-title {
+  font-size: clamp(1.5rem, 5vw, 2.2rem);
+}
+
+.hero-subtitle {
+  font-size: clamp(0.9rem, 3vw, 1.2rem);
+}
+
+.grid-intro {
+  margin-left: 2px;
+}
+
+/* ==== MOBILE CONSTRUCTION OVERLAY ==== */
+#mobile-construction-overlay {
+  display: none;
+}
+
+@media (max-width: 1023px) {
+  .app-main-wrapper {
+    display: none !important;
+  }
+
+  #mobile-construction-overlay {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    z-index: 10000;
+    text-align: left;
+    padding: 2rem 1.5rem;
+  }
+
+  .mobile-overlay-header {
+    width: 100%;
+    border-bottom: 1px solid var(--border-primary);
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .mobile-overlay-content {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+}

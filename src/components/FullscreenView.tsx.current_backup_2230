@@ -1,0 +1,140 @@
+import React, { useEffect, useRef } from 'react';
+import { TileData, TextContent, ContentType } from '../types';
+import { X } from 'lucide-react';
+import { Tile } from './Tile';
+import { EMPTY_SUB_TILES, THEME, COLORS, SPACING } from '../constants';
+import { sanitizeHTML } from '../lib/sanitize';
+
+interface FullscreenViewProps {
+  tile: TileData;
+  onClose: () => void;
+}
+
+export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose }) => {
+  const modalRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+
+  // Handler for sub-tile clicks
+  const handleSubTileClick = (id: string) => {
+    // Sub-tile click handler - can be extended later
+  };
+
+  // Keyboard handler for modal
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [onClose]);
+
+  // Focus management
+  useEffect(() => {
+    // Focus close button when modal opens
+    closeButtonRef.current?.focus();
+    
+    // Prevent body scroll when modal is open
+    document.body.style.overflow = 'hidden';
+    
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, []);
+
+  // For Contact tiles, use the original tile data directly
+  // For other tiles, create a sub-tile with text content
+  const displayTile: TileData = tile.type === ContentType.CONTACT
+    ? tile
+    : (() => {
+        // Define content based on parent tile
+        let subTileContent = '';
+        const commonClasses = 'font-mono text-xs md:text-sm leading-snug text-gray-800';
+
+        const LOREM_IPSUM = `
+          <div class="${commonClasses}">
+            <p class="mb-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+            <p class="mb-3">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo.</p>
+          </div>
+        `;
+
+        if (tile.id === 'tile-1') {
+          subTileContent = `
+            <div class="${commonClasses}">
+              <p class="mb-3">Overheden en organisaties zetten steeds vaker algoritmen in om beslissingen te nemen. De belofte is efficiëntie en snelheid. Maar de praktijk is weerbarstiger. Wanneer systemen worden getraind op historische data, erven ze historische ongelijkheid.</p>
+              <p class="mb-3">Een model ziet geen mensen, maar datapunten. Hierdoor kunnen burgers onterecht als fraudeur of risicogeval worden bestempeld, puur op basis van statistische correlaties. De menselijke maat verdwijnt in een ondoorzichtige 'black box'.</p>
+              <p>Dit leidt tot een kille systeemwereld waartegen de individuele burger nauwelijks verweer heeft. Technologie die bedoeld was om de samenleving te dienen, dreigt zo de meest kwetsbaren te schaden.</p>
+            </div>
+          `;
+        } else if (tile.id === 'tile-2') {
+          subTileContent = `
+            <div class="${commonClasses}">
+              <p class="mb-3">Moral Knight helpt organisaties om de menselijke maat terug te brengen in digitale systemen. Wij geloven dat technologie altijd verantwoording moet kunnen afleggen.</p>
+              <p class="mb-3">Wij toetsen AI-toepassingen aan publieke waarden en fundamentele rechten. We kijken verder dan de code: welke aannames zitten er in het model? Wat zijn de onbedoelde neveneffecten? Is de uitkomst rechtvaardig voor iedereen?</p>
+              <p>Door audits, ethisch advies en praktijkonderzoek maken we de impact van AI zichtbaar. Samen bouwen we aan systemen die transparant en controleerbaar zijn. Zodat innovatie en rechtvaardigheid hand in hand gaan.</p>
+            </div>
+          `;
+        } else {
+          subTileContent = LOREM_IPSUM;
+        }
+
+        return {
+          ...EMPTY_SUB_TILES[0],
+          id: `${tile.id}-sub-1`,
+          title:
+            tile.id === 'tile-1'
+              ? 'AI die mensen schaadt'
+              : tile.id === 'tile-2'
+                ? 'AI met een moreel kompas'
+                : tile.title.toUpperCase(),
+          fillColor: '#FFFFFF',
+          content: { 
+            text: sanitizeHTML(subTileContent) 
+          } as TextContent,
+        };
+      })();
+
+  return (
+    <div
+      ref={modalRef}
+      className="fixed inset-0 z-[200] flex flex-col items-center overflow-y-auto"
+      style={{ backgroundColor: tile.fillColor || THEME.colors.background, color: THEME.colors.text }}
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="modal-title"
+    >
+      {/* Header / Navigation Bar simulation */}
+      <div className={`w-full max-w-[1400px] ${SPACING.MODAL_HEADER_PADDING} flex justify-between items-center`}>
+        <h2 id="modal-title" className="font-mono uppercase tracking-widest" style={{ color: COLORS.PRIMARY_GREEN }}>
+          Moral Knight / {tile.title}
+        </h2>
+        <button
+          ref={closeButtonRef}
+          data-modal-close
+          onClick={onClose}
+          className="p-2 rounded-full transition-colors hover:bg-black/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#194D25] min-w-[44px] min-h-[44px] flex items-center justify-center"
+          aria-label="Sluit venster"
+        >
+          <X size={24} style={{ color: COLORS.PRIMARY_GREEN }} aria-hidden="true" />
+        </button>
+      </div>
+
+      {/* Main Content Area - Single Tile Centered with Optical Offset */}
+      <main className={`flex-1 w-full max-w-[1400px] ${SPACING.MODAL_CONTENT_PADDING} ${SPACING.MODAL_BOTTOM_SPACING} flex flex-col items-center justify-center`}>
+        <div className="w-[90%] md:w-[75%] max-w-6xl">
+          <Tile
+            data={displayTile}
+            onClick={handleSubTileClick}
+            typingComplete
+            mode="fullscreen"
+          />
+        </div>
+      </main>
+    </div>
+  );
+};
+
+

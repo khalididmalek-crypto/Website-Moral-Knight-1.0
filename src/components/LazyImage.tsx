@@ -1,0 +1,85 @@
+import React, { useState, useRef } from 'react';
+import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
+import { LoadingSpinner } from './LoadingSpinner';
+
+interface LazyImageProps {
+  src: string;
+  alt: string;
+  className?: string;
+  onLoad?: () => void;
+  onError?: () => void;
+  placeholder?: React.ReactNode;
+}
+
+/**
+ * Lazy loading image component using Intersection Observer
+ * Only loads the image when it's about to enter the viewport
+ */
+export const LazyImage: React.FC<LazyImageProps> = ({
+  src,
+  alt,
+  className = '',
+  onLoad,
+  onError,
+  placeholder,
+}) => {
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [hasError, setHasError] = useState(false);
+  const [ref, isIntersecting] = useIntersectionObserver({
+    threshold: 0.1,
+    rootMargin: '50px',
+    triggerOnce: true,
+  });
+
+  const imgRef = useRef<HTMLImageElement>(null);
+
+  const handleLoad = () => {
+    setIsLoaded(true);
+    onLoad?.();
+  };
+
+  const handleError = () => {
+    setHasError(true);
+    setIsLoaded(false);
+    onError?.();
+  };
+
+  return (
+    <div ref={ref as React.RefObject<HTMLDivElement>} className={`relative ${className}`}>
+      {!isIntersecting && placeholder && (
+        <div className="w-full h-full flex items-center justify-center">
+          {placeholder}
+        </div>
+      )}
+
+      {isIntersecting && (
+        <>
+          {!isLoaded && !hasError && (
+            <div className="absolute inset-0 flex items-center justify-center bg-gray-100 z-10">
+              {placeholder || <LoadingSpinner size="md" aria-label="Afbeelding laden" />}
+            </div>
+          )}
+
+          {hasError ? (
+            <div className="flex flex-col items-center justify-center h-full text-gray-400 font-mono text-xs uppercase">
+              <span>Afbeelding kon niet worden geladen</span>
+            </div>
+          ) : (
+            <img
+              ref={imgRef}
+              src={src}
+              alt={alt}
+              className={`w-full h-full object-cover ${isLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300`}
+              onLoad={handleLoad}
+              onError={handleError}
+              loading="lazy"
+              decoding="async"
+              fetchPriority="low"
+            />
+          )}
+        </>
+      )}
+    </div>
+  );
+};
+
