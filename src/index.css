@@ -822,43 +822,10 @@ textarea::placeholder {
 }
 
 /* ==== MOBILE CONSTRUCTION OVERLAY ==== */
-#mobile-construction-overlay {
-  display: none;
-}
+/* Overlay visibility is handled by Tailwind classes in App.tsx */
 
-@media (max-width: 1023px) {
+@media (max-width: 767px) {
   .app-main-wrapper {
     display: none !important;
-  }
-
-  #mobile-construction-overlay {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background-color: var(--bg-primary);
-    color: var(--text-primary);
-    z-index: 10000;
-    text-align: left;
-    padding: 2rem 1.5rem;
-  }
-
-  .mobile-overlay-header {
-    width: 100%;
-    border-bottom: 1px solid var(--border-primary);
-    padding-bottom: 1rem;
-    margin-bottom: 1.5rem;
-  }
-
-  .mobile-overlay-content {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
   }
 }

@@ -161,18 +161,40 @@ const App: React.FC<AppProps> = ({ posts = [] }) => {
   return (
     <TileStateProvider>
       {/* Mobile Construction Overlay */}
-      <div id="mobile-construction-overlay">
-        <div className="mobile-overlay-header flex flex-col sm:flex-row sm:items-baseline gap-2 sm:gap-4">
-          <span className="font-mono font-medium tracking-tight text-3xl" style={{ color: THEME.colors.text }}>Moral Knight</span>
-          <span className="ral-6035-text font-mono font-bold uppercase tracking-widest text-sm">creating human centred AI</span>
+      <div
+        id="mobile-construction-overlay"
+        className="fixed inset-0 z-[10000] flex flex-col p-8 md:hidden overflow-hidden"
+        style={{
+          background: 'linear-gradient(to bottom, #F0F4F7 0%, #E1E8ED 60%, #D0D9E0 100%)',
+          backgroundColor: '#e5e7eb'
+        }}
+      >
+        {/* Header */}
+        <div className="w-full">
+          <div className="flex flex-col gap-1 mb-4">
+            <span className="font-mono font-medium text-2xl text-gray-900 tracking-tight">Moral Knight</span>
+            <span className="font-mono text-green-700 text-[10px] uppercase tracking-widest">
+              MENSWAARDIGE AI IN HET PUBLIEKE DOMEIN
+            </span>
+          </div>
+          {/* Divider line */}
+          <div className="w-full h-[1px] bg-gray-400 mb-8"></div>
         </div>
-        <div className="mobile-overlay-content">
-          <h1 className="font-mono text-sm mb-2 font-bold tracking-tight uppercase opacity-60">MOBILE UNDER CONSTRUCTION</h1>
-          <p className="font-mono text-[11px] opacity-40 max-w-[250px] uppercase tracking-wider">
+
+        {/* Content */}
+        <div className="flex-grow flex items-center justify-center -mt-20">
+          <p className="font-mono text-sm text-gray-900 uppercase tracking-widest whitespace-nowrap opacity-60">
             Please visit us on a desktop device.
           </p>
         </div>
+
+        {/* Footer */}
+        <div className="w-full flex justify-between items-end text-[9px] font-mono uppercase tracking-widest">
+          <span className="text-gray-900">/ MORAL KNIGHT 2025</span>
+          <span style={{ color: '#D6827A' }}>MK DASHBOARD</span>
+        </div>
       </div>
+
 
       <div
         ref={mainContainerRef}
