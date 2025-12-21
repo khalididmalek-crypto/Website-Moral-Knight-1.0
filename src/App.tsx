@@ -178,21 +178,21 @@ const App: React.FC<AppProps> = ({ posts = [] }) => {
             </span>
           </div>
           {/* Divider line */}
-          <div className="w-full h-[1px] bg-gray-400 mb-8"></div>
-        </div>
-
-        {/* Content */}
-        <div className="flex-grow flex items-center justify-center -mt-20">
-          <p className="font-mono text-sm text-gray-900 uppercase tracking-widest whitespace-nowrap opacity-60">
+          <div className="w-full h-[1px] bg-gray-400 mb-2"></div>
+          {/* Content below line */}
+          <p className="font-mono text-[10px] text-gray-900 uppercase tracking-widest whitespace-nowrap opacity-60">
             Please visit us on a desktop device.
           </p>
         </div>
 
+        {/* Spacer to push footer down */}
+        <div className="flex-grow"></div>
+
         {/* Footer */}
         <div className="w-full flex justify-between items-end text-[9px] font-mono uppercase tracking-widest">
           <span className="text-gray-900">/ MORAL KNIGHT 2025</span>
-          <span style={{ color: '#D6827A' }}>MK DASHBOARD</span>
         </div>
+
       </div>
 
 
