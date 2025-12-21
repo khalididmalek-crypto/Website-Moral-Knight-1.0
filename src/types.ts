@@ -81,11 +81,11 @@ export const isVideoContent = (content: TileContent, type: ContentType): content
 export const isTextContent = (content: TileContent, type: ContentType): content is TextContent =>
   type === ContentType.TEXT && 'text' in content;
 
-export const isContactContent = (content: TileContent, type: ContentType): content is ContactContent =>
+export const isContactContent = (_content: TileContent, type: ContentType): _content is ContactContent =>
   type === ContentType.CONTACT;
 
-export const isBlogContent = (content: TileContent, type: ContentType): content is BlogContent =>
-  type === ContentType.BLOG && 'text' in content;
+export const isBlogContent = (_content: TileContent, type: ContentType): _content is BlogContent =>
+  type === ContentType.BLOG && 'text' in _content;
 
 export interface TileData {
   id: string;
