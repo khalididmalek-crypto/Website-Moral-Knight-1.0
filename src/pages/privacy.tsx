@@ -3,11 +3,19 @@ import Head from 'next/head';
 import { ProjectorOverlay } from '../components/ProjectorOverlay';
 import { COLORS } from '../constants';
 import { Printer, ArrowLeft } from 'lucide-react';
-import Link from 'next/link';
 
 export default function PrivacyPage() {
     const handlePrint = () => {
         window.print();
+    };
+
+    const handleBack = (e: React.MouseEvent) => {
+        e.preventDefault();
+        if (window.history.length > 1) {
+            window.history.back();
+        } else {
+            window.location.href = '/';
+        }
     };
 
     return (
@@ -22,14 +30,15 @@ export default function PrivacyPage() {
             <div className="w-full max-w-4xl px-6 py-12 md:py-20 z-10 flex flex-col gap-10">
                 {/* Navigation & Actions */}
                 <div className="flex justify-between items-center border-b border-black pb-4 print:hidden no-print">
-                    <Link
+                    <a
                         href="/"
-                        className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest hover:opacity-70 transition-opacity"
+                        onClick={handleBack}
+                        className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest hover:opacity-70 transition-opacity cursor-pointer"
                         style={{ color: COLORS.PRIMARY_GREEN }}
                     >
                         <ArrowLeft size={16} />
-                        Terug naar Home
-                    </Link>
+                        Terug
+                    </a>
 
                     <button
                         onClick={handlePrint}
@@ -117,18 +126,30 @@ export default function PrivacyPage() {
 
             <style jsx global>{`
                 @media print {
-                    header, footer, button, nav { display: none !important; }
-                    body, main { background: white !important; color: black !important; overflow: visible !important; height: auto !important; }
-                    .print-container { display: block !important; width: 100% !important; }
-                    .app-main-wrapper, .ProjectorOverlay, .print\:hidden, .no-print {
+                    /* Forceer dat de browser alle content ziet */
+                    body, html, #__next, main {
+                        height: auto !important;
+                        overflow: visible !important;
+                        display: block !important;
+                    }
+
+                    /* Verberg alles wat niet bij de tekst hoort */
+                    nav, footer, button, .no-print, header:not(main header) {
                         display: none !important;
                     }
+
+                    /* Zorg dat tekst zwart is op wit voor de printer */
                     * {
+                        color: black !important;
+                        background: white !important;
+                        box-shadow: none !important;
+                        text-shadow: none !important;
                         opacity: 1 !important;
                         visibility: visible !important;
                         transition: none !important;
                         animation: none !important;
                     }
+
                     main {
                         box-shadow: none !important;
                         border: none !important;
@@ -136,14 +157,6 @@ export default function PrivacyPage() {
                         padding: 0 !important;
                         width: 100% !important;
                         position: static !important;
-                        display: block !important;
-                    }
-                    body {
-                        height: auto !important;
-                        overflow: visible !important;
-                    }
-                    .no-print {
-                        display: none !important;
                     }
                 }
             `}</style>

@@ -619,7 +619,7 @@ export const ContactForm: React.FC<Props> = ({ className = '', mode = 'preview',
                 {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
                 <a
                   href="/privacy"
-                  className="relative z-[9999] underline hover:text-[#194D25] transition-colors duration-300 cursor-pointer"
+                  className="relative z-[9999] underline hover:text-[#8B1A3D] transition-colors duration-300 cursor-pointer"
                   style={{ pointerEvents: 'auto', position: 'relative', display: 'inline-block' }}
                   onClick={(e) => {
                     e.stopPropagation();
@@ -675,7 +675,7 @@ export const ContactForm: React.FC<Props> = ({ className = '', mode = 'preview',
               {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
               <a
                 href="/privacy"
-                className="relative font-mono text-[9px] uppercase tracking-widest opacity-40 hover:opacity-100 transition-opacity cursor-pointer"
+                className="relative font-mono text-[9px] uppercase tracking-widest opacity-40 hover:opacity-100 hover:text-[#8B1A3D] transition-all cursor-pointer"
                 style={{ color: FORM_COLORS.TEXT_SECONDARY, zIndex: 9999, position: 'relative', pointerEvents: 'auto' }}
                 onClick={(e) => {
                   e.stopPropagation();
