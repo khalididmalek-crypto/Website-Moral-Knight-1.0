@@ -616,7 +616,6 @@ export const ContactForm: React.FC<Props> = ({ className = '', mode = 'preview',
             >
               <span id="privacy-description">
                 Ik geef Moral Knight toestemming om mijn gegevens te verwerken conform de{' '}
-                {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
                 <a
                   href="/privacy"
                   className="relative z-[9999] underline hover:text-[#8B1A3D] transition-colors duration-300 cursor-pointer"
@@ -672,7 +671,6 @@ export const ContactForm: React.FC<Props> = ({ className = '', mode = 'preview',
             </div>
 
             <div className="flex justify-center md:justify-end">
-              {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
               <a
                 href="/privacy"
                 className="relative font-mono text-[9px] uppercase tracking-widest opacity-40 hover:opacity-100 hover:text-[#8B1A3D] transition-all cursor-pointer"

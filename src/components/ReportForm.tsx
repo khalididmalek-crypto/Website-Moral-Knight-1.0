@@ -355,7 +355,6 @@ export const ReportForm: React.FC<Props> = () => {
                 />
                 <label htmlFor="privacyConsent" className="font-mono text-xs text-gray-600 cursor-pointer">
                     Ik geef Moral Knight toestemming om mijn gegevens te verwerken conform de{' '}
-                    {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
                     <a
                         href="/privacy"
                         className="relative z-[9999] underline hover:text-[#8B1A3D] transition-colors duration-300 cursor-pointer"
@@ -390,7 +389,6 @@ export const ReportForm: React.FC<Props> = () => {
 
                 {/* Privacy Footer */}
                 <div className="flex justify-center md:justify-end">
-                    {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
                     <a
                         href="/privacy"
                         className="relative font-mono text-[9px] uppercase tracking-widest opacity-40 hover:opacity-100 hover:text-[#8B1A3D] transition-all cursor-pointer"

@@ -9,14 +9,6 @@ export default function PrivacyPage() {
         window.print();
     };
 
-    const handleBack = (e: React.MouseEvent) => {
-        e.preventDefault();
-        if (window.history.length > 1) {
-            window.history.back();
-        } else {
-            window.location.href = '/';
-        }
-    };
 
     return (
         <div className="min-h-screen w-full font-sans flex flex-col items-center relative overflow-x-hidden bg-[#F0F4F7]">
@@ -30,15 +22,14 @@ export default function PrivacyPage() {
             <div className="w-full max-w-4xl px-6 py-12 md:py-20 z-10 flex flex-col gap-10">
                 {/* Navigation & Actions */}
                 <div className="flex justify-between items-center border-b border-black pb-4 print:hidden no-print">
-                    <a
-                        href="/"
-                        onClick={handleBack}
-                        className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest hover:opacity-70 transition-opacity cursor-pointer"
+                    <button
+                        onClick={() => window.history.back()}
+                        className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest hover:text-[#8B1A3D] transition-colors cursor-pointer bg-transparent border-none p-0"
                         style={{ color: COLORS.PRIMARY_GREEN }}
                     >
                         <ArrowLeft size={16} />
-                        Terug
-                    </a>
+                        Terug naar formulier
+                    </button>
 
                     <button
                         onClick={handlePrint}
@@ -61,7 +52,7 @@ export default function PrivacyPage() {
                         </p>
                     </header>
 
-                    <div className="space-y-8 text-gray-800">
+                    <div className="space-y-8 text-gray-800 print-content">
                         <section>
                             <h2 className="text-lg font-bold uppercase tracking-widest mb-4 border-l-4 border-green-800 pl-4 py-1" style={{ color: COLORS.PRIMARY_GREEN }}>
                                 {`1. Inleiding`}
@@ -126,18 +117,15 @@ export default function PrivacyPage() {
 
             <style jsx global>{`
                 @media print {
-                    /* Forceer dat de browser alle content ziet */
-                    body, html, #__next, main {
-                        height: auto !important;
-                        overflow: visible !important;
-                        display: block !important;
+                    html, body, #__next, main { 
+                        height: auto !important; 
+                        overflow: visible !important; 
+                        display: block !important; 
+                        position: static !important;
                     }
-
-                    /* Verberg alles wat niet bij de tekst hoort */
-                    nav, footer, button, .no-print, header:not(main header) {
-                        display: none !important;
-                    }
-
+                    nav, footer, .no-print, button { display: none !important; }
+                    .print-content { display: block !important; width: 100% !important; }
+                    
                     /* Zorg dat tekst zwart is op wit voor de printer */
                     * {
                         color: black !important;
