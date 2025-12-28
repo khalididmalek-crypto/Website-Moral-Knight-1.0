@@ -14,7 +14,6 @@
 import React, { useState, useCallback } from 'react';
 import { Send, X } from 'lucide-react';
 import { SPACING, COLORS, FORM_COLORS } from '../constants';
-import Link from 'next/link';
 
 interface Props {
   className?: string;
@@ -617,13 +616,17 @@ export const ContactForm: React.FC<Props> = ({ className = '', mode = 'preview',
             >
               <span id="privacy-description">
                 Ik geef Moral Knight toestemming om mijn gegevens te verwerken conform de{' '}
-                <Link
+                <a
                   href="/privacy"
-                  className="relative z-50 underline hover:text-green-400 cursor-pointer"
-                  onClick={(e) => e.stopPropagation()}
+                  className="relative underline hover:text-green-400 cursor-pointer pointer-events-auto"
+                  style={{ zIndex: 9999, position: 'relative', display: 'inline-block' }}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    window.location.href = '/privacy';
+                  }}
                 >
                   privacyverklaring
-                </Link>{' '}
+                </a>{' '}
                 en begrijp dat meldingen geanonimiseerd gerapporteerd kunnen worden aan instanties. <span style={{ color: FORM_COLORS.ERROR }} aria-label="verplicht veld">*</span>
               </span>
             </label>
@@ -669,14 +672,17 @@ export const ContactForm: React.FC<Props> = ({ className = '', mode = 'preview',
 
             {/* Privacy Footer */}
             <div className="flex justify-center md:justify-end">
-              <Link
+              <a
                 href="/privacy"
-                className="relative z-50 font-mono text-[9px] uppercase tracking-widest opacity-40 hover:opacity-100 transition-opacity cursor-pointer"
-                style={{ color: FORM_COLORS.TEXT_SECONDARY }}
-                onClick={(e) => e.stopPropagation()}
+                className="relative font-mono text-[9px] uppercase tracking-widest opacity-40 hover:opacity-100 transition-opacity cursor-pointer pointer-events-auto"
+                style={{ color: FORM_COLORS.TEXT_SECONDARY, zIndex: 9999, position: 'relative' }}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  window.location.href = '/privacy';
+                }}
               >
                 / AVG COMPLIANT DATA PROCESSING — PRIVACY POLICY
-              </Link>
+              </a>
             </div>
           </div>
         </form>
