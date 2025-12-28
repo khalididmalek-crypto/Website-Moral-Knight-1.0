@@ -18,6 +18,7 @@ import { Typewriter } from './components/Typewriter';
 import { ProjectorOverlay } from './components/ProjectorOverlay';
 import { LoadingSpinner } from './components/LoadingSpinner';
 import { Dashboard } from './components/Dashboard';
+import { Meldpunt } from './components/Meldpunt';
 import { useToast } from './components/Toast';
 import { CONFIG } from './lib/config';
 import { loadTiles, saveTiles } from './lib/storage';
@@ -37,6 +38,7 @@ const App: React.FC<AppProps> = ({ posts = [] }) => {
   const [activeTileId, setActiveTileId] = useState<string | null>(null);
   const [typingComplete, setTypingComplete] = useState(false);
   const [dashboardOpen, setDashboardOpen] = useState(false);
+  const [meldpuntOpen, setMeldpuntOpen] = useState(false);
   const mainContainerRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
 
@@ -272,13 +274,22 @@ const App: React.FC<AppProps> = ({ posts = [] }) => {
             <span className="font-mono uppercase tracking-widest" style={{ color: COLORS.SECONDARY_GREEN, fontSize: '14.4px' }}>
               / {CONFIG.organisation} 2025 — saving the human species from annihilation
             </span>
-            <button
-              onClick={() => setDashboardOpen(true)}
-              className="font-mono font-bold antialiased uppercase tracking-widest hover:opacity-75 transition-opacity focus:outline-none"
-              style={{ color: '#D6827A', fontSize: '14.4px' }} // Increased brightness/intensity (~30% feller)
-            >
-              MK Dashboard
-            </button>
+            <div className="flex items-center gap-6">
+              <button
+                onClick={() => setMeldpuntOpen(true)}
+                className="font-mono font-bold antialiased uppercase tracking-widest hover:opacity-75 transition-opacity focus:outline-none"
+                style={{ color: '#D6827A', fontSize: '14.4px' }}
+              >
+                / MK Meldpunt
+              </button>
+              <button
+                onClick={() => setDashboardOpen(true)}
+                className="font-mono font-bold antialiased uppercase tracking-widest hover:opacity-75 transition-opacity focus:outline-none"
+                style={{ color: '#D6827A', fontSize: '14.4px' }} // Increased brightness/intensity (~30% feller)
+              >
+                / MK Dashboard
+              </button>
+            </div>
           </footer>
         </div>
 
@@ -304,6 +315,11 @@ const App: React.FC<AppProps> = ({ posts = [] }) => {
         {/* Dashboard Modal */}
         {dashboardOpen && (
           <Dashboard onClose={() => setDashboardOpen(false)} />
+        )}
+
+        {/* Meldpunt Modal */}
+        {meldpuntOpen && (
+          <Meldpunt onClose={() => setMeldpuntOpen(false)} />
         )}
       </div>
     </TileStateProvider>

@@ -37,6 +37,8 @@ export default function Document() {
         <link rel="manifest" href="/site.webmanifest" />
         <meta name="theme-color" content="#194D25" />
 
+
+
         {/* Tailwind CDN and Config */}
         <script src="https://cdn.tailwindcss.com" defer></script>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
