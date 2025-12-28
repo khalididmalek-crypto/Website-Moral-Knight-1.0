@@ -21,7 +21,7 @@ export default function PrivacyPage() {
 
             <div className="w-full max-w-4xl px-6 py-12 md:py-20 z-10 flex flex-col gap-10">
                 {/* Navigation & Actions */}
-                <div className="flex justify-between items-center border-b border-black pb-4 print:hidden">
+                <div className="flex justify-between items-center border-b border-black pb-4 print:hidden no-print">
                     <Link
                         href="/"
                         className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest hover:opacity-70 transition-opacity"
@@ -117,18 +117,31 @@ export default function PrivacyPage() {
 
             <style jsx global>{`
                 @media print {
-                    .app-main-wrapper, .ProjectorOverlay {
+                    body, html, #__next {
+                        height: auto !important;
+                        overflow: visible !important;
+                        background: white !important;
+                    }
+                    .app-main-wrapper, .ProjectorOverlay, .print\\:hidden, .no-print {
                         display: none !important;
                     }
+                    * {
+                        opacity: 1 !important;
+                        visibility: visible !important;
+                        transition: none !important;
+                        animation: none !important;
+                    }
                     body {
-                        background: white !important;
                         color: black !important;
                     }
                     main {
                         box-shadow: none !important;
                         border: none !important;
                         margin: 0 !important;
+                        padding: 0 !important;
                         width: 100% !important;
+                        position: static !important;
+                        display: block !important;
                     }
                 }
             `}</style>
