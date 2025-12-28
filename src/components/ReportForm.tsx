@@ -3,7 +3,7 @@
  * 
  * Form for reporting AI malpractices (meldpunt).
  */
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { Send } from 'lucide-react';
 import { COLORS, FORM_COLORS } from '../constants';
 
@@ -53,6 +53,26 @@ export const ReportForm: React.FC<Props> = () => {
     const [submitted, setSubmitted] = useState(false);
     const [submitError, setSubmitError] = useState<string | null>(null);
     const [touched, setTouched] = useState<Record<string, boolean>>({});
+
+    // Persistence: Restore form data from session storage on mount
+    useEffect(() => {
+        const savedData = sessionStorage.getItem('report_form_data');
+        if (savedData) {
+            try {
+                const parsed = JSON.parse(savedData);
+                setFormData((prev) => ({ ...prev, ...parsed, file: null }));
+            } catch (e) {
+                console.error('Failed to parse saved report form data', e);
+            }
+        }
+    }, []);
+
+    // Persistence: Save form data to session storage on change
+    useEffect(() => {
+        // Only save essential data, exclude transient state and non-serializable file object
+        const { _website, file, ...saveData } = formData;
+        sessionStorage.setItem('report_form_data', JSON.stringify(saveData));
+    }, [formData]);
 
     const handleChange = useCallback((
         e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,

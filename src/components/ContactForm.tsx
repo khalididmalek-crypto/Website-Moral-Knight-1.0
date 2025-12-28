@@ -11,7 +11,7 @@
  * - Accessible form elements with proper ARIA attributes
  * - Success/error states with user feedback
  */
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import { Send, X } from 'lucide-react';
 import { SPACING, COLORS, FORM_COLORS } from '../constants';
 
@@ -61,6 +61,26 @@ export const ContactForm: React.FC<Props> = ({ className = '', mode = 'preview',
   const [submitted, setSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [touched, setTouched] = useState<Record<string, boolean>>({});
+
+  // Persistence: Restore form data from session storage on mount
+  useEffect(() => {
+    const savedData = sessionStorage.getItem('contact_form_data');
+    if (savedData) {
+      try {
+        const parsed = JSON.parse(savedData);
+        setFormData((prev) => ({ ...prev, ...parsed }));
+      } catch (e) {
+        console.error('Failed to parse saved contact form data', e);
+      }
+    }
+  }, []);
+
+  // Persistence: Save form data to session storage on change
+  useEffect(() => {
+    // Only save essential data, exclude transient state
+    const { _website, ...saveData } = formData;
+    sessionStorage.setItem('contact_form_data', JSON.stringify(saveData));
+  }, [formData]);
 
   const handleChange = useCallback((
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,

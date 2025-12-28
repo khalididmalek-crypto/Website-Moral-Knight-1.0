@@ -2,14 +2,9 @@ import React from 'react';
 import Head from 'next/head';
 import { ProjectorOverlay } from '../components/ProjectorOverlay';
 import { COLORS } from '../constants';
-import { Printer, ArrowLeft } from 'lucide-react';
+import { ArrowLeft } from 'lucide-react';
 
 export default function PrivacyPage() {
-    const handlePrint = () => {
-        window.print();
-    };
-
-
     return (
         <div className="min-h-screen w-full font-sans flex flex-col items-center relative overflow-x-hidden bg-[#F0F4F7]">
             <Head>
@@ -21,7 +16,7 @@ export default function PrivacyPage() {
 
             <div className="w-full max-w-4xl px-6 py-12 md:py-20 z-10 flex flex-col gap-10">
                 {/* Navigation & Actions */}
-                <div className="flex justify-between items-center border-b border-black pb-4 print:hidden no-print">
+                <div className="flex border-b border-black pb-4 print:hidden no-print">
                     <button
                         onClick={() => window.history.back()}
                         className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest hover:text-[#8B1A3D] transition-colors cursor-pointer bg-transparent border-none p-0"
@@ -29,15 +24,6 @@ export default function PrivacyPage() {
                     >
                         <ArrowLeft size={16} />
                         Terug naar formulier
-                    </button>
-
-                    <button
-                        onClick={handlePrint}
-                        className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest px-4 py-2 border border-black bg-white hover:bg-[#F7F7F7] transition-all"
-                        style={{ color: COLORS.PRIMARY_GREEN }}
-                    >
-                        <Printer size={16} />
-                        Printen / PDF
                     </button>
                 </div>
 

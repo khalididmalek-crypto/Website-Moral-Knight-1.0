@@ -56,12 +56,27 @@ const App: React.FC<AppProps> = ({ posts = [] }) => {
       if (saved && saved.length > 0) {
         setTiles(saved);
       }
+
+      // Restore active tile from session storage for navigation flow
+      const savedActiveTile = sessionStorage.getItem('activeTileId');
+      if (savedActiveTile) {
+        setActiveTileId(savedActiveTile);
+      }
     } catch (error) {
       console.error('Error loading tiles:', error);
       showToast('Laden van opgeslagen gegevens mislukt. Standaard instellingen worden gebruikt.', 'error');
       setTiles(INITIAL_TILES);
     }
   }, [showToast]);
+
+  // Sync activeTileId to sessionStorage
+  useEffect(() => {
+    if (activeTileId) {
+      sessionStorage.setItem('activeTileId', activeTileId);
+    } else {
+      sessionStorage.removeItem('activeTileId');
+    }
+  }, [activeTileId]);
 
   // Save persistence with feedback
   useEffect(() => {
@@ -268,7 +283,6 @@ const App: React.FC<AppProps> = ({ posts = [] }) => {
             <ToastContainer />
           </main>
 
-          {/* Footer */}
           {/* Footer */}
           <footer className={`-mt-8 flex justify-between items-center text-[12px] text-gray-400`}>
             <span className="font-mono uppercase tracking-widest" style={{ color: COLORS.SECONDARY_GREEN, fontSize: '14.4px' }}>
