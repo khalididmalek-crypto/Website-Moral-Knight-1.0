@@ -619,7 +619,7 @@ export const ContactForm: React.FC<Props> = ({ className = '', mode = 'preview',
                 {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
                 <a
                   href="/privacy"
-                  className="relative z-[9999] underline hover:text-green-400 cursor-pointer"
+                  className="relative z-[9999] underline hover:text-[#194D25] transition-colors duration-300 cursor-pointer"
                   style={{ pointerEvents: 'auto', position: 'relative', display: 'inline-block' }}
                   onClick={(e) => {
                     e.stopPropagation();

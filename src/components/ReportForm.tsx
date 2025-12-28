@@ -19,6 +19,7 @@ interface FormData {
     aiSystem: string;
     description: string;
     privacyConsent: boolean;
+    file: File | null;
     _website: string; // Honeypot
 }
 
@@ -44,6 +45,7 @@ export const ReportForm: React.FC<Props> = () => {
         aiSystem: '',
         description: '',
         privacyConsent: false,
+        file: null,
         _website: '',
     });
     const [errors, setErrors] = useState<FormErrors>({});
@@ -77,6 +79,11 @@ export const ReportForm: React.FC<Props> = () => {
         }
     }, [submitError]);
 
+    const handleFileChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0] || null;
+        setFormData((prev) => ({ ...prev, file }));
+    }, []);
+
     const handleBlur = (field: string) => {
         setTouched({ ...touched, [field]: true });
         validateField(field, formData[field as keyof FormData]);
@@ -88,7 +95,7 @@ export const ReportForm: React.FC<Props> = () => {
         }
     }, []);
 
-    const validateField = (field: string, value: string | boolean): string | undefined => {
+    const validateField = (field: string, value: any): string | undefined => {
         switch (field) {
             case 'name':
                 if (!(value as string).trim()) return 'Naam is verplicht';
@@ -151,7 +158,7 @@ export const ReportForm: React.FC<Props> = () => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ ...formData, formType: 'report' }),
+                body: JSON.stringify({ ...formData, file: formData.file?.name || null, formType: 'report' }),
             });
 
             const data = await response.json();
@@ -181,6 +188,7 @@ export const ReportForm: React.FC<Props> = () => {
             aiSystem: '',
             description: '',
             privacyConsent: false,
+            file: null,
             _website: '',
         });
         setErrors({});
@@ -307,6 +315,34 @@ export const ReportForm: React.FC<Props> = () => {
                 {touched.description && errors.description && <span className="text-xs font-mono" style={{ color: FORM_COLORS.ERROR }}>{errors.description}</span>}
             </div>
 
+            <div className="flex flex-col gap-1.5">
+                <label htmlFor="file" className="font-mono text-xs uppercase tracking-widest" style={{ color: COLORS.PRIMARY_GREEN }}>
+                    Documentatie of bewijsmateriaal uploaden <span className="text-xs font-normal normal-case" style={{ color: FORM_COLORS.PLACEHOLDER }}>(optioneel)</span>
+                </label>
+                <div className="relative">
+                    <input
+                        type="file"
+                        id="file"
+                        name="file"
+                        accept=".jpg,.jpeg,.png,.pdf"
+                        onChange={handleFileChange}
+                        className="hidden"
+                    />
+                    <label
+                        htmlFor="file"
+                        className="flex items-center justify-between p-3 border border-dashed cursor-pointer font-mono text-xs bg-[#F7F7F7] hover:bg-white transition-all"
+                        style={{ borderColor: FORM_COLORS.INPUT_BORDER }}
+                    >
+                        <span className="truncate">
+                            {formData.file ? formData.file.name : 'Selecteer bestand (.jpg, .png, .pdf)'}
+                        </span>
+                        <span className="ml-2 flex-shrink-0 uppercase tracking-widest opacity-60">
+                            Upload
+                        </span>
+                    </label>
+                </div>
+            </div>
+
             <div className="flex items-start gap-3">
                 <input
                     type="checkbox"
@@ -322,7 +358,7 @@ export const ReportForm: React.FC<Props> = () => {
                     {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
                     <a
                         href="/privacy"
-                        className="relative z-[9999] underline hover:text-green-400 cursor-pointer"
+                        className="relative z-[9999] underline hover:text-[#194D25] transition-colors duration-300 cursor-pointer"
                         style={{ pointerEvents: 'auto', position: 'relative', display: 'inline-block' }}
                         onClick={(e) => {
                             e.stopPropagation();

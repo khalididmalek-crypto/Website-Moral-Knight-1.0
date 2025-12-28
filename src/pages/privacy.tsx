@@ -96,7 +96,7 @@ export default function PrivacyPage() {
                                 {`5. Beveiliging`}
                             </h2>
                             <p>
-                                {`Wij nemen passende technische en organisatorische maatregelen om uw gegevens te beschermen. Dit omvat onder meer het gebruik van moderne encryptie en het minimaliseren van menselijke toegang tot verzamelde data. Onze website is beveiligid tegen bots middels honeypot-technologie om spambelastingen te voorkomen.`}
+                                {`Wij nemen passende technische en organisatorische maatregelen om uw gegevens te beschermen. Dit omvat onder meer het gebruik van moderne encryptie en het minimaliseren van menselijke toegang tot verzamelde data. Onze website is beveiligd tegen bots middels honeypot-technologie om spambelastingen te voorkomen.`}
                             </p>
                         </section>
 
@@ -120,7 +120,7 @@ export default function PrivacyPage() {
                     header, footer, button, nav { display: none !important; }
                     body, main { background: white !important; color: black !important; overflow: visible !important; height: auto !important; }
                     .print-container { display: block !important; width: 100% !important; }
-                    .app-main-wrapper, .ProjectorOverlay, .print\\:hidden, .no-print {
+                    .app-main-wrapper, .ProjectorOverlay, .print\:hidden, .no-print {
                         display: none !important;
                     }
                     * {
@@ -137,6 +137,13 @@ export default function PrivacyPage() {
                         width: 100% !important;
                         position: static !important;
                         display: block !important;
+                    }
+                    body {
+                        height: auto !important;
+                        overflow: visible !important;
+                    }
+                    .no-print {
+                        display: none !important;
                     }
                 }
             `}</style>

@@ -125,10 +125,20 @@ De website bevat een **Contactformulier**, een **MK Meldpunt** en een volledige 
   - Gebruikers moeten expliciet toestemming geven via verplichte checkboxen met actieve links naar de privacyverklaring.
   - Verzendknoppen zijn fysiek geblokkeerd totdat akkoord is gegaan.
   - Data-sanitatie vindt plaats aan de serverzijde voor alle invoer.
+  - **Bewijsvoering (Meldpunt)**: Gebruikers kunnen nu documentatie (.jpg, .png, .pdf) uploaden bij een melding om hun casus te onderbouwen.
 
 ---
 
-## 7. Volgende stappen / ideeën
+## 7. Recente Updates & Fixes (v1.1)
+
+- **Spelling-correctie**: Project-brede correctie van "beveiligid" naar het correcte "beveiligd".
+- **PDF-Export Optimalisatie**: De print-CSS is aangescherpt om te garanderen dat de volledige inhoud van de privacyverklaring zichtbaar is in PDF-exports, met geforceerde auto-height en zichtbaarheid.
+- **Visuele Consistentie**: Hover-states op privacy-links zijn gesynchroniseerd met de Moral Knight groene huisstijl (`PRIMARY_GREEN`).
+- **Meldpunt Uitbreiding**: Integratie van een beveiligde file-upload functie voor bewijsmateriaal in het ReportForm.
+
+---
+
+## 8. Volgende stappen / ideeën
 
 - Uitbreiden van de inhoud (meer tegels, casussen, voorbeelden).
 - Echte koppeling met een identity provider (auth) en beveiligde data‑opslag.
