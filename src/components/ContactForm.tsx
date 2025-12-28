@@ -165,6 +165,7 @@ export const ContactForm: React.FC<Props> = ({ className = '', mode = 'preview',
     setSubmitError(null);
 
     try {
+      console.log('[ContactForm] Submitting form...');
       // Call API endpoint
       const response = await fetch('/api/contact', {
         method: 'POST',
@@ -177,21 +178,20 @@ export const ContactForm: React.FC<Props> = ({ className = '', mode = 'preview',
       const data = await response.json();
 
       if (!response.ok || !data.success) {
-        throw new Error(data.message || 'Er is een fout opgetreden');
+        throw new Error(data.message || 'Er is een fout opgetreden bij de server');
       }
 
       // Success!
-      console.log('Form submitted successfully:', data);
+      console.log('[ContactForm] Submission success:', data);
+      alert('Bericht ontvangen! We nemen zo snel mogelijk contact met u op.');
       setIsSubmitting(false);
       setSubmitted(true);
     } catch (error) {
-      console.error('Form submission error:', error);
+      console.error('[ContactForm] Submission error:', error);
       setIsSubmitting(false);
-      setSubmitError(
-        error instanceof Error
-          ? error.message
-          : 'Er is een fout opgetreden. Probeer het later opnieuw.'
-      );
+      const errorMessage = error instanceof Error ? error.message : 'Er ging iets mis, probeer het later nogmaals';
+      setSubmitError(errorMessage);
+      alert(`Fout: ${errorMessage}`);
     }
   }, [formData, validateForm]);
 

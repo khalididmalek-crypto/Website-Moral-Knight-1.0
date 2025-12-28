@@ -137,6 +137,7 @@ export const ReportForm: React.FC<Props> = () => {
         setSubmitError(null);
 
         try {
+            console.log('[ReportForm] Submitting report...');
             const response = await fetch('/api/contact', {
                 method: 'POST',
                 headers: {
@@ -148,19 +149,19 @@ export const ReportForm: React.FC<Props> = () => {
             const data = await response.json();
 
             if (!response.ok || !data.success) {
-                throw new Error(data.message || 'Er is een fout opgetreden');
+                throw new Error(data.message || 'Er is een fout opgetreden bij de server');
             }
 
+            console.log('[ReportForm] Report success:', data);
+            alert('Melding ontvangen! Bedankt voor uw bijdrage aan een veiligere AI-omgeving.');
             setSubmitted(true);
             setIsSubmitting(false);
         } catch (error) {
-            console.error('Submission error:', error);
+            console.error('[ReportForm] Submission error:', error);
             setIsSubmitting(false);
-            setSubmitError(
-                error instanceof Error
-                    ? error.message
-                    : 'Er is een fout opgetreden bij het verzenden van uw melding.'
-            );
+            const errorMessage = error instanceof Error ? error.message : 'Er ging iets mis, probeer het later nogmaals';
+            setSubmitError(errorMessage);
+            alert(`Fout bij verzenden: ${errorMessage}`);
         }
     }, [formData, validateForm]);
 
