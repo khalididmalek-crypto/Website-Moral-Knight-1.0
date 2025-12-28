@@ -45,17 +45,17 @@ export default function PrivacyPage() {
                 <main className="bg-white border border-black p-8 md:p-12 shadow-sm font-mono text-sm leading-relaxed print:shadow-none print:border-none print:p-0">
                     <header className="mb-12 border-b border-gray-100 pb-8">
                         <h1 className="text-2xl md:text-3xl font-bold uppercase tracking-tighter mb-2" style={{ color: COLORS.PRIMARY_GREEN }}>
-                            Privacyverklaring
+                            {`Privacyverklaring`}
                         </h1>
                         <p className="text-[10px] opacity-60 uppercase tracking-widest">
-                            Laatste update: 28 december 2024 — Moral Knight Responsible AI
+                            {`Laatste update: 28 december 2024 — Moral Knight Responsible AI`}
                         </p>
                     </header>
 
                     <div className="space-y-8 text-gray-800">
                         <section>
                             <h2 className="text-lg font-bold uppercase tracking-widest mb-4 border-l-4 border-green-800 pl-4 py-1" style={{ color: COLORS.PRIMARY_GREEN }}>
-                                1. Inleiding
+                                {`1. Inleiding`}
                             </h2>
                             <p>
                                 {`Moral Knight ("wij", "ons") hecht grote waarde aan uw privacy. In deze verklaring leggen wij uit hoe wij omgaan met persoonsgegevens die via onze website worden verzameld. Onze processen zijn ontworpen volgens de principes van Responsible AI en de Algemene Verordening Gegevensbescherming (AVG/GDPR).`}
@@ -64,18 +64,18 @@ export default function PrivacyPage() {
 
                         <section>
                             <h2 className="text-lg font-bold uppercase tracking-widest mb-4 border-l-4 border-green-800 pl-4 py-1" style={{ color: COLORS.PRIMARY_GREEN }}>
-                                2. Gegevensverzameling & Doeleinden
+                                {`2. Gegevensverzameling & Doeleinden`}
                             </h2>
-                            <p className="mb-4">Wij verzamelen gegevens via twee hoofdwegen op deze website:</p>
+                            <p className="mb-4">{`Wij verzamelen gegevens via twee hoofdwegen op deze website:`}</p>
                             <ul className="list-disc pl-5 space-y-2">
-                                <li><strong>Contactformulier:</strong> De door u verstrekte naam, e-mailadres en optionele organisatiedetails worden uitsluitend gebruikt om op uw verzoek contact met u op te nemen.</li>
-                                <li><strong>MK Meldpunt (AI Misstanden):</strong> Gegevens over AI-systemen en omschrijvingen van misstanden worden gebruikt voor ons onderzoek naar verantwoorde AI. Deze meldingen kunnen geanonimiseerd worden opgenomen in rapportages aan toezichthouders of publieke publicaties.</li>
+                                <li><strong>{`Contactformulier:`}</strong> {` De door u verstrekte naam, e-mailadres en optionele organisatiedetails worden uitsluitend gebruikt om op uw verzoek contact met u op te nemen.`}</li>
+                                <li><strong>{`MK Meldpunt (AI Misstanden):`}</strong> {` Gegevens over AI-systemen en omschrijvingen van misstanden worden gebruikt voor ons onderzoek naar verantwoorde AI. Deze meldingen kunnen geanonimiseerd worden opgenomen in rapportages aan toezichthouders of publieke publicaties.`}</li>
                             </ul>
                         </section>
 
                         <section>
                             <h2 className="text-lg font-bold uppercase tracking-widest mb-4 border-l-4 border-green-800 pl-4 py-1" style={{ color: COLORS.PRIMARY_GREEN }}>
-                                3. Dataminimalisatie & Opslag
+                                {`3. Dataminimalisatie & Opslag`}
                             </h2>
                             <p>
                                 {`Conform onze Responsible AI-principes verzamelen wij alleen de strikt noodzakelijke gegevens. Bestanden die u lokaal via 'drag & drop' in de applicatie gebruikt, worden uitsluitend in uw eigen browser verwerkt en nooit naar onze servers verzonden. Gegevens uit formulieren worden veilig verzonden via een versleutelde SMTP-verbinding (SSL/TLS).`}
@@ -84,25 +84,25 @@ export default function PrivacyPage() {
 
                         <section>
                             <h2 className="text-lg font-bold uppercase tracking-widest mb-4 border-l-4 border-green-800 pl-4 py-1" style={{ color: COLORS.PRIMARY_GREEN }}>
-                                4. Uw Rechten
+                                {`4. Uw Rechten`}
                             </h2>
                             <p>
-                                U heeft te allen tijde het recht op inzage, correctie of verwijdering van uw persoonsgegevens. Daarnaast kunt u bezwaar maken tegen de verwerking of verzoeken om gegevensoverdraagbaarheid. Neem hiervoor contact op via het contactformulier.
+                                {`U heeft te allen tijde het recht op inzage, correctie of verwijdering van uw persoonsgegevens. Daarnaast kunt u bezwaar maken tegen de verwerking of verzoeken om gegevensoverdraagbaarheid. Neem hiervoor contact op via het contactformulier.`}
                             </p>
                         </section>
 
                         <section>
                             <h2 className="text-lg font-bold uppercase tracking-widest mb-4 border-l-4 border-green-800 pl-4 py-1" style={{ color: COLORS.PRIMARY_GREEN }}>
-                                5. Beveiliging
+                                {`5. Beveiliging`}
                             </h2>
                             <p>
-                                Wij nemen passende technische en organisatorische maatregelen om uw gegevens te beschermen. Dit omvat onder meer het gebruik van moderne encryptie en het minimaliseren van menselijke toegang tot verzamelde data. Onze website is beveiligid tegen bots middels honeypot-technologie om spambelastingen te voorkomen.
+                                {`Wij nemen passende technische en organisatorische maatregelen om uw gegevens te beschermen. Dit omvat onder meer het gebruik van moderne encryptie en het minimaliseren van menselijke toegang tot verzamelde data. Onze website is beveiligid tegen bots middels honeypot-technologie om spambelastingen te voorkomen.`}
                             </p>
                         </section>
 
                         <section className="pt-8 border-t border-gray-100">
                             <p className="italic opacity-80">
-                                Voor vragen over deze privacyverklaring kunt u contact met ons opnemen via het contactformulier op de hoofdpagina.
+                                {`Voor vragen over deze privacyverklaring kunt u contact met ons opnemen via het contactformulier op de hoofdpagina.`}
                             </p>
                         </section>
                     </div>
@@ -117,11 +117,9 @@ export default function PrivacyPage() {
 
             <style jsx global>{`
                 @media print {
-                    body, html, #__next {
-                        height: auto !important;
-                        overflow: visible !important;
-                        background: white !important;
-                    }
+                    header, footer, button, nav { display: none !important; }
+                    body, main { background: white !important; color: black !important; overflow: visible !important; height: auto !important; }
+                    .print-container { display: block !important; width: 100% !important; }
                     .app-main-wrapper, .ProjectorOverlay, .print\\:hidden, .no-print {
                         display: none !important;
                     }
@@ -130,9 +128,6 @@ export default function PrivacyPage() {
                         visibility: visible !important;
                         transition: none !important;
                         animation: none !important;
-                    }
-                    body {
-                        color: black !important;
                     }
                     main {
                         box-shadow: none !important;

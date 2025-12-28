@@ -320,7 +320,11 @@ export const ReportForm: React.FC<Props> = () => {
                 />
                 <label htmlFor="privacyConsent" className="font-mono text-xs text-gray-600 cursor-pointer">
                     Ik geef Moral Knight toestemming om mijn gegevens te verwerken conform de{' '}
-                    <Link href="/privacy" className="underline" style={{ color: COLORS.PRIMARY_GREEN }}>
+                    <Link
+                        href="/privacy"
+                        className="relative z-50 underline hover:text-green-400 cursor-pointer"
+                        onClick={(e) => e.stopPropagation()}
+                    >
                         privacyverklaring
                     </Link>{' '}
                     en begrijp dat meldingen geanonimiseerd gerapporteerd kunnen worden aan instanties. <span style={{ color: FORM_COLORS.ERROR }}>*</span>
@@ -348,8 +352,9 @@ export const ReportForm: React.FC<Props> = () => {
                 <div className="flex justify-center md:justify-end">
                     <Link
                         href="/privacy"
-                        className="font-mono text-[9px] uppercase tracking-widest opacity-40 hover:opacity-100 transition-opacity"
+                        className="relative z-50 font-mono text-[9px] uppercase tracking-widest opacity-40 hover:opacity-100 transition-opacity cursor-pointer"
                         style={{ color: FORM_COLORS.TEXT_SECONDARY }}
+                        onClick={(e) => e.stopPropagation()}
                     >
                         / AVG COMPLIANT DATA PROCESSING — PRIVACY POLICY
                     </Link>

@@ -617,7 +617,11 @@ export const ContactForm: React.FC<Props> = ({ className = '', mode = 'preview',
             >
               <span id="privacy-description">
                 Ik geef Moral Knight toestemming om mijn gegevens te verwerken conform de{' '}
-                <Link href="/privacy" className="underline" style={{ color: COLORS.PRIMARY_GREEN }}>
+                <Link
+                  href="/privacy"
+                  className="relative z-50 underline hover:text-green-400 cursor-pointer"
+                  onClick={(e) => e.stopPropagation()}
+                >
                   privacyverklaring
                 </Link>{' '}
                 en begrijp dat meldingen geanonimiseerd gerapporteerd kunnen worden aan instanties. <span style={{ color: FORM_COLORS.ERROR }} aria-label="verplicht veld">*</span>
@@ -667,8 +671,9 @@ export const ContactForm: React.FC<Props> = ({ className = '', mode = 'preview',
             <div className="flex justify-center md:justify-end">
               <Link
                 href="/privacy"
-                className="font-mono text-[9px] uppercase tracking-widest opacity-40 hover:opacity-100 transition-opacity"
+                className="relative z-50 font-mono text-[9px] uppercase tracking-widest opacity-40 hover:opacity-100 transition-opacity cursor-pointer"
                 style={{ color: FORM_COLORS.TEXT_SECONDARY }}
+                onClick={(e) => e.stopPropagation()}
               >
                 / AVG COMPLIANT DATA PROCESSING — PRIVACY POLICY
               </Link>
