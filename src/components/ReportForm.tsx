@@ -137,13 +137,30 @@ export const ReportForm: React.FC<Props> = () => {
         setSubmitError(null);
 
         try {
-            // Mock API call
-            await new Promise(resolve => setTimeout(resolve, 1500));
+            const response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ ...formData, formType: 'report' }),
+            });
+
+            const data = await response.json();
+
+            if (!response.ok || !data.success) {
+                throw new Error(data.message || 'Er is een fout opgetreden');
+            }
+
             setSubmitted(true);
             setIsSubmitting(false);
         } catch (error) {
+            console.error('Submission error:', error);
             setIsSubmitting(false);
-            setSubmitError('Er is een fout opgetreden bij het verzenden van uw melding.');
+            setSubmitError(
+                error instanceof Error
+                    ? error.message
+                    : 'Er is een fout opgetreden bij het verzenden van uw melding.'
+            );
         }
     }, [formData, validateForm]);
 

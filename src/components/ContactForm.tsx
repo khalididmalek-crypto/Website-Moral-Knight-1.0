@@ -171,7 +171,7 @@ export const ContactForm: React.FC<Props> = ({ className = '', mode = 'preview',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({ ...formData, formType: 'contact' }),
       });
 
       const data = await response.json();

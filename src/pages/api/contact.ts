@@ -1,17 +1,20 @@
 /**
  * Contact Form API Endpoint
  * 
- * Handles contact form submissions and sends emails.
- * Uses a serverless function approach.
+ * Handles contact form and report form submissions and sends emails.
  */
 import type { NextApiRequest, NextApiResponse } from 'next';
+import nodemailer from 'nodemailer';
 
-interface ContactFormData {
+interface FormData {
+    formType: 'contact' | 'report';
     name: string;
     email: string;
-    organisation: string;
-    message: string;
-    newsletter: boolean;
+    organisation?: string;
+    message?: string;
+    aiSystem?: string;
+    description?: string;
+    newsletter?: boolean;
     privacyConsent: boolean;
 }
 
@@ -25,7 +28,6 @@ export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse<ApiResponse>
 ) {
-    // Only allow POST requests
     if (req.method !== 'POST') {
         return res.status(405).json({
             success: false,
@@ -34,23 +36,14 @@ export default async function handler(
     }
 
     try {
-        const formData: ContactFormData = req.body;
+        const formData: FormData = req.body;
 
-        // Validate required fields
-        if (!formData.name || !formData.email || !formData.message) {
+        // Basic validation
+        if (!formData.name || !formData.email || !formData.privacyConsent) {
             return res.status(400).json({
                 success: false,
                 message: 'Ontbrekende verplichte velden',
                 error: 'MISSING_FIELDS',
-            });
-        }
-
-        // Validate privacy consent
-        if (!formData.privacyConsent) {
-            return res.status(400).json({
-                success: false,
-                message: 'Privacy akkoord is verplicht',
-                error: 'PRIVACY_NOT_ACCEPTED',
             });
         }
 
@@ -64,16 +57,7 @@ export default async function handler(
             });
         }
 
-        // Here you would integrate with an email service:
-        // - SendGrid
-        // - Resend
-        // - Nodemailer
-        // - AWS SES
-
-        // Example with console logging (replace with actual email service)
-        console.log('Contact form submission:', formData);
-
-        // Simulate email sending (replace with actual implementation)
+        // Send Email
         const emailSent = await sendEmail(formData);
 
         if (!emailSent) {
@@ -84,14 +68,13 @@ export default async function handler(
             });
         }
 
-        // Success response
         return res.status(200).json({
             success: true,
-            message: 'Bedankt voor uw bericht! We nemen zo snel mogelijk contact met u op.',
+            message: 'Bedankt voor uw bericht!',
         });
 
     } catch (error) {
-        console.error('Contact form error:', error);
+        console.error('API Error:', error);
         return res.status(500).json({
             success: false,
             message: 'Er is een fout opgetreden. Probeer het later opnieuw.',
@@ -100,38 +83,54 @@ export default async function handler(
     }
 }
 
-/**
- * Send email function (replace with actual email service integration)
- */
-async function sendEmail(_data: ContactFormData): Promise<boolean> {
-    // TODO: Integrate with email service
-    // Example with Resend:
-    /*
-    const { Resend } = require('resend');
-    const resend = new Resend(process.env.RESEND_API_KEY);
-  
-    try {
-      await resend.emails.send({
-        from: 'contact@moralknight.nl',
-        to: 'info@moralknight.nl',
-        subject: `Contact form: ${data.name}`,
-        html: `
-          <h2>Nieuw contactformulier bericht</h2>
-          <p><strong>Naam:</strong> ${data.name}</p>
-          <p><strong>Email:</strong> ${data.email}</p>
-          <p><strong>Organisatie:</strong> ${data.organisation}</p>
-          <p><strong>Bericht:</strong></p>
-          <p>${data.message}</p>
-          <p><strong>Nieuwsbrief:</strong> ${data.newsletter ? 'Ja' : 'Nee'}</p>
-        `,
-      });
-      return true;
-    } catch (error) {
-      console.error('Email send error:', error);
-      return false;
-    }
-    */
+async function sendEmail(data: FormData): Promise<boolean> {
+    const user = process.env.GMAIL_USER;
+    const pass = process.env.GMAIL_APP_PASSWORD;
 
-    // For now, just simulate success
-    return Promise.resolve(true);
+    if (!user || !pass) {
+        console.error('Missing GMAIL_USER or GMAIL_APP_PASSWORD in environment variables');
+        return false;
+    }
+
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: { user, pass },
+    });
+
+    const isReport = data.formType === 'report';
+    const subject = isReport
+        ? `MK Meldpunt: Nieuwe melding van ${data.name}`
+        : `MK Contact: Nieuw bericht van ${data.name}`;
+
+    const html = isReport ? `
+        <h2>Nieuwe melding via MK Meldpunt</h2>
+        <p><strong>Naam:</strong> ${data.name}</p>
+        <p><strong>Email:</strong> ${data.email}</p>
+        <p><strong>Organisatie:</strong> ${data.organisation || 'Niet opgegeven'}</p>
+        <p><strong>Publieke instantie / AI Systeem:</strong> ${data.aiSystem}</p>
+        <p><strong>Omschrijving van de misstand:</strong></p>
+        <p style="white-space: pre-wrap;">${data.description}</p>
+    ` : `
+        <h2>Nieuw bericht via Contactformulier</h2>
+        <p><strong>Naam:</strong> ${data.name}</p>
+        <p><strong>Email:</strong> ${data.email}</p>
+        <p><strong>Organisatie:</strong> ${data.organisation || 'Niet opgegeven'}</p>
+        <p><strong>Bericht:</strong></p>
+        <p style="white-space: pre-wrap;">${data.message}</p>
+        <p><strong>Nieuwsbrief:</strong> ${data.newsletter ? 'Ja' : 'Nee'}</p>
+    `;
+
+    try {
+        await transporter.sendMail({
+            from: `"Moral Knight Form" <${user}>`,
+            to: user, // Sends to yourself
+            replyTo: data.email,
+            subject: subject,
+            html: html,
+        });
+        return true;
+    } catch (error) {
+        console.error('Email send error:', error);
+        return false;
+    }
 }
