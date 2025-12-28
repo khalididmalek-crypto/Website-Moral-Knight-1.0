@@ -17,6 +17,7 @@ interface FormData {
     description?: string;
     newsletter?: boolean;
     privacyConsent: boolean;
+    file?: string | null;
     _website?: string; // Honeypot field
 }
 
@@ -104,7 +105,8 @@ export default async function handler(
         return res.status(200).json({
             success: true,
             message: 'Bedankt voor uw bericht!',
-        });
+            reportId: result.reportId,
+        } as any);
 
     } catch (error) {
         console.error('[API] Global Catch Error:', error);
@@ -116,7 +118,7 @@ export default async function handler(
     }
 }
 
-async function sendEmail(data: FormData): Promise<{ success: boolean; error?: string }> {
+async function sendEmail(data: FormData): Promise<{ success: boolean; reportId?: string; error?: string }> {
     const user = process.env.GMAIL_USER;
     const pass = process.env.GMAIL_APP_PASSWORD;
 
@@ -125,11 +127,11 @@ async function sendEmail(data: FormData): Promise<{ success: boolean; error?: st
         return { success: false, error: `MISSING_ENV_VAR: ${missing}` };
     }
 
-    // Set up transporter with strict configuration for Gmail
+    // Set up transporter
     const transporter = nodemailer.createTransport({
         host: 'smtp.gmail.com',
         port: 465,
-        secure: true, // Use SSL
+        secure: true,
         auth: {
             user: user,
             pass: pass,
@@ -137,42 +139,137 @@ async function sendEmail(data: FormData): Promise<{ success: boolean; error?: st
     });
 
     const isReport = data.formType === 'report';
-    const subject = isReport
-        ? `MK Meldpunt: Nieuwe melding van ${data.name}`
-        : `MK Contact: Nieuw bericht van ${data.name}`;
 
-    const html = isReport ? `
-        <div style="font-family: monospace; padding: 20px; border: 1px solid #000;">
-            <h2 style="color: #194D25; border-bottom: 1px solid #000; padding-bottom: 10px;">Nieuwe melding via MK Meldpunt</h2>
-            <p><strong>Naam:</strong> ${data.name}</p>
-            <p><strong>Email:</strong> ${data.email}</p>
-            <p><strong>Organisatie:</strong> ${data.organisation || 'Niet opgegeven'}</p>
-            <p><strong>Publieke instantie / AI Systeem:</strong> ${data.aiSystem}</p>
-            <p><strong>Omschrijving van de misstand:</strong></p>
-            <div style="background: #f4f4f4; padding: 15px; border-left: 4px solid #194D25; white-space: pre-wrap;">${data.description}</div>
-        </div>
-    ` : `
-        <div style="font-family: monospace; padding: 20px; border: 1px solid #000;">
-            <h2 style="color: #194D25; border-bottom: 1px solid #000; padding-bottom: 10px;">Nieuw bericht via Contactformulier</h2>
-            <p><strong>Naam:</strong> ${data.name}</p>
-            <p><strong>Email:</strong> ${data.email}</p>
-            <p><strong>Organisatie:</strong> ${data.organisation || 'Niet opgegeven'}</p>
-            <p><strong>Bericht:</strong></p>
-            <div style="background: #f4f4f4; padding: 15px; border-left: 4px solid #194D25; white-space: pre-wrap;">${data.message}</div>
-            <p><strong>Nieuwsbrief:</strong> ${data.newsletter ? 'Ja' : 'Nee'}</p>
-        </div>
-    `;
+    // Generate unique reportId
+    const reportId = `MK-${new Date().getFullYear()}-${Math.random().toString(36).substring(2, 6).toUpperCase()}`;
+
+    const dateStr = new Date().toLocaleDateString('nl-NL');
+    const subject = isReport
+        ? `[MELDING] Kenmerk: ${reportId} - Moral Knight Publieke Ruimte`
+        : `[CONTACT] Bericht van ${data.name} - Moral Knight`;
+
+    const getHtml = (isForUser: boolean) => {
+        const title = isReport ? 'OFFICIEEL RAPPORT' : 'CONTACT BERICHT';
+        const primaryColor = '#194D25';
+        const secondaryColor = '#8B1A3D';
+
+        return `
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <style>
+                body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; }
+                .container { width: 100%; max-width: 600px; margin: 0 auto; border: 1px solid #eee; }
+                .header { background-color: #1a1a1a; padding: 30px 20px; color: #ffffff; }
+                .header-table { width: 100%; border-collapse: collapse; }
+                .logo-text { font-size: 22px; font-weight: bold; letter-spacing: 3px; color: #ffffff; text-decoration: none; }
+                .header-title { font-size: 12px; letter-spacing: 2px; text-align: right; opacity: 0.8; text-transform: uppercase; }
+                .badge-section { padding: 20px; border-bottom: 2px solid #f0f0f0; background-color: #ffffff; }
+                .badge-id { margin: 0; font-size: 14px; font-weight: bold; color: #333; }
+                .badge-id span { color: ${secondaryColor}; }
+                .badge-date { margin: 5px 0 0 0; font-size: 12px; color: #777; font-family: monospace; }
+                .content { padding: 20px; background-color: #ffffff; }
+                .greeting { margin-bottom: 25px; font-size: 15px; border-left: 3px solid ${primaryColor}; padding-left: 15px; }
+                .data-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
+                .data-table tr:nth-child(odd) { background-color: #f9f9f9; }
+                .data-table td { padding: 12px 15px; border-bottom: 1px solid #eee; font-size: 14px; }
+                .label { font-weight: bold; width: 35%; color: #555; text-transform: uppercase; font-size: 11px; letter-spacing: 1px; }
+                .footer { background-color: #f5f5f5; padding: 25px 20px; font-size: 11px; color: #777; line-height: 1.6; text-align: left; border-top: 1px solid #eee; }
+                .disclaimer { margin: 0; opacity: 0.8; }
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <div class="header">
+                    <table class="header-table">
+                        <tr>
+                            <td><span class="logo-text">MORAL KNIGHT</span></td>
+                            <td class="header-title">${title}</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="badge-section">
+                    <p class="badge-id">Kenmerk: <span>${reportId}</span></p>
+                    <p class="badge-date">Datum: ${dateStr}</p>
+                </div>
+                
+                <div class="content">
+                    ${isForUser ? `
+                    <div class="greeting">
+                        Uw melding is succesvol geregistreerd onder kenmerk: <strong>${reportId}</strong>
+                    </div>
+                    ` : ''}
+                    
+                    <table class="data-table">
+                        <tr>
+                            <td class="label">Naam</td>
+                            <td>${data.name}</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Organisatie</td>
+                            <td>${data.organisation || 'Niet opgegeven'}</td>
+                        </tr>
+                        ${isReport ? `
+                        <tr>
+                            <td class="label">AI Systeem / Instantie</td>
+                            <td>${data.aiSystem || 'Niet opgegeven'}</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Omschrijving</td>
+                            <td style="white-space: pre-wrap;">${data.description}</td>
+                        </tr>
+                        ` : `
+                        <tr>
+                            <td class="label">Bericht</td>
+                            <td style="white-space: pre-wrap;">${data.message}</td>
+                        </tr>
+                        `}
+                        ${data.file ? `
+                        <tr>
+                            <td class="label">BIJLAGE</td>
+                            <td style="color: ${secondaryColor}; font-weight: bold;">Ingesloten</td>
+                        </tr>
+                        ` : ''}
+                    </table>
+                </div>
+                
+                <div class="footer">
+                    <p class="disclaimer">
+                        Dit rapport is gegenereerd via het Moral Knight Meldpunt en voldoet aan de richtlijnen voor Dataminimalisatie en Responsible AI. 
+                        De gegevens zijn beveiligd conform de AVG-wetgeving.
+                    </p>
+                </div>
+            </div>
+        </body>
+        </html>
+        `;
+    };
 
     try {
-        console.log(`[SMTP] Sending mail to ${user}...`);
+        console.log(`[SMTP] Sending mail to admin (${user})...`);
+
+        // 1. Send to Admin
         await transporter.sendMail({
             from: `"Moral Knight Website" <${user}>`,
             to: user,
             replyTo: data.email,
             subject: subject,
-            html: html,
+            html: getHtml(false),
         });
-        return { success: true };
+
+        // 2. Send copy to Melder
+        console.log(`[SMTP] Sending confirmation to melder (${data.email})...`);
+        await transporter.sendMail({
+            from: `"Moral Knight" <${user}>`,
+            to: data.email,
+            subject: isReport
+                ? `Bevestiging Melding: ${reportId} - Moral Knight`
+                : `Ontvangstbevestiging contactformulier - Moral Knight`,
+            html: getHtml(true),
+        });
+
+        return { success: true, reportId };
     } catch (error) {
         console.error('[SMTP] Transport Error:', error);
         return {

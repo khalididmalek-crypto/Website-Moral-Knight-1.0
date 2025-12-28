@@ -51,6 +51,7 @@ export const ReportForm: React.FC<Props> = () => {
     const [errors, setErrors] = useState<FormErrors>({});
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitted, setSubmitted] = useState(false);
+    const [reportId, setReportId] = useState<string | null>(null);
     const [submitError, setSubmitError] = useState<string | null>(null);
     const [touched, setTouched] = useState<Record<string, boolean>>({});
 
@@ -188,6 +189,7 @@ export const ReportForm: React.FC<Props> = () => {
             }
 
             console.log('[ReportForm] Report success:', data);
+            if (data.reportId) setReportId(data.reportId);
             setSubmitted(true);
             setIsSubmitting(false);
         } catch (error) {
@@ -201,6 +203,7 @@ export const ReportForm: React.FC<Props> = () => {
 
     const handleReset = useCallback(() => {
         setSubmitted(false);
+        setReportId(null);
         setFormData({
             name: '',
             email: '',
@@ -225,8 +228,13 @@ export const ReportForm: React.FC<Props> = () => {
                         MELDING ONTVANGEN
                     </h2>
                 </div>
+                <div className="mb-8 p-4 border border-dashed border-gray-300 font-mono text-xs">
+                    <p className="mb-2 opacity-60 uppercase">Uw Kenmerk:</p>
+                    <p className="text-xl font-bold tracking-widest" style={{ color: '#8B1A3D' }}>{reportId || 'MK-2025-XXXX'}</p>
+                </div>
                 <p className="font-mono text-sm leading-relaxed max-w-md mb-12" style={{ color: FORM_COLORS.TEXT_SECONDARY }}>
-                    Bedankt voor uw melding. Wij zullen deze misstand onderzoeken en indien nodig actie ondernemen.
+                    Bedankt voor uw melding. Wij hebben een bevestiging gestuurd naar <strong>{formData.email}</strong>.<br /><br />
+                    Wij zullen deze misstand onderzoeken en indien nodig actie ondernemen.
                 </p>
                 <button
                     onClick={handleReset}
