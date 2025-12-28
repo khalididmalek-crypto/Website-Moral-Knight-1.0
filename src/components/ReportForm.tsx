@@ -6,6 +6,7 @@
 import React, { useState, useCallback } from 'react';
 import { Send } from 'lucide-react';
 import { COLORS, FORM_COLORS } from '../constants';
+import Link from 'next/link';
 
 interface Props {
     mode?: 'preview' | 'fullscreen';
@@ -319,9 +320,9 @@ export const ReportForm: React.FC<Props> = () => {
                 />
                 <label htmlFor="privacyConsent" className="font-mono text-xs text-gray-600 cursor-pointer">
                     Ik geef Moral Knight toestemming om mijn gegevens te verwerken conform de{' '}
-                    <a href="/privacy" className="underline" style={{ color: COLORS.PRIMARY_GREEN }}>
+                    <Link href="/privacy" className="underline" style={{ color: COLORS.PRIMARY_GREEN }}>
                         privacyverklaring
-                    </a>{' '}
+                    </Link>{' '}
                     en begrijp dat meldingen geanonimiseerd gerapporteerd kunnen worden aan instanties. <span style={{ color: FORM_COLORS.ERROR }}>*</span>
                 </label>
             </div>
@@ -345,13 +346,13 @@ export const ReportForm: React.FC<Props> = () => {
 
                 {/* Privacy Footer */}
                 <div className="flex justify-center md:justify-end">
-                    <a
+                    <Link
                         href="/privacy"
                         className="font-mono text-[9px] uppercase tracking-widest opacity-40 hover:opacity-100 transition-opacity"
                         style={{ color: FORM_COLORS.TEXT_SECONDARY }}
                     >
                         / AVG COMPLIANT DATA PROCESSING — PRIVACY POLICY
-                    </a>
+                    </Link>
                 </div>
             </div>
         </form>
