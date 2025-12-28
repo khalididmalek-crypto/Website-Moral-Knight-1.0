@@ -92,6 +92,12 @@ export const ContactForm: React.FC<Props> = ({ className = '', mode = 'preview',
     validateField(field, formData[field as keyof FormData]);
   };
 
+  const handleInputKeyDown = useCallback((e: React.KeyboardEvent) => {
+    if (e.key === ' ') {
+      e.stopPropagation();
+    }
+  }, []);
+
   const validateField = (field: string, value: string | boolean): string | undefined => {
     switch (field) {
       case 'name':
@@ -360,6 +366,7 @@ export const ContactForm: React.FC<Props> = ({ className = '', mode = 'preview',
                 required
                 value={formData.name}
                 onChange={handleChange}
+                onKeyDown={handleInputKeyDown}
                 aria-invalid={touched.name && !!errors.name}
                 aria-describedby={touched.name && errors.name ? 'name-error' : undefined}
                 className={`w-full ${SPACING.INPUT_PADDING} border outline-none focus-visible:outline-none font-mono text-sm transition-all duration-300 ${isPreview ? 'min-h-[36px] py-1' : 'min-h-[44px]'} rounded-none hover:border-[#194D25] ${touched.name && errors.name
@@ -411,6 +418,7 @@ export const ContactForm: React.FC<Props> = ({ className = '', mode = 'preview',
                 required
                 value={formData.email}
                 onChange={handleChange}
+                onKeyDown={handleInputKeyDown}
                 aria-invalid={touched.email && !!errors.email}
                 aria-describedby={touched.email && errors.email ? 'email-error' : undefined}
                 className={`w-full ${SPACING.INPUT_PADDING} border outline-none focus-visible:outline-none font-mono text-sm transition-all duration-300 ${isPreview ? 'min-h-[36px] py-1' : 'min-h-[44px]'} rounded-none hover:border-[#194D25] ${touched.email && errors.email
@@ -462,6 +470,7 @@ export const ContactForm: React.FC<Props> = ({ className = '', mode = 'preview',
               name="organisation"
               value={formData.organisation}
               onChange={handleChange}
+              onKeyDown={handleInputKeyDown}
               className={`w-full ${SPACING.INPUT_PADDING} border outline-none focus-visible:outline-none font-mono text-sm transition-all duration-300 ${isPreview ? 'min-h-[36px] py-1' : 'min-h-[44px]'} rounded-none focus:bg-white hover:border-[#194D25]`}
               style={{
                 backgroundColor: FORM_COLORS.INPUT_BG,
@@ -492,6 +501,7 @@ export const ContactForm: React.FC<Props> = ({ className = '', mode = 'preview',
               required
               value={formData.message}
               onChange={handleChange}
+              onKeyDown={handleInputKeyDown}
               aria-invalid={touched.message && !!errors.message}
               aria-describedby={touched.message && errors.message ? 'message-error' : undefined}
               rows={isPreview ? 3 : 6}

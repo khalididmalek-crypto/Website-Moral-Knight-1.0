@@ -80,6 +80,12 @@ export const ReportForm: React.FC<Props> = () => {
         validateField(field, formData[field as keyof FormData]);
     };
 
+    const handleInputKeyDown = useCallback((e: React.KeyboardEvent) => {
+        if (e.key === ' ') {
+            e.stopPropagation();
+        }
+    }, []);
+
     const validateField = (field: string, value: string | boolean): string | undefined => {
         switch (field) {
             case 'name':
@@ -222,6 +228,7 @@ export const ReportForm: React.FC<Props> = () => {
                         name="name"
                         value={formData.name}
                         onChange={handleChange}
+                        onKeyDown={handleInputKeyDown}
                         onBlur={() => handleBlur('name')}
                         className="w-full p-3 border outline-none font-mono text-sm bg-[#F7F7F7] focus:bg-white transition-all"
                         style={{ borderColor: touched.name && errors.name ? FORM_COLORS.ERROR : FORM_COLORS.INPUT_BORDER }}
@@ -239,6 +246,7 @@ export const ReportForm: React.FC<Props> = () => {
                         name="email"
                         value={formData.email}
                         onChange={handleChange}
+                        onKeyDown={handleInputKeyDown}
                         onBlur={() => handleBlur('email')}
                         className="w-full p-3 border outline-none font-mono text-sm bg-[#F7F7F7] focus:bg-white transition-all"
                         style={{ borderColor: touched.email && errors.email ? FORM_COLORS.ERROR : FORM_COLORS.INPUT_BORDER }}
@@ -257,6 +265,7 @@ export const ReportForm: React.FC<Props> = () => {
                     name="aiSystem"
                     value={formData.aiSystem}
                     onChange={handleChange}
+                    onKeyDown={handleInputKeyDown}
                     onBlur={() => handleBlur('aiSystem')}
                     className="w-full p-3 border outline-none font-mono text-sm bg-[#F7F7F7] focus:bg-white transition-all"
                     style={{ borderColor: touched.aiSystem && errors.aiSystem ? FORM_COLORS.ERROR : FORM_COLORS.INPUT_BORDER }}
@@ -274,6 +283,7 @@ export const ReportForm: React.FC<Props> = () => {
                     name="description"
                     value={formData.description}
                     onChange={handleChange}
+                    onKeyDown={handleInputKeyDown}
                     onBlur={() => handleBlur('description')}
                     rows={5}
                     className="w-full p-3 border outline-none font-mono text-sm bg-[#F7F7F7] focus:bg-white transition-all resize-none"
