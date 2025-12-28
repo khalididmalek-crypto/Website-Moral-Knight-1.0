@@ -5,7 +5,7 @@ import { COLORS } from '../constants';
 import { Printer, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 
-const PrivacyPage = () => {
+export default function PrivacyPage() {
     const handlePrint = () => {
         window.print();
     };
@@ -58,7 +58,7 @@ const PrivacyPage = () => {
                                 1. Inleiding
                             </h2>
                             <p>
-                                Moral Knight ("wij", "ons") hecht grote waarde aan uw privacy. In deze verklaring leggen wij uit hoe wij omgaan met persoonsgegevens die via onze website worden verzameld. Onze processen zijn ontworpen volgens de principes van Responsible AI en de Algemene Verordening Gegevensbescherming (AVG/GDPR).
+                                {`Moral Knight ("wij", "ons") hecht grote waarde aan uw privacy. In deze verklaring leggen wij uit hoe wij omgaan met persoonsgegevens die via onze website worden verzameld. Onze processen zijn ontworpen volgens de principes van Responsible AI en de Algemene Verordening Gegevensbescherming (AVG/GDPR).`}
                             </p>
                         </section>
 
@@ -78,7 +78,7 @@ const PrivacyPage = () => {
                                 3. Dataminimalisatie & Opslag
                             </h2>
                             <p>
-                                Conform onze Responsible AI-principes verzamelen wij alleen de strikt noodzakelijke gegevens. Bestanden die u lokaal via 'drag & drop' in de applicatie gebruikt, worden uitsluitend in uw eigen browser verwerkt en nooit naar onze servers verzonden. Gegevens uit formulieren worden veilig verzonden via een versleutelde SMTP-verbinding (SSL/TLS).
+                                {`Conform onze Responsible AI-principes verzamelen wij alleen de strikt noodzakelijke gegevens. Bestanden die u lokaal via 'drag & drop' in de applicatie gebruikt, worden uitsluitend in uw eigen browser verwerkt en nooit naar onze servers verzonden. Gegevens uit formulieren worden veilig verzonden via een versleutelde SMTP-verbinding (SSL/TLS).`}
                             </p>
                         </section>
 
@@ -96,7 +96,7 @@ const PrivacyPage = () => {
                                 5. Beveiliging
                             </h2>
                             <p>
-                                Wij nemen passende technische en organisatorische maatregelen om uw gegevens te beschermen. Dit omvat onder meer het gebruik van moderne encryptie en het minimaliseren van menselijke toegang tot verzamelde data. Onze website is beveiligd tegen bots middels honeypot-technologie om spambelastingen te voorkomen.
+                                Wij nemen passende technische en organisatorische maatregelen om uw gegevens te beschermen. Dit omvat onder meer het gebruik van moderne encryptie en het minimaliseren van menselijke toegang tot verzamelde data. Onze website is beveiligid tegen bots middels honeypot-technologie om spambelastingen te voorkomen.
                             </p>
                         </section>
 
@@ -134,6 +134,4 @@ const PrivacyPage = () => {
             `}</style>
         </div>
     );
-};
-
-export default PrivacyPage;
+}
