@@ -35,10 +35,25 @@ interface AppProps {
 
 const App: React.FC<AppProps> = ({ posts = [] }) => {
   const [tiles, setTiles] = useState<TileData[]>(INITIAL_TILES);
-  const [activeTileId, setActiveTileId] = useState<string | null>(null);
+  const [activeTileId, setActiveTileId] = useState<string | null>(() => {
+    if (typeof window !== 'undefined') {
+      return sessionStorage.getItem('activeTileId');
+    }
+    return null;
+  });
   const [typingComplete, setTypingComplete] = useState(false);
-  const [dashboardOpen, setDashboardOpen] = useState(false);
-  const [meldpuntOpen, setMeldpuntOpen] = useState(false);
+  const [dashboardOpen, setDashboardOpen] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return sessionStorage.getItem('dashboardOpen') === 'true';
+    }
+    return false;
+  });
+  const [meldpuntOpen, setMeldpuntOpen] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return sessionStorage.getItem('meldpuntOpen') === 'true';
+    }
+    return false;
+  });
   const mainContainerRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
 
@@ -49,18 +64,12 @@ const App: React.FC<AppProps> = ({ posts = [] }) => {
     setActiveTileId(tileId);
   };
 
-  // Load persistence with error handling
+  // Load persistence with error handling (Tiles only)
   useEffect(() => {
     try {
       const saved = loadTiles();
       if (saved && saved.length > 0) {
         setTiles(saved);
-      }
-
-      // Restore active tile from session storage for navigation flow
-      const savedActiveTile = sessionStorage.getItem('activeTileId');
-      if (savedActiveTile) {
-        setActiveTileId(savedActiveTile);
       }
     } catch (error) {
       console.error('Error loading tiles:', error);
@@ -69,14 +78,17 @@ const App: React.FC<AppProps> = ({ posts = [] }) => {
     }
   }, [showToast]);
 
-  // Sync activeTileId to sessionStorage
+  // Sync states to sessionStorage
   useEffect(() => {
     if (activeTileId) {
       sessionStorage.setItem('activeTileId', activeTileId);
     } else {
       sessionStorage.removeItem('activeTileId');
     }
-  }, [activeTileId]);
+
+    sessionStorage.setItem('meldpuntOpen', String(meldpuntOpen));
+    sessionStorage.setItem('dashboardOpen', String(dashboardOpen));
+  }, [activeTileId, meldpuntOpen, dashboardOpen]);
 
   // Save persistence with feedback
   useEffect(() => {

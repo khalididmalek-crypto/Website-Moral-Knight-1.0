@@ -343,7 +343,37 @@ export const ContactForm: React.FC<Props> = ({ className = '', mode = 'preview',
   // Form state: show contact form
   // Note: Use exact same structure as TEXT content for consistency
   return (
-    <div className={`w-full group-hover:bg-transparent overflow-hidden ${className} ${isPreview ? `h-full ${SPACING.TEXT_PADDING_PREVIEW}` : `h-auto ${SPACING.TEXT_PADDING_FULLSCREEN}`}`}>
+    <div className={`w-full group-hover:bg-transparent overflow-hidden relative ${className} ${isPreview ? `h-full ${SPACING.TEXT_PADDING_PREVIEW}` : `h-auto ${SPACING.TEXT_PADDING_FULLSCREEN}`}`}>
+      {/* Close Button - Top Right with Buggy Effect (only for non-submits in fullscreen) */}
+      {!submitted && !isPreview && onClose && (
+        <button
+          onClick={(e) => {
+            const button = e.currentTarget;
+            const buggyInterval = setInterval(() => {
+              const randomX = Math.random() * 10 - 5;
+              const randomY = Math.random() * 10 - 5;
+              const randomRotate = Math.random() * 10 - 5;
+              button.style.transform = `translate(${randomX}px, ${randomY}px) rotate(${randomRotate}deg)`;
+            }, 50);
+
+            setTimeout(() => {
+              clearInterval(buggyInterval);
+              onClose();
+            }, 750);
+          }}
+          className="absolute top-4 right-4 md:top-6 md:right-6 p-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#194D25] min-w-[44px] min-h-[44px] flex items-center justify-center group/close z-50 cursor-pointer"
+          aria-label="Sluit en keer terug naar hoofdpagina"
+          style={{ transition: 'transform 0.05s ease-out' }}
+        >
+          <X
+            size={24}
+            strokeWidth={1.5}
+            className="text-[#194D25] group-hover/close:text-[#8B1A3D] transition-colors duration-200"
+            aria-hidden="true"
+          />
+        </button>
+      )}
+
       <div className={`${isPreview ? 'h-full flex flex-col justify-center' : 'max-w-3xl mx-auto'}`}>
         {/* Form */}
         <form
