@@ -616,17 +616,14 @@ export const ContactForm: React.FC<Props> = ({ className = '', mode = 'preview',
             >
               <span id="privacy-description">
                 Ik geef Moral Knight toestemming om mijn gegevens te verwerken conform de{' '}
-                <a
-                  href="/privacy"
-                  className="relative z-[9999] underline hover:text-[#8B1A3D] transition-colors duration-300 cursor-pointer"
-                  style={{ pointerEvents: 'auto', position: 'relative', display: 'inline-block' }}
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    window.location.href = '/privacy';
-                  }}
+                <button
+                  type="button"
+                  onClick={() => window.location.href = '/privacy'}
+                  className="inline underline bg-transparent border-none p-0 cursor-pointer transition-colors duration-300 hover:text-[#8B1A3D]"
+                  style={{ pointerEvents: 'auto', position: 'relative' }}
                 >
                   privacyverklaring
-                </a>{' '}
+                </button>{' '}
                 en begrijp dat meldingen geanonimiseerd gerapporteerd kunnen worden aan instanties. <span style={{ color: FORM_COLORS.ERROR }} aria-label="verplicht veld">*</span>
               </span>
             </label>
@@ -671,17 +668,14 @@ export const ContactForm: React.FC<Props> = ({ className = '', mode = 'preview',
             </div>
 
             <div className="flex justify-center md:justify-end">
-              <a
-                href="/privacy"
-                className="relative font-mono text-[9px] uppercase tracking-widest opacity-40 hover:opacity-100 hover:text-[#8B1A3D] transition-all cursor-pointer"
+              <button
+                type="button"
+                onClick={() => window.location.href = '/privacy'}
+                className="relative font-mono text-[9px] uppercase tracking-widest opacity-40 hover:opacity-100 hover:text-[#8B1A3D] transition-all cursor-pointer bg-transparent border-none p-0"
                 style={{ color: FORM_COLORS.TEXT_SECONDARY, zIndex: 9999, position: 'relative', pointerEvents: 'auto' }}
-                onClick={(e) => {
-                  e.stopPropagation();
-                  window.location.href = '/privacy';
-                }}
               >
                 / AVG COMPLIANT DATA PROCESSING — PRIVACY POLICY
-              </a>
+              </button>
             </div>
           </div>
         </form>

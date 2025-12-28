@@ -317,7 +317,7 @@ export const ReportForm: React.FC<Props> = () => {
 
             <div className="flex flex-col gap-1.5">
                 <label htmlFor="file" className="font-mono text-xs uppercase tracking-widest" style={{ color: COLORS.PRIMARY_GREEN }}>
-                    Documentatie of bewijsmateriaal uploaden <span className="text-xs font-normal normal-case" style={{ color: FORM_COLORS.PLACEHOLDER }}>(optioneel)</span>
+                    Documentatie uploaden <span className="text-xs font-normal normal-case" style={{ color: FORM_COLORS.PLACEHOLDER }}>(max 5MB) (optioneel)</span>
                 </label>
                 <div className="relative">
                     <input
@@ -330,13 +330,13 @@ export const ReportForm: React.FC<Props> = () => {
                     />
                     <label
                         htmlFor="file"
-                        className="flex items-center justify-between p-3 border border-dashed cursor-pointer font-mono text-xs bg-[#F7F7F7] hover:bg-white transition-all"
+                        className="flex items-center justify-between p-3 border border-dashed cursor-pointer font-mono text-[11px] bg-[#F7F7F7] hover:bg-white transition-all rounded-none"
                         style={{ borderColor: FORM_COLORS.INPUT_BORDER }}
                     >
-                        <span className="truncate">
+                        <span className="truncate opacity-70">
                             {formData.file ? formData.file.name : 'Selecteer bestand (.jpg, .png, .pdf)'}
                         </span>
-                        <span className="ml-2 flex-shrink-0 uppercase tracking-widest opacity-60">
+                        <span className="ml-2 flex-shrink-0 uppercase tracking-widest opacity-60 border-l border-gray-300 pl-3">
                             Upload
                         </span>
                     </label>
@@ -355,17 +355,14 @@ export const ReportForm: React.FC<Props> = () => {
                 />
                 <label htmlFor="privacyConsent" className="font-mono text-xs text-gray-600 cursor-pointer">
                     Ik geef Moral Knight toestemming om mijn gegevens te verwerken conform de{' '}
-                    <a
-                        href="/privacy"
-                        className="relative z-[9999] underline hover:text-[#8B1A3D] transition-colors duration-300 cursor-pointer"
-                        style={{ pointerEvents: 'auto', position: 'relative', display: 'inline-block' }}
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            window.location.href = '/privacy';
-                        }}
+                    <button
+                        type="button"
+                        onClick={() => window.location.href = '/privacy'}
+                        className="inline underline bg-transparent border-none p-0 cursor-pointer transition-colors duration-300 hover:text-[#8B1A3D]"
+                        style={{ pointerEvents: 'auto', position: 'relative' }}
                     >
                         privacyverklaring
-                    </a>{' '}
+                    </button>{' '}
                     en begrijp dat meldingen geanonimiseerd gerapporteerd kunnen worden aan instanties. <span style={{ color: FORM_COLORS.ERROR }}>*</span>
                 </label>
             </div>
@@ -389,17 +386,14 @@ export const ReportForm: React.FC<Props> = () => {
 
                 {/* Privacy Footer */}
                 <div className="flex justify-center md:justify-end">
-                    <a
-                        href="/privacy"
-                        className="relative font-mono text-[9px] uppercase tracking-widest opacity-40 hover:opacity-100 hover:text-[#8B1A3D] transition-all cursor-pointer"
+                    <button
+                        type="button"
+                        onClick={() => window.location.href = '/privacy'}
+                        className="relative font-mono text-[9px] uppercase tracking-widest opacity-40 hover:opacity-100 hover:text-[#8B1A3D] transition-all cursor-pointer bg-transparent border-none p-0"
                         style={{ color: FORM_COLORS.TEXT_SECONDARY, zIndex: 9999, position: 'relative', pointerEvents: 'auto' }}
-                        onClick={(e) => {
-                            e.stopPropagation();
-                            window.location.href = '/privacy';
-                        }}
                     >
                         / AVG COMPLIANT DATA PROCESSING — PRIVACY POLICY
-                    </a>
+                    </button>
                 </div>
             </div>
         </form>

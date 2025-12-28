@@ -78,7 +78,7 @@ export default function PrivacyPage() {
                                 {`3. Dataminimalisatie & Opslag`}
                             </h2>
                             <p>
-                                {`Conform onze Responsible AI-principes verzamelen wij alleen de strikt noodzakelijke gegevens. Bestanden die u lokaal via 'drag & drop' in de applicatie gebruikt, worden uitsluitend in uw eigen browser verwerkt en nooit naar onze servers verzonden. Gegevens uit formulieren worden veilig verzonden via een versleutelde SMTP-verbinding (SSL/TLS).`}
+                                {`Conform onze Responsible AI-principes verzamelen wij alleen de strikt noodzakelijke gegevens. Bestanden die u lokaal via \`drag & drop\` in de applicatie gebruikt, worden uitsluitend in uw eigen browser verwerkt en nooit naar onze servers verzonden. Gegevens uit formulieren worden veilig verzonden via een versleutelde SMTP-verbinding (SSL/TLS).`}
                             </p>
                         </section>
 
@@ -124,7 +124,11 @@ export default function PrivacyPage() {
                         position: static !important;
                     }
                     nav, footer, .no-print, button { display: none !important; }
-                    .print-content { display: block !important; width: 100% !important; }
+                    .print-content { 
+                        display: block !important; 
+                        width: 100% !important; 
+                        color: black !important; 
+                    }
                     
                     /* Zorg dat tekst zwart is op wit voor de printer */
                     * {
