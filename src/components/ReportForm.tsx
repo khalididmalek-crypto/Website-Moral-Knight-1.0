@@ -19,6 +19,7 @@ interface FormData {
     aiSystem: string;
     description: string;
     privacyConsent: boolean;
+    _website: string; // Honeypot
 }
 
 interface FormErrors {
@@ -43,6 +44,7 @@ export const ReportForm: React.FC<Props> = () => {
         aiSystem: '',
         description: '',
         privacyConsent: false,
+        _website: '',
     });
     const [errors, setErrors] = useState<FormErrors>({});
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -159,7 +161,6 @@ export const ReportForm: React.FC<Props> = () => {
             }
 
             console.log('[ReportForm] Report success:', data);
-            alert('Melding ontvangen! Bedankt voor uw bijdrage aan een veiligere AI-omgeving.');
             setSubmitted(true);
             setIsSubmitting(false);
         } catch (error) {
@@ -180,6 +181,7 @@ export const ReportForm: React.FC<Props> = () => {
             aiSystem: '',
             description: '',
             privacyConsent: false,
+            _website: '',
         });
         setErrors({});
         setTouched({});
@@ -216,6 +218,18 @@ export const ReportForm: React.FC<Props> = () => {
                     {submitError}
                 </div>
             )}
+
+            {/* Honeypot field - Hidden from users */}
+            <div style={{ display: 'none' }} aria-hidden="true">
+                <input
+                    type="text"
+                    name="_website"
+                    value={formData._website}
+                    onChange={handleChange}
+                    tabIndex={-1}
+                    autoComplete="off"
+                />
+            </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="flex flex-col gap-1.5">
@@ -304,24 +318,41 @@ export const ReportForm: React.FC<Props> = () => {
                     className="mt-1 w-4 h-4 cursor-pointer"
                 />
                 <label htmlFor="privacyConsent" className="font-mono text-xs text-gray-600 cursor-pointer">
-                    Ik ga akkoord met het verwerken van deze gegevens voor het onderzoek naar AI misstanden. <span style={{ color: FORM_COLORS.ERROR }}>*</span>
+                    Ik geef Moral Knight toestemming om mijn gegevens te verwerken conform de{' '}
+                    <a href="/privacy" className="underline" style={{ color: COLORS.PRIMARY_GREEN }}>
+                        privacyverklaring
+                    </a>{' '}
+                    en begrijp dat meldingen geanonimiseerd gerapporteerd kunnen worden aan instanties. <span style={{ color: FORM_COLORS.ERROR }}>*</span>
                 </label>
             </div>
             {touched.privacyConsent && errors.privacyConsent && <span className="text-xs font-mono -mt-4 ml-7" style={{ color: FORM_COLORS.ERROR }}>{errors.privacyConsent}</span>}
 
-            <div className="flex justify-end pt-4">
-                <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="px-8 py-3 border-2 font-mono text-xs uppercase tracking-widest transition-all disabled:opacity-50"
-                    style={{
-                        backgroundColor: COLORS.HIGHLIGHT_GREEN,
-                        borderColor: COLORS.PRIMARY_GREEN,
-                        color: COLORS.PRIMARY_GREEN,
-                    }}
-                >
-                    {isSubmitting ? 'Verzenden...' : 'Melding Versturen'}
-                </button>
+            <div className="flex flex-col gap-4 pt-4">
+                <div className="flex justify-end">
+                    <button
+                        type="submit"
+                        disabled={isSubmitting || !formData.privacyConsent}
+                        className="px-8 py-3 border-2 font-mono text-xs uppercase tracking-widest transition-all disabled:opacity-50"
+                        style={{
+                            backgroundColor: COLORS.HIGHLIGHT_GREEN,
+                            borderColor: COLORS.PRIMARY_GREEN,
+                            color: COLORS.PRIMARY_GREEN,
+                        }}
+                    >
+                        {isSubmitting ? 'Verzenden...' : 'Melding Versturen'}
+                    </button>
+                </div>
+
+                {/* Privacy Footer */}
+                <div className="flex justify-center md:justify-end">
+                    <a
+                        href="/privacy"
+                        className="font-mono text-[9px] uppercase tracking-widest opacity-40 hover:opacity-100 transition-opacity"
+                        style={{ color: FORM_COLORS.TEXT_SECONDARY }}
+                    >
+                        / AVG COMPLIANT DATA PROCESSING — PRIVACY POLICY
+                    </a>
+                </div>
             </div>
         </form>
     );

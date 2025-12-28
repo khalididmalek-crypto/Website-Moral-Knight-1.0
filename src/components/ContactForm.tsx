@@ -28,6 +28,7 @@ interface FormData {
   message: string;
   newsletter: boolean;
   privacyConsent: boolean;
+  _website: string; // Honeypot
 }
 
 interface FormErrors {
@@ -53,6 +54,7 @@ export const ContactForm: React.FC<Props> = ({ className = '', mode = 'preview',
     message: '',
     newsletter: false,
     privacyConsent: false,
+    _website: '',
   });
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -189,7 +191,6 @@ export const ContactForm: React.FC<Props> = ({ className = '', mode = 'preview',
 
       // Success!
       console.log('[ContactForm] Submission success:', data);
-      alert('Bericht ontvangen! We nemen zo snel mogelijk contact met u op.');
       setIsSubmitting(false);
       setSubmitted(true);
     } catch (error) {
@@ -210,6 +211,7 @@ export const ContactForm: React.FC<Props> = ({ className = '', mode = 'preview',
       message: '',
       newsletter: false,
       privacyConsent: false,
+      _website: '',
     });
     setErrors({});
     setTouched({});
@@ -347,6 +349,18 @@ export const ContactForm: React.FC<Props> = ({ className = '', mode = 'preview',
               {submitError}
             </div>
           )}
+
+          {/* Honeypot field - Hidden from users */}
+          <div style={{ display: 'none' }} aria-hidden="true">
+            <input
+              type="text"
+              name="_website"
+              value={formData._website}
+              onChange={handleChange}
+              tabIndex={-1}
+              autoComplete="off"
+            />
+          </div>
 
           {/* Name and Email Row */}
           <div className={`grid grid-cols-1 md:grid-cols-2 ${SPACING.INPUT_GAP}`}>
@@ -601,11 +615,11 @@ export const ContactForm: React.FC<Props> = ({ className = '', mode = 'preview',
               style={{ color: FORM_COLORS.TEXT_SECONDARY }}
             >
               <span id="privacy-description">
-                Ik ga akkoord met het zorgvuldig verwerken van mijn gegevens volgens de{' '}
-                <span className="underline" style={{ color: COLORS.PRIMARY_GREEN }}>
+                Ik geef Moral Knight toestemming om mijn gegevens te verwerken conform de{' '}
+                <a href="/privacy" className="underline" style={{ color: COLORS.PRIMARY_GREEN }}>
                   privacyverklaring
-                </span>
-                . <span style={{ color: FORM_COLORS.ERROR }} aria-label="verplicht veld">*</span>
+                </a>{' '}
+                en begrijp dat meldingen geanonimiseerd gerapporteerd kunnen worden aan instanties. <span style={{ color: FORM_COLORS.ERROR }} aria-label="verplicht veld">*</span>
               </span>
             </label>
           </div>
@@ -621,30 +635,43 @@ export const ContactForm: React.FC<Props> = ({ className = '', mode = 'preview',
           )}
 
           {/* Submit Button */}
-          <div className={`flex justify-end ${isPreview ? 'pt-4' : 'pt-6'}`}>
-            <button
-              type="submit"
-              disabled={isSubmitting}
-              className={`group relative px-8 ${isPreview ? 'py-2' : 'py-3'} border-2 font-mono text-xs uppercase tracking-widest transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-2 focus-visible:outline-offset-2 ${isPreview ? 'min-h-[36px]' : 'min-h-[44px]'} hover:bg-accent-light`}
-              style={{
-                backgroundColor: isSubmitting ? FORM_COLORS.INPUT_BG : COLORS.HIGHLIGHT_GREEN,
-                borderColor: COLORS.PRIMARY_GREEN,
-                color: isSubmitting ? FORM_COLORS.TEXT_PRIMARY : COLORS.PRIMARY_GREEN,
-                '--tw-outline-color': COLORS.PRIMARY_GREEN,
-              } as React.CSSProperties & { '--tw-outline-color': string }}
-              aria-label={isSubmitting ? 'Bericht wordt verzonden...' : 'Verstuur contactformulier'}
-            >
-              <span className="relative z-10 flex items-center gap-3">
-                {isSubmitting ? 'Verzenden...' : 'Versturen'}
-                {!isSubmitting && (
-                  <Send
-                    size={14}
-                    style={{ color: COLORS.PRIMARY_GREEN }}
-                    aria-hidden="true"
-                  />
-                )}
-              </span>
-            </button>
+          <div className={`flex flex-col gap-4 ${isPreview ? 'pt-4' : 'pt-6'}`}>
+            <div className={`flex justify-end`}>
+              <button
+                type="submit"
+                disabled={isSubmitting || !formData.privacyConsent}
+                className={`group relative px-8 ${isPreview ? 'py-2' : 'py-3'} border-2 font-mono text-xs uppercase tracking-widest transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-2 focus-visible:outline-offset-2 ${isPreview ? 'min-h-[36px]' : 'min-h-[44px]'} hover:bg-accent-light`}
+                style={{
+                  backgroundColor: isSubmitting ? FORM_COLORS.INPUT_BG : COLORS.HIGHLIGHT_GREEN,
+                  borderColor: COLORS.PRIMARY_GREEN,
+                  color: isSubmitting ? FORM_COLORS.TEXT_PRIMARY : COLORS.PRIMARY_GREEN,
+                  '--tw-outline-color': COLORS.PRIMARY_GREEN,
+                } as React.CSSProperties & { '--tw-outline-color': string }}
+                aria-label={isSubmitting ? 'Bericht wordt verzonden...' : 'Verstuur contactformulier'}
+              >
+                <span className="relative z-10 flex items-center gap-3">
+                  {isSubmitting ? 'Verzenden...' : 'Versturen'}
+                  {!isSubmitting && (
+                    <Send
+                      size={14}
+                      style={{ color: COLORS.PRIMARY_GREEN }}
+                      aria-hidden="true"
+                    />
+                  )}
+                </span>
+              </button>
+            </div>
+
+            {/* Privacy Footer */}
+            <div className="flex justify-center md:justify-end">
+              <a
+                href="/privacy"
+                className="font-mono text-[9px] uppercase tracking-widest opacity-40 hover:opacity-100 transition-opacity"
+                style={{ color: FORM_COLORS.TEXT_SECONDARY }}
+              >
+                / AVG COMPLIANT DATA PROCESSING — PRIVACY POLICY
+              </a>
+            </div>
           </div>
         </form>
       </div>

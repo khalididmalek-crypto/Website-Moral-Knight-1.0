@@ -257,6 +257,24 @@ Na implementatie:
 
 ---
 
+---
+
+## 🛡️ 6. PRIVACY & VEILIGHEID (GDPR)
+
+### ✅ Gerealiseerde Verbeteringen
+
+#### Honeypot Anti-Spam
+- Toegevoegd: Onzichtbaar `_website` veld om bots te identificeren.
+- API-logica: Submissies met ingevulde honeypot worden geruisloos genegeerd (faket success).
+
+#### GDPR / AVG Compliance
+- **Consent Checkbox**: Verplichte checkbox voor toestemming dataverwerking.
+- **Submit Blocking**: De verzendknop is fysiek `disabled` totdat de checkbox is aangevinkt.
+- **Privacy Footer**: Link naar `/privacy` toegevoegd onder elk formulier.
+- **Data Sanitization**: Alle server-side invoer wordt automatisch getrimd en gesaneerd.
+
+---
+
 ## 📝 IMPLEMENTATIE CHECKLIST
 
 - [ ] Constants.ts uitbreiden met nieuwe kleur tokens

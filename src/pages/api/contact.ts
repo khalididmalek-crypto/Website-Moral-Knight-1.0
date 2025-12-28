@@ -17,6 +17,7 @@ interface FormData {
     description?: string;
     newsletter?: boolean;
     privacyConsent: boolean;
+    _website?: string; // Honeypot field
 }
 
 interface ApiResponse {
@@ -40,7 +41,29 @@ export default async function handler(
     }
 
     try {
-        const formData: FormData = req.body;
+        const rawData: FormData = req.body;
+
+        // 1. Honeypot check
+        if (rawData._website && rawData._website.trim() !== '') {
+            console.warn('[API] Honeypot triggered. Silent rejection.');
+            // Return 200 OK to fool the bot
+            return res.status(200).json({
+                success: true,
+                message: 'Bedankt voor uw bericht!',
+            });
+        }
+
+        // 2. Data Sanitization (Trim and basic cleaning)
+        const formData: FormData = {
+            ...rawData,
+            name: rawData.name?.trim(),
+            email: rawData.email?.trim()?.toLowerCase(),
+            organisation: rawData.organisation?.trim(),
+            message: rawData.message?.trim(),
+            aiSystem: rawData.aiSystem?.trim(),
+            description: rawData.description?.trim(),
+        };
+
         console.log(`[API] Form Type: ${formData.formType}, From: ${formData.email}`);
 
         // Basic validation

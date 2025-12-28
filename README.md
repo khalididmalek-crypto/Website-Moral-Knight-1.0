@@ -113,7 +113,22 @@ Wil je, dan kan ik deze configuraties ook daadwerkelijk toevoegen (`.eslintrc`, 
 
 ---
 
-## 6. Volgende stappen / ideeën
+---
+
+## 6. Formulieren & Privacy
+
+De website bevat een **Contactformulier** en een **MK Meldpunt** voor professionele interactie. Deze zijn ontworpen met privacy en veiligheid als uitgangspunt:
+
+- **Honeypot-beveiliging**: Om spam door bots te minimaliseren zonder irritante gebruikerservaring (zoals Captcha's), gebruiken we een onzichtbaar `_website` veld. Scripts die dit veld invullen worden direct en geruisloos genegeerd door de API.
+- **AVG / GDPR Compliance**:
+  - Gebruikers moeten expliciet toestemming geven voor dataverwerking via een verplichte checkbox.
+  - Verzendknoppen zijn uitgeschakeld totdat akkoord is gegaan.
+  - Data wordt via een beveiligde Google Workspace SMTP-verbinding (SSL/TLS) verzonden.
+  - Alle invoer wordt aan de serverzijde getrimd en gesaneerd (sanitization).
+
+---
+
+## 7. Volgende stappen / ideeën
 
 - Uitbreiden van de inhoud (meer tegels, casussen, voorbeelden).
 - Echte koppeling met een identity provider (auth) en beveiligde data‑opslag.
