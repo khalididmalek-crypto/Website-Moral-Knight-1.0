@@ -412,17 +412,7 @@ export const ReportForm: React.FC<Props> = () => {
                     </button>
                 </div>
 
-                {/* Privacy Footer */}
-                <div className="flex justify-center md:justify-end">
-                    <button
-                        type="button"
-                        onClick={() => window.location.href = '/privacy'}
-                        className="relative font-mono text-[9px] uppercase tracking-widest opacity-40 hover:opacity-100 hover:text-[#8B1A3D] transition-all cursor-pointer bg-transparent border-none p-0"
-                        style={{ color: FORM_COLORS.TEXT_SECONDARY, zIndex: 9999, position: 'relative', pointerEvents: 'auto' }}
-                    >
-                        / AVG COMPLIANT DATA PROCESSING — PRIVACY POLICY
-                    </button>
-                </div>
+
             </div>
         </form>
     );
