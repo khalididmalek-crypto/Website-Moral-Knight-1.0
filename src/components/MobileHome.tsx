@@ -102,7 +102,7 @@ export const MobileHome: React.FC = () => {
 
     // Render Home View
     return (
-        <div className={`flex flex-col min-h-[100dvh] w-full bg-[#F0F0F0] font-mono overflow-hidden md:hidden`}>
+        <div className={`flex flex-col min-h-[100dvh] w-full bg-[#f8fafc] font-mono overflow-hidden md:hidden`}>
             {/* Header Section - No border-b here */}
             <div className="pt-12 px-6 pb-2">
                 <h1 className="text-4xl font-medium tracking-tight text-[#111111] mb-1">
@@ -119,11 +119,12 @@ export const MobileHome: React.FC = () => {
             </div>
 
             {/* Tiles Container */}
-            <div className="flex-1 flex flex-col w-full p-4 gap-4 mt-2">
+            <div className="flex-1 flex flex-col w-full p-4 gap-4 mt-2 mb-0">
                 {/* Tile 1: PROBLEEM */}
                 <div
                     onClick={() => handleTileClick('PROBLEM')}
-                    className="flex-1 w-full bg-[#F2E8E4] border border-black rounded-sm p-4 relative cursor-pointer hover:-translate-y-1 transition-all duration-200"
+                    className="animate-fade-in-slow flex-1 w-full bg-[#F2E8E4] border border-black rounded-sm p-4 relative cursor-pointer hover:-translate-y-1 transition-all duration-200"
+                    style={{ animationDelay: '0ms' }}
                 >
                     {/* Desktop Label Style */}
                     <div className="absolute top-4 left-4 z-20">
@@ -138,7 +139,8 @@ export const MobileHome: React.FC = () => {
                 {/* Tile 2: OPLOSSING */}
                 <div
                     onClick={() => handleTileClick('SOLUTION')}
-                    className="flex-1 w-full bg-[#C1C9B9] border border-black rounded-sm p-4 relative cursor-pointer hover:-translate-y-1 transition-all duration-200"
+                    className="animate-fade-in-slow flex-1 w-full bg-[#C1C9B9] border border-black rounded-sm p-4 relative cursor-pointer hover:-translate-y-1 transition-all duration-200"
+                    style={{ animationDelay: '150ms' }}
                 >
                     {/* Desktop Label Style */}
                     <div className="absolute top-4 left-4 z-20">
@@ -153,7 +155,8 @@ export const MobileHome: React.FC = () => {
                 {/* Tile 3: CONTACT */}
                 <div
                     onClick={() => handleTileClick('CONTACT')}
-                    className="flex-1 w-full bg-[#F0E6D2] border border-black rounded-sm p-4 relative cursor-pointer hover:-translate-y-1 transition-all duration-200"
+                    className="animate-fade-in-slow flex-1 w-full bg-[#F0E6D2] border border-black rounded-sm p-4 relative cursor-pointer hover:-translate-y-1 transition-all duration-200"
+                    style={{ animationDelay: '300ms' }}
                 >
                     {/* Desktop Label Style */}
                     <div className="absolute top-4 left-4 z-20 pointer-events-none">
@@ -166,7 +169,7 @@ export const MobileHome: React.FC = () => {
                 </div>
 
                 {/* Mobile Footer - Specific Grouping */}
-                <div className="flex flex-col mt-2 mb-8 px-1">
+                <div className="flex flex-col mt-2 px-1 pb-6">
                     {/* Copyright Line */}
                     <div className="text-[12px] text-gray-400 font-mono uppercase tracking-widest leading-relaxed">
                         / Moral Knight 2025 — saving the human species from annihilation
