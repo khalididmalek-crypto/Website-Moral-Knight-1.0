@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import Link from 'next/link';
 import { ContactForm } from './ContactForm';
 import { Dashboard } from './Dashboard';
 import { Meldpunt } from './Meldpunt';
@@ -74,7 +73,7 @@ export const MobileHome: React.FC = () => {
 
     // Render Meldpunt View
     if (view === 'MELDPUNT') {
-        return <Meldpunt onClose={handleBack} mobile={true} />;
+        return <Meldpunt onClose={handleBack} />;
     }
 
     // Render Problem View

@@ -5,10 +5,9 @@ import { ReportForm } from './ReportForm';
 
 interface MeldpuntProps {
     onClose: () => void;
-    mobile?: boolean;
 }
 
-export const Meldpunt: React.FC<MeldpuntProps> = ({ onClose, mobile = false }) => {
+export const Meldpunt: React.FC<MeldpuntProps> = ({ onClose }) => {
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
             if (e.key === 'Escape') onClose();
