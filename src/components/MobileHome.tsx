@@ -123,7 +123,7 @@ export const MobileHome: React.FC = () => {
                 {/* Tile 1: PROBLEEM */}
                 <div
                     onClick={() => handleTileClick('PROBLEM')}
-                    className="flex-1 w-full bg-[#F2E8E4] border border-black rounded-none p-4 relative cursor-pointer active:scale-[0.98] transition-transform"
+                    className="flex-1 w-full bg-[#F2E8E4] border border-black rounded-sm p-4 relative cursor-pointer hover:-translate-y-1 transition-all duration-200"
                 >
                     {/* Desktop Label Style */}
                     <div className="absolute top-4 left-4 z-20">
@@ -138,7 +138,7 @@ export const MobileHome: React.FC = () => {
                 {/* Tile 2: OPLOSSING */}
                 <div
                     onClick={() => handleTileClick('SOLUTION')}
-                    className="flex-1 w-full bg-[#C1C9B9] border border-black rounded-none p-4 relative cursor-pointer active:scale-[0.98] transition-transform"
+                    className="flex-1 w-full bg-[#C1C9B9] border border-black rounded-sm p-4 relative cursor-pointer hover:-translate-y-1 transition-all duration-200"
                 >
                     {/* Desktop Label Style */}
                     <div className="absolute top-4 left-4 z-20">
@@ -153,7 +153,7 @@ export const MobileHome: React.FC = () => {
                 {/* Tile 3: CONTACT */}
                 <div
                     onClick={() => handleTileClick('CONTACT')}
-                    className="flex-1 w-full bg-[#F0E6D2] border border-black rounded-none p-4 relative cursor-pointer active:scale-[0.98] transition-transform"
+                    className="flex-1 w-full bg-[#F0E6D2] border border-black rounded-sm p-4 relative cursor-pointer hover:-translate-y-1 transition-all duration-200"
                 >
                     {/* Desktop Label Style */}
                     <div className="absolute top-4 left-4 z-20 pointer-events-none">

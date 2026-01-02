@@ -190,39 +190,7 @@ const App: React.FC<AppProps> = ({ posts = [] }) => {
   return (
     <TileStateProvider>
       {/* Mobile Construction Overlay */}
-      <div
-        id="mobile-construction-overlay"
-        className="fixed inset-0 z-[10000] flex flex-col p-8 md:hidden overflow-hidden"
-        style={{
-          background: 'linear-gradient(to bottom, #F0F4F7 0%, #E1E8ED 60%, #D0D9E0 100%)',
-          backgroundColor: '#e5e7eb'
-        }}
-      >
-        {/* Header */}
-        <div className="w-full">
-          <div className="flex flex-col gap-1 mb-4">
-            <span className="font-mono font-medium text-2xl text-gray-900 tracking-tight">Moral Knight</span>
-            <span className="font-mono text-green-700 text-[10px] uppercase tracking-widest">
-              MENSWAARDIGE AI IN HET PUBLIEKE DOMEIN
-            </span>
-          </div>
-          {/* Divider line */}
-          <div className="w-full h-[1px] bg-gray-400 mb-2"></div>
-          {/* Content below line */}
-          <p className="font-mono text-[10px] text-gray-900 uppercase tracking-widest whitespace-nowrap opacity-60">
-            Please visit us on a desktop device.
-          </p>
-        </div>
 
-        {/* Spacer to push footer down */}
-        <div className="flex-grow"></div>
-
-        {/* Footer */}
-        <div className="w-full flex justify-between items-end text-[9px] font-mono uppercase tracking-widest">
-          <span className="text-gray-900">/ MORAL KNIGHT 2025</span>
-        </div>
-
-      </div>
 
 
       <div
