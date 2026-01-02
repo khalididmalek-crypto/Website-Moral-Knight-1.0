@@ -22,7 +22,7 @@ export default function Meldpunt() {
             </header>
 
             {/* Main Content Area */}
-            <main className="flex-grow w-full max-w-7xl mx-auto px-4 pt-12 md:p-8 md:pt-16">
+            <main className="flex-grow w-full max-w-5xl mx-auto px-2 pt-28 pb-28 md:px-8 md:pt-36 md:pb-36">
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
 
                     {/* Meldpunt Formulier */}
@@ -57,8 +57,7 @@ export default function Meldpunt() {
                 </div>
             </main>
 
-            {/* Extra padding onderaan voor mobiele browsers */}
-            <div className="h-20 md:hidden" />
+
         </div>
     );
 }
