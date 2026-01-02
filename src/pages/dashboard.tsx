@@ -1,11 +1,11 @@
 import React from 'react';
 import Head from 'next/head';
 
-interface DashboardProps {
-    _data?: any; // Underscore prefix voor ongebruikte prop (build-safe)
-}
+// interface DashboardProps {
+//     _data?: any; // Underscore prefix voor ongebruikte prop (build-safe)
+// }
 
-export default function Dashboard({ _data }: DashboardProps) {
+export default function Dashboard() {
     return (
         <div className="flex flex-col min-h-screen bg-slate-50 text-slate-900 font-sans">
             <Head>
