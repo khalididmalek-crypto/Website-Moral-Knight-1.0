@@ -173,7 +173,8 @@ export const MobileHome: React.FC = () => {
                     </div>
 
                     {/* Links Group - Pushed down (mt-6) and tighter gap (gap-1) */}
-                    <div className="flex flex-col gap-1 mt-6">
+                    {/* Links Group - Hidden on mobile as per request (dashboard/meldpunt desktop only) */}
+                    <div className="flex flex-col gap-1 mt-6 hidden md:block">
                         <button
                             onClick={() => handleTileClick('MELDPUNT')}
                             className="font-mono font-bold antialiased uppercase tracking-widest text-[#D6827A] hover:opacity-75 text-[12px] text-left py-2"
