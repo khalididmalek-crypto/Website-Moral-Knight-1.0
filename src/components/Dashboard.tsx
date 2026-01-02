@@ -47,7 +47,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onClose }) => {
             }}
         >
             <div
-                className="relative w-full max-w-3xl border border-black p-8 md:p-12 shadow-2xl"
+                className="relative w-full max-w-3xl border border-black p-8 md:p-12 shadow-2xl mx-4 max-h-[85vh] overflow-y-auto"
                 style={{
                     color: THEME.colors.text,
                     backgroundColor: '#E6EBE8',
