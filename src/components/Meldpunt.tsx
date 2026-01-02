@@ -17,7 +17,6 @@ export const Meldpunt: React.FC<MeldpuntProps> = ({ onClose }) => {
     }, [onClose]);
 
     // Unified styles resembling the Dashboard - consistent across desktop and mobile
-    // Mobile prop can be used for minor tweaks if needed, but the structure is now "windowed"
     const containerClasses = "fixed inset-0 z-[200] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 overflow-y-auto";
 
     const contentClasses = "relative w-full max-w-3xl border border-black p-6 md:p-12 shadow-2xl mx-4 max-h-[85vh] overflow-y-auto";

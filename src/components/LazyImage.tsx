@@ -1,4 +1,5 @@
 import React, { useState, useRef } from 'react';
+import Image from 'next/image';
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 import { LoadingSpinner } from './LoadingSpinner';
 
@@ -65,16 +66,15 @@ export const LazyImage: React.FC<LazyImageProps> = ({
               <span>Afbeelding kon niet worden geladen</span>
             </div>
           ) : (
-            <img
+            <Image
               ref={imgRef}
               src={src}
               alt={alt}
-              className={`w-full h-full object-cover ${isLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300`}
+              className={`object-cover ${isLoaded ? 'opacity-100' : 'opacity-0'} transition-opacity duration-300`}
               onLoad={handleLoad}
               onError={handleError}
-              loading="lazy"
-              decoding="async"
-              fetchPriority="low"
+              fill
+              sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
             />
           )}
         </>

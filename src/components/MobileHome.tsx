@@ -27,7 +27,7 @@ export const MobileHome: React.FC = () => {
         label: string;
         children?: React.ReactNode
     }) => (
-        <div className={`flex flex-col min-h-screen w-full ${color} font-mono overflow-hidden relative`}>
+        <div className={`flex flex-col min-h-[100dvh] w-full ${color} font-mono overflow-hidden relative`}>
             {/* Back Button */}
             <button
                 onClick={handleBack}
@@ -56,7 +56,7 @@ export const MobileHome: React.FC = () => {
     // Render Contact View
     if (view === 'CONTACT') {
         return (
-            <div className={`flex flex-col min-h-screen w-full bg-[#F0E6D2] font-mono overflow-hidden relative`}>
+            <div className={`flex flex-col min-h-[100dvh] w-full bg-[#F0E6D2] font-mono overflow-hidden relative`}>
                 <ContactForm mode="fullscreen" onClose={handleBack} className="bg-[#F0E6D2]" />
             </div>
         );
@@ -102,7 +102,7 @@ export const MobileHome: React.FC = () => {
 
     // Render Home View
     return (
-        <div className="flex flex-col min-h-screen w-full bg-[#F0F0F0] font-mono overflow-hidden md:hidden">
+        <div className={`flex flex-col min-h-[100dvh] w-full bg-[#F0F0F0] font-mono overflow-hidden md:hidden`}>
             {/* Header Section - No border-b here */}
             <div className="pt-12 px-6 pb-2">
                 <h1 className="text-4xl font-medium tracking-tight text-[#111111] mb-1">
@@ -176,13 +176,13 @@ export const MobileHome: React.FC = () => {
                     <div className="flex flex-col gap-1 mt-6">
                         <button
                             onClick={() => handleTileClick('MELDPUNT')}
-                            className="font-mono font-bold antialiased uppercase tracking-widest text-[#D6827A] hover:opacity-75 text-[12px] text-left"
+                            className="font-mono font-bold antialiased uppercase tracking-widest text-[#D6827A] hover:opacity-75 text-[12px] text-left py-2"
                         >
                             / MK Meldpunt
                         </button>
                         <button
                             onClick={() => handleTileClick('DASHBOARD')}
-                            className="font-mono font-bold antialiased uppercase tracking-widest text-[#D6827A] hover:opacity-75 text-[12px] text-left"
+                            className="font-mono font-bold antialiased uppercase tracking-widest text-[#D6827A] hover:opacity-75 text-[12px] text-left py-2"
                         >
                             / MK Dashboard
                         </button>

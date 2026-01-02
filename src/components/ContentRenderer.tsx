@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Image from 'next/image';
 import { TileData, ContentType, isPDFContent, isSlidesContent, isImageContent, isVideoContent, isQuoteContent, isTextContent } from '../types';
 import { PlayCircle } from 'lucide-react';
 import { ContactForm } from './ContactForm';
@@ -197,13 +198,13 @@ export const ContentRenderer = React.memo<Props>(
                     <span>Afbeelding kon niet worden geladen</span>
                   </div>
                 ) : (
-                  <img
+                  <Image
                     src={imageSrc}
                     alt={('alt' in content ? content.alt : undefined) || content.caption || `Afbeelding voor ${data.title}`}
                     className={`max-w-full max-h-full ${mediaStyles} ${isLoading ? 'opacity-0' : 'animate-beam-in'}`}
-                    loading={isPreview ? 'lazy' : 'eager'}
-                    decoding="async"
-                    fetchPriority={isPreview ? 'low' : 'high'}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    priority={!isPreview}
                     onLoad={() => setIsLoading(false)}
                     onError={() => {
                       setIsLoading(false);

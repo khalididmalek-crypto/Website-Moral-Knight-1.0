@@ -1,4 +1,5 @@
 import React, { useState, useEffect, Suspense, lazy, useCallback, useMemo } from 'react';
+import Image from 'next/image';
 import { useSwipeable } from 'react-swipeable';
 import { TileData, TextContent, ContentType } from '../types';
 import { X } from 'lucide-react';
@@ -562,11 +563,15 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
           className="fixed inset-0 z-[300] bg-black/90 flex items-center justify-center p-4 cursor-pointer animate-fade-in"
           onClick={() => setShowSecret(false)}
         >
-          <img
-            src="/images/geordi.png"
-            alt="Secret"
-            className="max-w-full max-h-full object-contain"
-          />
+          <div className="relative w-full h-full max-w-4xl max-h-[80vh]">
+            <Image
+              src="/images/geordi.png"
+              alt="Secret"
+              className="object-contain"
+              fill
+              sizes="100vw"
+            />
+          </div>
         </div>
       )}
 
