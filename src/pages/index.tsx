@@ -2,6 +2,7 @@ import Head from 'next/head'
 import dynamic from 'next/dynamic'
 import { GetStaticProps } from 'next'
 import { BlogPost } from '../types'
+import { MobileHome } from '../components/MobileHome'
 
 // Dynamically import App to avoid SSR issues with window/document usage in the existing React app
 const App = dynamic(() => import('../App'), { ssr: false })
@@ -28,7 +29,16 @@ export default function Home({ posts }: HomeProps) {
             <Head>
                 <title>Moral Knight - Mensgerichte AI in het publieke domein</title>
             </Head>
-            <App posts={posts} />
+
+            {/* Mobile View */}
+            <div className="relative z-10 block md:hidden">
+                <MobileHome />
+            </div>
+
+            {/* Desktop View */}
+            <div className="hidden md:block">
+                <App posts={posts} />
+            </div>
         </>
     )
 }

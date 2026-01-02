@@ -5,9 +5,10 @@ import { ReportForm } from './ReportForm';
 
 interface MeldpuntProps {
     onClose: () => void;
+    mobile?: boolean;
 }
 
-export const Meldpunt: React.FC<MeldpuntProps> = ({ onClose }) => {
+export const Meldpunt: React.FC<MeldpuntProps> = ({ onClose, mobile = false }) => {
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
             if (e.key === 'Escape') onClose();
@@ -16,20 +17,27 @@ export const Meldpunt: React.FC<MeldpuntProps> = ({ onClose }) => {
         return () => window.removeEventListener('keydown', handleKeyDown);
     }, [onClose]);
 
+    // Unified styles resembling the Dashboard - consistent across desktop and mobile
+    // Mobile prop can be used for minor tweaks if needed, but the structure is now "windowed"
+    const containerClasses = "fixed inset-0 z-[200] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 overflow-y-auto";
+
+    const contentClasses = "relative w-full max-w-3xl border border-black p-6 md:p-12 shadow-2xl my-8";
+
     return (
         <div
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 overflow-y-auto"
+            className={containerClasses}
             onClick={(e) => {
                 if (e.target === e.currentTarget) onClose();
             }}
         >
             <div
-                className="relative w-full max-w-3xl border border-black p-8 md:p-12 shadow-2xl my-8"
+                className={contentClasses}
                 style={{
                     color: THEME.colors.text,
                     backgroundColor: '#E6EBE8',
                     boxShadow: '0 0 50px rgba(0,0,0,0.5), inset 0 0 120px rgba(0,0,0,0.15)',
                     backgroundImage: 'linear-gradient(135deg, #DDE6E2 0%, #E4E4E1 60%, #E4D4D4 100%)',
+                    border: '1px solid black',
                 }}
                 role="dialog"
                 aria-modal="true"
@@ -50,7 +58,7 @@ export const Meldpunt: React.FC<MeldpuntProps> = ({ onClose }) => {
                     />
                 </button>
 
-                <header className="mb-8 border-b border-black pb-4 relative z-10">
+                <header className="mb-8 border-b border-black pb-4 relative z-10 pt-8 md:pt-0">
                     <h2 className="text-2xl md:text-3xl flex flex-wrap gap-3 items-baseline">
                         <span className="font-mono font-medium tracking-tight" style={{ color: THEME.colors.text }}>Moral Knight</span>
                         <span className="font-mono font-medium tracking-tight" style={{ color: COLORS.PRIMARY_GREEN }}>Meldpunt</span>
@@ -60,7 +68,7 @@ export const Meldpunt: React.FC<MeldpuntProps> = ({ onClose }) => {
                     </p>
                 </header>
 
-                <div className="relative z-10">
+                <div className="relative z-10 pb-12">
                     <ReportForm onClose={onClose} mode="fullscreen" />
                 </div>
             </div>
