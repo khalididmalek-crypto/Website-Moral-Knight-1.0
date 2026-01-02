@@ -1,9 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 
-// interface DashboardProps {
-//     _data?: any; // Underscore prefix voor ongebruikte prop (build-safe)
-// }
+
 
 export default function Dashboard() {
     return (
@@ -25,7 +23,7 @@ export default function Dashboard() {
             </header>
 
             {/* Main Content Area */}
-            <main className="flex-grow w-full max-w-7xl mx-auto p-4 md:p-8">
+            <main className="flex-grow w-full max-w-7xl mx-auto px-4 pt-12 md:p-8 md:pt-16">
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-6">
 
                     {/* Dashboard Kaart 1: Status */}
