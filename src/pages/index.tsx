@@ -30,8 +30,8 @@ export default function Home({ posts }: HomeProps) {
                 <title>Moral Knight - Mensgerichte AI in het publieke domein</title>
             </Head>
 
-            {/* Mobile View */}
-            <div className="relative z-10 block md:hidden min-h-[100dvh] overscroll-behavior-y-none">
+            {/* Mobile View - Stabiel en zonder verspringen */}
+            <div className="relative z-10 block md:hidden min-h-[100dvh] overscroll-behavior-y-none bg-[#f8fafc]">
                 <MobileHome />
             </div>
 
