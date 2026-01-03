@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { ContactForm } from './ContactForm';
 import { Dashboard } from './Dashboard';
-import { PROBLEM_TILES, SOLUTION_TILES } from '../constants';
-import { TextContent } from '../types';
 
 type MobileView = 'HOME' | 'DASHBOARD';
 
@@ -50,16 +48,10 @@ export const MobileHome: React.FC = () => {
                         <div className="font-mono text-[13.2px] font-semibold uppercase tracking-widest text-gray-900">Wat is het probleem?</div>
                     </div>
                     <div className={`overflow-hidden transition-all duration-500 ease-in-out ${activeTile === 'PROBLEM' ? 'max-h-[1000px] opacity-100 mt-6' : 'max-h-0 opacity-0'}`}>
-                        <div className="flex flex-col gap-6 py-4">
-                            {PROBLEM_TILES.map((tile) => (
-                                <div key={tile.id} className="flex flex-col gap-2">
-                                    <h3 className="font-bold text-sm uppercase tracking-wider text-[#8B1A3D]">{tile.title}</h3>
-                                    <div
-                                        className="text-[13px] leading-relaxed text-gray-700 font-mono"
-                                        dangerouslySetInnerHTML={{ __html: (tile.content as TextContent).text }}
-                                    />
-                                </div>
-                            ))}
+                        <div className="flex flex-col items-center py-4">
+                            <p className="text-[13px] font-mono leading-relaxed text-gray-700 break-all">
+                                s;bogjh;otejhb;oerqthgb;oirthb;oqrtehboihrgbo'ihrte
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -76,16 +68,10 @@ export const MobileHome: React.FC = () => {
                         <div className="font-mono text-[13.2px] font-semibold uppercase tracking-widest text-gray-900">Wat is de oplossing?</div>
                     </div>
                     <div className={`overflow-hidden transition-all duration-500 ease-in-out ${activeTile === 'SOLUTION' ? 'max-h-[1200px] opacity-100 mt-6' : 'max-h-0 opacity-0'}`}>
-                        <div className="flex flex-col gap-6 py-4">
-                            {SOLUTION_TILES.map((tile) => (
-                                <div key={tile.id} className="flex flex-col gap-2">
-                                    <h3 className="font-bold text-sm uppercase tracking-wider text-[#194D25]">{tile.title}</h3>
-                                    <div
-                                        className="text-[13px] leading-relaxed text-gray-700 font-mono"
-                                        dangerouslySetInnerHTML={{ __html: (tile.content as TextContent).text }}
-                                    />
-                                </div>
-                            ))}
+                        <div className="flex flex-col items-center py-4">
+                            <p className="text-[13px] font-mono leading-relaxed text-gray-700 break-all">
+                                s;bogjh;otejhb;oerqthgb;oirthb;oqrtehboihrgbo'ihrte
+                            </p>
                         </div>
                     </div>
                 </div>
