@@ -41,13 +41,13 @@ export const Dashboard: React.FC<DashboardProps> = ({ onClose }) => {
 
     return (
         <div
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 overflow-y-auto"
             onClick={(e) => {
                 if (e.target === e.currentTarget) onClose();
             }}
         >
             <div
-                className="relative w-full max-w-3xl border border-black p-8 md:p-12 shadow-2xl mx-4 max-h-[85vh] overflow-y-auto"
+                className="relative w-full max-w-3xl border border-black p-6 md:p-12 shadow-2xl mx-4 my-auto max-h-[90vh] md:max-h-[85vh] overflow-y-auto"
                 style={{
                     color: THEME.colors.text,
                     backgroundColor: '#E6EBE8',
@@ -76,15 +76,15 @@ export const Dashboard: React.FC<DashboardProps> = ({ onClose }) => {
                     />
                 </button>
 
-                <header className="mb-12 border-b border-black pb-4 relative z-10">
+                <header className="mb-8 md:mb-12 border-b border-black pb-4 relative z-10 pt-4 md:pt-0">
                     <h2 className="text-2xl md:text-3xl flex flex-wrap gap-3 items-baseline">
                         <span className="font-mono font-medium tracking-tight" style={{ color: THEME.colors.text }}>Moral Knight</span>
                         <span className="font-mono font-medium tracking-tight" style={{ color: COLORS.PRIMARY_GREEN }}>Dashboard</span>
                     </h2>
                 </header>
 
-                <div className="mb-20">
-                    <div className="font-mono text-sm md:text-base text-gray-800 leading-normal max-w-2xl">
+                <div className="mb-10 md:mb-20">
+                    <div className="font-mono text-sm md:text-base text-gray-800 leading-normal max-w-2xl px-1">
                         Wij hebben <span
                             className="font-mono text-2xl md:text-3xl font-light mx-1"
                             style={{ color: COLORS.PRIMARY_GREEN }}
@@ -94,24 +94,24 @@ export const Dashboard: React.FC<DashboardProps> = ({ onClose }) => {
                     </div>
                 </div>
 
-                <div className="flex justify-between items-end h-64 gap-8 md:gap-16">
+                <div className="flex justify-between items-end h-48 md:h-64 gap-4 md:gap-16">
                     {/* Goed Antwoord */}
                     <div className="flex flex-col items-center w-1/3 h-full justify-end group relative">
                         <div
-                            className="font-mono text-sm mb-2 transition-opacity duration-300 opacity-0 group-hover:opacity-100"
+                            className="font-mono text-[10px] md:text-sm mb-2 transition-opacity duration-300 opacity-0 group-hover:opacity-100"
                             style={{ color: COLORS.PRIMARY_GREEN }}
                         >
                             {stats.correct}%
                         </div>
                         <div
-                            className="w-full bg-[#194D25]"
+                            className="w-full"
                             style={{
                                 ...smoothTransition,
                                 height: animate ? `${stats.correct}%` : '0%',
                                 backgroundColor: '#4F7359'
                             }}
                         />
-                        <span className="font-mono text-xs md:text-sm mt-4 uppercase tracking-widest text-center h-10 flex items-start justify-center">
+                        <span className="font-mono text-[10px] md:text-sm mt-4 uppercase tracking-widest text-center h-10 flex items-start justify-center">
                             Goed<br />Antwoord
                         </span>
                     </div>
@@ -119,7 +119,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onClose }) => {
                     {/* Fout Antwoord */}
                     <div className="flex flex-col items-center w-1/3 h-full justify-end group relative">
                         <div
-                            className="font-mono text-sm mb-2 transition-opacity duration-300 opacity-0 group-hover:opacity-100"
+                            className="font-mono text-[10px] md:text-sm mb-2 transition-opacity duration-300 opacity-0 group-hover:opacity-100"
                             style={{ color: COLORS.BORDEAUX_RED }}
                         >
                             {stats.wrong}%
@@ -132,7 +132,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onClose }) => {
                                 backgroundColor: '#8C5E67'
                             }}
                         />
-                        <span className="font-mono text-xs md:text-sm mt-4 uppercase tracking-widest text-center h-10 flex items-start justify-center">
+                        <span className="font-mono text-[10px] md:text-sm mt-4 uppercase tracking-widest text-center h-10 flex items-start justify-center">
                             Fout<br />Antwoord
                         </span>
                     </div>
@@ -140,7 +140,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ onClose }) => {
                     {/* Vaag Antwoord */}
                     <div className="flex flex-col items-center w-1/3 h-full justify-end group relative">
                         <div
-                            className="font-mono text-sm mb-2 transition-opacity duration-300 opacity-0 group-hover:opacity-100 text-gray-500"
+                            className="font-mono text-[10px] md:text-sm mb-2 transition-opacity duration-300 opacity-0 group-hover:opacity-100 text-gray-500"
                         >
                             {stats.vague}%
                         </div>
@@ -151,14 +151,14 @@ export const Dashboard: React.FC<DashboardProps> = ({ onClose }) => {
                                 height: animate ? `${stats.vague}%` : '0%',
                             }}
                         />
-                        <span className="font-mono text-xs md:text-sm mt-4 uppercase tracking-widest text-center h-10 flex items-start justify-center">
+                        <span className="font-mono text-[10px] md:text-sm mt-4 uppercase tracking-widest text-center h-10 flex items-start justify-center">
                             Vaag<br />Antwoord
                         </span>
                     </div>
                 </div>
 
                 <div
-                    className="mt-20 text-left font-mono text-xs md:text-sm z-20"
+                    className="mt-12 md:mt-20 text-left font-mono text-[10px] md:text-sm z-20"
                     style={{ color: '#2F4F38' }}
                 >
                     (meer data - coming soon)
