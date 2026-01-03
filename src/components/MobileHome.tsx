@@ -49,8 +49,8 @@ export const MobileHome: React.FC = () => {
                     </div>
                     <div className={`overflow-hidden transition-all duration-500 ease-in-out ${activeTile === 'PROBLEM' ? 'max-h-[1000px] opacity-100 mt-6' : 'max-h-0 opacity-0'}`}>
                         <div className="flex flex-col items-center py-4">
-                            <p className="text-[13px] font-mono leading-relaxed text-gray-700 break-all">
-                                s;bogjh;otejhb;oerqthgb;oirthb;oqrtehboihrgbo&apos;ihrte
+                            <p className="text-[14px] font-mono leading-relaxed text-gray-700">
+                                AI-systemen nemen steeds vaker besluiten met grote maatschappelijke impact, maar dit brengt serieuze risico’s met zich mee. We verliezen de grip op onze eigen keuzes door een groeiende afhankelijkheid van ondoorzichtige externe leveranciers. Daarnaast zijn systemen nooit neutraal; ze nemen menselijke vooroordelen uit data over, wat leidt tot verborgen partijdigheid en onbedoelde discriminatie. Dit vergroot de afstand tot de burger en sluit digitaal minder vaardige groepen uit, waardoor ongelijkheid toeneemt. Wanneer deze processen onduidelijk blijven, verdwijnt het maatschappelijk wantrouwen. Zonder transparantie en menselijke maat blokkeert dit wantrouwen de weg naar waardevolle innovatie.
                             </p>
                         </div>
                     </div>
@@ -69,8 +69,8 @@ export const MobileHome: React.FC = () => {
                     </div>
                     <div className={`overflow-hidden transition-all duration-500 ease-in-out ${activeTile === 'SOLUTION' ? 'max-h-[1200px] opacity-100 mt-6' : 'max-h-0 opacity-0'}`}>
                         <div className="flex flex-col items-center py-4">
-                            <p className="text-[13px] font-mono leading-relaxed text-gray-700 break-all">
-                                s;bogjh;otejhb;oerqthgb;oirthb;oqrtehboihrgbo&apos;ihrte
+                            <p className="text-[14px] font-mono leading-relaxed text-gray-700">
+                                De oplossing begint bij een realistische blik op AI: we moeten de beperkingen erkennen en de menselijke maat terugbrengen. Wij maken publieke waarden zoals rechtvaardigheid en inclusie leidend in elk ontwerp, zodat techniek waardevol blijft voor de samenleving. Door besluitvaardig kaders te stellen, bepalen we precies waar de techniek stopt en menselijke verantwoordelijkheid begint via een ‘human-in-the-loop’. Ten slotte nemen we de volledige verantwoordelijkheid over de gehele keten. Door systemen continu te monitoren op bias en te toetsen aan internationale standaarden (ISO 42001), bouwen we aan een eerlijk, transparant en duurzaam digitaal fundament.
                             </p>
                         </div>
                     </div>
