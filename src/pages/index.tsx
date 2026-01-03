@@ -1,11 +1,8 @@
 import Head from 'next/head'
-import dynamic from 'next/dynamic'
 import { GetStaticProps } from 'next'
 import { BlogPost } from '../types'
 import { MobileHome } from '../components/MobileHome'
-
-// Dynamically import App to avoid SSR issues with window/document usage in the existing React app
-const App = dynamic(() => import('../App'), { ssr: false })
+import App from '../App'
 
 interface HomeProps {
     posts: BlogPost[];
