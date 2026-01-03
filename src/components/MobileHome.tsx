@@ -56,8 +56,8 @@ export const MobileHome: React.FC = () => {
                 <div
                     onClick={() => handleTileClick('PROBLEM')}
                     className={`animate-fade-in-slow w-full border border-black p-4 relative cursor-pointer transition-all duration-300 ease-in-out ${activeTile === 'PROBLEM'
-                            ? 'bg-white rounded-3xl border-slate-100 shadow-md min-h-[200px]'
-                            : 'bg-[#F2E8E4] rounded-sm flex-1'
+                        ? 'bg-white rounded-3xl border-slate-100 shadow-md min-h-[200px]'
+                        : 'bg-[#F2E8E4] rounded-sm flex-1'
                         }`}
                     style={{ animationDelay: '0ms' }}
                 >
@@ -79,8 +79,8 @@ export const MobileHome: React.FC = () => {
                 <div
                     onClick={() => handleTileClick('SOLUTION')}
                     className={`animate-fade-in-slow w-full border border-black p-4 relative cursor-pointer transition-all duration-300 ease-in-out ${activeTile === 'SOLUTION'
-                            ? 'bg-white rounded-3xl border-slate-100 shadow-md min-h-[200px]'
-                            : 'bg-[#C1C9B9] rounded-sm flex-1'
+                        ? 'bg-white rounded-3xl border-slate-100 shadow-md min-h-[200px]'
+                        : 'bg-[#C1C9B9] rounded-sm flex-1'
                         }`}
                     style={{ animationDelay: '150ms' }}
                 >
@@ -102,8 +102,8 @@ export const MobileHome: React.FC = () => {
                 <div
                     onClick={() => handleTileClick('CONTACT')}
                     className={`animate-fade-in-slow w-full border border-black p-4 relative cursor-pointer transition-all duration-300 ease-in-out ${activeTile === 'CONTACT'
-                            ? 'bg-white rounded-3xl border-slate-100 shadow-md min-h-[200px]'
-                            : 'bg-[#F0E6D2] rounded-sm flex-1'
+                        ? 'bg-white rounded-3xl border-slate-100 shadow-md min-h-[200px]'
+                        : 'bg-[#F0E6D2] rounded-sm flex-1'
                         }`}
                     style={{ animationDelay: '300ms' }}
                 >
@@ -116,7 +116,7 @@ export const MobileHome: React.FC = () => {
                     <div className={`overflow-hidden transition-all duration-500 ease-in-out ${activeTile === 'CONTACT' ? 'max-h-[1000px] opacity-100 mt-6' : 'max-h-0 opacity-0'
                         }`}>
                         <div className="w-full">
-                            <ContactForm mode="preview" className="bg-white" />
+                            <ContactForm mode="fullscreen" className="bg-white" />
                         </div>
                     </div>
                 </div>
