@@ -673,8 +673,7 @@ export const ContactForm: React.FC<Props> = ({ className = '', mode = 'preview',
                   style={{ pointerEvents: 'auto', position: 'relative' }}
                 >
                   privacyverklaring
-                </button>{' '}
-                en begrijp dat meldingen geanonimiseerd gerapporteerd kunnen worden aan instanties. <span style={{ color: FORM_COLORS.ERROR }} aria-label="verplicht veld">*</span>
+                </button> . <span style={{ color: FORM_COLORS.ERROR }} aria-label="verplicht veld">*</span>
               </span>
             </label>
           </div>
