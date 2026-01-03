@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { ContactForm } from './ContactForm';
 import { Dashboard } from './Dashboard';
-import { Meldpunt } from './Meldpunt';
+import { PROBLEM_TILES, SOLUTION_TILES } from '../constants';
+import { TextContent } from '../types';
 
-type MobileView = 'HOME' | 'DASHBOARD' | 'MELDPUNT';
+type MobileView = 'HOME' | 'DASHBOARD';
 
 export const MobileHome: React.FC = () => {
     const [view, setView] = useState<MobileView>('HOME');
@@ -19,7 +20,6 @@ export const MobileHome: React.FC = () => {
     };
 
     if (view === 'DASHBOARD') return <Dashboard onClose={handleBack} />;
-    if (view === 'MELDPUNT') return <Meldpunt onClose={handleBack} />;
 
     return (
         <div className="flex flex-col min-h-[100dvh] w-full bg-[#f8fafc] font-mono overflow-y-auto md:hidden">
@@ -42,15 +42,25 @@ export const MobileHome: React.FC = () => {
                 <div
                     onClick={() => handleTileClick('PROBLEM')}
                     className={`animate-fade-in-slow w-full border border-black p-4 relative cursor-pointer transition-all duration-300 ease-in-out ${activeTile === 'PROBLEM'
-                            ? 'bg-white rounded-3xl border-slate-100 shadow-md min-h-[200px]'
-                            : 'bg-[#F2E8E4] rounded-sm flex-1'
+                        ? 'bg-white rounded-3xl border-slate-100 shadow-md min-h-[200px]'
+                        : 'bg-[#F2E8E4] rounded-sm flex-1'
                         }`}
                 >
                     <div className="px-3 py-1.5 bg-white border border-black w-fit">
                         <div className="font-mono text-[13.2px] font-semibold uppercase tracking-widest text-gray-900">Wat is het probleem?</div>
                     </div>
-                    <div className={`overflow-hidden transition-all duration-500 ease-in-out ${activeTile === 'PROBLEM' ? 'max-h-[500px] opacity-100 mt-6' : 'max-h-0 opacity-0'}`}>
-                        <div className="text-[13px] font-medium leading-relaxed uppercase tracking-widest py-4">Inhoud volgt...</div>
+                    <div className={`overflow-hidden transition-all duration-500 ease-in-out ${activeTile === 'PROBLEM' ? 'max-h-[1000px] opacity-100 mt-6' : 'max-h-0 opacity-0'}`}>
+                        <div className="flex flex-col gap-6 py-4">
+                            {PROBLEM_TILES.map((tile) => (
+                                <div key={tile.id} className="flex flex-col gap-2">
+                                    <h3 className="font-bold text-sm uppercase tracking-wider text-[#8B1A3D]">{tile.title}</h3>
+                                    <div
+                                        className="text-[13px] leading-relaxed text-gray-700 font-mono"
+                                        dangerouslySetInnerHTML={{ __html: (tile.content as TextContent).text }}
+                                    />
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
 
@@ -58,15 +68,25 @@ export const MobileHome: React.FC = () => {
                 <div
                     onClick={() => handleTileClick('SOLUTION')}
                     className={`animate-fade-in-slow w-full border border-black p-4 relative cursor-pointer transition-all duration-300 ease-in-out ${activeTile === 'SOLUTION'
-                            ? 'bg-white rounded-3xl border-slate-100 shadow-md min-h-[200px]'
-                            : 'bg-[#C1C9B9] rounded-sm flex-1'
+                        ? 'bg-white rounded-3xl border-slate-100 shadow-md min-h-[200px]'
+                        : 'bg-[#C1C9B9] rounded-sm flex-1'
                         }`}
                 >
                     <div className="px-3 py-1.5 bg-white border border-black w-fit">
                         <div className="font-mono text-[13.2px] font-semibold uppercase tracking-widest text-gray-900">Wat is de oplossing?</div>
                     </div>
-                    <div className={`overflow-hidden transition-all duration-500 ease-in-out ${activeTile === 'SOLUTION' ? 'max-h-[500px] opacity-100 mt-6' : 'max-h-0 opacity-0'}`}>
-                        <div className="text-[13px] font-medium leading-relaxed uppercase tracking-widest py-4">Inhoud volgt...</div>
+                    <div className={`overflow-hidden transition-all duration-500 ease-in-out ${activeTile === 'SOLUTION' ? 'max-h-[1200px] opacity-100 mt-6' : 'max-h-0 opacity-0'}`}>
+                        <div className="flex flex-col gap-6 py-4">
+                            {SOLUTION_TILES.map((tile) => (
+                                <div key={tile.id} className="flex flex-col gap-2">
+                                    <h3 className="font-bold text-sm uppercase tracking-wider text-[#194D25]">{tile.title}</h3>
+                                    <div
+                                        className="text-[13px] leading-relaxed text-gray-700 font-mono"
+                                        dangerouslySetInnerHTML={{ __html: (tile.content as TextContent).text }}
+                                    />
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
 
@@ -74,15 +94,18 @@ export const MobileHome: React.FC = () => {
                 <div
                     onClick={() => handleTileClick('CONTACT')}
                     className={`animate-fade-in-slow w-full border border-black p-4 relative cursor-pointer transition-all duration-300 ease-in-out ${activeTile === 'CONTACT'
-                            ? 'bg-white rounded-3xl border-slate-100 shadow-md min-h-[200px]'
-                            : 'bg-[#F0E6D2] rounded-sm flex-1'
+                        ? 'bg-white rounded-3xl border-slate-100 shadow-md min-h-[200px]'
+                        : 'bg-[#F0E6D2] rounded-sm flex-1'
                         }`}
                 >
                     <div className="px-3 py-1.5 bg-white border border-black w-fit">
                         <div className="font-mono text-[13.2px] font-semibold uppercase tracking-widest text-gray-900">Contact</div>
                     </div>
-                    <div className={`overflow-hidden transition-all duration-500 ease-in-out ${activeTile === 'CONTACT' ? 'max-h-[800px] opacity-100 mt-6' : 'max-h-0 opacity-0'}`}>
-                        <ContactForm mode="preview" />
+                    <div
+                        onClick={(e) => e.stopPropagation()}
+                        className={`overflow-hidden transition-all duration-500 ease-in-out ${activeTile === 'CONTACT' ? 'max-h-[2000px] opacity-100 mt-6' : 'max-h-0 opacity-0'}`}
+                    >
+                        <ContactForm mode="fullscreen" className="!p-0" />
                     </div>
                 </div>
 
@@ -92,7 +115,6 @@ export const MobileHome: React.FC = () => {
                         / Moral Knight 2025 — saving the human species from annihilation
                     </div>
                     <div className="flex gap-4 mt-6">
-                        <button onClick={() => setView('MELDPUNT')} className="text-[11px] font-bold uppercase tracking-widest text-slate-500">/ Meldpunt</button>
                         <button onClick={() => setView('DASHBOARD')} className="text-[11px] font-bold uppercase tracking-widest text-slate-500">/ Dashboard</button>
                     </div>
                 </div>
