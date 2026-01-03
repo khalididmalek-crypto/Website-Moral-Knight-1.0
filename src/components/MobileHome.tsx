@@ -81,8 +81,8 @@ export const MobileHome: React.FC = () => {
                     <div className="px-3 py-1.5 bg-white border border-black w-fit">
                         <div className="font-mono text-[13.2px] font-semibold uppercase tracking-widest text-gray-900">Contact</div>
                     </div>
-                    <div className={`overflow-hidden transition-all duration-500 ease-in-out ${activeTile === 'CONTACT' ? 'max-h-[1000px] opacity-100 mt-6' : 'max-h-0 opacity-0'}`}>
-                        <ContactForm mode="fullscreen" className="bg-white" />
+                    <div className={`overflow-hidden transition-all duration-500 ease-in-out ${activeTile === 'CONTACT' ? 'max-h-[800px] opacity-100 mt-6' : 'max-h-0 opacity-0'}`}>
+                        <ContactForm mode="preview" className="bg-white" />
                     </div>
                 </div>
 
