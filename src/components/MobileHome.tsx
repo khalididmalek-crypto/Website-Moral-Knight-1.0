@@ -70,7 +70,7 @@ export const MobileHome: React.FC = () => {
                     <div className={`overflow-hidden transition-all duration-500 ease-in-out ${activeTile === 'PROBLEM' ? 'max-h-[1000px] opacity-100 mt-6' : 'max-h-0 opacity-0'
                         }`}>
                         <div className="text-[13px] font-medium leading-relaxed uppercase tracking-widest py-4">
-                            <p>Afhankelijkheid: AI-systemen spelen steeds vaker een rol bij besluiten met grote maatschappelijke impact. Hierdoor ontstaat een riskante afhankelijkheid: organisaties verliezen de grip op hun eigen keuzes, terwijl burgers afhankelijk worden van techniek die zij niet kunnen be&apos;nvloeden. Partijdigheid: AI-systemen zijn niet neutraal want ze leren van data uit het verleden.</p>
+                            Inhoud volgt...
                         </div>
                     </div>
                 </div>
@@ -93,7 +93,7 @@ export const MobileHome: React.FC = () => {
                     <div className={`overflow-hidden transition-all duration-500 ease-in-out ${activeTile === 'SOLUTION' ? 'max-h-[1000px] opacity-100 mt-6' : 'max-h-0 opacity-0'
                         }`}>
                         <div className="text-[13px] font-medium leading-relaxed uppercase tracking-widest py-4">
-                            <p>REALISTISCH: Echte innovatie begint bij een nuchtere blik op wat AI kan en waar de valkuilen liggen. Door vooraf kritisch te toetsen op technische beperkingen en maatschappelijke risico&apos;s, worden kostbare misstappen voorkomen. WAARDEVOL: AI is nooit neutraal. Waardevolle AI maakt van publieke waarden een halszaak.</p>
+                            Inhoud volgt...
                         </div>
                     </div>
                 </div>
