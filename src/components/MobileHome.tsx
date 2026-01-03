@@ -50,7 +50,7 @@ export const MobileHome: React.FC = () => {
                     <div className={`overflow-hidden transition-all duration-500 ease-in-out ${activeTile === 'PROBLEM' ? 'max-h-[1000px] opacity-100 mt-6' : 'max-h-0 opacity-0'}`}>
                         <div className="flex flex-col items-center py-4">
                             <p className="text-[13px] font-mono leading-relaxed text-gray-700 break-all">
-                                s;bogjh;otejhb;oerqthgb;oirthb;oqrtehboihrgbo'ihrte
+                                s;bogjh;otejhb;oerqthgb;oirthb;oqrtehboihrgbo&apos;ihrte
                             </p>
                         </div>
                     </div>
@@ -70,7 +70,7 @@ export const MobileHome: React.FC = () => {
                     <div className={`overflow-hidden transition-all duration-500 ease-in-out ${activeTile === 'SOLUTION' ? 'max-h-[1200px] opacity-100 mt-6' : 'max-h-0 opacity-0'}`}>
                         <div className="flex flex-col items-center py-4">
                             <p className="text-[13px] font-mono leading-relaxed text-gray-700 break-all">
-                                s;bogjh;otejhb;oerqthgb;oirthb;oqrtehboihrgbo'ihrte
+                                s;bogjh;otejhb;oerqthgb;oirthb;oqrtehboihrgbo&apos;ihrte
                             </p>
                         </div>
                     </div>
