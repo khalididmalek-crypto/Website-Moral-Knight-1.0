@@ -22,29 +22,20 @@ export const MobileHome: React.FC = () => {
         setActiveTile(null);
     };
 
-
-    // Render Contact View
+    // Render Contact View (Legacy)
     if (view === 'CONTACT') {
         return (
-            <div className={`flex flex-col min-h-[100dvh] w-full bg-[#F0E6D2] font-mono overflow-hidden relative`}>
+            <div className="flex flex-col min-h-[100dvh] w-full bg-[#F0E6D2] font-mono overflow-hidden relative">
                 <ContactForm mode="fullscreen" onClose={handleBack} className="bg-[#F0E6D2]" />
             </div>
         );
     }
 
-    // Render Dashboard View
-    if (view === 'DASHBOARD') {
-        return <Dashboard onClose={handleBack} />;
-    }
+    if (view === 'DASHBOARD') return <Dashboard onClose={handleBack} />;
+    if (view === 'MELDPUNT') return <Meldpunt onClose={handleBack} />;
 
-    // Render Meldpunt View
-    if (view === 'MELDPUNT') {
-        return <Meldpunt onClose={handleBack} />;
-    }
-
-    // Home View with Accordion
     return (
-        <div className={`flex flex-col min-h-[100dvh] w-full bg-[#f8fafc] font-mono overflow-hidden md:hidden`}>
+        <div className="flex flex-col min-h-[100dvh] w-full bg-[#f8fafc] font-mono overflow-hidden md:hidden">
             {/* Header Section */}
             <div className="pt-12 px-6 pb-2">
                 <h1 className="text-4xl font-medium tracking-tight text-[#111111] mb-1">
@@ -55,7 +46,6 @@ export const MobileHome: React.FC = () => {
                 </div>
             </div>
 
-            {/* Separator Line Container */}
             <div className="w-full px-4">
                 <div className="w-full h-[1px] bg-black"></div>
             </div>
@@ -65,9 +55,9 @@ export const MobileHome: React.FC = () => {
                 {/* Tile 1: PROBLEEM */}
                 <div
                     onClick={() => handleTileClick('PROBLEM')}
-                    className={`animate-fade-in-slow w-full border border-black rounded-sm p-4 relative cursor-pointer transition-all duration-300 ease-in-out ${activeTile === 'PROBLEM'
-                        ? 'bg-white rounded-3xl border-slate-100 min-h-[200px]'
-                        : 'bg-[#F2E8E4] flex-1'
+                    className={`animate-fade-in-slow w-full border border-black p-4 relative cursor-pointer transition-all duration-300 ease-in-out ${activeTile === 'PROBLEM'
+                        ? 'bg-white rounded-3xl border-slate-100 shadow-md min-h-[200px]'
+                        : 'bg-[#F2E8E4] rounded-sm flex-1'
                         }`}
                     style={{ animationDelay: '0ms' }}
                 >
@@ -79,8 +69,11 @@ export const MobileHome: React.FC = () => {
 
                     <div className={`overflow-hidden transition-all duration-500 ease-in-out ${activeTile === 'PROBLEM' ? 'max-h-[1000px] opacity-100 mt-6' : 'max-h-0 opacity-0'
                         }`}>
-                        <div className="text-sm font-medium leading-relaxed uppercase tracking-widest text-center py-8">
-                            [Inhoud volgt]
+                        <div className="text-[13px] font-medium leading-relaxed uppercase tracking-widest space-y-6 py-4">
+                            <p>Afhankelijkheid: AI-systemen spelen steeds vaker een rol bij besluiten met grote maatschappelijke impact. Hierdoor ontstaat een riskante afhankelijkheid: organisaties verliezen de grip op hun eigen keuzes, terwijl burgers afhankelijk worden van techniek die zij niet kunnen be&apos;nvloeden.</p>
+                            <p>Partijdigheid: AI-systemen zijn niet neutraal want ze leren van data uit het verleden. Als die informatie menselijke vooroordelen of ongelijkheid bevat, neemt de techniek deze patronen onbewust over.</p>
+                            <p>Ongelijkheid: AI-systemen vergroten de afstand tussen organisaties die de techniek inzetten en de mensen die er mee te maken krijgen.</p>
+                            <p>Wantrouwen: Zodra besluiten met AI onvoldoende transparant of uitlegbaar zijn, verdwijnt het vertrouwen bij zowel medewerkers als de samenleving.</p>
                         </div>
                     </div>
                 </div>
@@ -88,9 +81,9 @@ export const MobileHome: React.FC = () => {
                 {/* Tile 2: OPLOSSING */}
                 <div
                     onClick={() => handleTileClick('SOLUTION')}
-                    className={`animate-fade-in-slow w-full border border-black rounded-sm p-4 relative cursor-pointer transition-all duration-300 ease-in-out ${activeTile === 'SOLUTION'
-                        ? 'bg-white rounded-3xl border-slate-100 min-h-[200px]'
-                        : 'bg-[#C1C9B9] flex-1'
+                    className={`animate-fade-in-slow w-full border border-black p-4 relative cursor-pointer transition-all duration-300 ease-in-out ${activeTile === 'SOLUTION'
+                        ? 'bg-white rounded-3xl border-slate-100 shadow-md min-h-[200px]'
+                        : 'bg-[#C1C9B9] rounded-sm flex-1'
                         }`}
                     style={{ animationDelay: '150ms' }}
                 >
@@ -102,8 +95,11 @@ export const MobileHome: React.FC = () => {
 
                     <div className={`overflow-hidden transition-all duration-500 ease-in-out ${activeTile === 'SOLUTION' ? 'max-h-[1000px] opacity-100 mt-6' : 'max-h-0 opacity-0'
                         }`}>
-                        <div className="text-sm font-medium leading-relaxed uppercase tracking-widest text-center py-8">
-                            [Inhoud volgt]
+                        <div className="text-[13px] font-medium leading-relaxed uppercase tracking-widest space-y-6 py-4">
+                            <p>REALISTISCH: Echte innovatie begint bij een nuchtere blik op wat AI kan en waar de valkuilen liggen. Door vooraf kritisch te toetsen op technische beperkingen en maatschappelijke risico&apos;s, worden kostbare misstappen en onrealistische verwachtingen voorkomen.</p>
+                            <p>WAARDEVOL: AI is nooit neutraal. Ieder systeem bevat bewuste of onbewuste aannames en belangen. Waardevolle AI maakt van publieke waarden een halszaak.</p>
+                            <p>BESLUITVAARDIG: Besluitvaardigheid betekent dat de organisatie zelf kiest waar de techniek stopt en menselijke verantwoordelijkheid begint.</p>
+                            <p>VERANTWOORDELIJK: Verantwoordelijkheid betekent dat een organisatie optimale regie voert over de gehele AI-keten. Van de oorspronkelijke trainingsdata tot een uiteindelijke beslissing.</p>
                         </div>
                     </div>
                 </div>
@@ -111,9 +107,9 @@ export const MobileHome: React.FC = () => {
                 {/* Tile 3: CONTACT */}
                 <div
                     onClick={() => handleTileClick('CONTACT')}
-                    className={`animate-fade-in-slow w-full border border-black rounded-sm p-4 relative cursor-pointer transition-all duration-300 ease-in-out ${activeTile === 'CONTACT'
-                        ? 'bg-white rounded-3xl border-slate-100 min-h-[200px]'
-                        : 'bg-[#F0E6D2] flex-1'
+                    className={`animate-fade-in-slow w-full border border-black p-4 relative cursor-pointer transition-all duration-300 ease-in-out ${activeTile === 'CONTACT'
+                        ? 'bg-white rounded-3xl border-slate-100 shadow-md min-h-[200px]'
+                        : 'bg-[#F0E6D2] rounded-sm flex-1'
                         }`}
                     style={{ animationDelay: '300ms' }}
                 >
