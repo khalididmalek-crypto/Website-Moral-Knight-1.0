@@ -31,7 +31,7 @@ export default function Home({ posts }: HomeProps) {
             </Head>
 
             {/* Mobile View */}
-            <div className="relative z-10 block md:hidden">
+            <div className="relative z-10 block md:hidden min-h-[100dvh] overscroll-behavior-y-none">
                 <MobileHome />
             </div>
 

@@ -2,56 +2,26 @@ import React, { useState } from 'react';
 import { ContactForm } from './ContactForm';
 import { Dashboard } from './Dashboard';
 import { Meldpunt } from './Meldpunt';
-import { X } from 'lucide-react';
 
 type MobileView = 'HOME' | 'PROBLEM' | 'SOLUTION' | 'CONTACT' | 'DASHBOARD' | 'MELDPUNT';
 
 export const MobileHome: React.FC = () => {
     const [view, setView] = useState<MobileView>('HOME');
+    const [activeTile, setActiveTile] = useState<MobileView | null>(null);
 
     const handleTileClick = (newView: MobileView) => {
-        setView(newView);
+        if (activeTile === newView) {
+            setActiveTile(null);
+        } else {
+            setActiveTile(newView);
+        }
     };
 
     const handleBack = () => {
         setView('HOME');
+        setActiveTile(null);
     };
 
-    // Sub-view component helper
-    const SubView = ({
-        color,
-        label,
-        children
-    }: {
-        color: string;
-        label: string;
-        children?: React.ReactNode
-    }) => (
-        <div className={`flex flex-col min-h-[100dvh] w-full ${color} font-mono overflow-hidden relative`}>
-            {/* Back Button */}
-            <button
-                onClick={handleBack}
-                className="absolute top-4 right-4 z-50 p-2 border border-black bg-white hover:bg-gray-100 transition-colors"
-                aria-label="Sluiten"
-            >
-                <X size={24} className="text-black" />
-            </button>
-
-            {/* Label */}
-            <div className="absolute top-4 left-4 z-20">
-                <div className="px-3 py-1.5 bg-white border border-black">
-                    <div className="font-mono text-[13.2px] font-semibold uppercase tracking-widest text-gray-900">
-                        {label}
-                    </div>
-                </div>
-            </div>
-
-            {/* Content Container */}
-            <div className="flex-1 flex flex-col pt-24 px-6 pb-6 overflow-y-auto">
-                {children}
-            </div>
-        </div>
-    );
 
     // Render Contact View
     if (view === 'CONTACT') {
@@ -62,11 +32,7 @@ export const MobileHome: React.FC = () => {
         );
     }
 
-    // Render Dashboard View - Directly reusing the component but in a full screen wrapper if needed, 
-    // or just letting it handle itself if it supports mobile. 
-    // The Dashboard component has a fixed overlay. We might need to render it conditionally.
-    // However, looking at Dashboard.tsx, it's a fixed overlay. 
-    // To enable simplified mobile nav, we can just render it.
+    // Render Dashboard View
     if (view === 'DASHBOARD') {
         return <Dashboard onClose={handleBack} />;
     }
@@ -76,34 +42,10 @@ export const MobileHome: React.FC = () => {
         return <Meldpunt onClose={handleBack} />;
     }
 
-    // Render Problem View
-    if (view === 'PROBLEM') {
-        return (
-            <SubView color="bg-[#F2E8E4]" label="Wat is het probleem?">
-                {/* Content placeholder for later */}
-                <div className="mt-8 text-sm font-medium leading-relaxed opacity-50 uppercase tracking-widest text-center">
-                    [Inhoud volgt]
-                </div>
-            </SubView>
-        );
-    }
-
-    // Render Solution View
-    if (view === 'SOLUTION') {
-        return (
-            <SubView color="bg-[#C1C9B9]" label="Wat is de oplossing?">
-                {/* Content placeholder for later */}
-                <div className="mt-8 text-sm font-medium leading-relaxed opacity-50 uppercase tracking-widest text-center">
-                    [Inhoud volgt]
-                </div>
-            </SubView>
-        );
-    }
-
-    // Render Home View
+    // Home View with Accordion
     return (
         <div className={`flex flex-col min-h-[100dvh] w-full bg-[#f8fafc] font-mono overflow-hidden md:hidden`}>
-            {/* Header Section - No border-b here */}
+            {/* Header Section */}
             <div className="pt-12 px-6 pb-2">
                 <h1 className="text-4xl font-medium tracking-tight text-[#111111] mb-1">
                     Moral Knight
@@ -123,15 +65,22 @@ export const MobileHome: React.FC = () => {
                 {/* Tile 1: PROBLEEM */}
                 <div
                     onClick={() => handleTileClick('PROBLEM')}
-                    className="animate-fade-in-slow flex-1 w-full bg-[#F2E8E4] border border-black rounded-sm p-4 relative cursor-pointer hover:-translate-y-1 transition-all duration-200"
+                    className={`animate-fade-in-slow w-full border border-black rounded-sm p-4 relative cursor-pointer transition-all duration-300 ease-in-out ${activeTile === 'PROBLEM'
+                        ? 'bg-white rounded-3xl border-slate-100 min-h-[200px]'
+                        : 'bg-[#F2E8E4] flex-1'
+                        }`}
                     style={{ animationDelay: '0ms' }}
                 >
-                    {/* Desktop Label Style */}
-                    <div className="absolute top-4 left-4 z-20">
-                        <div className="px-3 py-1.5 bg-white border border-black">
-                            <div className="font-mono text-[13.2px] font-semibold uppercase tracking-widest text-gray-900">
-                                Wat is het probleem?
-                            </div>
+                    <div className="px-3 py-1.5 bg-white border border-black w-fit">
+                        <div className="font-mono text-[13.2px] font-semibold uppercase tracking-widest text-gray-900">
+                            Wat is het probleem?
+                        </div>
+                    </div>
+
+                    <div className={`overflow-hidden transition-all duration-500 ease-in-out ${activeTile === 'PROBLEM' ? 'max-h-[1000px] opacity-100 mt-6' : 'max-h-0 opacity-0'
+                        }`}>
+                        <div className="text-sm font-medium leading-relaxed uppercase tracking-widest text-center py-8">
+                            [Inhoud volgt]
                         </div>
                     </div>
                 </div>
@@ -139,15 +88,22 @@ export const MobileHome: React.FC = () => {
                 {/* Tile 2: OPLOSSING */}
                 <div
                     onClick={() => handleTileClick('SOLUTION')}
-                    className="animate-fade-in-slow flex-1 w-full bg-[#C1C9B9] border border-black rounded-sm p-4 relative cursor-pointer hover:-translate-y-1 transition-all duration-200"
+                    className={`animate-fade-in-slow w-full border border-black rounded-sm p-4 relative cursor-pointer transition-all duration-300 ease-in-out ${activeTile === 'SOLUTION'
+                        ? 'bg-white rounded-3xl border-slate-100 min-h-[200px]'
+                        : 'bg-[#C1C9B9] flex-1'
+                        }`}
                     style={{ animationDelay: '150ms' }}
                 >
-                    {/* Desktop Label Style */}
-                    <div className="absolute top-4 left-4 z-20">
-                        <div className="px-3 py-1.5 bg-white border border-black">
-                            <div className="font-mono text-[13.2px] font-semibold uppercase tracking-widest text-gray-900">
-                                Wat is de oplossing?
-                            </div>
+                    <div className="px-3 py-1.5 bg-white border border-black w-fit">
+                        <div className="font-mono text-[13.2px] font-semibold uppercase tracking-widest text-gray-900">
+                            Wat is de oplossing?
+                        </div>
+                    </div>
+
+                    <div className={`overflow-hidden transition-all duration-500 ease-in-out ${activeTile === 'SOLUTION' ? 'max-h-[1000px] opacity-100 mt-6' : 'max-h-0 opacity-0'
+                        }`}>
+                        <div className="text-sm font-medium leading-relaxed uppercase tracking-widest text-center py-8">
+                            [Inhoud volgt]
                         </div>
                     </div>
                 </div>
@@ -155,28 +111,32 @@ export const MobileHome: React.FC = () => {
                 {/* Tile 3: CONTACT */}
                 <div
                     onClick={() => handleTileClick('CONTACT')}
-                    className="animate-fade-in-slow flex-1 w-full bg-[#F0E6D2] border border-black rounded-sm p-4 relative cursor-pointer hover:-translate-y-1 transition-all duration-200"
+                    className={`animate-fade-in-slow w-full border border-black rounded-sm p-4 relative cursor-pointer transition-all duration-300 ease-in-out ${activeTile === 'CONTACT'
+                        ? 'bg-white rounded-3xl border-slate-100 min-h-[200px]'
+                        : 'bg-[#F0E6D2] flex-1'
+                        }`}
                     style={{ animationDelay: '300ms' }}
                 >
-                    {/* Desktop Label Style */}
-                    <div className="absolute top-4 left-4 z-20 pointer-events-none">
-                        <div className="px-3 py-1.5 bg-white border border-black">
-                            <div className="font-mono text-[13.2px] font-semibold uppercase tracking-widest text-gray-900">
-                                Contact
-                            </div>
+                    <div className="px-3 py-1.5 bg-white border border-black w-fit">
+                        <div className="font-mono text-[13.2px] font-semibold uppercase tracking-widest text-gray-900">
+                            Contact
+                        </div>
+                    </div>
+
+                    <div className={`overflow-hidden transition-all duration-500 ease-in-out ${activeTile === 'CONTACT' ? 'max-h-[1000px] opacity-100 mt-6' : 'max-h-0 opacity-0'
+                        }`}>
+                        <div className="w-full">
+                            <ContactForm mode="preview" className="bg-white" />
                         </div>
                     </div>
                 </div>
 
-                {/* Mobile Footer - Specific Grouping */}
+                {/* Mobile Footer */}
                 <div className="flex flex-col mt-2 px-1 pb-6">
-                    {/* Copyright Line */}
                     <div className="text-[12px] text-gray-400 font-mono uppercase tracking-widest leading-relaxed">
                         / Moral Knight 2025 — saving the human species from annihilation
                     </div>
 
-                    {/* Links Group - Pushed down (mt-6) and tighter gap (gap-1) */}
-                    {/* Links Group - Hidden on mobile as per request (dashboard/meldpunt desktop only) */}
                     <div className="flex flex-col gap-1 mt-6 hidden md:block">
                         <button
                             onClick={() => handleTileClick('MELDPUNT')}
