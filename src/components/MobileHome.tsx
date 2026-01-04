@@ -49,8 +49,17 @@ export const MobileHome: React.FC = () => {
                     </div>
                     <div className={`overflow-hidden transition-all duration-500 ease-in-out ${activeTile === 'PROBLEM' ? 'max-h-[1000px] opacity-100 mt-6' : 'max-h-0 opacity-0'}`}>
                         <div className="flex flex-col items-center py-4">
+                            <h4 className="font-bold text-sm mb-2 text-gray-900 text-left w-full">Ethische AI is de norm</h4>
+                            <p className="mb-4 text-[14px] font-mono leading-relaxed text-gray-700">
+                                Tegenwoordig verplaatst de discussie over AI zich steeds vaker naar de rechtszaal. Dankzij de EU AI Act zijn morele keuzes wettelijk verplicht: manipulatieve systemen zijn verboden en audits een harde eis. Maar deze ‘zorgplicht’ gaat verder dan de techniek. Uiteindelijk gaat het om mensen. Wij helpen organisaties om AI-geletterd te worden en toetsen AI in het publieke domein gevraagd en ongevraagd. Want het grootste risico zit vaak niet in de code, maar in hoe menselijk toezicht wordt georganiseerd.
+                            </p>
+                            <h4 className="font-bold text-sm mb-2 text-gray-900 text-left w-full">De blinde vlek</h4>
+                            <p className="mb-4 text-[14px] font-mono leading-relaxed text-gray-700">
+                                Wetgeving dient als basis, maar biedt nog geen harde garanties voor ethische resultaten. Wat is de grootste blinde vlek ten aanzien van AI in het publieke domein? Het gebrek aan degelijke evaluatie. Een helder zicht op de hoe de AI feitelijk functioneert in de praktijk en of burgers er daadwerkelijk mee geholpen worden. Wij vinden het onacceptabel dat technologie alleen werkt 'op papier' terwijl het maatschappelijk belang er hinder van heeft. Wij maken de feitelijke impact van publieke AI tastbaar en zichtbaar.
+                            </p>
+                            <h4 className="font-bold text-sm mb-2 text-gray-900 text-left w-full">Afhankelijkheid en macht</h4>
                             <p className="text-[14px] font-mono leading-relaxed text-gray-700">
-                                AI-systemen nemen steeds vaker besluiten met grote maatschappelijke impact, maar dit brengt serieuze risico’s met zich mee. We verliezen de grip op onze eigen keuzes door een groeiende afhankelijkheid van ondoorzichtige externe leveranciers. Daarnaast zijn systemen nooit neutraal; ze nemen menselijke vooroordelen uit data over, wat leidt tot verborgen partijdigheid en onbedoelde discriminatie. Dit vergroot de afstand tot de burger en sluit digitaal minder vaardige groepen uit, waardoor ongelijkheid toeneemt. Wanneer deze processen onduidelijk blijven, verdwijnt het maatschappelijk wantrouwen. Zonder transparantie en menselijke maat blokkeert dit wantrouwen de weg naar waardevolle innovatie.
+                                De regulatie van AI gaat niet alleen om algoritmes, maar om de hele keten (van chips tot cloud). In Europa wordt zwaar geleund op een paar grote tech-spelers, wat onze digitale autonomie ondermijnt. Wij bewaken onze soevereiniteit door de hele keten kritisch door te lichten aan de hand van menselijke waarden, zonder oog voor duurzaamheid en mensenrechten te verliezen.
                             </p>
                         </div>
                     </div>
