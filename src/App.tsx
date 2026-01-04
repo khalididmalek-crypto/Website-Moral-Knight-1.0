@@ -272,14 +272,14 @@ const App: React.FC<AppProps> = ({ posts = [] }) => {
               <button
                 onClick={() => setMeldpuntOpen(true)}
                 className="font-mono font-bold antialiased uppercase tracking-widest hover:opacity-75 transition-opacity focus:outline-none"
-                style={{ color: '#D6827A', fontSize: '14.4px' }}
+                style={{ color: '#8B1A3D', fontSize: '14.4px' }}
               >
                 / MK Meldpunt
               </button>
               <button
                 onClick={() => setDashboardOpen(true)}
                 className="font-mono font-bold antialiased uppercase tracking-widest hover:opacity-75 transition-opacity focus:outline-none"
-                style={{ color: '#D6827A', fontSize: '14.4px' }} // Increased brightness/intensity (~30% feller)
+                style={{ color: '#8B1A3D', fontSize: '14.4px' }}
               >
                 / MK Dashboard
               </button>
