@@ -78,12 +78,58 @@ export const MobileHome: React.FC = () => {
                     </div>
                     <div className={`overflow-hidden transition-all duration-500 ease-in-out ${activeTile === 'SOLUTION' ? 'max-h-[1200px] opacity-100 mt-6' : 'max-h-0 opacity-0'}`}>
                         <div className="flex flex-col items-center py-4">
+                            <h4 className="font-bold text-sm mb-2 text-gray-900 text-left w-full">De gelaagde AI-keuring</h4>
+                            <p className="mb-4 text-[14px] font-mono leading-relaxed text-gray-700">
+                                In 2026 is een AI-audit geen &apos;one-size-fits-all&apos; exercitie meer; wij passen een risicogebaseerde APK toe die direct aansluit op de strenge eisen van de EU AI Act. Onze oplossing verankert de verplichte Fundamental Rights Impact Assessment (FRIA/IAMA) in de kern van de organisatie. Hiermee borgen we dat hoog-risico systemen in de zorg, het onderwijs en bij de overheid niet alleen technisch kloppen, maar ook de grondrechten van de burger onvoorwaardelijk respecteren. Waar risico’s onaanvaardbaar zijn, dwingen wij aanpassingen af voordat de samenleving geraakt wordt.
+                            </p>
+                            <h4 className="font-bold text-sm mb-2 text-gray-900 text-left w-full">Veiligheid over de gehele levenscyclus</h4>
+                            <p className="mb-4 text-[14px] font-mono leading-relaxed text-gray-700">
+                                AI-systemen zijn nooit &apos;af&apos;; het zijn halffabricaten die continu leren en veranderen zodra ze met de werkelijkheid in aanraking komen. Daarom stopt ons toezicht niet bij de ingebruikname. Wij implementeren mechanismen voor Post-market Monitoring om voortdurend te waken over &apos;data drift&apos; en onvoorziene schadelijke effecten in de praktijk. Door deze voortdurende controle garanderen we veiligheid gedurende de gehele levenscyclus van het algoritme. Wij voorkomen dat een systeem dat vandaag integer lijkt, morgen ongemerkt ontspoort ten koste van het publiek belang.
+                            </p>
+                            <h4 className="font-bold text-sm mb-2 text-gray-900 text-left w-full">Betekenisvolle controle en inspraak</h4>
                             <p className="text-[14px] font-mono leading-relaxed text-gray-700">
-                                De oplossing begint bij een realistische blik op AI: we moeten de beperkingen erkennen en de menselijke maat terugbrengen. Wij maken publieke waarden zoals rechtvaardigheid en inclusie leidend in elk ontwerp, zodat techniek waardevol blijft voor de samenleving. Door besluitvaardig kaders te stellen, bepalen we precies waar de techniek stopt en menselijke verantwoordelijkheid begint via een ‘human-in-the-loop’. Ten slotte nemen we de volledige verantwoordelijkheid over de gehele keten. Door systemen continu te monitoren op bias en te toetsen aan internationale standaarden (ISO 42001), bouwen we aan een eerlijk, transparant en duurzaam digitaal fundament.
+                                Echte regie betekent dat mensen de daadwerkelijke macht behouden om in te grijpen. Wij borgen betekenisvolle menselijke controle: medewerkers krijgen de autoriteit en de technische &apos;stopknop&apos; om een algoritmisch besluit te negeren of direct terug te draaien. Tegelijkertijd sluiten we de cirkel met een actieve feedbackloop tussen de burger en de maker. Door de ervaringen van burgers die door het algoritme worden geraakt direct terug te koppelen naar de ontwikkelaars, corrigeren we fouten aan de bron. Wij geven de burger een stem in de techniek.
                             </p>
                         </div>
                     </div>
                 </div>
+
+                {/* New Tile: ONZE AANPAK */}
+                <div
+                    onClick={() => handleTileClick('APPROACH')}
+                    className={`animate-fade-in-slow w-full border border-black p-4 relative cursor-pointer transition-all duration-300 ease-in-out ${activeTile === 'APPROACH'
+                        ? 'bg-white rounded-3xl border-slate-100 shadow-md min-h-[200px]'
+                        : 'bg-[#CCD5C6] rounded-sm flex-1'
+                        }`}
+                >
+                    <div className="px-3 py-1.5 bg-white border border-black w-fit">
+                        <div className="font-mono text-[13.2px] font-semibold uppercase tracking-widest text-gray-900">ONZE AANPAK</div>
+                    </div>
+                    <div className={`overflow-hidden transition-all duration-500 ease-in-out ${activeTile === 'APPROACH' ? 'max-h-[1000px] opacity-100 mt-6' : 'max-h-0 opacity-0'}`}>
+                        <div className="flex flex-col items-center py-4">
+                            <p className="text-[14px] font-mono leading-relaxed text-gray-700"></p>
+                        </div>
+                    </div>
+                </div>
+
+                {/* New Tile: ONZE DIENSTEN */}
+                <div
+                    onClick={() => handleTileClick('SERVICES')}
+                    className={`animate-fade-in-slow w-full border border-black p-4 relative cursor-pointer transition-all duration-300 ease-in-out ${activeTile === 'SERVICES'
+                        ? 'bg-white rounded-3xl border-slate-100 shadow-md min-h-[200px]'
+                        : 'bg-[#AEB5B9] rounded-sm flex-1'
+                        }`}
+                >
+                    <div className="px-3 py-1.5 bg-white border border-black w-fit">
+                        <div className="font-mono text-[13.2px] font-semibold uppercase tracking-widest text-gray-900">ONZE DIENSTEN</div>
+                    </div>
+                    <div className={`overflow-hidden transition-all duration-500 ease-in-out ${activeTile === 'SERVICES' ? 'max-h-[1000px] opacity-100 mt-6' : 'max-h-0 opacity-0'}`}>
+                        <div className="flex flex-col items-center py-4">
+                            <p className="text-[14px] font-mono leading-relaxed text-gray-700"></p>
+                        </div>
+                    </div>
+                </div>
+
 
                 {/* Tile 3: CONTACT */}
                 <div
