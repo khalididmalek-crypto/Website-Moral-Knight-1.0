@@ -109,7 +109,18 @@ export const MobileHome: React.FC = () => {
                     </div>
                     <div className={`overflow-hidden transition-all duration-500 ease-in-out ${activeTile === 'APPROACH' ? 'max-h-[1000px] opacity-100 mt-6' : 'max-h-0 opacity-0'}`}>
                         <div className="flex flex-col items-center py-4">
-                            <p className="text-[14px] font-mono leading-relaxed text-gray-700"></p>
+                            <h4 className="font-bold text-sm mb-2 text-gray-900 text-left w-full">Advies: Koers bepalen</h4>
+                            <p className="mb-4 text-[14px] font-mono leading-relaxed text-gray-700">
+                                Wij leggen het ethische fundament voor uw AI-strategie. Door educatie en scherpe kaders krijgt u de regie terug. Zo zijn investeringen vanaf dag één veilig, waardevol en juridisch houdbaar.
+                            </p>
+                            <h4 className="font-bold text-sm mb-2 text-gray-900 text-left w-full">Ontwerp: Waarden verankeren</h4>
+                            <p className="mb-4 text-[14px] font-mono leading-relaxed text-gray-700">
+                                Wij vertalen abstracte principes naar concrete spelregels. Door menselijk toezicht en transparantie in het ontwerp te vlechten, bouwen we systemen die het vertrouwen van medewerker en burger winnen.
+                            </p>
+                            <h4 className="font-bold text-sm mb-2 text-gray-900 text-left w-full">Toetsing: Controle uitoefenen</h4>
+                            <p className="text-[14px] font-mono leading-relaxed text-gray-700">
+                                Wij meten of AI in de praktijk doet wat het belooft. Met feitelijke audits leveren we de bewijslast voor toezichthouders en versterken we de maatschappelijke verantwoording van uw organisatie.
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -127,7 +138,21 @@ export const MobileHome: React.FC = () => {
                     </div>
                     <div className={`overflow-hidden transition-all duration-500 ease-in-out ${activeTile === 'SERVICES' ? 'max-h-[1000px] opacity-100 mt-6' : 'max-h-0 opacity-0'}`}>
                         <div className="flex flex-col items-center py-4">
-                            <p className="text-[14px] font-mono leading-relaxed text-gray-700"></p>
+                            <h4 className="font-bold text-sm mb-2 text-gray-900 text-left w-full">Advies</h4>
+                            <ul className="list-disc pl-5 mb-4 text-[14px] font-mono leading-relaxed text-gray-700 w-full">
+                                <li>Educatie & AI-geletterdheid</li>
+                                <li>Risicoanalyse & AI-governance</li>
+                            </ul>
+                            <h4 className="font-bold text-sm mb-2 text-gray-900 text-left w-full">Ontwerp</h4>
+                            <ul className="list-disc pl-5 mb-4 text-[14px] font-mono leading-relaxed text-gray-700 w-full">
+                                <li>Value Sensitive Design</li>
+                                <li>Co-creatie & mensgericht ontwerp</li>
+                            </ul>
+                            <h4 className="font-bold text-sm mb-2 text-gray-900 text-left w-full">Toetsing</h4>
+                            <ul className="list-disc pl-5 text-[14px] font-mono leading-relaxed text-gray-700 w-full">
+                                <li>Ethiek- & impactassessment</li>
+                                <li>AI-audit & compliance-toets</li>
+                            </ul>
                         </div>
                     </div>
                 </div>
