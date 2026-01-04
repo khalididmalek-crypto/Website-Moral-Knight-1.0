@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { ContactForm } from './ContactForm';
 import { Dashboard } from './Dashboard';
-import { Meldpunt } from './Meldpunt';
 
-type MobileView = 'HOME' | 'DASHBOARD' | 'MELDPUNT';
+
+type MobileView = 'HOME' | 'DASHBOARD';
 
 export const MobileHome: React.FC = () => {
     const [view, setView] = useState<MobileView>('HOME');
@@ -19,7 +19,7 @@ export const MobileHome: React.FC = () => {
     };
 
     if (view === 'DASHBOARD') return <Dashboard onClose={handleBack} />;
-    if (view === 'MELDPUNT') return <Meldpunt onClose={handleBack} />;
+
 
     return (
         <div className="flex flex-col min-h-[100dvh] w-full bg-[#f8fafc] font-mono overflow-y-auto md:hidden">
@@ -158,7 +158,6 @@ export const MobileHome: React.FC = () => {
                         / Moral Knight 2025 — saving the human species from annihilation
                     </div>
                     <div className="flex flex-col gap-2 mt-6 items-start">
-                        <button onClick={() => setView('MELDPUNT')} className="text-[11px] font-bold uppercase tracking-widest" style={{ color: '#8B1A3D' }}>/ MK Meldpunt</button>
                         <button onClick={() => setView('DASHBOARD')} className="text-[11px] font-bold uppercase tracking-widest" style={{ color: '#8B1A3D' }}>/ MK Dashboard</button>
                     </div>
                 </div>
