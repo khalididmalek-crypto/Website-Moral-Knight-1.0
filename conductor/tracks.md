@@ -4,5 +4,5 @@ This file tracks all major tracks for the project. Each track has its own detail
 
 ---
 
-## [ ] Track: Content Expansion: Add new tiles, cases, and examples.
+## [~] Track: Content Expansion: Add new tiles, cases, and examples.
 *Link: [./conductor/tracks/content_expansion_20260104/](./conductor/tracks/content_expansion_20260104/)*

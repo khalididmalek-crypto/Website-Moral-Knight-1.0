@@ -26,8 +26,8 @@ export const MobileHome: React.FC = () => {
             {/* Header */}
             <div className="pt-12 px-6 pb-2">
                 <h1 className="text-4xl font-medium tracking-tight text-[#111111] mb-1">Moral Knight</h1>
-                <div className="text-sm font-bold uppercase tracking-widest text-[#194D25] pt-1.5 opacity-90">
-                    menswaardige AI in het publieke domein
+                <div className="text-xs font-bold uppercase tracking-widest text-[#194D25] pt-1.5 opacity-90">
+                    Wij zijn een onafhankelijke organisatie en bewaken publieke AI
                 </div>
             </div>
 
