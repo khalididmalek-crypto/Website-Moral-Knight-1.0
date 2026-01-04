@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ContactForm } from './ContactForm';
 import { Dashboard } from './Dashboard';
@@ -10,8 +10,6 @@ export const MobileHome: React.FC = () => {
     const [view, setView] = useState<MobileView>('HOME');
     const [activeTile, setActiveTile] = useState<string | null>(null);
     const [hasMounted, setHasMounted] = useState(false);
-    const [isProblemScrolled, setIsProblemScrolled] = useState(false);
-    const problemScrollRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         setHasMounted(true);
@@ -24,12 +22,6 @@ export const MobileHome: React.FC = () => {
     const handleBack = () => {
         setView('HOME');
         setActiveTile(null);
-    };
-
-    const handleProblemScroll = () => {
-        if (problemScrollRef.current) {
-            setIsProblemScrolled(problemScrollRef.current.scrollTop > 0);
-        }
     };
 
     // Hydration Guard: Render nothing until the component has mounted on the client
@@ -67,19 +59,6 @@ export const MobileHome: React.FC = () => {
         x: [0, 3, -3, 0],
         transition: { duration: 0.15 }
     };
-    
-    const problemHeaderVariants = {
-        visible: { opacity: 1, x: 0, height: 'auto', transition: { type: 'spring', stiffness: 60, damping: 15 } },
-        hidden: {
-            opacity: [1, 0.4, 0.8, 0.1, 0],
-            x: [0, 5, 15, 10, 100],
-            height: 0,
-            transition: {
-                type: 'tween',
-                duration: 0.2
-            }
-        }
-    };
 
     return (
         <motion.div
@@ -116,23 +95,17 @@ export const MobileHome: React.FC = () => {
                         : 'bg-[#F2E8E4] rounded-sm'
                         }`}
                 >
-                    <motion.div
-                        variants={problemHeaderVariants}
-                        animate={isProblemScrolled ? 'hidden' : 'visible'}
-                        className="px-3 py-1.5 bg-white border border-black w-fit overflow-hidden"
-                    >
+                    <div className="px-3 py-1.5 bg-white border border-black w-fit">
                         <div className="font-mono text-[13.2px] font-semibold uppercase tracking-widest text-gray-900">Wat is het probleem?</div>
-                    </motion.div>
+                    </div>
                     <AnimatePresence>
                         {activeTile === 'PROBLEM' && (
                             <motion.div
-                                ref={problemScrollRef}
-                                onScroll={handleProblemScroll}
                                 initial={{ height: 0, opacity: 0 }}
                                 animate={{ height: 'auto', opacity: 1 }}
                                 exit={{ height: 0, opacity: 0 }}
                                 transition={{ duration: 0.3 }}
-                                className="overflow-y-auto max-h-[60vh]"
+                                className="overflow-hidden"
                             >
                                 <motion.div exit={contentExitAnimation}>
                                     <div className="flex flex-col items-center py-4 mt-6">
