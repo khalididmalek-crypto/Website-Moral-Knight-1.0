@@ -246,7 +246,7 @@ const App: React.FC<AppProps> = ({ posts = [] }) => {
                   }`}
                 style={{ color: COLORS.PRIMARY_GREEN }}
               >
-                Wij zijn een onafhankelijke organisatie en bewaken dat AI functioneert volgens menselijke waarden
+                Wij zijn een onafhankelijke organisatie en bewaken publieke AI
               </p>
             </div>
 
