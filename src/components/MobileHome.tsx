@@ -49,7 +49,7 @@ export const MobileHome: React.FC = () => {
                     </div>
                     <div className={`overflow-hidden transition-all duration-500 ease-in-out ${activeTile === 'PROBLEM' ? 'max-h-[1000px] opacity-100 mt-6' : 'max-h-0 opacity-0'}`}>
                         <div className="flex flex-col items-center py-4">
-                            <h4 className="font-bold text-sm mb-2 text-gray-900 text-left w-full">Ethische AI is de norm</h4>
+                            <h4 className="font-bold text-sm mb-2 text-gray-900 text-left w-full">Ethische AI als vinkje op een to-do-list</h4>
                             <p className="mb-4 text-[14px] font-mono leading-relaxed text-gray-700">
                                 Tegenwoordig verplaatst de discussie over AI zich steeds vaker naar de rechtszaal. Dankzij de EU AI Act zijn morele keuzes wettelijk verplicht: manipulatieve systemen zijn verboden en audits een harde eis. Maar deze &apos;zorgplicht&apos; gaat verder dan de techniek. Uiteindelijk gaat het om mensen. Wij helpen organisaties om AI-geletterd te worden en toetsen AI in het publieke domein gevraagd en ongevraagd. Want het grootste risico zit vaak niet in de code, maar in hoe menselijk toezicht wordt georganiseerd.
                             </p>
