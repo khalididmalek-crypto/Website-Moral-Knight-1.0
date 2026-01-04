@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ContactForm } from './ContactForm';
 import { Dashboard } from './Dashboard';
+import { ProgressiveImage } from './ProgressiveImage';
 
 type MobileView = 'HOME' | 'DASHBOARD';
 
@@ -49,7 +50,7 @@ export const MobileHome: React.FC = () => {
     };
 
     const contentExitAnimation = {
-        opacity: [1, 0.5, 1, 0],
+        opacity: [1, 0.5, 0],
         x: [0, 3, -3, 0],
         transition: { duration: 0.15 }
     };
@@ -268,7 +269,7 @@ export const MobileHome: React.FC = () => {
                         <div className="font-mono text-[13.2px] font-semibold uppercase tracking-widest text-gray-900">Contact</div>
                     </div>
                     <AnimatePresence>
-                        {activeTile === 'CONTACT' && (
+                        {activeTile === 'CONTACT' && hasMounted && (
                             <motion.div
                                 initial={{ height: 0, opacity: 0 }}
                                 animate={{ height: 'auto', opacity: 1 }}
@@ -277,11 +278,13 @@ export const MobileHome: React.FC = () => {
                                 className="overflow-hidden"
                                 onClick={(e) => e.stopPropagation()}
                             >
-                               <motion.div exit={contentExitAnimation}>
-                                   <div className="mt-6">
-                                       <ContactForm mode="fullscreen" className="!p-0" />
-                                   </div>
-                               </motion.div>
+                                <motion.div exit={contentExitAnimation}>
+                                    <div className="flex flex-col items-start py-4 mt-6">
+                                        <div className="mt-6 w-full border border-gray-200 rounded-lg p-4">
+                                            <ContactForm mode="fullscreen" className="!p-0" />
+                                        </div>
+                                    </div>
+                                </motion.div>
                             </motion.div>
                         )}
                     </AnimatePresence>
