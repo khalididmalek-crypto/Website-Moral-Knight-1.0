@@ -3,7 +3,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ContactForm } from './ContactForm';
 import { Dashboard } from './Dashboard';
-import { ProgressiveImage } from './ProgressiveImage';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
@@ -21,7 +20,6 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
     const [meldpuntOpen, setMeldpuntOpen] = useState(false);
     const [activeTile, setActiveTile] = useState<string | null>(null);
     const [hasMounted, setHasMounted] = useState(false);
-    const animationStartTime = useRef<number | null>(null);
 
 
     const containerRef = useRef<HTMLDivElement>(null);
@@ -49,14 +47,24 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
         setHasMounted(true);
     }, []);
 
+    // Effect to handle scrolling when activeTile changes
+    useEffect(() => {
+        if (activeTile && tileRefs[activeTile as keyof typeof tileRefs].current) {
+            // Small delay to allow layout animation to start/finish
+            setTimeout(() => {
+                tileRefs[activeTile as keyof typeof tileRefs].current?.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start',
+                    inline: 'nearest'
+                });
+            }, 300); // Wait for the 300ms animation to finish or nearly finish
+        }
+    }, [activeTile]);
+
 
     const handleTileClick = (tile: string) => {
         const newActiveTile = activeTile === tile ? null : tile;
         setActiveTile(newActiveTile);
-
-        if (newActiveTile) {
-            animationStartTime.current = Date.now();
-        }
     };
 
 
@@ -65,24 +73,6 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
         setMeldpuntOpen(false);
         setActiveTile(null);
     };
-
-    const handleTileUpdate = (latest: any, tile: string) => {
-        if (activeTile === tile && animationStartTime.current) {
-            const elapsedTime = Date.now() - animationStartTime.current;
-            if (elapsedTime < 100) { // Only scroll within the first 100ms
-                const element = tileRefs[tile as keyof typeof tileRefs].current;
-                if (element) {
-                    window.scrollTo({
-                        top: element.offsetTop - 20,
-                        // behavior: 'auto' // Use 'auto' for instant jump
-                    });
-                }
-            } else {
-                animationStartTime.current = null; // Reset after the window
-            }
-        }
-    };
-
 
     // Hydration Guard: Render nothing until the component has mounted on the client
     if (!hasMounted) {
@@ -131,7 +121,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
             className="flex flex-col min-h-[100dvh] w-full font-mono overflow-y-auto md:hidden transition-colors duration-500 ease-in-out"
             style={{
                 backgroundColor: activeTile ? BG_COLORS[activeTile as keyof typeof BG_COLORS] : BG_COLORS.HOME,
-                overflowAnchor: 'none'
+                // overflowAnchor removed to allow browser default behavior
             }}
 
         >
@@ -160,7 +150,6 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
                     ref={tileRefs.PROBLEM}
                     variants={tileVariants}
                     onClick={() => handleTileClick('PROBLEM')}
-                    onUpdate={(latest) => handleTileUpdate(latest, 'PROBLEM')}
                     className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTile === 'PROBLEM'
 
                         ? 'bg-white rounded-3xl border-slate-100 shadow-md'
@@ -222,7 +211,6 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
                     ref={tileRefs.SOLUTION}
                     variants={tileVariants}
                     onClick={() => handleTileClick('SOLUTION')}
-                    onUpdate={(latest) => handleTileUpdate(latest, 'SOLUTION')}
                     className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTile === 'SOLUTION'
 
                         ? 'bg-white rounded-3xl border-slate-100 shadow-md'
@@ -269,7 +257,6 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
                     ref={tileRefs.APPROACH}
                     variants={tileVariants}
                     onClick={() => handleTileClick('APPROACH')}
-                    onUpdate={(latest) => handleTileUpdate(latest, 'APPROACH')}
                     className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTile === 'APPROACH'
 
                         ? 'bg-white rounded-3xl border-slate-100 shadow-md'
@@ -316,7 +303,6 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
                     ref={tileRefs.SERVICES}
                     variants={tileVariants}
                     onClick={() => handleTileClick('SERVICES')}
-                    onUpdate={(latest) => handleTileUpdate(latest, 'SERVICES')}
                     className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTile === 'SERVICES'
 
                         ? 'bg-white rounded-3xl border-slate-100 shadow-md'
@@ -366,7 +352,6 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
                     ref={tileRefs.CONTACT}
                     variants={tileVariants}
                     onClick={() => handleTileClick('CONTACT')}
-                    onUpdate={(latest) => handleTileUpdate(latest, 'CONTACT')}
                     className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTile === 'CONTACT'
 
                         ? 'bg-white rounded-3xl border-slate-100 shadow-md'
