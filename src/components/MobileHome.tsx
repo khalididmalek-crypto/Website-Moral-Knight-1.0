@@ -45,45 +45,13 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
     };
 
     useEffect(() => {
-        if (!activeTile || !hasMounted || !containerRef.current) return;
-
-        const container = containerRef.current;
-        const targetTile = tileRefs[activeTile as keyof typeof tileRefs]?.current;
-        if (!targetTile) return;
-
-        let animationFrame: number;
-        const startTime = Date.now();
-        const duration = 1000; // Track for 1 second during animation
-
-        const followScroll = () => {
-            const now = Date.now();
-            const elapsed = now - startTime;
-
-            if (elapsed < duration) {
-                const tileTop = targetTile.offsetTop;
-                const currentScroll = container.scrollTop;
-                const targetScroll = tileTop - 16;
-
-                // If we're already scrolling smoothly, let it be, but update the destination
-                // Or snap it if the jump is too large (like when a massive tile above closes)
-                if (Math.abs(currentScroll - targetScroll) > 10) {
-                    container.scrollTo({
-                        top: targetScroll,
-                        behavior: elapsed < 100 ? 'auto' : 'smooth'
-                    });
-                }
-
-                animationFrame = requestAnimationFrame(followScroll);
-            }
-        };
-
-        // Start tracking
-        animationFrame = requestAnimationFrame(followScroll);
-
-        return () => {
-            if (animationFrame) cancelAnimationFrame(animationFrame);
-        };
-    }, [activeTile, hasMounted]);
+        if (activeTile && tileRefs[activeTile as keyof typeof tileRefs]?.current) {
+            tileRefs[activeTile as keyof typeof tileRefs].current?.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    }, [activeTile]);
 
 
     useEffect(() => {
@@ -172,6 +140,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
             >
                 {/* Tile 1: PROBLEEM */}
                 <motion.div
+                    layout
                     ref={tileRefs.PROBLEM}
                     variants={tileVariants}
                     onClick={() => handleTileClick('PROBLEM')}
@@ -232,6 +201,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
 
                 {/* Tile 2: OPLOSSING */}
                 <motion.div
+                    layout
                     ref={tileRefs.SOLUTION}
                     variants={tileVariants}
                     onClick={() => handleTileClick('SOLUTION')}
@@ -277,6 +247,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
 
                 {/* New Tile: ONZE AANPAK */}
                 <motion.div
+                    layout
                     ref={tileRefs.APPROACH}
                     variants={tileVariants}
                     onClick={() => handleTileClick('APPROACH')}
@@ -322,6 +293,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
 
                 {/* New Tile: ONZE DIENSTEN */}
                 <motion.div
+                    layout
                     ref={tileRefs.SERVICES}
                     variants={tileVariants}
                     onClick={() => handleTileClick('SERVICES')}
@@ -370,6 +342,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
 
                 {/* Tile 3: CONTACT */}
                 <motion.div
+                    layout
                     ref={tileRefs.CONTACT}
                     variants={tileVariants}
                     onClick={() => handleTileClick('CONTACT')}

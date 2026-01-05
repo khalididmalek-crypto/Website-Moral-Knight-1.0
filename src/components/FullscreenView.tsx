@@ -294,7 +294,7 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
       </div>
 
       {/* Main Content Area - Blog Grid or Single Tile */}
-      <main className={`relative flex-1 w-full max-w-[1400px] ${SPACING.MODAL_CONTENT_PADDING} ${isBlogView ? '' : SPACING.MODAL_BOTTOM_SPACING} flex flex-col items-center justify-start pt-12 md:pt-20`}>
+      <main className={`relative flex-1 w-full max-w-[1400px] ${SPACING.MODAL_CONTENT_PADDING} ${isBlogView ? '' : SPACING.MODAL_BOTTOM_SPACING} flex flex-col items-center ${(isHowView || isServicesView) ? 'justify-center' : 'justify-start pt-12 md:pt-20'}`}>
 
         <div className={`w-full flex flex-col items-center justify-center transition-opacity duration-300 ${activeSubTile ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
           {isBlogView ? (
