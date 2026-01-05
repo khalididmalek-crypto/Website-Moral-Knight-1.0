@@ -23,7 +23,10 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
     const [hasMounted, setHasMounted] = useState(false);
 
 
+    const containerRef = useRef<HTMLDivElement>(null);
+
     const BG_COLORS = {
+
         PROBLEM: '#f9f5f3',
         SOLUTION: '#f3f6f1',
         APPROACH: '#f5f7f3',
@@ -42,15 +45,21 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
     };
 
     useEffect(() => {
-        if (activeTile && tileRefs[activeTile as keyof typeof tileRefs]?.current) {
+        if (activeTile && tileRefs[activeTile as keyof typeof tileRefs]?.current && containerRef.current) {
+            const container = containerRef.current;
+            const tile = tileRefs[activeTile as keyof typeof tileRefs].current;
+
             setTimeout(() => {
-                tileRefs[activeTile as keyof typeof tileRefs].current?.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start',
+                const tileTop = tile?.offsetTop || 0;
+                // Add a small offset (16px) for better visual spacing
+                container.scrollTo({
+                    top: tileTop - 16,
+                    behavior: 'smooth'
                 });
-            }, 300); // Wait for open animation
+            }, 400); // Wait for open/close animations to settle
         }
     }, [activeTile]);
+
 
     useEffect(() => {
         setHasMounted(true);
@@ -108,7 +117,9 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
 
     return (
         <motion.div
+            ref={containerRef}
             initial={{ opacity: 0 }}
+
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
             className="flex flex-col min-h-[100dvh] w-full font-mono overflow-y-auto md:hidden transition-colors duration-500 ease-in-out"
