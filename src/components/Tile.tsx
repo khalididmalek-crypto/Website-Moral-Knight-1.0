@@ -148,8 +148,9 @@ export const Tile: React.FC<TileProps> = memo(({
         ) : undefined
       }
     >
-      {/* Content - Hidden for Tile 2 and Sub-tiles (Prob/Sol/How) in preview mode */}
+      {/* Content - Hidden for Tile 1, Tile 2 and Sub-tiles (Prob/Sol/How) in preview mode */}
       {!(isPreview && (
+        data.id === 'tile-1' ||
         data.id === 'tile-2' ||
         data.id.startsWith('prob-') ||
         data.id.startsWith('sol-') ||

@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+
 import { motion, AnimatePresence } from 'framer-motion';
 import { ContactForm } from './ContactForm';
 import { Dashboard } from './Dashboard';
@@ -22,9 +23,29 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
     const [hasMounted, setHasMounted] = useState(false);
 
 
+    const tileRefs = {
+        PROBLEM: useRef<HTMLDivElement>(null),
+        SOLUTION: useRef<HTMLDivElement>(null),
+        APPROACH: useRef<HTMLDivElement>(null),
+        SERVICES: useRef<HTMLDivElement>(null),
+        CONTACT: useRef<HTMLDivElement>(null),
+    };
+
+    useEffect(() => {
+        if (activeTile && tileRefs[activeTile as keyof typeof tileRefs]?.current) {
+            setTimeout(() => {
+                tileRefs[activeTile as keyof typeof tileRefs].current?.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start',
+                });
+            }, 300); // Wait for open animation
+        }
+    }, [activeTile]);
+
     useEffect(() => {
         setHasMounted(true);
     }, []);
+
 
     const handleTileClick = (tile: string) => {
         setActiveTile(activeTile === tile ? null : tile);
@@ -62,7 +83,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
             y: 0,
             opacity: 1,
             transition: {
-                type: 'spring',
+                type: 'spring' as const,
                 stiffness: 60,
                 damping: 15,
             },
@@ -103,9 +124,11 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
             >
                 {/* Tile 1: PROBLEEM */}
                 <motion.div
+                    ref={tileRefs.PROBLEM}
                     variants={tileVariants}
                     onClick={() => handleTileClick('PROBLEM')}
                     className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out ${activeTile === 'PROBLEM'
+
                         ? 'bg-white rounded-3xl border-slate-100 shadow-md'
                         : 'bg-[#F2E8E4] rounded-sm'
                         }`}
@@ -124,16 +147,16 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
                             >
                                 <motion.div exit={contentExitAnimation}>
                                     <div className="flex flex-col items-center py-4 mt-6">
-                                        <ReactMarkdown 
+                                        <ReactMarkdown
                                             remarkPlugins={[remarkGfm]}
                                             components={{
-                                                h2: ({node, ...props}) => <h4 className="font-bold text-base mb-2 text-[#194D25] text-left w-full" {...props} />,
-                                                h3: ({node, ...props}) => <h5 className="font-semibold text-sm mt-4 mb-2 text-gray-800 text-left w-full" {...props} />,
-                                                p: ({node, ...props}) => <p className="mb-4 text-[14px] font-mono leading-relaxed text-gray-700" {...props} />,
-                                                a: ({node, href, ...props}) => {
+                                                h2: ({ node, ...props }) => <h4 className="font-bold text-base mb-2 text-[#194D25] text-left w-full" {...props} />,
+                                                h3: ({ node, ...props }) => <h5 className="font-semibold text-sm mt-4 mb-2 text-gray-800 text-left w-full" {...props} />,
+                                                p: ({ node, ...props }) => <p className="mb-4 text-[14px] font-mono leading-relaxed text-gray-700" {...props} />,
+                                                a: ({ node, href, ...props }) => {
                                                     if (href === '#meldpunt') {
                                                         return (
-                                                            <button 
+                                                            <button
                                                                 onClick={(e) => {
                                                                     e.preventDefault();
                                                                     setMeldpuntOpen(true);
@@ -160,9 +183,11 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
 
                 {/* Tile 2: OPLOSSING */}
                 <motion.div
+                    ref={tileRefs.SOLUTION}
                     variants={tileVariants}
                     onClick={() => handleTileClick('SOLUTION')}
                     className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out ${activeTile === 'SOLUTION'
+
                         ? 'bg-white rounded-3xl border-slate-100 shadow-md'
                         : 'bg-[#C1C9B9] rounded-sm'
                         }`}
@@ -202,9 +227,11 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
 
                 {/* New Tile: ONZE AANPAK */}
                 <motion.div
+                    ref={tileRefs.APPROACH}
                     variants={tileVariants}
                     onClick={() => handleTileClick('APPROACH')}
                     className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out ${activeTile === 'APPROACH'
+
                         ? 'bg-white rounded-3xl border-slate-100 shadow-md'
                         : 'bg-[#CCD5C6] rounded-sm'
                         }`}
@@ -244,9 +271,11 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
 
                 {/* New Tile: ONZE DIENSTEN */}
                 <motion.div
+                    ref={tileRefs.SERVICES}
                     variants={tileVariants}
                     onClick={() => handleTileClick('SERVICES')}
                     className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out ${activeTile === 'SERVICES'
+
                         ? 'bg-white rounded-3xl border-slate-100 shadow-md'
                         : 'bg-[#AEB5B9] rounded-sm'
                         }`}
@@ -289,9 +318,11 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
 
                 {/* Tile 3: CONTACT */}
                 <motion.div
+                    ref={tileRefs.CONTACT}
                     variants={tileVariants}
                     onClick={() => handleTileClick('CONTACT')}
                     className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out ${activeTile === 'CONTACT'
+
                         ? 'bg-white rounded-3xl border-slate-100 shadow-md'
                         : 'bg-[#F0E6D2] rounded-sm'
                         }`}

@@ -11,7 +11,8 @@
  * All spacing values come from SPACING constants in constants.ts
  */
 import React, { useEffect, useState, useCallback, useRef, useMemo, Suspense, lazy } from 'react';
-import { TileData } from './types';
+import { TileData, TextContent } from './types';
+
 import { INITIAL_TILES, THEME, COLORS, SPACING } from './constants';
 import { Grid } from './components/Grid';
 import { Typewriter } from './components/Typewriter';
@@ -31,10 +32,23 @@ const FullscreenView = lazy(() => import('./components/FullscreenView').then(mod
 
 interface AppProps {
   posts?: import('./types').BlogPost[];
+  problemTileContent?: string;
 }
 
-const App: React.FC<AppProps> = ({ posts = [] }) => {
-  const [tiles, setTiles] = useState<TileData[]>(INITIAL_TILES);
+
+const App: React.FC<AppProps> = ({ posts = [], problemTileContent = '' }) => {
+  const [tiles, setTiles] = useState<TileData[]>(() => {
+    // If problemTileContent is provided, update INITIAL_TILES
+    if (problemTileContent) {
+      return INITIAL_TILES.map(tile =>
+        tile.id === 'tile-1'
+          ? { ...tile, content: { ...tile.content, text: problemTileContent } as TextContent }
+          : tile
+      );
+    }
+    return INITIAL_TILES;
+  });
+
   const [activeTileId, setActiveTileId] = useState<string | null>(() => {
     if (typeof window !== 'undefined') {
       return sessionStorage.getItem('activeTileId');
@@ -195,7 +209,7 @@ const App: React.FC<AppProps> = ({ posts = [] }) => {
 
       <div
         ref={mainContainerRef}
-        className="app-main-wrapper min-h-screen w-full font-sans flex flex-col items-center relative overflow-hidden"
+        className="app-main-wrapper min-h-screen w-full font-sans flex flex-col items-center relative overflow-y-auto overflow-x-hidden"
         style={{ color: THEME.colors.text }}
       >
         {/* Skip to main content link for accessibility */}

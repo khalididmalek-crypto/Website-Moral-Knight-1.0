@@ -27,7 +27,7 @@ export const TileNavigationArrows: React.FC<TileNavigationArrowsProps> = ({
 }) => {
     return (
         <div
-            className={`fixed inset-0 z-50 pointer-events-none flex items-center justify-center ${className}`}
+            className={`fixed inset-0 z-50 pointer-events-none hidden xl:flex items-center justify-center ${className}`}
         >
             <div className="w-full max-w-[1600px] relative h-full flex items-center pointer-events-none px-4 md:px-8">
                 {/* Left Arrow */}

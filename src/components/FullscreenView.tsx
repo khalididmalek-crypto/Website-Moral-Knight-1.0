@@ -294,7 +294,8 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
       </div>
 
       {/* Main Content Area - Blog Grid or Single Tile */}
-      <main className={`relative flex-1 w-full max-w-[1400px] ${SPACING.MODAL_CONTENT_PADDING} ${isBlogView ? '' : SPACING.MODAL_BOTTOM_SPACING} flex flex-col items-center ${(isBlogView || tile.type === ContentType.CONTACT) ? 'justify-start pt-12 md:pt-16' : 'justify-center'}`}>
+      <main className={`relative flex-1 w-full max-w-[1400px] ${SPACING.MODAL_CONTENT_PADDING} ${isBlogView ? '' : SPACING.MODAL_BOTTOM_SPACING} flex flex-col items-center justify-start pt-12 md:pt-20`}>
+
         <div className={`w-full flex flex-col items-center justify-center transition-opacity duration-300 ${activeSubTile ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
           {isBlogView ? (
             // Blog Grid View
@@ -316,7 +317,8 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
             </div>
           ) : (isProblemView || isSolutionView) ? (
             // Problem & Solution Grid View (4 tiles)
-            <div className="w-full max-w-4xl h-[520px] relative shadow-2xl animate-in zoom-in-50 duration-300">
+            <div className="w-full max-w-4xl min-h-[520px] relative shadow-2xl animate-in zoom-in-50 duration-300">
+
               {/* Label above the grid */}
               {isProblemView && (
                 <div className="absolute bottom-full left-0 mb-6 md:mb-8 bg-white border border-black px-3 py-1.5">
