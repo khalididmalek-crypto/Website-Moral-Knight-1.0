@@ -44,15 +44,17 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
         CONTACT: useRef<HTMLDivElement>(null),
     };
 
-    useEffect(() => {
-        if (activeTile && tileRefs[activeTile as keyof typeof tileRefs]?.current) {
-            tileRefs[activeTile as keyof typeof tileRefs].current?.scrollIntoView({
+
+
+
+    const handleLayoutAnimationComplete = (tile: string) => {
+        if (activeTile === tile) {
+            tileRefs[tile as keyof typeof tileRefs].current?.scrollIntoView({
                 behavior: 'smooth',
                 block: 'start'
             });
         }
-    }, [activeTile, hasMounted]);
-
+    };
 
     useEffect(() => {
         setHasMounted(true);
@@ -144,6 +146,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
                     ref={tileRefs.PROBLEM}
                     variants={tileVariants}
                     onClick={() => handleTileClick('PROBLEM')}
+                    onLayoutAnimationComplete={() => handleLayoutAnimationComplete('PROBLEM')}
                     className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out ${activeTile === 'PROBLEM'
 
                         ? 'bg-white rounded-3xl border-slate-100 shadow-md'
@@ -205,6 +208,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
                     ref={tileRefs.SOLUTION}
                     variants={tileVariants}
                     onClick={() => handleTileClick('SOLUTION')}
+                    onLayoutAnimationComplete={() => handleLayoutAnimationComplete('SOLUTION')}
                     className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out ${activeTile === 'SOLUTION'
 
                         ? 'bg-white rounded-3xl border-slate-100 shadow-md'
@@ -251,6 +255,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
                     ref={tileRefs.APPROACH}
                     variants={tileVariants}
                     onClick={() => handleTileClick('APPROACH')}
+                    onLayoutAnimationComplete={() => handleLayoutAnimationComplete('APPROACH')}
                     className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out ${activeTile === 'APPROACH'
 
                         ? 'bg-white rounded-3xl border-slate-100 shadow-md'
@@ -297,6 +302,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
                     ref={tileRefs.SERVICES}
                     variants={tileVariants}
                     onClick={() => handleTileClick('SERVICES')}
+                    onLayoutAnimationComplete={() => handleLayoutAnimationComplete('SERVICES')}
                     className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out ${activeTile === 'SERVICES'
 
                         ? 'bg-white rounded-3xl border-slate-100 shadow-md'
@@ -346,6 +352,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
                     ref={tileRefs.CONTACT}
                     variants={tileVariants}
                     onClick={() => handleTileClick('CONTACT')}
+                    onLayoutAnimationComplete={() => handleLayoutAnimationComplete('CONTACT')}
                     className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out ${activeTile === 'CONTACT'
 
                         ? 'bg-white rounded-3xl border-slate-100 shadow-md'

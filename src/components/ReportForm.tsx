@@ -319,7 +319,7 @@ export const ReportForm: React.FC<Props> = () => {
                     onBlur={() => handleBlur('aiSystem')}
                     className="w-full p-3 border outline-none font-mono text-sm bg-[#F7F7F7] focus:bg-white transition-all"
                     style={{ borderColor: touched.aiSystem && errors.aiSystem ? FORM_COLORS.ERROR : FORM_COLORS.INPUT_BORDER }}
-                    placeholder="Bijv. Gemeente X of Systeem Y"
+                    placeholder="Bv. Gemeente X of Systeem Y"
                 />
                 {touched.aiSystem && errors.aiSystem && <span className="text-xs font-mono" style={{ color: FORM_COLORS.ERROR }}>{errors.aiSystem}</span>}
             </div>
@@ -338,7 +338,7 @@ export const ReportForm: React.FC<Props> = () => {
                     rows={5}
                     className="w-full p-3 border outline-none font-mono text-sm bg-[#F7F7F7] focus:bg-white transition-all resize-none"
                     style={{ borderColor: touched.description && errors.description ? FORM_COLORS.ERROR : FORM_COLORS.INPUT_BORDER }}
-                    placeholder="Beschrijf hoe de burger is benadeeld..."
+                    placeholder="Wat is het probleem?"
                 />
                 {touched.description && errors.description && <span className="text-xs font-mono" style={{ color: FORM_COLORS.ERROR }}>{errors.description}</span>}
             </div>
@@ -381,17 +381,8 @@ export const ReportForm: React.FC<Props> = () => {
                     onBlur={() => handleBlur('privacyConsent')}
                     className="mt-1 w-4 h-4 cursor-pointer"
                 />
-                <label htmlFor="privacyConsent" className="font-mono text-xs text-gray-600 cursor-pointer">
-                    Ik geef Moral Knight toestemming om mijn gegevens te verwerken conform de{' '}
-                    <button
-                        type="button"
-                        onClick={() => window.location.href = '/privacy'}
-                        className="inline underline bg-transparent border-none p-0 cursor-pointer transition-colors duration-300 hover:text-[#8B1A3D]"
-                        style={{ pointerEvents: 'auto', position: 'relative' }}
-                    >
-                        privacyverklaring
-                    </button>{' '}
-                    en begrijp dat meldingen geanonimiseerd gerapporteerd kunnen worden aan instanties. <span style={{ color: FORM_COLORS.ERROR }}>*</span>
+                <label htmlFor="privacyConsent" className="font-mono text-xs text-gray-600 cursor-pointer leading-relaxed">
+                    Ik geef Moral Knight toestemming om mijn gegevens te verwerken conform de <a href="/privacy" className="underline hover:text-[#8B1A3D] transition-colors duration-300">privacyverklaring</a> en begrijp dat meldingen geanonimiseerd gerapporteerd kunnen worden aan instanties. <span style={{ color: FORM_COLORS.ERROR }}>*</span>
                 </label>
             </div>
             {touched.privacyConsent && errors.privacyConsent && <span className="text-xs font-mono -mt-4 ml-7" style={{ color: FORM_COLORS.ERROR }}>{errors.privacyConsent}</span>}
