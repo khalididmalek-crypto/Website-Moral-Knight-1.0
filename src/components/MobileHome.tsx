@@ -45,20 +45,45 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
     };
 
     useEffect(() => {
-        if (activeTile && tileRefs[activeTile as keyof typeof tileRefs]?.current && containerRef.current) {
-            const container = containerRef.current;
-            const tile = tileRefs[activeTile as keyof typeof tileRefs].current;
+        if (!activeTile || !hasMounted || !containerRef.current) return;
 
-            setTimeout(() => {
-                const tileTop = tile?.offsetTop || 0;
-                // Add a small offset (16px) for better visual spacing
-                container.scrollTo({
-                    top: tileTop - 16,
-                    behavior: 'smooth'
-                });
-            }, 400); // Wait for open/close animations to settle
-        }
-    }, [activeTile]);
+        const container = containerRef.current;
+        const targetTile = tileRefs[activeTile as keyof typeof tileRefs]?.current;
+        if (!targetTile) return;
+
+        let animationFrame: number;
+        const startTime = Date.now();
+        const duration = 1000; // Track for 1 second during animation
+
+        const followScroll = () => {
+            const now = Date.now();
+            const elapsed = now - startTime;
+
+            if (elapsed < duration) {
+                const tileTop = targetTile.offsetTop;
+                const currentScroll = container.scrollTop;
+                const targetScroll = tileTop - 16;
+
+                // If we're already scrolling smoothly, let it be, but update the destination
+                // Or snap it if the jump is too large (like when a massive tile above closes)
+                if (Math.abs(currentScroll - targetScroll) > 10) {
+                    container.scrollTo({
+                        top: targetScroll,
+                        behavior: elapsed < 100 ? 'auto' : 'smooth'
+                    });
+                }
+
+                animationFrame = requestAnimationFrame(followScroll);
+            }
+        };
+
+        // Start tracking
+        animationFrame = requestAnimationFrame(followScroll);
+
+        return () => {
+            if (animationFrame) cancelAnimationFrame(animationFrame);
+        };
+    }, [activeTile, hasMounted]);
 
 
     useEffect(() => {
