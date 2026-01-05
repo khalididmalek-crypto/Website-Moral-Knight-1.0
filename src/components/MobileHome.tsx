@@ -49,10 +49,10 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
 
     const handleLayoutAnimationComplete = (tile: string) => {
         if (activeTile === tile) {
-            tileRefs[tile as keyof typeof tileRefs].current?.scrollIntoView({
-                behavior: 'auto',
-                block: 'start'
-            });
+            const element = tileRefs[tile as keyof typeof tileRefs].current;
+            if (element) {
+                window.scrollTo({ top: element.offsetTop - 20, behavior: 'smooth' });
+            }
         }
     };
 
@@ -147,7 +147,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
                     variants={tileVariants}
                     onClick={() => handleTileClick('PROBLEM')}
                     onLayoutAnimationComplete={() => handleLayoutAnimationComplete('PROBLEM')}
-                    className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out ${activeTile === 'PROBLEM'
+                    className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTile === 'PROBLEM'
 
                         ? 'bg-white rounded-3xl border-slate-100 shadow-md'
                         : 'bg-[#F2E8E4] rounded-sm'
@@ -209,7 +209,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
                     variants={tileVariants}
                     onClick={() => handleTileClick('SOLUTION')}
                     onLayoutAnimationComplete={() => handleLayoutAnimationComplete('SOLUTION')}
-                    className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out ${activeTile === 'SOLUTION'
+                    className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTile === 'SOLUTION'
 
                         ? 'bg-white rounded-3xl border-slate-100 shadow-md'
                         : 'bg-[#C1C9B9] rounded-sm'
@@ -256,7 +256,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
                     variants={tileVariants}
                     onClick={() => handleTileClick('APPROACH')}
                     onLayoutAnimationComplete={() => handleLayoutAnimationComplete('APPROACH')}
-                    className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out ${activeTile === 'APPROACH'
+                    className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTile === 'APPROACH'
 
                         ? 'bg-white rounded-3xl border-slate-100 shadow-md'
                         : 'bg-[#CCD5C6] rounded-sm'
@@ -303,7 +303,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
                     variants={tileVariants}
                     onClick={() => handleTileClick('SERVICES')}
                     onLayoutAnimationComplete={() => handleLayoutAnimationComplete('SERVICES')}
-                    className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out ${activeTile === 'SERVICES'
+                    className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTile === 'SERVICES'
 
                         ? 'bg-white rounded-3xl border-slate-100 shadow-md'
                         : 'bg-[#AEB5B9] rounded-sm'
@@ -353,7 +353,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
                     variants={tileVariants}
                     onClick={() => handleTileClick('CONTACT')}
                     onLayoutAnimationComplete={() => handleLayoutAnimationComplete('CONTACT')}
-                    className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out ${activeTile === 'CONTACT'
+                    className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTile === 'CONTACT'
 
                         ? 'bg-white rounded-3xl border-slate-100 shadow-md'
                         : 'bg-[#F0E6D2] rounded-sm'
