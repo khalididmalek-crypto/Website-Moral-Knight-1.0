@@ -5,6 +5,7 @@
  */
 import React, { useState, useCallback, useEffect } from 'react';
 import { Send } from 'lucide-react';
+import Link from 'next/link';
 import { COLORS, FORM_COLORS } from '../constants';
 
 interface Props {
@@ -382,7 +383,7 @@ export const ReportForm: React.FC<Props> = () => {
                     className="mt-1 w-4 h-4 cursor-pointer"
                 />
                 <label htmlFor="privacyConsent" className="font-mono text-xs text-gray-600 cursor-pointer leading-relaxed">
-                    Ik geef Moral Knight toestemming om mijn gegevens te verwerken conform de <a href="/privacy" className="underline hover:text-[#8B1A3D] transition-colors duration-300">privacyverklaring</a> en begrijp dat meldingen geanonimiseerd gerapporteerd kunnen worden aan instanties. <span style={{ color: FORM_COLORS.ERROR }}>*</span>
+                    Ik geef Moral Knight toestemming om mijn gegevens te verwerken conform de <Link href="/privacy" className="underline hover:text-[#8B1A3D] transition-colors duration-300">privacyverklaring</Link> en begrijp dat meldingen geanonimiseerd gerapporteerd kunnen worden aan instanties. <span style={{ color: FORM_COLORS.ERROR }}>*</span>
                 </label>
             </div>
             {touched.privacyConsent && errors.privacyConsent && <span className="text-xs font-mono -mt-4 ml-7" style={{ color: FORM_COLORS.ERROR }}>{errors.privacyConsent}</span>}
