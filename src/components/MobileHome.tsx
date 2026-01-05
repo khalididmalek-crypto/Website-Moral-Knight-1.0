@@ -51,7 +51,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
                 block: 'start'
             });
         }
-    }, [activeTile]);
+    }, [activeTile, hasMounted]);
 
 
     useEffect(() => {
