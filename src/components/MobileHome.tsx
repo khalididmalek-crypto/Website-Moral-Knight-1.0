@@ -50,7 +50,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
     const handleLayoutAnimationComplete = (tile: string) => {
         if (activeTile === tile) {
             tileRefs[tile as keyof typeof tileRefs].current?.scrollIntoView({
-                behavior: 'smooth',
+                behavior: 'auto',
                 block: 'start'
             });
         }

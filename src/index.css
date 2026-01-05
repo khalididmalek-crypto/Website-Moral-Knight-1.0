@@ -54,12 +54,11 @@ body {
     opacity: 0;
 }
 
-@keyframes beam-in {
+/* @keyframes beam-in {
   0% {
     opacity: 0;
     transform: scale(1.05) translateY(-10px);
     filter: brightness(2.5) blur(5px) grayscale(100%);
-    /* Intense silver energy start */
   }
 
   10% {
@@ -77,7 +76,6 @@ body {
   100% {
     opacity: 1;
     transform: translate(0, 0);
-    /* End at "Atoms/Energy" state: Stark B&W, atoms forming */
     filter: brightness(1.2) blur(4px) contrast(200%) grayscale(100%);
   }
 }
@@ -85,24 +83,20 @@ body {
 @keyframes atom-reconstruct {
   0% {
     opacity: 1;
-    /* Start from "Atoms/Energy" state: Stark B&W */
     filter: brightness(1.2) blur(4px) contrast(200%) grayscale(100%);
   }
 
   50% {
-    /* Halfway: Gaining color, reducing blur */
     filter: brightness(1.1) blur(2px) contrast(150%) grayscale(50%);
   }
 
   100% {
     opacity: 1;
-    /* End at "Complete" state: Full Color */
     filter: brightness(1) blur(0) contrast(100%) grayscale(0%);
   }
 }
 
 .animate-beam-in {
-  /* Sequence: Beam-in (0.5s) -> Atom Reconstruct (0.5s) */
   animation: beam-in 0.5s ease-out forwards, atom-reconstruct 0.5s ease-out 0.5s forwards;
 }
 
@@ -111,13 +105,11 @@ body {
     border-color: #4A6572;
   }
 
-  /* slate-blue-600 */
   5% {
     border-color: #344955;
     border-width: 1.5px;
   }
 
-  /* slate-blue-800 */
   10% {
     border-color: transparent;
   }
@@ -131,7 +123,6 @@ body {
     border-color: #232F34;
   }
 
-  /* slate-blue-900 */
   30% {
     border-color: transparent;
   }
@@ -178,14 +169,12 @@ body {
     border-color: black;
     border-width: 0.67px;
     filter: blur(0px);
-    /* No blur */
   }
 
   50% {
     border-color: rgba(0, 0, 0, 0.8);
     border-width: 0.67px;
     filter: blur(0px);
-    /* No blur */
   }
 
   25%,
@@ -193,13 +182,11 @@ body {
     border-color: rgba(0, 0, 0, 0.1);
     border-width: 0.67px;
     filter: blur(0.5px);
-    /* Subtle blur */
   }
 }
 
 .animate-tv-static-border {
   animation: tv-static-border 1.2s infinite alternate;
-  /* 50% slower */
 }
 
 @keyframes buggy-static-border {
@@ -227,7 +214,6 @@ body {
     filter: blur(1px);
   }
 
-  /* Noise spike */
   20% {
     border-color: rgba(0, 0, 0, 0.8);
     border-width: 0.67px;
@@ -240,14 +226,12 @@ body {
     filter: blur(0.3px);
   }
 
-  /* Stable period */
   55% {
     border-color: rgba(0, 0, 0, 0.3);
     border-width: 0.5px;
     filter: blur(1.5px);
   }
 
-  /* Deep blur noise */
   60% {
     border-color: rgba(0, 0, 0, 0.9);
     border-width: 0.7px;
@@ -269,7 +253,6 @@ body {
 
 .animate-buggy-static-border {
   animation: buggy-static-border 2.5s infinite linear;
-  /* 40% less fast */
 }
 
 @keyframes wander {
@@ -332,7 +315,6 @@ body {
   animation: wander 1.25s linear infinite;
 }
 
-/* Intro Animation: Appear, Fast Rotate, Point, Buggy Disappear */
 @keyframes arrow-intro-sequence {
   0% {
     opacity: 0;
@@ -346,17 +328,14 @@ body {
 
   20% {
     transform: rotate(0deg) scale(1);
-    /* Pointing Left */
   }
 
   60% {
     transform: rotate(0deg) scale(1);
-    /* Stay pointing */
     opacity: 1;
     filter: blur(0px);
   }
 
-  /* Buggy Disappear Phase */
   65% {
     transform: translate(2px, -2px) rotate(2deg);
     filter: blur(1px);
@@ -382,7 +361,6 @@ body {
   }
 }
 
-/* Static Noise for Hover */
 @keyframes static-noise-jitter {
   0% {
     transform: translate(0, 0);
@@ -414,7 +392,6 @@ body {
   animation: arrow-intro-sequence 0.5s ease-out forwards;
 }
 
-/* Cross Intro: Very subtle, 75% less intense than arrow */
 @keyframes cross-intro-sequence {
   0% {
     opacity: 0;
@@ -423,7 +400,6 @@ body {
 
   20% {
     opacity: 0.3;
-    /* Low opacity */
     transform: scale(0.7) rotate(0deg);
   }
 
@@ -433,7 +409,6 @@ body {
     filter: blur(0.5px);
   }
 
-  /* Buggy Disappear */
   75% {
     opacity: 0.1;
     transform: scale(0.6) rotate(10deg);
@@ -456,12 +431,10 @@ body {
 }
 
 .bg-subtle-tv-noise {
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.05' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E");
 }
 
 .filter-text-noise {
   filter: blur(0.2px);
-  /* Very subtle blur */
 }
 
 .bg-accent-light {
@@ -473,8 +446,12 @@ body {
   opacity: 0.9;
   text-shadow: 0 0 1px rgba(0, 0, 0, 0.3);
 }
-
-/* Reduce motion for users who prefer it */
+*/
+/* Intro Animation: Appear, Fast Rotate, Point, Buggy Disappear */
+/* Static Noise for Hover */
+.bg-subtle-tv-noise {
+    /* background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.05' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E"); */
+}
 @media (prefers-reduced-motion: reduce) {
 
   *,
