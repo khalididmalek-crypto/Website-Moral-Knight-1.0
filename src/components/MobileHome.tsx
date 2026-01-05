@@ -3,13 +3,24 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ContactForm } from './ContactForm';
 import { Dashboard } from './Dashboard';
 import { ProgressiveImage } from './ProgressiveImage';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
-type MobileView = 'HOME' | 'DASHBOARD';
+import { Meldpunt } from './Meldpunt';
 
-export const MobileHome: React.FC = () => {
+type MobileView = 'HOME' | 'DASHBOARD' | 'MELDPUNT';
+
+
+interface MobileHomeProps {
+    problemTileContent: string;
+}
+
+export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) => {
     const [view, setView] = useState<MobileView>('HOME');
+    const [meldpuntOpen, setMeldpuntOpen] = useState(false);
     const [activeTile, setActiveTile] = useState<string | null>(null);
     const [hasMounted, setHasMounted] = useState(false);
+
 
     useEffect(() => {
         setHasMounted(true);
@@ -21,8 +32,10 @@ export const MobileHome: React.FC = () => {
 
     const handleBack = () => {
         setView('HOME');
+        setMeldpuntOpen(false);
         setActiveTile(null);
     };
+
 
     // Hydration Guard: Render nothing until the component has mounted on the client
     if (!hasMounted) {
@@ -30,6 +43,8 @@ export const MobileHome: React.FC = () => {
     }
 
     if (view === 'DASHBOARD') return <Dashboard onClose={handleBack} />;
+    if (view === 'MELDPUNT' || meldpuntOpen) return <Meldpunt onClose={handleBack} />;
+
 
     const containerVariants = {
         hidden: { opacity: 0 },
@@ -109,29 +124,33 @@ export const MobileHome: React.FC = () => {
                             >
                                 <motion.div exit={contentExitAnimation}>
                                     <div className="flex flex-col items-center py-4 mt-6">
-                                        <h4 className="font-bold text-base mb-2 text-[#194D25] text-left w-full">AI die mensen schaadt</h4>
-                                        <p className="mb-4 text-[14px] font-mono leading-relaxed text-gray-700">
-                                            Kunstmatige intelligentie wordt tegenwoordig voor allerlei maatschappelijke processen gebruikt. Algoritmes bepalen de toegang tot de overheid, zorg, wonen, en werk en inkomen. Zonder onafhankelijk toezicht verdwijnt de menselijke maat achter een barrière van oncontroleerbare technologie.
-                                        </p>
-                                        <h5 className="font-semibold text-sm mt-4 mb-2 text-gray-800 text-left w-full">Digitale gijzeling</h5>
-                                        <p className="mb-4 text-[14px] font-mono leading-relaxed text-gray-700">
-                                            De overheid legt vitale publieke taken in handen van commerciële tech-giganten. Hierdoor ontstaat een diepe afhankelijkheid van ondoorzichtige systemen. Als burger kun je hierdoor benadeeld worden op het vlak van rechtsbescherming, privacy en de kwaliteit van publieke voorzieningen. Op een gegeven moment is er geen weg meer terug: we verliezen controle over onze digitale infrastructuur. Dat wordt ook wel een vendor lock-in genoemd. De situatie waarbij overstappen naar een andere partij gepaard gaat met onaanvaardbaar risico. Zoals hoge kosten, technische hindernissen of operationele problemen.
-                                        </p>
+                                        <ReactMarkdown 
+                                            remarkPlugins={[remarkGfm]}
+                                            components={{
+                                                h2: ({node, ...props}) => <h4 className="font-bold text-base mb-2 text-[#194D25] text-left w-full" {...props} />,
+                                                h3: ({node, ...props}) => <h5 className="font-semibold text-sm mt-4 mb-2 text-gray-800 text-left w-full" {...props} />,
+                                                p: ({node, ...props}) => <p className="mb-4 text-[14px] font-mono leading-relaxed text-gray-700" {...props} />,
+                                                a: ({node, href, ...props}) => {
+                                                    if (href === '#meldpunt') {
+                                                        return (
+                                                            <button 
+                                                                onClick={(e) => {
+                                                                    e.preventDefault();
+                                                                    setMeldpuntOpen(true);
+                                                                }}
+                                                                className="text-[#8B1A3D] font-bold hover:underline cursor-pointer"
+                                                            >
+                                                                {props.children}
+                                                            </button>
+                                                        );
+                                                    }
+                                                    return <a href={href} className="text-[#8B1A3D] hover:underline" {...props} />;
+                                                }
+                                            }}
 
-                                        <h5 className="font-semibold text-sm mt-4 mb-2 text-gray-800 text-left w-full">Geautomatiseerde uitsluiting</h5>
-                                        <p className="mb-4 text-[14px] font-mono leading-relaxed text-gray-700">
-                                            De data waarop AI is getraind is nooit neutraal. Ze staan bol van vooroordelen of liggen soms in de code besloten. Een postcode of persoonlijke achtergrond bepaalt vervolgens over de kansen van mensen. Zonder dat de burger dit weet of er zicht op heeft, of het überhaupt kan controleren. Uiteraard pakt dit het nadeligst uit voor de kwetsbaren in onze maatschappij, zoals ouderen, mensen die moeite hebben met lezen en schrijven of mensen met een beperking, of gemarginaliseerde groepen.
-                                        </p>
-
-                                        <h5 className="font-semibold text-sm mt-4 mb-2 text-gray-800 text-left w-full">Macht zonder menselijk gezicht</h5>
-                                        <p className="mb-4 text-[14px] font-mono leading-relaxed text-gray-700">
-                                            Doordat de machine beslist staat het recht op bezwaar onder druk. De menselijke maat verdwijnt in een &apos;black box&apos; en bureaucratisch gedoe. Door morele ontkoppeling (moral disengagement) leunt men teveel op de nieuwe technologie. Waardoor verantwoordelijkheid nemen voor een ander die er door in de problemen raakt uit het zicht raakt. Ondanks alle goede bedoelingen. Een algoritme kent geen gedeelde menselijke kwetsbaarheid en toont geen menselijke empathie. En zelfs in het geval van menselijke controle is er altijd een risico op automation bias. Werknemers raken verveeld door het lopende band werk eindeloze controle. Of controle blijft hangen in juridische formaliteiten. Als burger en als werknemer sta je vaak machteloos tegenover de werking van publieke AI.
-                                        </p>
-
-                                        <h5 className="font-semibold text-sm mt-4 mb-2 text-gray-800 text-left w-full">Afbrokkeling van democratie</h5>
-                                        <p className="text-[14px] font-mono leading-relaxed text-gray-700">
-                                            Onnavolgbare besluitvorming verandert de overheid van een bondgenoot in een onvoorspelbare machtsfactor. Wanneer de burger niet meer kan controleren hoe besluiten vallen, maakt democratische controle plaats voor argwaan en angst. Deze afbreuk van vertrouwen is geen neveneffect, maar een fundamentele aantasting van de rechtsstaat waarin de burger niet langer partner, maar proefkonijn is. Zonder onafhankelijke audits hebben overheid en bedrijfsleven een vrijbrief om publieke AI toe te passen in het maatschappelijk leven. Terwijl het afleggen van publieke verantwoording op de achtergrond verdwijnt.
-                                        </p>
+                                        >
+                                            {problemTileContent}
+                                        </ReactMarkdown>
                                     </div>
                                 </motion.div>
                             </motion.div>
