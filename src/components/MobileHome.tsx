@@ -21,6 +21,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
     const [meldpuntOpen, setMeldpuntOpen] = useState(false);
     const [activeTile, setActiveTile] = useState<string | null>(null);
     const [hasMounted, setHasMounted] = useState(false);
+    const animationStartTime = useRef<number | null>(null);
 
 
     const containerRef = useRef<HTMLDivElement>(null);
@@ -44,31 +45,42 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
         CONTACT: useRef<HTMLDivElement>(null),
     };
 
-
-
-
-    const handleLayoutAnimationComplete = (tile: string) => {
-        if (activeTile === tile) {
-            const element = tileRefs[tile as keyof typeof tileRefs].current;
-            if (element) {
-                window.scrollTo({ top: element.offsetTop - 20, behavior: 'smooth' });
-            }
-        }
-    };
-
     useEffect(() => {
         setHasMounted(true);
     }, []);
 
 
     const handleTileClick = (tile: string) => {
-        setActiveTile(activeTile === tile ? null : tile);
+        const newActiveTile = activeTile === tile ? null : tile;
+        setActiveTile(newActiveTile);
+
+        if (newActiveTile) {
+            animationStartTime.current = Date.now();
+        }
     };
+
 
     const handleBack = () => {
         setView('HOME');
         setMeldpuntOpen(false);
         setActiveTile(null);
+    };
+
+    const handleTileUpdate = (latest: any, tile: string) => {
+        if (activeTile === tile && animationStartTime.current) {
+            const elapsedTime = Date.now() - animationStartTime.current;
+            if (elapsedTime < 100) { // Only scroll within the first 100ms
+                const element = tileRefs[tile as keyof typeof tileRefs].current;
+                if (element) {
+                    window.scrollTo({
+                        top: element.offsetTop - 20,
+                        // behavior: 'auto' // Use 'auto' for instant jump
+                    });
+                }
+            } else {
+                animationStartTime.current = null; // Reset after the window
+            }
+        }
     };
 
 
@@ -97,12 +109,11 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
             y: 0,
             opacity: 1,
             transition: {
-                type: 'spring' as const,
-                stiffness: 60,
-                damping: 15,
+                duration: 0.3,
             },
         },
     };
+
 
     const contentExitAnimation = {
         opacity: [1, 0.5, 0],
@@ -118,7 +129,10 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
             className="flex flex-col min-h-[100dvh] w-full font-mono overflow-y-auto md:hidden transition-colors duration-500 ease-in-out"
-            style={{ backgroundColor: activeTile ? BG_COLORS[activeTile as keyof typeof BG_COLORS] : BG_COLORS.HOME }}
+            style={{
+                backgroundColor: activeTile ? BG_COLORS[activeTile as keyof typeof BG_COLORS] : BG_COLORS.HOME,
+                overflowAnchor: 'none'
+            }}
 
         >
             {/* Header */}
@@ -146,7 +160,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
                     ref={tileRefs.PROBLEM}
                     variants={tileVariants}
                     onClick={() => handleTileClick('PROBLEM')}
-                    onLayoutAnimationComplete={() => handleLayoutAnimationComplete('PROBLEM')}
+                    onUpdate={(latest) => handleTileUpdate(latest, 'PROBLEM')}
                     className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTile === 'PROBLEM'
 
                         ? 'bg-white rounded-3xl border-slate-100 shadow-md'
@@ -208,7 +222,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
                     ref={tileRefs.SOLUTION}
                     variants={tileVariants}
                     onClick={() => handleTileClick('SOLUTION')}
-                    onLayoutAnimationComplete={() => handleLayoutAnimationComplete('SOLUTION')}
+                    onUpdate={(latest) => handleTileUpdate(latest, 'SOLUTION')}
                     className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTile === 'SOLUTION'
 
                         ? 'bg-white rounded-3xl border-slate-100 shadow-md'
@@ -255,7 +269,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
                     ref={tileRefs.APPROACH}
                     variants={tileVariants}
                     onClick={() => handleTileClick('APPROACH')}
-                    onLayoutAnimationComplete={() => handleLayoutAnimationComplete('APPROACH')}
+                    onUpdate={(latest) => handleTileUpdate(latest, 'APPROACH')}
                     className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTile === 'APPROACH'
 
                         ? 'bg-white rounded-3xl border-slate-100 shadow-md'
@@ -302,7 +316,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
                     ref={tileRefs.SERVICES}
                     variants={tileVariants}
                     onClick={() => handleTileClick('SERVICES')}
-                    onLayoutAnimationComplete={() => handleLayoutAnimationComplete('SERVICES')}
+                    onUpdate={(latest) => handleTileUpdate(latest, 'SERVICES')}
                     className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTile === 'SERVICES'
 
                         ? 'bg-white rounded-3xl border-slate-100 shadow-md'
@@ -352,7 +366,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
                     ref={tileRefs.CONTACT}
                     variants={tileVariants}
                     onClick={() => handleTileClick('CONTACT')}
-                    onLayoutAnimationComplete={() => handleLayoutAnimationComplete('CONTACT')}
+                    onUpdate={(latest) => handleTileUpdate(latest, 'CONTACT')}
                     className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTile === 'CONTACT'
 
                         ? 'bg-white rounded-3xl border-slate-100 shadow-md'
