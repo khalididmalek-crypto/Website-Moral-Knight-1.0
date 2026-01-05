@@ -23,7 +23,17 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
     const [hasMounted, setHasMounted] = useState(false);
 
 
+    const BG_COLORS = {
+        PROBLEM: '#f9f5f3',
+        SOLUTION: '#f3f6f1',
+        APPROACH: '#f5f7f3',
+        SERVICES: '#f0f2f4',
+        CONTACT: '#fbf9f3',
+        HOME: '#f8fafc'
+    };
+
     const tileRefs = {
+
         PROBLEM: useRef<HTMLDivElement>(null),
         SOLUTION: useRef<HTMLDivElement>(null),
         APPROACH: useRef<HTMLDivElement>(null),
@@ -101,7 +111,9 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
-            className="flex flex-col min-h-[100dvh] w-full bg-[#f8fafc] font-mono overflow-y-auto md:hidden"
+            className="flex flex-col min-h-[100dvh] w-full font-mono overflow-y-auto md:hidden transition-colors duration-500 ease-in-out"
+            style={{ backgroundColor: activeTile ? BG_COLORS[activeTile as keyof typeof BG_COLORS] : BG_COLORS.HOME }}
+
         >
             {/* Header */}
             <div className="pt-12 px-6 pb-2">
@@ -146,7 +158,8 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
                                 className="overflow-hidden"
                             >
                                 <motion.div exit={contentExitAnimation}>
-                                    <div className="flex flex-col items-center py-4 mt-6">
+                                    <div className="flex flex-col items-start py-4">
+
                                         <ReactMarkdown
                                             remarkPlugins={[remarkGfm]}
                                             components={{
@@ -205,7 +218,8 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
                                 className="overflow-hidden"
                             >
                                 <motion.div exit={contentExitAnimation}>
-                                    <div className="flex flex-col items-center py-4 mt-6">
+                                    <div className="flex flex-col items-start py-4">
+
                                         <h4 className="font-bold text-sm mb-2 text-gray-900 text-left w-full">De gelaagde AI-keuring</h4>
                                         <p className="mb-4 text-[14px] font-mono leading-relaxed text-gray-700">
                                             In 2026 is een AI-audit geen &apos;one-size-fits-all&apos; exercitie meer; wij passen een risicogebaseerde APK toe die direct aansluit op de strenge eisen van de EU AI Act. Onze oplossing verankert de verplichte Fundamental Rights Impact Assessment (FRIA/IAMA) in de kern van de organisatie. Hiermee borgen we dat hoog-risico systemen in de zorg, het onderwijs en bij de overheid niet alleen technisch kloppen, maar ook de grondrechten van de burger onvoorwaardelijk respecteren. Waar risico’s onaanvaardbaar zijn, dwingen wij aanpassingen af voordat de samenleving geraakt wordt.
@@ -249,7 +263,8 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
                                 className="overflow-hidden"
                             >
                                 <motion.div exit={contentExitAnimation}>
-                                    <div className="flex flex-col items-center py-4 mt-6">
+                                    <div className="flex flex-col items-start py-4">
+
                                         <h4 className="font-bold text-sm mb-2 text-gray-900 text-left w-full">Advies: Koers bepalen</h4>
                                         <p className="mb-4 text-[14px] font-mono leading-relaxed text-gray-700">
                                             Wij leggen het ethische fundament voor uw AI-strategie. Door educatie en scherpe kaders krijgt u de regie terug. Zo zijn investeringen vanaf dag één veilig, waardevol en juridisch houdbaar.
@@ -293,7 +308,8 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
                                 className="overflow-hidden"
                             >
                                 <motion.div exit={contentExitAnimation}>
-                                    <div className="flex flex-col items-center py-4 mt-6">
+                                    <div className="flex flex-col items-start py-4">
+
                                         <h4 className="font-bold text-sm mb-2 text-gray-900 text-left w-full">Advies</h4>
                                         <ul className="list-disc pl-5 mb-4 text-[14px] font-mono leading-relaxed text-gray-700 w-full">
                                             <li>Educatie & AI-geletterdheid</li>
@@ -341,8 +357,9 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
                                 onClick={(e) => e.stopPropagation()}
                             >
                                 <motion.div exit={contentExitAnimation}>
-                                    <div className="flex flex-col items-start py-4 mt-6">
-                                        <div className="mt-6 w-full border border-gray-200 rounded-lg p-4">
+                                    <div className="flex flex-col items-start py-4">
+                                        <div className="w-full border border-gray-200 rounded-lg p-4 bg-white">
+
                                             <ContactForm mode="fullscreen" className="!p-0" />
                                         </div>
                                     </div>
@@ -358,6 +375,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
                         / Moral Knight 2025 — saving the human species from annihilation
                     </div>
                     <div className="flex flex-col gap-2 mt-6 items-start">
+                        <button onClick={() => setMeldpuntOpen(true)} className="text-[11px] font-bold uppercase tracking-widest" style={{ color: '#8B1A3D' }}>/ MK Meldpunt</button>
                         <button onClick={() => setView('DASHBOARD')} className="text-[11px] font-bold uppercase tracking-widest" style={{ color: '#8B1A3D' }}>/ MK Dashboard</button>
                     </div>
                 </div>
