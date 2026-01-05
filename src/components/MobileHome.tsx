@@ -47,20 +47,9 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
         setHasMounted(true);
     }, []);
 
-    // Effect to handle scrolling when activeTile changes
-    useEffect(() => {
-        if (activeTile && tileRefs[activeTile as keyof typeof tileRefs].current) {
-            // Small delay to allow layout animation to start/finish
-            setTimeout(() => {
-                tileRefs[activeTile as keyof typeof tileRefs].current?.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start',
-                    inline: 'nearest'
-                });
-            }, 300); // Wait for the 300ms animation to finish or nearly finish
-        }
-    }, [activeTile]);
-
+    // NOTE: Removed the useEffect that triggered on activeTile change with a timeout.
+    // Instead, we now use the onLayoutAnimationComplete callback on each tile.
+    // This ensures we only scroll when the physical DOM expansion is 100% done.
 
     const handleTileClick = (tile: string) => {
         const newActiveTile = activeTile === tile ? null : tile;
@@ -72,6 +61,17 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
         setView('HOME');
         setMeldpuntOpen(false);
         setActiveTile(null);
+    };
+
+    // This function handles the scroll after the animation finishes
+    const handleLayoutComplete = (tileKey: string) => {
+        if (activeTile === tileKey && tileRefs[tileKey as keyof typeof tileRefs].current) {
+            tileRefs[tileKey as keyof typeof tileRefs].current?.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start',
+                inline: 'nearest'
+            });
+        }
     };
 
     // Hydration Guard: Render nothing until the component has mounted on the client
@@ -121,7 +121,6 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
             className="flex flex-col min-h-[100dvh] w-full font-mono overflow-y-auto md:hidden transition-colors duration-500 ease-in-out"
             style={{
                 backgroundColor: activeTile ? BG_COLORS[activeTile as keyof typeof BG_COLORS] : BG_COLORS.HOME,
-                // overflowAnchor removed to allow browser default behavior
             }}
 
         >
@@ -150,6 +149,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
                     ref={tileRefs.PROBLEM}
                     variants={tileVariants}
                     onClick={() => handleTileClick('PROBLEM')}
+                    onLayoutAnimationComplete={() => handleLayoutComplete('PROBLEM')}
                     className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTile === 'PROBLEM'
 
                         ? 'bg-white rounded-3xl border-slate-100 shadow-md'
@@ -211,6 +211,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
                     ref={tileRefs.SOLUTION}
                     variants={tileVariants}
                     onClick={() => handleTileClick('SOLUTION')}
+                    onLayoutAnimationComplete={() => handleLayoutComplete('SOLUTION')}
                     className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTile === 'SOLUTION'
 
                         ? 'bg-white rounded-3xl border-slate-100 shadow-md'
@@ -257,6 +258,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
                     ref={tileRefs.APPROACH}
                     variants={tileVariants}
                     onClick={() => handleTileClick('APPROACH')}
+                    onLayoutAnimationComplete={() => handleLayoutComplete('APPROACH')}
                     className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTile === 'APPROACH'
 
                         ? 'bg-white rounded-3xl border-slate-100 shadow-md'
@@ -303,6 +305,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
                     ref={tileRefs.SERVICES}
                     variants={tileVariants}
                     onClick={() => handleTileClick('SERVICES')}
+                    onLayoutAnimationComplete={() => handleLayoutComplete('SERVICES')}
                     className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTile === 'SERVICES'
 
                         ? 'bg-white rounded-3xl border-slate-100 shadow-md'
@@ -352,6 +355,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
                     ref={tileRefs.CONTACT}
                     variants={tileVariants}
                     onClick={() => handleTileClick('CONTACT')}
+                    onLayoutAnimationComplete={() => handleLayoutComplete('CONTACT')}
                     className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTile === 'CONTACT'
 
                         ? 'bg-white rounded-3xl border-slate-100 shadow-md'
