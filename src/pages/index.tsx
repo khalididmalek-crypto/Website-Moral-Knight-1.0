@@ -12,23 +12,34 @@ import App from '../App'
 interface HomeProps {
     posts: BlogPost[];
     problemTileContent: string;
+    solutionTileContent: string;
 }
 
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
-    // Read Markdown file
+    // Read Markdown files
     let problemTileContent = '';
+    let solutionTileContent = '';
+
     try {
-        // Check root first, then 'Teksten Mobile' directory
+        // Read problem text
         let problemTilePath = path.join(process.cwd(), 'probleem_tekst.md');
         if (!fs.existsSync(problemTilePath)) {
             problemTilePath = path.join(process.cwd(), 'Teksten Mobile', 'probleem_tekst.md');
         }
-
         if (fs.existsSync(problemTilePath)) {
             problemTileContent = fs.readFileSync(problemTilePath, 'utf8');
         }
+
+        // Read solution text
+        let solutionTilePath = path.join(process.cwd(), 'oplossing_tekst.md');
+        if (!fs.existsSync(solutionTilePath)) {
+            solutionTilePath = path.join(process.cwd(), 'Teksten Mobile', 'oplossing_tekst.md');
+        }
+        if (fs.existsSync(solutionTilePath)) {
+            solutionTileContent = fs.readFileSync(solutionTilePath, 'utf8');
+        }
     } catch (error) {
-        console.error('Error reading problem_tekst.md:', error);
+        console.error('Error reading markdown files:', error);
     }
 
     // Local mode: Return empty posts array to use static data from constants
@@ -38,12 +49,13 @@ export const getStaticProps: GetStaticProps<HomeProps> = async () => {
         props: {
             posts,
             problemTileContent,
+            solutionTileContent,
         },
         revalidate: 60, // ISR: Revalidate every 60 seconds
     };
 };
 
-export default function Home({ posts, problemTileContent }: HomeProps) {
+export default function Home({ posts, problemTileContent, solutionTileContent }: HomeProps) {
     const [isMobile, setIsMobile] = useState<boolean | null>(null);
 
     useEffect(() => {
@@ -70,7 +82,10 @@ export default function Home({ posts, problemTileContent }: HomeProps) {
             {isMobile ? (
                 /* Mobile View */
                 <div className="relative z-10 block min-h-[100dvh] bg-[#f8fafc]">
-                    <MobileHome problemTileContent={problemTileContent} />
+                    <MobileHome 
+                        problemTileContent={problemTileContent} 
+                        solutionTileContent={solutionTileContent}
+                    />
                 </div>
             ) : (
                 /* Desktop View */

@@ -13,9 +13,10 @@ type MobileView = 'HOME' | 'DASHBOARD' | 'MELDPUNT';
 
 interface MobileHomeProps {
     problemTileContent: string;
+    solutionTileContent: string;
 }
 
-export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) => {
+export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solutionTileContent }) => {
     const [view, setView] = useState<MobileView>('HOME');
     const [meldpuntOpen, setMeldpuntOpen] = useState(false);
     const [activeTile, setActiveTile] = useState<string | null>(null);
@@ -233,18 +234,33 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent }) =>
                                 <motion.div exit={contentExitAnimation}>
                                     <div className="flex flex-col items-start py-4">
 
-                                        <h4 className="font-bold text-sm mb-2 text-gray-900 text-left w-full">De gelaagde AI-keuring</h4>
-                                        <p className="mb-4 text-[14px] font-mono leading-relaxed text-gray-700">
-                                            In 2026 is een AI-audit geen &apos;one-size-fits-all&apos; exercitie meer; wij passen een risicogebaseerde APK toe die direct aansluit op de strenge eisen van de EU AI Act. Onze oplossing verankert de verplichte Fundamental Rights Impact Assessment (FRIA/IAMA) in de kern van de organisatie. Hiermee borgen we dat hoog-risico systemen in de zorg, het onderwijs en bij de overheid niet alleen technisch kloppen, maar ook de grondrechten van de burger onvoorwaardelijk respecteren. Waar risico’s onaanvaardbaar zijn, dwingen wij aanpassingen af voordat de samenleving geraakt wordt.
-                                        </p>
-                                        <h4 className="font-bold text-sm mb-2 text-gray-900 text-left w-full">Veiligheid over de gehele levenscyclus</h4>
-                                        <p className="mb-4 text-[14px] font-mono leading-relaxed text-gray-700">
-                                            AI-systemen zijn nooit &apos;af&apos;; het zijn halffabricaten die continu leren en veranderen zodra ze met de werkelijkheid in aanraking komen. Daarom stopt ons toezicht niet bij de ingebruikname. Wij implementeren mechanismen voor Post-market Monitoring om voortdurend te waken over &apos;data drift&apos; en onvoorziene schadelijke effecten in de praktijk. Door deze voortdurende controle garanderen we veiligheid gedurende de gehele levenscyclus van het algoritme. Wij voorkomen dat een systeem dat vandaag integer lijkt, morgen ongemerkt ontspoort ten koste van het publiek belang.
-                                        </p>
-                                        <h4 className="font-bold text-sm mb-2 text-gray-900 text-left w-full">Betekenisvolle controle en inspraak</h4>
-                                        <p className="text-[14px] font-mono leading-relaxed text-gray-700">
-                                            Echte regie betekent dat mensen de daadwerkelijke macht behouden om in te grijpen. Wij borgen betekenisvolle menselijke controle: medewerkers krijgen de autoriteit en de technische &apos;stopknop&apos; om een algoritmisch besluit te negeren of direct terug te draaien. Tegelijkertijd sluiten we de cirkel met een actieve feedbackloop tussen de burger en de maker. Door de ervaringen van burgers die door het algoritme worden geraakt direct terug te koppelen naar de ontwikkelaars, corrigeren we fouten aan de bron. Wij geven de burger een stem in de techniek.
-                                        </p>
+                                        <ReactMarkdown
+                                            remarkPlugins={[remarkGfm]}
+                                            components={{
+                                                h2: ({ node, ...props }) => <h4 className="font-bold text-base mb-2 text-[#194D25] text-left w-full" {...props} />,
+                                                h3: ({ node, ...props }) => <h5 className="font-semibold text-sm mt-4 mb-2 text-gray-800 text-left w-full" {...props} />,
+                                                p: ({ node, ...props }) => <p className="mb-4 text-[14px] font-mono leading-relaxed text-gray-700" {...props} />,
+                                                a: ({ node, href, ...props }) => {
+                                                    if (href === '#meldpunt') {
+                                                        return (
+                                                            <button
+                                                                onClick={(e) => {
+                                                                    e.preventDefault();
+                                                                    setMeldpuntOpen(true);
+                                                                }}
+                                                                className="text-[#8B1A3D] font-bold hover:underline cursor-pointer"
+                                                            >
+                                                                {props.children}
+                                                            </button>
+                                                        );
+                                                    }
+                                                    return <a href={href} className="text-[#8B1A3D] hover:underline" {...props} />;
+                                                }
+                                            }}
+
+                                        >
+                                            {solutionTileContent}
+                                        </ReactMarkdown>
                                     </div>
                                 </motion.div>
                             </motion.div>
