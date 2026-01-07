@@ -19,7 +19,7 @@ interface MobileHomeProps {
 export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solutionTileContent }) => {
     const [view, setView] = useState<MobileView>('HOME');
     const [meldpuntOpen, setMeldpuntOpen] = useState(false);
-    const [activeTile, setActiveTile] = useState<string | null>(null);
+    const [activeTiles, setActiveTiles] = useState<string[]>([]);
     const [hasMounted, setHasMounted] = useState(false);
     // Animation state - reserved for future scroll lock implementation during animation window
     const [isAnimating, setIsAnimating] = useState(false);
@@ -55,20 +55,21 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
     // This ensures we only scroll when the physical DOM expansion is 100% done.
 
     const handleTileClick = (tile: string) => {
-        const newActiveTile = activeTile === tile ? null : tile;
-        setActiveTile(newActiveTile);
-
-        // Set animation lock when opening a tile
-        if (newActiveTile !== null) {
-            setIsAnimating(true);
-        }
+        setIsAnimating(true);
+        setActiveTiles(prev => {
+            if (prev.includes(tile)) {
+                return prev.filter(t => t !== tile);
+            } else {
+                return [...prev, tile];
+            }
+        });
     };
 
 
     const handleBack = () => {
         setView('HOME');
         setMeldpuntOpen(false);
-        setActiveTile(null);
+        setActiveTiles([]);
     };
 
     // This function handles the scroll after the animation finishes
@@ -77,7 +78,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
         setIsAnimating(false);
 
         // Only scroll if the tile is outside the viewport
-        if (activeTile === tileKey && tileRefs[tileKey as keyof typeof tileRefs].current) {
+        if (activeTiles.includes(tileKey) && tileRefs[tileKey as keyof typeof tileRefs].current) {
             const tileElement = tileRefs[tileKey as keyof typeof tileRefs].current;
             if (!tileElement) return;
             const rect = tileElement.getBoundingClientRect();
@@ -146,7 +147,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
             transition={{ duration: 0.5 }}
             className="flex flex-col min-h-[100dvh] w-full font-mono overflow-y-auto md:hidden transition-colors duration-500 ease-in-out"
             style={{
-                backgroundColor: activeTile ? BG_COLORS[activeTile as keyof typeof BG_COLORS] : BG_COLORS.HOME,
+                backgroundColor: activeTiles.length > 0 ? BG_COLORS[activeTiles[activeTiles.length - 1] as keyof typeof BG_COLORS] : BG_COLORS.HOME,
             }}
 
         >
@@ -177,7 +178,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                     variants={tileVariants}
                     onClick={() => handleTileClick('PROBLEM')}
                     onLayoutAnimationComplete={() => handleLayoutComplete('PROBLEM')}
-                    className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTile === 'PROBLEM'
+                    className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTiles.includes('PROBLEM')
 
                         ? 'bg-white rounded-3xl border-slate-100 shadow-md'
                         : 'bg-[#F2E8E4] rounded-sm'
@@ -188,7 +189,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                         <div className="font-mono text-[13.2px] font-semibold uppercase tracking-widest text-gray-900">Wat is het probleem?</div>
                     </div>
                     <AnimatePresence>
-                        {activeTile === 'PROBLEM' && (
+                        {activeTiles.includes('PROBLEM') && (
                             <motion.div
                                 initial={{ height: 0, opacity: 0 }}
                                 animate={{ height: 'auto', opacity: 1 }}
@@ -240,7 +241,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                     variants={tileVariants}
                     onClick={() => handleTileClick('SOLUTION')}
                     onLayoutAnimationComplete={() => handleLayoutComplete('SOLUTION')}
-                    className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTile === 'SOLUTION'
+                    className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTiles.includes('SOLUTION')
 
                         ? 'bg-white rounded-3xl border-slate-100 shadow-md'
                         : 'bg-[#C1C9B9] rounded-sm'
@@ -251,7 +252,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                         <div className="font-mono text-[13.2px] font-semibold uppercase tracking-widest text-gray-900">Wat is de oplossing?</div>
                     </div>
                     <AnimatePresence>
-                        {activeTile === 'SOLUTION' && (
+                        {activeTiles.includes('SOLUTION') && (
                             <motion.div
                                 initial={{ height: 0, opacity: 0 }}
                                 animate={{ height: 'auto', opacity: 1 }}
@@ -303,7 +304,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                     variants={tileVariants}
                     onClick={() => handleTileClick('APPROACH')}
                     onLayoutAnimationComplete={() => handleLayoutComplete('APPROACH')}
-                    className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTile === 'APPROACH'
+                    className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTiles.includes('APPROACH')
 
                         ? 'bg-white rounded-3xl border-slate-100 shadow-md'
                         : 'bg-[#CCD5C6] rounded-sm'
@@ -314,7 +315,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                         <div className="font-mono text-[13.2px] font-semibold uppercase tracking-widest text-gray-900">ONZE AANPAK</div>
                     </div>
                     <AnimatePresence>
-                        {activeTile === 'APPROACH' && (
+                        {activeTiles.includes('APPROACH') && (
                             <motion.div
                                 initial={{ height: 0, opacity: 0 }}
                                 animate={{ height: 'auto', opacity: 1 }}
@@ -351,7 +352,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                     variants={tileVariants}
                     onClick={() => handleTileClick('SERVICES')}
                     onLayoutAnimationComplete={() => handleLayoutComplete('SERVICES')}
-                    className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTile === 'SERVICES'
+                    className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTiles.includes('SERVICES')
 
                         ? 'bg-white rounded-3xl border-slate-100 shadow-md'
                         : 'bg-[#AEB5B9] rounded-sm'
@@ -362,7 +363,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                         <div className="font-mono text-[13.2px] font-semibold uppercase tracking-widest text-gray-900">ONZE DIENSTEN</div>
                     </div>
                     <AnimatePresence>
-                        {activeTile === 'SERVICES' && (
+                        {activeTiles.includes('SERVICES') && (
                             <motion.div
                                 initial={{ height: 0, opacity: 0 }}
                                 animate={{ height: 'auto', opacity: 1 }}
@@ -402,7 +403,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                     variants={tileVariants}
                     onClick={() => handleTileClick('CONTACT')}
                     onLayoutAnimationComplete={() => handleLayoutComplete('CONTACT')}
-                    className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTile === 'CONTACT'
+                    className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTiles.includes('CONTACT')
 
                         ? 'bg-white rounded-3xl border-slate-100 shadow-md'
                         : 'bg-[#F0E6D2] rounded-sm'
@@ -413,7 +414,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                         <div className="font-mono text-[13.2px] font-semibold uppercase tracking-widest text-gray-900">Contact</div>
                     </div>
                     <AnimatePresence>
-                        {activeTile === 'CONTACT' && hasMounted && (
+                        {activeTiles.includes('CONTACT') && hasMounted && (
                             <motion.div
                                 initial={{ height: 0, opacity: 0 }}
                                 animate={{ height: 'auto', opacity: 1 }}
