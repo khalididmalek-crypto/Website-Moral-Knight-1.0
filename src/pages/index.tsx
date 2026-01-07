@@ -21,25 +21,30 @@ export const getStaticProps: GetStaticProps<HomeProps> = async () => {
     let solutionTileContent = '';
 
     try {
+        const dataDir = path.join(process.cwd(), 'src', 'data');
+
+        // Helper to safely read file
+        const safelyReadFile = (filename: string): string => {
+            try {
+                const filePath = path.join(dataDir, filename);
+                if (fs.existsSync(filePath)) {
+                    return fs.readFileSync(filePath, 'utf8');
+                }
+            } catch (e) {
+                console.warn(`Failed to read ${filename}:`, e);
+            }
+            return '';
+        };
+
         // Read problem text
-        let problemTilePath = path.join(process.cwd(), 'probleem_tekst.md');
-        if (!fs.existsSync(problemTilePath)) {
-            problemTilePath = path.join(process.cwd(), 'Teksten Mobile', 'probleem_tekst.md');
-        }
-        if (fs.existsSync(problemTilePath)) {
-            problemTileContent = fs.readFileSync(problemTilePath, 'utf8');
-        }
+        problemTileContent = safelyReadFile('probleem_tekst.md');
 
         // Read solution text
-        let solutionTilePath = path.join(process.cwd(), 'oplossing_tekst.md');
-        if (!fs.existsSync(solutionTilePath)) {
-            solutionTilePath = path.join(process.cwd(), 'Teksten Mobile', 'oplossing_tekst.md');
-        }
-        if (fs.existsSync(solutionTilePath)) {
-            solutionTileContent = fs.readFileSync(solutionTilePath, 'utf8');
-        }
+        solutionTileContent = safelyReadFile('oplossing_tekst.md');
+
     } catch (error) {
-        console.error('Error reading markdown files:', error);
+        console.error('Critical error in getStaticProps:', error);
+        // Fallback to empty strings acts as safety net
     }
 
     // Local mode: Return empty posts array to use static data from constants
@@ -82,8 +87,8 @@ export default function Home({ posts, problemTileContent, solutionTileContent }:
             {isMobile ? (
                 /* Mobile View */
                 <div className="relative z-10 block min-h-[100dvh] bg-[#f8fafc]">
-                    <MobileHome 
-                        problemTileContent={problemTileContent} 
+                    <MobileHome
+                        problemTileContent={problemTileContent}
                         solutionTileContent={solutionTileContent}
                     />
                 </div>
