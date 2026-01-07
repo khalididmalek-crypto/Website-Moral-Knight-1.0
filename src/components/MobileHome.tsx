@@ -1,7 +1,6 @@
-import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 
 import { motion, AnimatePresence } from 'framer-motion';
-import Head from 'next/head';
 import { ContactForm } from './ContactForm';
 import { Dashboard } from './Dashboard';
 import ReactMarkdown from 'react-markdown';
@@ -24,7 +23,6 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
     const [hasMounted, setHasMounted] = useState(false);
     // Animation state - reserved for future scroll lock implementation during animation window
     const [isAnimating, setIsAnimating] = useState(false);
-    const scrollPosRef = useRef(0);
 
 
     const containerRef = useRef<HTMLDivElement>(null);
@@ -56,22 +54,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
     // Instead, we now use the onLayoutAnimationComplete callback on each tile.
     // This ensures we only scroll when the physical DOM expansion is 100% done.
 
-    // Animation Sync: Force scroll position during animation to prevent browser anchoring jump
-    useLayoutEffect(() => {
-        if (isAnimating) {
-            const preventJump = () => {
-                window.scrollTo(0, scrollPosRef.current);
-            };
-            // Force immediately and on potential resize/reflow events
-            preventJump();
-            window.addEventListener('scroll', preventJump, { passive: false });
-            return () => window.removeEventListener('scroll', preventJump);
-        }
-    }, [isAnimating]);
-
     const handleTileClick = (tile: string) => {
-        // Capture current scroll position BEFORE any layout shift
-        scrollPosRef.current = window.scrollY;
         const newActiveTile = activeTile === tile ? null : tile;
         setActiveTile(newActiveTile);
 
@@ -164,14 +147,9 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
             className="flex flex-col min-h-[100dvh] w-full font-mono overflow-y-auto md:hidden transition-colors duration-500 ease-in-out"
             style={{
                 backgroundColor: activeTile ? BG_COLORS[activeTile as keyof typeof BG_COLORS] : BG_COLORS.HOME,
-                overflowAnchor: 'none' // Root Scroller Anchoring Block
             }}
 
         >
-            <Head>
-                <meta name="theme-color" content={activeTile ? BG_COLORS[activeTile as keyof typeof BG_COLORS] : BG_COLORS.HOME} />
-            </Head>
-
             {/* Header */}
             <div className="pt-12 px-6 pb-2">
                 <h1 className="text-4xl font-medium tracking-tight text-[#111111] mb-1">Moral Knight</h1>
@@ -190,7 +168,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                 initial="hidden"
                 animate="visible"
                 className="flex-1 flex flex-col w-full p-4 gap-y-4 pb-12"
-                style={{ overflowAnchor: 'none' }} // Grid Stabilisatie
+                style={{ overflowAnchor: 'none' }}
             >
                 {/* Tile 1: PROBLEEM */}
                 <motion.div
@@ -204,6 +182,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                         ? 'bg-white rounded-3xl border-slate-100 shadow-md'
                         : 'bg-[#F2E8E4] rounded-sm'
                         }`}
+                    style={{ overflowAnchor: 'none' }}
                 >
                     <div className="px-3 py-1.5 bg-white border border-black w-fit">
                         <div className="font-mono text-[13.2px] font-semibold uppercase tracking-widest text-gray-900">Wat is het probleem?</div>
@@ -266,6 +245,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                         ? 'bg-white rounded-3xl border-slate-100 shadow-md'
                         : 'bg-[#C1C9B9] rounded-sm'
                         }`}
+                    style={{ overflowAnchor: 'none' }}
                 >
                     <div className="px-3 py-1.5 bg-white border border-black w-fit">
                         <div className="font-mono text-[13.2px] font-semibold uppercase tracking-widest text-gray-900">Wat is de oplossing?</div>
@@ -328,6 +308,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                         ? 'bg-white rounded-3xl border-slate-100 shadow-md'
                         : 'bg-[#CCD5C6] rounded-sm'
                         }`}
+                    style={{ overflowAnchor: 'none' }}
                 >
                     <div className="px-3 py-1.5 bg-white border border-black w-fit">
                         <div className="font-mono text-[13.2px] font-semibold uppercase tracking-widest text-gray-900">ONZE AANPAK</div>
@@ -375,6 +356,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                         ? 'bg-white rounded-3xl border-slate-100 shadow-md'
                         : 'bg-[#AEB5B9] rounded-sm'
                         }`}
+                    style={{ overflowAnchor: 'none' }}
                 >
                     <div className="px-3 py-1.5 bg-white border border-black w-fit">
                         <div className="font-mono text-[13.2px] font-semibold uppercase tracking-widest text-gray-900">ONZE DIENSTEN</div>
@@ -425,6 +407,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                         ? 'bg-white rounded-3xl border-slate-100 shadow-md'
                         : 'bg-[#F0E6D2] rounded-sm'
                         }`}
+                    style={{ overflowAnchor: 'none' }}
                 >
                     <div className="px-3 py-1.5 bg-white border border-black w-fit">
                         <div className="font-mono text-[13.2px] font-semibold uppercase tracking-widest text-gray-900">Contact</div>

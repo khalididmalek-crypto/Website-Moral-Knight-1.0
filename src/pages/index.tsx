@@ -82,8 +82,8 @@ export default function Home({ posts, problemTileContent, solutionTileContent }:
             {isMobile ? (
                 /* Mobile View */
                 <div className="relative z-10 block min-h-[100dvh] bg-[#f8fafc]">
-                    <MobileHome
-                        problemTileContent={problemTileContent}
+                    <MobileHome 
+                        problemTileContent={problemTileContent} 
                         solutionTileContent={solutionTileContent}
                     />
                 </div>
