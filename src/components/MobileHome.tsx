@@ -21,6 +21,8 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
     const [meldpuntOpen, setMeldpuntOpen] = useState(false);
     const [activeTile, setActiveTile] = useState<string | null>(null);
     const [hasMounted, setHasMounted] = useState(false);
+    // Animation state - reserved for future scroll lock implementation during animation window
+    const [isAnimating, setIsAnimating] = useState(false);
 
 
     const containerRef = useRef<HTMLDivElement>(null);
@@ -55,6 +57,11 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
     const handleTileClick = (tile: string) => {
         const newActiveTile = activeTile === tile ? null : tile;
         setActiveTile(newActiveTile);
+
+        // Set animation lock when opening a tile
+        if (newActiveTile !== null) {
+            setIsAnimating(true);
+        }
     };
 
 
@@ -66,12 +73,30 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
 
     // This function handles the scroll after the animation finishes
     const handleLayoutComplete = (tileKey: string) => {
+        // Release animation lock
+        setIsAnimating(false);
+
+        // Only scroll if the tile is outside the viewport
         if (activeTile === tileKey && tileRefs[tileKey as keyof typeof tileRefs].current) {
-            tileRefs[tileKey as keyof typeof tileRefs].current?.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start',
-                inline: 'nearest'
-            });
+            const tileElement = tileRefs[tileKey as keyof typeof tileRefs].current;
+            if (!tileElement) return;
+            const rect = tileElement.getBoundingClientRect();
+            const viewportHeight = window.innerHeight;
+
+            // Check if tile is fully visible in viewport
+            const isFullyVisible = rect.top >= 0 && rect.bottom <= viewportHeight;
+
+            // Only scroll if tile is not fully visible
+            if (!isFullyVisible) {
+                // Use requestAnimationFrame for smoother scroll
+                requestAnimationFrame(() => {
+                    tileElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start',
+                        inline: 'nearest'
+                    });
+                });
+            }
         }
     };
 
@@ -143,10 +168,11 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                 initial="hidden"
                 animate="visible"
                 className="flex-1 flex flex-col w-full p-4 gap-y-4 pb-12"
+                style={{ overflowAnchor: 'none' }}
             >
                 {/* Tile 1: PROBLEEM */}
                 <motion.div
-                    layout
+                    layout="position"
                     ref={tileRefs.PROBLEM}
                     variants={tileVariants}
                     onClick={() => handleTileClick('PROBLEM')}
@@ -156,6 +182,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                         ? 'bg-white rounded-3xl border-slate-100 shadow-md'
                         : 'bg-[#F2E8E4] rounded-sm'
                         }`}
+                    style={{ overflowAnchor: 'none' }}
                 >
                     <div className="px-3 py-1.5 bg-white border border-black w-fit">
                         <div className="font-mono text-[13.2px] font-semibold uppercase tracking-widest text-gray-900">Wat is het probleem?</div>
@@ -208,7 +235,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
 
                 {/* Tile 2: OPLOSSING */}
                 <motion.div
-                    layout
+                    layout="position"
                     ref={tileRefs.SOLUTION}
                     variants={tileVariants}
                     onClick={() => handleTileClick('SOLUTION')}
@@ -218,6 +245,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                         ? 'bg-white rounded-3xl border-slate-100 shadow-md'
                         : 'bg-[#C1C9B9] rounded-sm'
                         }`}
+                    style={{ overflowAnchor: 'none' }}
                 >
                     <div className="px-3 py-1.5 bg-white border border-black w-fit">
                         <div className="font-mono text-[13.2px] font-semibold uppercase tracking-widest text-gray-900">Wat is de oplossing?</div>
@@ -270,7 +298,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
 
                 {/* New Tile: ONZE AANPAK */}
                 <motion.div
-                    layout
+                    layout="position"
                     ref={tileRefs.APPROACH}
                     variants={tileVariants}
                     onClick={() => handleTileClick('APPROACH')}
@@ -280,6 +308,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                         ? 'bg-white rounded-3xl border-slate-100 shadow-md'
                         : 'bg-[#CCD5C6] rounded-sm'
                         }`}
+                    style={{ overflowAnchor: 'none' }}
                 >
                     <div className="px-3 py-1.5 bg-white border border-black w-fit">
                         <div className="font-mono text-[13.2px] font-semibold uppercase tracking-widest text-gray-900">ONZE AANPAK</div>
@@ -317,7 +346,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
 
                 {/* New Tile: ONZE DIENSTEN */}
                 <motion.div
-                    layout
+                    layout="position"
                     ref={tileRefs.SERVICES}
                     variants={tileVariants}
                     onClick={() => handleTileClick('SERVICES')}
@@ -327,6 +356,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                         ? 'bg-white rounded-3xl border-slate-100 shadow-md'
                         : 'bg-[#AEB5B9] rounded-sm'
                         }`}
+                    style={{ overflowAnchor: 'none' }}
                 >
                     <div className="px-3 py-1.5 bg-white border border-black w-fit">
                         <div className="font-mono text-[13.2px] font-semibold uppercase tracking-widest text-gray-900">ONZE DIENSTEN</div>
@@ -367,7 +397,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
 
                 {/* Tile 3: CONTACT */}
                 <motion.div
-                    layout
+                    layout="position"
                     ref={tileRefs.CONTACT}
                     variants={tileVariants}
                     onClick={() => handleTileClick('CONTACT')}
@@ -377,6 +407,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                         ? 'bg-white rounded-3xl border-slate-100 shadow-md'
                         : 'bg-[#F0E6D2] rounded-sm'
                         }`}
+                    style={{ overflowAnchor: 'none' }}
                 >
                     <div className="px-3 py-1.5 bg-white border border-black w-fit">
                         <div className="font-mono text-[13.2px] font-semibold uppercase tracking-widest text-gray-900">Contact</div>
