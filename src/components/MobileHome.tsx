@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { X, ArrowLeft, Cpu, Briefcase, Send } from 'lucide-react';
+import { COLORS } from '../constants';
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { ContactForm } from './ContactForm';
@@ -178,6 +180,9 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                         }`}
                     style={{ overflowAnchor: 'none' }}
                 >
+                    <div className="absolute top-4 right-4 opacity-50">
+                        <X size={18} strokeWidth={2} color={COLORS.PRIMARY_GREEN} />
+                    </div>
                     <div className="px-3 py-1.5 bg-white border border-black w-fit">
                         <div className="font-mono text-[13.2px] font-semibold uppercase tracking-widest text-gray-900">Wat is het probleem?</div>
                     </div>
@@ -240,6 +245,9 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                         }`}
                     style={{ overflowAnchor: 'none' }}
                 >
+                    <div className="absolute top-4 right-4 opacity-50">
+                        <ArrowLeft size={18} strokeWidth={2} color={COLORS.PRIMARY_GREEN} />
+                    </div>
                     <div className="px-3 py-1.5 bg-white border border-black w-fit">
                         <div className="font-mono text-[13.2px] font-semibold uppercase tracking-widest text-gray-900">Wat is de oplossing?</div>
                     </div>
@@ -302,6 +310,9 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                         }`}
                     style={{ overflowAnchor: 'none' }}
                 >
+                    <div className="absolute top-4 right-4 opacity-50">
+                        <Cpu size={18} strokeWidth={2} color={COLORS.PRIMARY_GREEN} />
+                    </div>
                     <div className="px-3 py-1.5 bg-white border border-black w-fit">
                         <div className="font-mono text-[13.2px] font-semibold uppercase tracking-widest text-gray-900">ONZE AANPAK</div>
                     </div>
@@ -347,6 +358,9 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                         }`}
                     style={{ overflowAnchor: 'none' }}
                 >
+                    <div className="absolute top-4 right-4 opacity-50">
+                        <Briefcase size={18} strokeWidth={2} color="#F1E1DB" />
+                    </div>
                     <div className="px-3 py-1.5 bg-white border border-black w-fit">
                         <div className="font-mono text-[13.2px] font-semibold uppercase tracking-widest text-gray-900">ONZE DIENSTEN</div>
                     </div>
@@ -394,6 +408,9 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                         }`}
                     style={{ overflowAnchor: 'none' }}
                 >
+                    <div className="absolute top-4 right-4 opacity-50">
+                        <Send size={20} strokeWidth={1.2} color="#888F93" />
+                    </div>
                     <div className="px-3 py-1.5 bg-white border border-black w-fit">
                         <div className="font-mono text-[13.2px] font-semibold uppercase tracking-widest text-gray-900">Contact</div>
                     </div>

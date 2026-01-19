@@ -616,7 +616,7 @@ export const ContactForm: React.FC<Props> = ({ className = '', mode = 'preview',
                 backgroundColor: formData.newsletter ? COLORS.HIGHLIGHT_GREEN : 'transparent',
               }}
               onFocus={(e) => {
-                e.currentTarget.style.boxShadow = `0 0 0 2px ${FORM_COLORS.INPUT_FOCUS}20`;
+                e.currentTarget.style.boxShadow = `0 0 0 1.5px ${FORM_COLORS.INPUT_FOCUS}40`;
               }}
               onBlur={(e) => {
                 e.currentTarget.style.boxShadow = '';
@@ -652,7 +652,7 @@ export const ContactForm: React.FC<Props> = ({ className = '', mode = 'preview',
                 backgroundColor: formData.privacyConsent ? COLORS.HIGHLIGHT_GREEN : 'transparent',
               }}
               onFocus={(e) => {
-                e.currentTarget.style.boxShadow = `0 0 0 2px ${FORM_COLORS.INPUT_FOCUS}20`;
+                e.currentTarget.style.boxShadow = `0 0 0 1.5px ${FORM_COLORS.INPUT_FOCUS}40`;
               }}
               onBlur={(e) => {
                 handleBlur('privacyConsent');

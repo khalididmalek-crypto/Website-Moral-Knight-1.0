@@ -36,11 +36,13 @@
 /* Apply color variables */
 html {
   scroll-behavior: smooth;
-  background-color: #f8fafc; /* bg-slate-50 */
+  background-color: #f8fafc;
+  /* bg-slate-50 */
 }
 
 body {
-  background-color: #f8fafc; /* bg-slate-50 */
+  background-color: #f8fafc;
+  /* bg-slate-50 */
   /* Remove gradient if it causes issues, or ensure it matches desire */
   /* background-image: linear-gradient(to bottom, var(--bg-gradient-start) 0%, var(--bg-gradient-middle) 60%, var(--bg-gradient-end) 100%); */
   background-attachment: fixed;
@@ -50,8 +52,8 @@ body {
 }
 
 .animate-fade-in-slow {
-    animation: fade-in 1s ease-out forwards;
-    opacity: 0;
+  animation: fade-in 1s ease-out forwards;
+  opacity: 0;
 }
 
 /* @keyframes beam-in {
@@ -450,8 +452,9 @@ body {
 /* Intro Animation: Appear, Fast Rotate, Point, Buggy Disappear */
 /* Static Noise for Hover */
 .bg-subtle-tv-noise {
-    /* background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.05' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E"); */
+  /* background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.05' numOctaves='1' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.02'/%3E%3C/svg%3E"); */
 }
+
 @media (prefers-reduced-motion: reduce) {
 
   *,
@@ -484,7 +487,7 @@ body {
 /* Focus states voor betere toegankelijkheid */
 :root {
   --mk-focus: #194D25;
-  --mk-focus-offset: 2px;
+  --mk-focus-offset: 1px;
 }
 
 button:focus-visible,
@@ -493,7 +496,7 @@ input:focus-visible,
 select:focus-visible,
 textarea:focus-visible,
 a:focus-visible {
-  outline: 2px solid var(--mk-focus);
+  outline: 1px solid var(--mk-focus);
   outline-offset: var(--mk-focus-offset);
 }
 
@@ -589,7 +592,7 @@ body {
 
 /* Improve focus visibility on all interactive elements */
 *:focus-visible {
-  outline: 2px solid var(--mk-focus);
+  outline: 1px solid var(--mk-focus);
   outline-offset: var(--mk-focus-offset);
 }
 

@@ -270,7 +270,7 @@ export const ReportForm: React.FC<Props> = () => {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="flex flex-col gap-1.5">
-                    <label htmlFor="name" className="font-mono text-xs uppercase tracking-widest" style={{ color: COLORS.PRIMARY_GREEN }}>
+                    <label htmlFor="name" className="font-mono text-[10px] md:text-xs uppercase tracking-widest" style={{ color: COLORS.PRIMARY_GREEN }}>
                         Naam <span style={{ color: FORM_COLORS.ERROR }}>*</span>
                     </label>
                     <input
@@ -281,14 +281,14 @@ export const ReportForm: React.FC<Props> = () => {
                         onChange={handleChange}
                         onKeyDown={handleInputKeyDown}
                         onBlur={() => handleBlur('name')}
-                        className="w-full p-3 border outline-none font-mono text-sm bg-[#F7F7F7] focus:bg-white transition-all"
+                        className="w-full p-3 border outline-none font-mono text-[11px] md:text-sm bg-[#F7F7F7] focus:bg-white transition-all"
                         style={{ borderColor: touched.name && errors.name ? FORM_COLORS.ERROR : FORM_COLORS.INPUT_BORDER }}
                     />
                     {touched.name && errors.name && <span className="text-xs font-mono" style={{ color: FORM_COLORS.ERROR }}>{errors.name}</span>}
                 </div>
 
                 <div className="flex flex-col gap-1.5">
-                    <label htmlFor="email" className="font-mono text-xs uppercase tracking-widest" style={{ color: COLORS.PRIMARY_GREEN }}>
+                    <label htmlFor="email" className="font-mono text-[10px] md:text-xs uppercase tracking-widest" style={{ color: COLORS.PRIMARY_GREEN }}>
                         Email <span style={{ color: FORM_COLORS.ERROR }}>*</span>
                     </label>
                     <input
@@ -299,7 +299,7 @@ export const ReportForm: React.FC<Props> = () => {
                         onChange={handleChange}
                         onKeyDown={handleInputKeyDown}
                         onBlur={() => handleBlur('email')}
-                        className="w-full p-3 border outline-none font-mono text-sm bg-[#F7F7F7] focus:bg-white transition-all"
+                        className="w-full p-3 border outline-none font-mono text-[11px] md:text-sm bg-[#F7F7F7] focus:bg-white transition-all"
                         style={{ borderColor: touched.email && errors.email ? FORM_COLORS.ERROR : FORM_COLORS.INPUT_BORDER }}
                     />
                     {touched.email && errors.email && <span className="text-xs font-mono" style={{ color: FORM_COLORS.ERROR }}>{errors.email}</span>}
@@ -307,7 +307,7 @@ export const ReportForm: React.FC<Props> = () => {
             </div>
 
             <div className="flex flex-col gap-1.5">
-                <label htmlFor="aiSystem" className="font-mono text-xs uppercase tracking-widest" style={{ color: COLORS.PRIMARY_GREEN }}>
+                <label htmlFor="aiSystem" className="font-mono text-[10px] md:text-xs uppercase tracking-widest" style={{ color: COLORS.PRIMARY_GREEN }}>
                     Publieke instantie / AI Systeem <span style={{ color: FORM_COLORS.ERROR }}>*</span>
                 </label>
                 <input
@@ -318,7 +318,7 @@ export const ReportForm: React.FC<Props> = () => {
                     onChange={handleChange}
                     onKeyDown={handleInputKeyDown}
                     onBlur={() => handleBlur('aiSystem')}
-                    className="w-full p-3 border outline-none font-mono text-sm bg-[#F7F7F7] focus:bg-white transition-all"
+                    className="w-full p-3 border outline-none font-mono text-[11px] md:text-sm bg-[#F7F7F7] focus:bg-white transition-all"
                     style={{ borderColor: touched.aiSystem && errors.aiSystem ? FORM_COLORS.ERROR : FORM_COLORS.INPUT_BORDER }}
                     placeholder="Bv. Gemeente X of Systeem Y"
                 />
@@ -326,7 +326,7 @@ export const ReportForm: React.FC<Props> = () => {
             </div>
 
             <div className="flex flex-col gap-1.5">
-                <label htmlFor="description" className="font-mono text-xs uppercase tracking-widest" style={{ color: COLORS.PRIMARY_GREEN }}>
+                <label htmlFor="description" className="font-mono text-[10px] md:text-xs uppercase tracking-widest" style={{ color: COLORS.PRIMARY_GREEN }}>
                     Omschrijving van de misstand <span style={{ color: FORM_COLORS.ERROR }}>*</span>
                 </label>
                 <textarea
@@ -337,7 +337,7 @@ export const ReportForm: React.FC<Props> = () => {
                     onKeyDown={handleInputKeyDown}
                     onBlur={() => handleBlur('description')}
                     rows={5}
-                    className="w-full p-3 border outline-none font-mono text-sm bg-[#F7F7F7] focus:bg-white transition-all resize-none"
+                    className="w-full p-3 border outline-none font-mono text-[11px] md:text-sm bg-[#F7F7F7] focus:bg-white transition-all resize-none"
                     style={{ borderColor: touched.description && errors.description ? FORM_COLORS.ERROR : FORM_COLORS.INPUT_BORDER }}
                     placeholder="Wat is het probleem?"
                 />
@@ -345,7 +345,7 @@ export const ReportForm: React.FC<Props> = () => {
             </div>
 
             <div className="flex flex-col gap-1.5">
-                <label htmlFor="file" className="font-mono text-xs uppercase tracking-widest" style={{ color: COLORS.PRIMARY_GREEN }}>
+                <label htmlFor="file" className="font-mono text-[10px] md:text-xs uppercase tracking-widest" style={{ color: COLORS.PRIMARY_GREEN }}>
                     Documentatie uploaden <span className="text-xs font-normal normal-case" style={{ color: FORM_COLORS.PLACEHOLDER }}>(max 5MB) (optioneel)</span>
                 </label>
                 <div className="relative">
