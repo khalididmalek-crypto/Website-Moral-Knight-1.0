@@ -147,9 +147,16 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
             className="flex flex-col min-h-[100dvh] w-full font-mono overflow-y-auto md:hidden transition-colors duration-500 ease-in-out"
             style={{
                 backgroundColor: activeTiles.length > 0 ? BG_COLORS[activeTiles[activeTiles.length - 1] as keyof typeof BG_COLORS] : BG_COLORS.HOME,
+                backgroundImage: activeTiles.length > 0 ? 'linear-gradient(135deg, #DDE6E2 0%, #E4E4E1 60%, #E4D4D4 100%)' : 'none',
             }}
         >
+            {/* Projector Noise Layer for the background when active */}
+            {activeTiles.length > 0 && (
+                <div className="fixed inset-0 pointer-events-none opacity-[0.10] mix-blend-multiply bg-[url('data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.65\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E')] z-0" />
+            )}
+
             {/* Common Noise Pattern for Tiles - Defined here to be reused if needed */}
+
             <svg className="hidden">
                 <filter id="tileNoiseFilter">
                     <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" />
@@ -180,21 +187,12 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                     variants={tileVariants}
                     onClick={() => handleTileClick('PROBLEM')}
                     onLayoutAnimationComplete={() => handleLayoutComplete('PROBLEM')}
-                    className={`w-full border border-black p-4 relative cursor-pointer transition-all duration-300 ease-in-out scroll-mt-[100px] ${activeTiles.includes('PROBLEM')
-                        ? 'rounded-none shadow-md'
+                    className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTiles.includes('PROBLEM')
+                        ? 'bg-white rounded-none shadow-md'
                         : 'bg-[#F2E8E4] rounded-sm'
                         }`}
-                    style={{
-                        overflowAnchor: 'none',
-                        ...(activeTiles.includes('PROBLEM') ? {
-                            backgroundColor: BG_COLORS.PROBLEM,
-                            backgroundImage: 'linear-gradient(135deg, #DDE6E2 0%, #E4E4E1 60%, #E4D4D4 100%)'
-                        } : {})
-                    }}
+                    style={{ overflowAnchor: 'none' }}
                 >
-                    {activeTiles.includes('PROBLEM') && (
-                        <div className="absolute inset-0 pointer-events-none opacity-[0.15] mix-blend-multiply bg-[url('data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.65\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E')] z-0" />
-                    )}
 
                     <div className="absolute top-4 right-4 opacity-50">
                         <X size={18} strokeWidth={2} color={COLORS.PRIMARY_GREEN} />
@@ -255,21 +253,12 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                     variants={tileVariants}
                     onClick={() => handleTileClick('SOLUTION')}
                     onLayoutAnimationComplete={() => handleLayoutComplete('SOLUTION')}
-                    className={`w-full border border-black p-4 relative cursor-pointer transition-all duration-300 ease-in-out scroll-mt-[100px] ${activeTiles.includes('SOLUTION')
-                        ? 'rounded-none shadow-md'
+                    className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTiles.includes('SOLUTION')
+                        ? 'bg-white rounded-none shadow-md'
                         : 'bg-[#C1C9B9] rounded-sm'
                         }`}
-                    style={{
-                        overflowAnchor: 'none',
-                        ...(activeTiles.includes('SOLUTION') ? {
-                            backgroundColor: BG_COLORS.SOLUTION,
-                            backgroundImage: 'linear-gradient(135deg, #DDE6E2 0%, #E4E4E1 60%, #E4D4D4 100%)'
-                        } : {})
-                    }}
+                    style={{ overflowAnchor: 'none' }}
                 >
-                    {activeTiles.includes('SOLUTION') && (
-                        <div className="absolute inset-0 pointer-events-none opacity-[0.15] mix-blend-multiply bg-[url('data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.65\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E')] z-0" />
-                    )}
 
                     <div className="absolute top-4 right-4 opacity-50">
                         <ArrowLeft size={18} strokeWidth={2} color={COLORS.PRIMARY_GREEN} />
@@ -330,21 +319,12 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                     variants={tileVariants}
                     onClick={() => handleTileClick('APPROACH')}
                     onLayoutAnimationComplete={() => handleLayoutComplete('APPROACH')}
-                    className={`w-full border border-black p-4 relative cursor-pointer transition-all duration-300 ease-in-out scroll-mt-[100px] ${activeTiles.includes('APPROACH')
-                        ? 'rounded-none shadow-md'
+                    className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTiles.includes('APPROACH')
+                        ? 'bg-white rounded-none shadow-md'
                         : 'bg-[#CCD5C6] rounded-sm'
                         }`}
-                    style={{
-                        overflowAnchor: 'none',
-                        ...(activeTiles.includes('APPROACH') ? {
-                            backgroundColor: BG_COLORS.APPROACH,
-                            backgroundImage: 'linear-gradient(135deg, #DDE6E2 0%, #E4E4E1 60%, #E4D4D4 100%)'
-                        } : {})
-                    }}
+                    style={{ overflowAnchor: 'none' }}
                 >
-                    {activeTiles.includes('APPROACH') && (
-                        <div className="absolute inset-0 pointer-events-none opacity-[0.15] mix-blend-multiply bg-[url('data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.65\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E')] z-0" />
-                    )}
 
                     <div className="absolute top-4 right-4 opacity-50">
                         <Cpu size={18} strokeWidth={2} color={COLORS.PRIMARY_GREEN} />
@@ -388,21 +368,12 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                     variants={tileVariants}
                     onClick={() => handleTileClick('SERVICES')}
                     onLayoutAnimationComplete={() => handleLayoutComplete('SERVICES')}
-                    className={`w-full border border-black p-4 relative cursor-pointer transition-all duration-300 ease-in-out scroll-mt-[100px] ${activeTiles.includes('SERVICES')
-                        ? 'rounded-none shadow-md'
+                    className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTiles.includes('SERVICES')
+                        ? 'bg-white rounded-none shadow-md'
                         : 'bg-[#AEB5B9] rounded-sm'
                         }`}
-                    style={{
-                        overflowAnchor: 'none',
-                        ...(activeTiles.includes('SERVICES') ? {
-                            backgroundColor: BG_COLORS.SERVICES,
-                            backgroundImage: 'linear-gradient(135deg, #DDE6E2 0%, #E4E4E1 60%, #E4D4D4 100%)'
-                        } : {})
-                    }}
+                    style={{ overflowAnchor: 'none' }}
                 >
-                    {activeTiles.includes('SERVICES') && (
-                        <div className="absolute inset-0 pointer-events-none opacity-[0.15] mix-blend-multiply bg-[url('data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.65\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E')] z-0" />
-                    )}
 
                     <div className="absolute top-4 right-4 opacity-50">
                         <Briefcase size={18} strokeWidth={2} color="#F1E1DB" />
@@ -448,21 +419,12 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                     variants={tileVariants}
                     onClick={() => handleTileClick('CONTACT')}
                     onLayoutAnimationComplete={() => handleLayoutComplete('CONTACT')}
-                    className={`w-full border border-black p-4 relative cursor-pointer transition-all duration-300 ease-in-out scroll-mt-[100px] ${activeTiles.includes('CONTACT')
-                        ? 'rounded-none shadow-md'
+                    className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTiles.includes('CONTACT')
+                        ? 'bg-white rounded-none shadow-md'
                         : 'bg-[#F0E6D2] rounded-sm'
                         }`}
-                    style={{
-                        overflowAnchor: 'none',
-                        ...(activeTiles.includes('CONTACT') ? {
-                            backgroundColor: BG_COLORS.CONTACT,
-                            backgroundImage: 'linear-gradient(135deg, #DDE6E2 0%, #E4E4E1 60%, #E4D4D4 100%)'
-                        } : {})
-                    }}
+                    style={{ overflowAnchor: 'none' }}
                 >
-                    {activeTiles.includes('CONTACT') && (
-                        <div className="absolute inset-0 pointer-events-none opacity-[0.15] mix-blend-multiply bg-[url('data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.65\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E')] z-0" />
-                    )}
 
                     <div className="absolute top-4 right-4 opacity-50">
                         <Send size={20} strokeWidth={1.2} color="#888F93" />
