@@ -331,7 +331,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                                         <ReactMarkdown
                                             remarkPlugins={[remarkGfm]}
                                             components={{
-                                                h2: ({ node, ...props }) => <h4 className="font-bold text-sm mb-2 text-gray-900 text-left w-full" {...props} />,
+                                                h2: ({ node, ...props }) => <h4 className="font-bold text-base mb-2 text-[#194D25] text-left w-full" {...props} />,
                                                 p: ({ node, ...props }) => <p className="mb-4 text-[14px] font-mono leading-relaxed text-gray-700" {...props} />,
                                             }}
 
@@ -377,7 +377,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                                         <ReactMarkdown
                                             remarkPlugins={[remarkGfm]}
                                             components={{
-                                                h2: ({ node, ...props }) => <h4 className="font-bold text-sm mb-2 text-gray-900 text-left w-full" {...props} />,
+                                                h2: ({ node, ...props }) => <h4 className="font-bold text-base mb-2 text-[#194D25] text-left w-full" {...props} />,
                                                 p: ({ node, ...props }) => <p className="mb-4 text-[14px] font-mono leading-relaxed text-gray-700" {...props} />,
                                                 ul: ({ node, ...props }) => <ul className="list-disc pl-5 mb-4 text-[14px] font-mono leading-relaxed text-gray-700 w-full" {...props} />,
                                                 li: ({ node, ...props }) => <li className="mb-1" {...props} />,
