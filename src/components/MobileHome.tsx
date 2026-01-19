@@ -422,7 +422,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                 {/* Footer */}
                 <div className="mt-8 px-2 pb-8">
                     <div className="text-[12px] text-gray-400 font-mono uppercase tracking-widest leading-relaxed">
-                        / Moral Knight 2025 — saving the human species from annihilation
+                        / Moral Knight since 2025 - Auditing public AI
                     </div>
                     <div className="flex flex-col gap-2 mt-6 items-start">
                         <button onClick={() => setMeldpuntOpen(true)} className="text-[11px] font-bold uppercase tracking-widest" style={{ color: '#8B1A3D' }}>/ MK Meldpunt</button>

@@ -18,7 +18,13 @@ export default function PrivacyPage() {
                 {/* Navigation & Actions */}
                 <div className="flex border-b border-black pb-4 print:hidden no-print">
                     <button
-                        onClick={() => window.history.back()}
+                        onClick={() => {
+                            if (window.history.length > 1) {
+                                window.history.back();
+                            } else {
+                                window.close();
+                            }
+                        }}
                         className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest hover:text-[#8B1A3D] transition-colors cursor-pointer bg-transparent border-none p-0"
                         style={{ color: COLORS.PRIMARY_GREEN }}
                     >

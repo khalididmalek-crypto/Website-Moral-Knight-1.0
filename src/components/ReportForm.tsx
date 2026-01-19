@@ -383,7 +383,7 @@ export const ReportForm: React.FC<Props> = () => {
                     className="mt-1 w-4 h-4 cursor-pointer"
                 />
                 <label htmlFor="privacyConsent" className="font-mono text-xs text-gray-600 cursor-pointer leading-relaxed">
-                    Ik geef Moral Knight toestemming om mijn gegevens te verwerken conform de <Link href="/privacy" className="underline hover:text-[#8B1A3D] transition-colors duration-300">privacyverklaring</Link> en begrijp dat meldingen geanonimiseerd gerapporteerd kunnen worden aan instanties. <span style={{ color: FORM_COLORS.ERROR }}>*</span>
+                    Ik geef Moral Knight toestemming om mijn gegevens te verwerken conform de <Link href="/privacy" target="_blank" rel="noopener noreferrer" className="underline hover:text-[#8B1A3D] transition-colors duration-300">privacyverklaring</Link> en begrijp dat meldingen geanonimiseerd gerapporteerd kunnen worden aan instanties. <span style={{ color: FORM_COLORS.ERROR }}>*</span>
                 </label>
             </div>
             {touched.privacyConsent && errors.privacyConsent && <span className="text-xs font-mono -mt-4 ml-7" style={{ color: FORM_COLORS.ERROR }}>{errors.privacyConsent}</span>}

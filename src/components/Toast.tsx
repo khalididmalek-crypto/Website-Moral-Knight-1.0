@@ -4,7 +4,7 @@
  * Displays temporary notification messages for user feedback.
  * Supports success, error, and info variants.
  */
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { X, CheckCircle, AlertCircle, Info } from 'lucide-react';
 
 export type ToastType = 'success' | 'error' | 'info';
@@ -92,19 +92,19 @@ export const Toast: React.FC<ToastProps> = ({
 export const useToast = () => {
     const [toasts, setToasts] = useState<Array<{ id: string; message: string; type: ToastType }>>([]);
 
-    const showToast = (message: string, type: ToastType = 'info') => {
+    const showToast = useCallback((message: string, type: ToastType = 'info') => {
         const id = Date.now().toString();
         setToasts((prev) => [...prev, { id, message, type }]);
-    };
+    }, []);
 
-    const removeToast = (id: string) => {
+    const removeToast = useCallback((id: string) => {
         setToasts((prev) => prev.filter((toast) => toast.id !== id));
-    };
+    }, []);
 
-    const ToastContainer = () => (
+    const ToastContainer = useMemo(() => () => (
         <>
             {toasts.map((toast, index) => (
-                <div key={toast.id} style={{ top: `${16 + index * 80}px` }}>
+                <div key={toast.id} style={{ top: `${16 + index * 80}px`, position: 'fixed', right: '1rem', zIndex: 1000 }}>
                     <Toast
                         message={toast.message}
                         type={toast.type}
@@ -113,7 +113,7 @@ export const useToast = () => {
                 </div>
             ))}
         </>
-    );
+    ), [toasts, removeToast]);
 
     return { showToast, ToastContainer };
 };

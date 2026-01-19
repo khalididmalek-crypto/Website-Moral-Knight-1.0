@@ -263,7 +263,7 @@ const App: React.FC<AppProps> = ({ posts = [], problemTileContent = '' }) => {
           {/* Footer */}
           <footer className={`-mt-8 flex justify-between items-center text-[12px] text-gray-400`}>
             <span className="font-mono uppercase tracking-widest" style={{ color: COLORS.SECONDARY_GREEN, fontSize: '14.4px' }}>
-              / {CONFIG.organisation} 2025 — saving the human species from annihilation
+              / {CONFIG.organisation} since 2025 - Auditing public AI
             </span>
             <div className="flex items-center gap-6">
               <button
