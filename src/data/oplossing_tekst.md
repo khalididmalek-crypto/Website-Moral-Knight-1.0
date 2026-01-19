@@ -1,11 +1,11 @@
 ## Ethische AI
-Wij herstellen de menselijke regie over technologie. Moral Knight onderwerpt AI aan permanent toezicht, zodat publieke besluiten voor iedereen begrijpelijk, rechtvaardig en betwistbaar blijven.
+Moral Knight is een onafhankelijke waakhond van publieke AI. Wij waarborgen de menselijke regie over technologie. Gevraagd en ongevraagd toetsen we een AI-toepassing in het publieke domein, zodat publieke uitingen en besluiten voor iedereen begrijpelijk, rechtvaardig en betwistbaar blijven.
 
 ## Weerstand van burgers
-Onze audits zijn geen papieren tijgers, maar leveren harde bewijslast. Wij geven burgers de feiten die nodig zijn om een onjuist AI-besluit effectief aan te vechten. Wij maken grondrechten weer afdwingbaar in een gedigitaliseerde rechtsstaat.
+Onze audits zijn geen papieren tijgers, maar leveren harde bewijslast. Wij tonen organisaties, medewerkers en burgers de feiten die nodig zijn om een onjuist AI-besluit effectief aan het licht te brengen. Op die manier blijven grondrechten in de digitaliserende rechtsstaat beschermd.
 
 ## Regie voor de werknemers
-Wij beschermen jouw vakmanschap. Onze toetsing borgt dat jij als professional de kennis en de tools hebt om de machine te negeren wanneer menselijkheid dat vereist. Wij zorgen dat jij de baas blijft over de output, in plaats van een meat-appendage van de techniek.
+Door onze toetsing dragen we bij aan menselijke integriteit. Professionals behouden hiermee kennis en inzicht in hoe het systeem werkelijk functioneert. Zo blijven de mensen baas over de techniek in plaats van een passief 'aanhangsel'. 
 
 ## Permanent toezicht
-Wij vertalen vage ethische principes naar harde, meetbare normen die passen bij de specifieke context van de zorg of overheid. Onze rol stopt niet bij de start; via 'Ethical Maintenance' bewaken wij de gehele levenscyclus. Zo voorkomen we dat systemen door 'data drift' na verloop van tijd ongemerkt partijdig of onveilig worden.
+Wij vertalen ethische en wettelijke principes naar harde, meetbare en bewijsbare normen die passen bij de specifieke context van een AI-toepassing Onze missie stopt niet na de lancering van het eerste succes. Door 'ethical maintenance' bewaken wij de gehele levenscyclus van een publieke AI-toepassing. Daarmee wordt voorkomen dat systemen in de toekomst ongemerkt partijdig of onveilig worden.
