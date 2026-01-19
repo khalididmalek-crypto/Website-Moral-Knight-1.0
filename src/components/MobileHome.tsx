@@ -470,10 +470,10 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                 </motion.div>
 
                 {/* Divider Line under tiles */}
-                <div className="mx-4 border-b border-black" />
+                <div className="border-b border-black" />
 
                 {/* Footer */}
-                <div className="mt-10 px-4 pb-12">
+                <div className="mt-6 px-1 pb-12">
                     <div className="text-[12px] text-black font-mono uppercase tracking-widest leading-relaxed mb-6">
                         <div className="flex">
                             <span className="mr-2">/</span>
