@@ -9,6 +9,6 @@ Onze voornaamste test ten aanzien van eerlijkheid. Sluit uw algoritme onbedoeld 
 
 
 ## Accountability Check: menselijke regie.
-De test van macht en controle. Heeft de mens nog écht de controle? Of zijn er risico's waardoor de organisatie AI-ethiek uit het oog veriest? Wij auditen of uw medewerkers een verkeerd AI-besluit daadwerkelijk kunnen signalere of herstellen wanneer dat nodig is.
+De test van macht en controle. Heeft de mens nog écht de controle? Of zijn er risico's waardoor de organisatie AI-ethiek uit het oog verliest? Wij auditen of uw medewerkers een verkeerd AI-besluit daadwerkelijk kunnen signaleren of herstellen wanneer dat nodig is.
 
-Onafhankelijk. Kritisch. Rechtvaardig. De toetsing van Moral Knight bewaakt dat publieke waarden in de blaudruk van uw organisatie verankerd blijven. Op het snijvlak van techniek en menselijke samenwerking. Zo verkomt u klachten,, juridische procedures en reputatieschade.
+Onafhankelijk. Kritisch. Rechtvaardig. De toetsing van Moral Knight bewaakt dat publieke waarden in de blauwdruk van uw organisatie verankerd blijven. Op het snijvlak van techniek en menselijke samenwerking. Zo voorkomt u klachten, juridische procedures en reputatieschade en alle negatieve gevolgen van dien.
