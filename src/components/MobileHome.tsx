@@ -149,7 +149,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
 
         >
             {/* Header */}
-            <div className="pt-12 px-6 pb-2 border-b border-black mx-4">
+            <div className="pt-12 px-4 pb-2 border-b border-black">
                 <h1 className="text-4xl font-medium tracking-tight text-[#111111] mb-1">Moral Knight</h1>
                 <div className="text-xs font-bold uppercase tracking-widest text-[#194D25] pt-1.5 opacity-90">
                     Wij zijn een onafhankelijke waakhond en toetsen publieke AI
@@ -161,7 +161,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                 variants={containerVariants}
                 initial="hidden"
                 animate="visible"
-                className="flex-1 flex flex-col w-full p-4 gap-y-4 pb-12"
+                className="flex-1 flex flex-col w-full p-4 pl-4 gap-y-4 pb-12"
                 style={{ overflowAnchor: 'none' }}
             >
                 {/* Tile 1: PROBLEEM */}
