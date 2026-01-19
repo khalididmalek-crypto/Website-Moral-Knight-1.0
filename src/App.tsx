@@ -15,7 +15,6 @@ import { TileData, TextContent } from './types';
 
 import { INITIAL_TILES, THEME, COLORS, SPACING } from './constants';
 import { Grid } from './components/Grid';
-import { Typewriter } from './components/Typewriter';
 import { ProjectorOverlay } from './components/ProjectorOverlay';
 import { LoadingSpinner } from './components/LoadingSpinner';
 import { Dashboard } from './components/Dashboard';
@@ -55,7 +54,7 @@ const App: React.FC<AppProps> = ({ posts = [], problemTileContent = '' }) => {
     }
     return null;
   });
-  const [typingComplete, setTypingComplete] = useState(false);
+  const typingComplete = true;
   const [dashboardOpen, setDashboardOpen] = useState(() => {
     if (typeof window !== 'undefined') {
       return sessionStorage.getItem('dashboardOpen') === 'true';
@@ -231,22 +230,6 @@ const App: React.FC<AppProps> = ({ posts = [], problemTileContent = '' }) => {
                 >
                   {CONFIG.organisation}
                 </h1>
-                <div className="hero-subtitle font-mono font-bold uppercase tracking-widest h-6">
-                  {!typingComplete ? (
-                    <Typewriter
-                      text="Menswaardige AI in het publieke domein"
-                      speed={2}
-                      buggy
-                      onComplete={() => setTypingComplete(true)}
-                      className="ral-6035-text"
-                    />
-                  ) : (
-                    <span className="ral-6035-text">
-                      <span>Menswaardige AI</span>
-                      <span> in het publieke domein</span>
-                    </span>
-                  )}
-                </div>
               </div>
             </div>
           </header>

@@ -24,7 +24,6 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
     const [activeTiles, setActiveTiles] = useState<string[]>([]);
     const [hasMounted, setHasMounted] = useState(false);
     // Animation state - reserved for future scroll lock implementation during animation window
-    const [isAnimating, setIsAnimating] = useState(false);
 
 
     const containerRef = useRef<HTMLDivElement>(null);
@@ -57,7 +56,6 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
     // This ensures we only scroll when the physical DOM expansion is 100% done.
 
     const handleTileClick = (tile: string) => {
-        setIsAnimating(true);
         setActiveTiles(prev => {
             if (prev.includes(tile)) {
                 return prev.filter(t => t !== tile);
@@ -76,9 +74,6 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
 
     // This function handles the scroll after the animation finishes
     const handleLayoutComplete = (tileKey: string) => {
-        // Release animation lock
-        setIsAnimating(false);
-
         // Only scroll if the tile is outside the viewport
         if (activeTiles.includes(tileKey) && tileRefs[tileKey as keyof typeof tileRefs].current) {
             const tileElement = tileRefs[tileKey as keyof typeof tileRefs].current;
@@ -154,15 +149,11 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
 
         >
             {/* Header */}
-            <div className="pt-12 px-6 pb-2">
+            <div className="pt-12 px-6 pb-2 border-b border-black mx-4">
                 <h1 className="text-4xl font-medium tracking-tight text-[#111111] mb-1">Moral Knight</h1>
                 <div className="text-xs font-bold uppercase tracking-widest text-[#194D25] pt-1.5 opacity-90">
                     Wij zijn een onafhankelijke waakhond en toetsen publieke AI
                 </div>
-            </div>
-
-            <div className="w-full px-4 my-4">
-                <div className="w-full h-[1px] bg-black"></div>
             </div>
 
             {/* Accordion Tiles */}
