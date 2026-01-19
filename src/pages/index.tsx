@@ -109,7 +109,13 @@ export default function Home({ posts, problemTileContent, solutionTileContent, a
             ) : (
                 /* Desktop View */
                 <div className="block">
-                    <App posts={posts} problemTileContent={problemTileContent} />
+                    <App
+                        posts={posts}
+                        problemTileContent={problemTileContent}
+                        solutionTileContent={solutionTileContent}
+                        approachTileContent={approachTileContent}
+                        servicesTileContent={servicesTileContent}
+                    />
                 </div>
             )}
         </>

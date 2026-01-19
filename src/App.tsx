@@ -32,20 +32,35 @@ const FullscreenView = lazy(() => import('./components/FullscreenView').then(mod
 interface AppProps {
   posts?: import('./types').BlogPost[];
   problemTileContent?: string;
+  solutionTileContent?: string;
+  approachTileContent?: string;
+  servicesTileContent?: string;
 }
 
 
-const App: React.FC<AppProps> = ({ posts = [], problemTileContent = '' }) => {
+const App: React.FC<AppProps> = ({
+  posts = [],
+  problemTileContent = '',
+  solutionTileContent = '',
+  approachTileContent = '',
+  servicesTileContent = ''
+}) => {
   const [tiles, setTiles] = useState<TileData[]>(() => {
-    // If problemTileContent is provided, update INITIAL_TILES
-    if (problemTileContent) {
-      return INITIAL_TILES.map(tile =>
-        tile.id === 'tile-1'
-          ? { ...tile, content: { ...tile.content, text: problemTileContent } as TextContent }
-          : tile
-      );
-    }
-    return INITIAL_TILES;
+    return INITIAL_TILES.map(tile => {
+      if (tile.id === 'tile-1' && problemTileContent) {
+        return { ...tile, content: { ...tile.content, text: problemTileContent } as TextContent };
+      }
+      if (tile.id === 'tile-2' && solutionTileContent) {
+        return { ...tile, content: { ...tile.content, text: solutionTileContent } as TextContent };
+      }
+      if (tile.id === 'tile-3' && approachTileContent) {
+        return { ...tile, content: { ...tile.content, text: approachTileContent } as TextContent };
+      }
+      if (tile.id === 'tile-4' && servicesTileContent) {
+        return { ...tile, content: { ...tile.content, text: servicesTileContent } as TextContent };
+      }
+      return tile;
+    });
   });
 
   const [activeTileId, setActiveTileId] = useState<string | null>(() => {
