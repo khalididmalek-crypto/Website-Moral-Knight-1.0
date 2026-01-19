@@ -483,7 +483,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                             </div>
                         </div>
                     </div>
-                    <div className="flex flex-col gap-3 items-start">
+                    <div className="flex flex-col gap-2 items-start">
                         <button onClick={() => setMeldpuntOpen(true)} className="text-[11px] font-bold uppercase tracking-widest" style={{ color: '#8B1A3D' }}>/ MK Meldpunt</button>
                         <button onClick={() => setView('DASHBOARD')} className="text-[11px] font-bold uppercase tracking-widest" style={{ color: '#8B1A3D' }}>/ MK Dashboard</button>
                     </div>
