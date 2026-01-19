@@ -13,12 +13,14 @@ interface HomeProps {
     posts: BlogPost[];
     problemTileContent: string;
     solutionTileContent: string;
+    approachTileContent: string;
 }
 
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
     // Read Markdown files
     let problemTileContent = '';
     let solutionTileContent = '';
+    let approachTileContent = '';
 
     try {
         const dataDir = path.join(process.cwd(), 'src', 'data');
@@ -42,6 +44,9 @@ export const getStaticProps: GetStaticProps<HomeProps> = async () => {
         // Read solution text
         solutionTileContent = safelyReadFile('oplossing_tekst.md');
 
+        // Read approach text
+        approachTileContent = safelyReadFile('aanpak_tekst.md');
+
     } catch (error) {
         console.error('Critical error in getStaticProps:', error);
         // Fallback to empty strings acts as safety net
@@ -55,12 +60,13 @@ export const getStaticProps: GetStaticProps<HomeProps> = async () => {
             posts,
             problemTileContent,
             solutionTileContent,
+            approachTileContent,
         },
         revalidate: 60, // ISR: Revalidate every 60 seconds
     };
 };
 
-export default function Home({ posts, problemTileContent, solutionTileContent }: HomeProps) {
+export default function Home({ posts, problemTileContent, solutionTileContent, approachTileContent }: HomeProps) {
     const [isMobile, setIsMobile] = useState<boolean | null>(null);
 
     useEffect(() => {
@@ -90,6 +96,7 @@ export default function Home({ posts, problemTileContent, solutionTileContent }:
                     <MobileHome
                         problemTileContent={problemTileContent}
                         solutionTileContent={solutionTileContent}
+                        approachTileContent={approachTileContent}
                     />
                 </div>
             ) : (

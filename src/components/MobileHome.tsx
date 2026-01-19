@@ -14,9 +14,10 @@ type MobileView = 'HOME' | 'DASHBOARD' | 'MELDPUNT';
 interface MobileHomeProps {
     problemTileContent: string;
     solutionTileContent: string;
+    approachTileContent: string;
 }
 
-export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solutionTileContent }) => {
+export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solutionTileContent, approachTileContent }) => {
     const [view, setView] = useState<MobileView>('HOME');
     const [meldpuntOpen, setMeldpuntOpen] = useState(false);
     const [activeTiles, setActiveTiles] = useState<string[]>([]);
@@ -326,18 +327,16 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                                 <motion.div exit={contentExitAnimation}>
                                     <div className="flex flex-col items-start py-4">
 
-                                        <h4 className="font-bold text-sm mb-2 text-gray-900 text-left w-full">Advies: Koers bepalen</h4>
-                                        <p className="mb-4 text-[14px] font-mono leading-relaxed text-gray-700">
-                                            Wij leggen het ethische fundament voor uw AI-strategie. Door educatie en scherpe kaders krijgt u de regie terug. Zo zijn investeringen vanaf dag één veilig, waardevol en juridisch houdbaar.
-                                        </p>
-                                        <h4 className="font-bold text-sm mb-2 text-gray-900 text-left w-full">Ontwerp: Waarden verankeren</h4>
-                                        <p className="mb-4 text-[14px] font-mono leading-relaxed text-gray-700">
-                                            Wij vertalen abstracte principes naar concrete spelregels. Door menselijk toezicht en transparantie in het ontwerp te vlechten, bouwen we systemen die het vertrouwen van medewerker en burger winnen.
-                                        </p>
-                                        <h4 className="font-bold text-sm mb-2 text-gray-900 text-left w-full">Toetsing: Controle uitoefenen</h4>
-                                        <p className="text-[14px] font-mono leading-relaxed text-gray-700">
-                                            Wij meten of AI in de praktijk doet wat het belooft. Met feitelijke audits leveren we de bewijslast voor toezichthouders en versterken we de maatschappelijke verantwoording van uw organisatie.
-                                        </p>
+                                        <ReactMarkdown
+                                            remarkPlugins={[remarkGfm]}
+                                            components={{
+                                                h2: ({ node, ...props }) => <h4 className="font-bold text-sm mb-2 text-gray-900 text-left w-full" {...props} />,
+                                                p: ({ node, ...props }) => <p className="mb-4 text-[14px] font-mono leading-relaxed text-gray-700" {...props} />,
+                                            }}
+
+                                        >
+                                            {approachTileContent}
+                                        </ReactMarkdown>
                                     </div>
                                 </motion.div>
                             </motion.div>
