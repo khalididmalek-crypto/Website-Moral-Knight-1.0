@@ -8,4 +8,4 @@ Onze audits zijn geen papieren tijgers, maar leveren harde bewijslast. Wij tonen
 Door onze toetsing dragen we bij aan menselijke integriteit. Professionals behouden hiermee kennis en inzicht in hoe het systeem werkelijk functioneert. Zo blijven de mensen baas over de techniek in plaats van een passief 'aanhangsel'. 
 
 ## Permanent toezicht
-Wij vertalen ethische en wettelijke principes naar harde, meetbare en bewijsbare normen die passen bij de specifieke context van een AI-toepassing Onze missie stopt niet na de lancering van het eerste succes. Door 'ethical maintenance' bewaken wij de gehele levenscyclus van een publieke AI-toepassing. Daarmee wordt voorkomen dat systemen in de toekomst ongemerkt partijdig of onveilig worden.
+Wij vertalen ethische en wettelijke principes naar harde, meetbare en bewijsbare normen die passen bij de specifieke context van een AI-toepassing. Onze missie stopt niet na de lancering van het eerste succes. Door 'ethical maintenance' bewaken wij de gehele levenscyclus. Daarmee wordt voorkomen dat systemen in de toekomst onopgemerkt partijdig of onveilig worden.
