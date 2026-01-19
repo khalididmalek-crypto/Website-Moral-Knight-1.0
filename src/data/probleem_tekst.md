@@ -1,11 +1,11 @@
 ## AI die mensen schaadt
-Oncontroleerbare algoritmes nemen de regie over in de publieke sector. Organisaties raken digitaal gegijzeld door commerciële belangen, waardoor de burger zijn stem verliest en de werknemer zijn grip op het werk.
+Steeds vaker worden in het publieke domein ingewikkelde algoritmes ingezet. Het publiek belang staat onder druk van commerciële belangen. In het ergste geval verliest de burger zijn stem of raken professionals de grip op hun werk kwijt.
 
 ## Onmachtige burgers
-Algoritmes beslissen over jouw zorg, inkomen en rechten, vaak zonder uitleg. Als het systeem een fout maakt, sta je als burger alleen. Zonder onafhankelijke controle worden vooroordelen in de code een onzichtbare muur die mensen onterecht uitsluit.
+Algoritmes zijn bepalend binnen onze maatschappelijke infrastructuur. Ze zijn van invloed op de zorg, arbeid en inkomen en de rechten van mensen. Vaak zonder transparantie of uitleg. Als 'het systeem' een fout maakt, sta je als burger of werknemer. Zonder kritische en onafhankelijke controle worden mistanden tussen de techniek en menselijke samenwerking een onoverbrugbare muur die burgers buitensluit, of erger nog: beschadigt.
 
 ## Professionele beklemming
-Werknemers worden gereduceerd tot procesbewakers van systemen die ze zelf niet meer begrijpen. Je draagt de morele en juridische verantwoordelijkheid voor besluiten van een machine, zonder de macht om in te grijpen. Dit is de 'morele kreukelzone': als het systeem faalt, hangt de professional.
+Werknemers worden gereduceerd tot procesbewakers van systemen die ze zelf niet helemaal begrijpen of kunnen doorgronden. Iemand draagt de morele en juridische verantwoordelijkheid voor de besluiten van een machine. Maar zonder macht om in te grijpen. Dit wordt de 'morele kreukelzone' genoemd: als het systeem faalt, hangt de professional, of is de reputatieschade van een organisatie ene feit.
 
 ## Twijfels over AI?
 Heb je als burger of werknemer twijfels over AI en ethiek in jouw dagelijks of professionele leven? Stuur je zorgen op naar ons [meldpunt](#meldpunt).
