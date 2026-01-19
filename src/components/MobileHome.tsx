@@ -31,17 +31,33 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
     const containerRef = useRef<HTMLDivElement>(null);
 
     const BG_COLORS = {
-
-        PROBLEM: '#f9f5f3',
-        SOLUTION: '#f3f6f1',
-        APPROACH: '#f5f7f3',
-        SERVICES: '#f0f2f4',
-        CONTACT: '#fbf9f3',
+        PROBLEM: '#F2E8E4', // Soft Red/Orange
+        SOLUTION: '#C1C9B9', // Soft Green
+        APPROACH: '#CCD5C6', // Neutral Green
+        SERVICES: '#AEB5B9', // Soft Blue/Grey
+        CONTACT: '#F0E6D2',  // Soft Sandy Yellow
         HOME: '#f8fafc'
     };
 
-    const tileRefs = {
+    // Helper to get gradient based on active tile
+    const getActiveGradient = (tile: string) => {
+        switch (tile) {
+            case 'PROBLEM':
+                return 'linear-gradient(135deg, #F2E8E4 0%, #E8D5CE 60%, #E4D4D4 100%)';
+            case 'SOLUTION':
+                return 'linear-gradient(135deg, #C1C9B9 0%, #B4BEAB 60%, #E4E4E1 100%)';
+            case 'APPROACH':
+                return 'linear-gradient(135deg, #CCD5C6 0%, #BCC8B4 60%, #E4E4E1 100%)';
+            case 'SERVICES':
+                return 'linear-gradient(135deg, #AEB5B9 0%, #9DA7AD 60%, #E4E4E1 100%)';
+            case 'CONTACT':
+                return 'linear-gradient(135deg, #F0E6D2 0%, #E8DAC0 60%, #E4E4E1 100%)';
+            default:
+                return 'none';
+        }
+    };
 
+    const tileRefs = {
         PROBLEM: useRef<HTMLDivElement>(null),
         SOLUTION: useRef<HTMLDivElement>(null),
         APPROACH: useRef<HTMLDivElement>(null),
@@ -52,10 +68,6 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
     useEffect(() => {
         setHasMounted(true);
     }, []);
-
-    // NOTE: Removed the useEffect that triggered on activeTile change with a timeout.
-    // Instead, we now use the onLayoutAnimationComplete callback on each tile.
-    // This ensures we only scroll when the physical DOM expansion is 100% done.
 
     const handleTileClick = (tile: string) => {
         setActiveTiles(prev => {
@@ -137,6 +149,8 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
         transition: { duration: 0.15 }
     };
 
+    const lastActiveTile = activeTiles.length > 0 ? activeTiles[activeTiles.length - 1] : 'HOME';
+
     return (
         <motion.div
             ref={containerRef}
@@ -146,8 +160,8 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
             transition={{ duration: 0.5 }}
             className="flex flex-col min-h-[100dvh] w-full font-mono overflow-y-auto md:hidden transition-colors duration-500 ease-in-out"
             style={{
-                backgroundColor: activeTiles.length > 0 ? BG_COLORS[activeTiles[activeTiles.length - 1] as keyof typeof BG_COLORS] : BG_COLORS.HOME,
-                backgroundImage: activeTiles.length > 0 ? 'linear-gradient(135deg, #DDE6E2 0%, #E4E4E1 60%, #E4D4D4 100%)' : 'none',
+                backgroundColor: BG_COLORS[lastActiveTile as keyof typeof BG_COLORS],
+                backgroundImage: activeTiles.length > 0 ? getActiveGradient(lastActiveTile) : 'none',
             }}
         >
             {/* Projector Noise Layer for the background when active */}
