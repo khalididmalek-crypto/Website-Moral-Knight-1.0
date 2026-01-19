@@ -470,8 +470,8 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                 </motion.div>
 
                 {/* Footer */}
-                <div className="mt-12 -mx-4 px-6 py-10 bg-black text-white">
-                    <div className="text-[12px] text-gray-400 font-mono uppercase tracking-widest leading-relaxed mb-8">
+                <div className="mt-8 px-2 pb-8">
+                    <div className="text-[12px] text-black font-mono uppercase tracking-widest leading-relaxed mb-6">
                         <div className="flex">
                             <span className="mr-2">/</span>
                             <div>
@@ -480,9 +480,9 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                             </div>
                         </div>
                     </div>
-                    <div className="flex flex-col gap-4 items-start">
-                        <button onClick={() => setMeldpuntOpen(true)} className="text-[11px] font-bold uppercase tracking-widest border border-white/20 px-4 py-2 w-full text-left hover:bg-white hover:text-black transition-colors">/ MK Meldpunt</button>
-                        <button onClick={() => setView('DASHBOARD')} className="text-[11px] font-bold uppercase tracking-widest border border-white/20 px-4 py-2 w-full text-left hover:bg-white hover:text-black transition-colors">/ MK Dashboard</button>
+                    <div className="flex flex-col gap-2 items-start">
+                        <button onClick={() => setMeldpuntOpen(true)} className="text-[11px] font-bold uppercase tracking-widest" style={{ color: '#8B1A3D' }}>/ MK Meldpunt</button>
+                        <button onClick={() => setView('DASHBOARD')} className="text-[11px] font-bold uppercase tracking-widest" style={{ color: '#8B1A3D' }}>/ MK Dashboard</button>
                     </div>
                 </div>
             </motion.div>
