@@ -469,8 +469,11 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                     </AnimatePresence>
                 </motion.div>
 
+                {/* Divider Line under tiles */}
+                <div className="mx-4 border-b border-black" />
+
                 {/* Footer */}
-                <div className="mt-8 px-2 pb-8">
+                <div className="mt-10 px-4 pb-12">
                     <div className="text-[12px] text-black font-mono uppercase tracking-widest leading-relaxed mb-6">
                         <div className="flex">
                             <span className="mr-2">/</span>
@@ -480,7 +483,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                             </div>
                         </div>
                     </div>
-                    <div className="flex flex-col gap-2 items-start">
+                    <div className="flex flex-col gap-3 items-start">
                         <button onClick={() => setMeldpuntOpen(true)} className="text-[11px] font-bold uppercase tracking-widest" style={{ color: '#8B1A3D' }}>/ MK Meldpunt</button>
                         <button onClick={() => setView('DASHBOARD')} className="text-[11px] font-bold uppercase tracking-widest" style={{ color: '#8B1A3D' }}>/ MK Dashboard</button>
                     </div>
