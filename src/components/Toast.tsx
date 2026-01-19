@@ -101,19 +101,23 @@ export const useToast = () => {
         setToasts((prev) => prev.filter((toast) => toast.id !== id));
     }, []);
 
-    const ToastContainer = useMemo(() => () => (
-        <>
-            {toasts.map((toast, index) => (
-                <div key={toast.id} style={{ top: `${16 + index * 80}px`, position: 'fixed', right: '1rem', zIndex: 1000 }}>
-                    <Toast
-                        message={toast.message}
-                        type={toast.type}
-                        onClose={() => removeToast(toast.id)}
-                    />
-                </div>
-            ))}
-        </>
-    ), [toasts, removeToast]);
+    const ToastContainer = useMemo(() => {
+        const Component = () => (
+            <>
+                {toasts.map((toast, index) => (
+                    <div key={toast.id} style={{ top: `${16 + index * 80}px`, position: 'fixed', right: '1rem', zIndex: 1000 }}>
+                        <Toast
+                            message={toast.message}
+                            type={toast.type}
+                            onClose={() => removeToast(toast.id)}
+                        />
+                    </div>
+                ))}
+            </>
+        );
+        Component.displayName = 'ToastContainer';
+        return Component;
+    }, [toasts, removeToast]);
 
     return { showToast, ToastContainer };
 };
