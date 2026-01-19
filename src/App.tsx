@@ -260,7 +260,7 @@ const App: React.FC<AppProps> = ({ posts = [], problemTileContent = '' }) => {
                   }`}
                 style={{ color: COLORS.PRIMARY_GREEN }}
               >
-                Wij zijn een onafhankelijke organisatie en bewaken publieke AI
+                Wij zijn een onafhankelijke waakhond en toetsen publieke AI
               </p>
             </div>
 
