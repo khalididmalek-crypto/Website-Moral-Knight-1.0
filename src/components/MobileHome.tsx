@@ -31,11 +31,11 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
     const containerRef = useRef<HTMLDivElement>(null);
 
     const BG_COLORS = {
-        PROBLEM: '#F2E8E4', // Soft Red/Orange
-        SOLUTION: '#C1C9B9', // Soft Green
-        APPROACH: '#CCD5C6', // Neutral Green
-        SERVICES: '#AEB5B9', // Soft Blue/Grey
-        CONTACT: '#F0E6D2',  // Soft Sandy Yellow
+        PROBLEM: '#F8F3F1', // Much lighter redish
+        SOLUTION: '#E0E4DC', // Much lighter green
+        APPROACH: '#E5E9E2', // Much lighter neutral green
+        SERVICES: '#D7DADE', // Much lighter blue/grey
+        CONTACT: '#F7F2E8',  // Much lighter sandy yellow
         HOME: '#f8fafc'
     };
 
@@ -43,15 +43,16 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
     const getActiveGradient = (tile: string) => {
         switch (tile) {
             case 'PROBLEM':
-                return 'linear-gradient(135deg, #F2E8E4 0%, #E8D5CE 60%, #E4D4D4 100%)';
+                // Intensified gradient: more contrast from top-left to bottom-right
+                return 'linear-gradient(135deg, #F8F3F1 0%, #F2E3DC 50%, #E8CDCD 100%)';
             case 'SOLUTION':
-                return 'linear-gradient(135deg, #C1C9B9 0%, #B4BEAB 60%, #E4E4E1 100%)';
+                return 'linear-gradient(135deg, #E0E4DC 0%, #CAD4C5 50%, #B4C0AD 100%)';
             case 'APPROACH':
-                return 'linear-gradient(135deg, #CCD5C6 0%, #BCC8B4 60%, #E4E4E1 100%)';
+                return 'linear-gradient(135deg, #E5E9E2 0%, #D1DEC8 50%, #BCC8B4 100%)';
             case 'SERVICES':
-                return 'linear-gradient(135deg, #AEB5B9 0%, #9DA7AD 60%, #E4E4E1 100%)';
+                return 'linear-gradient(135deg, #D7DADE 0%, #BEC7CF 50%, #AEBEC9 100%)';
             case 'CONTACT':
-                return 'linear-gradient(135deg, #F0E6D2 0%, #E8DAC0 60%, #E4E4E1 100%)';
+                return 'linear-gradient(135deg, #F7F2E8 0%, #EEE1C8 50%, #E4D4B8 100%)';
             default:
                 return 'none';
         }
