@@ -152,6 +152,8 @@ export const Tile: React.FC<TileProps> = memo(({
       {!(isPreview && (
         data.id === 'tile-1' ||
         data.id === 'tile-2' ||
+        data.id === 'tile-3' ||
+        data.id === 'tile-4' ||
         data.id.startsWith('prob-') ||
         data.id.startsWith('sol-') ||
         data.id.startsWith('how-')
