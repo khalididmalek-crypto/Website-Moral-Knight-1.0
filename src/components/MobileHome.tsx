@@ -149,10 +149,10 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
 
         >
             {/* Header */}
-            <div className="pt-12 px-4 pb-2 border-b border-black">
+            <div className="pt-12 mx-4 pb-2 border-b border-black">
                 <h1 className="text-4xl font-medium tracking-tight text-[#111111] mb-1">Moral Knight</h1>
                 <div className="text-xs font-bold uppercase tracking-widest text-[#194D25] pt-1.5 opacity-90">
-                    Wij zijn een onafhankelijke waakhond<br />en toetsen publieke AI
+                    Wij zijn een onafhankelijke waakhond
                 </div>
             </div>
 
