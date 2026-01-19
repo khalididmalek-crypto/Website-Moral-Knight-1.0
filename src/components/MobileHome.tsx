@@ -173,8 +173,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                     onClick={() => handleTileClick('PROBLEM')}
                     onLayoutAnimationComplete={() => handleLayoutComplete('PROBLEM')}
                     className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTiles.includes('PROBLEM')
-
-                        ? 'bg-white rounded-3xl border-slate-100 shadow-md'
+                        ? 'bg-white rounded-none shadow-md'
                         : 'bg-[#F2E8E4] rounded-sm'
                         }`}
                     style={{ overflowAnchor: 'none' }}
@@ -236,8 +235,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                     onClick={() => handleTileClick('SOLUTION')}
                     onLayoutAnimationComplete={() => handleLayoutComplete('SOLUTION')}
                     className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTiles.includes('SOLUTION')
-
-                        ? 'bg-white rounded-3xl border-slate-100 shadow-md'
+                        ? 'bg-white rounded-none shadow-md'
                         : 'bg-[#C1C9B9] rounded-sm'
                         }`}
                     style={{ overflowAnchor: 'none' }}
@@ -299,8 +297,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                     onClick={() => handleTileClick('APPROACH')}
                     onLayoutAnimationComplete={() => handleLayoutComplete('APPROACH')}
                     className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTiles.includes('APPROACH')
-
-                        ? 'bg-white rounded-3xl border-slate-100 shadow-md'
+                        ? 'bg-white rounded-none shadow-md'
                         : 'bg-[#CCD5C6] rounded-sm'
                         }`}
                     style={{ overflowAnchor: 'none' }}
@@ -345,8 +342,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                     onClick={() => handleTileClick('SERVICES')}
                     onLayoutAnimationComplete={() => handleLayoutComplete('SERVICES')}
                     className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTiles.includes('SERVICES')
-
-                        ? 'bg-white rounded-3xl border-slate-100 shadow-md'
+                        ? 'bg-white rounded-none shadow-md'
                         : 'bg-[#AEB5B9] rounded-sm'
                         }`}
                     style={{ overflowAnchor: 'none' }}
@@ -393,8 +389,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                     onClick={() => handleTileClick('CONTACT')}
                     onLayoutAnimationComplete={() => handleLayoutComplete('CONTACT')}
                     className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTiles.includes('CONTACT')
-
-                        ? 'bg-white rounded-3xl border-slate-100 shadow-md'
+                        ? 'bg-white rounded-none shadow-md'
                         : 'bg-[#F0E6D2] rounded-sm'
                         }`}
                     style={{ overflowAnchor: 'none' }}
@@ -414,8 +409,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                             >
                                 <motion.div exit={contentExitAnimation}>
                                     <div className="flex flex-col items-start py-4">
-                                        <div className="w-full border border-gray-200 rounded-lg p-4 bg-white">
-
+                                        <div className="w-full bg-white">
                                             <ContactForm mode="fullscreen" className="!p-0" />
                                         </div>
                                     </div>
