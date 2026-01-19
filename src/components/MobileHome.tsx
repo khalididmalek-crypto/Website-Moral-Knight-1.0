@@ -15,9 +15,10 @@ interface MobileHomeProps {
     problemTileContent: string;
     solutionTileContent: string;
     approachTileContent: string;
+    servicesTileContent: string;
 }
 
-export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solutionTileContent, approachTileContent }) => {
+export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solutionTileContent, approachTileContent, servicesTileContent }) => {
     const [view, setView] = useState<MobileView>('HOME');
     const [meldpuntOpen, setMeldpuntOpen] = useState(false);
     const [activeTiles, setActiveTiles] = useState<string[]>([]);
@@ -373,21 +374,18 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                                 <motion.div exit={contentExitAnimation}>
                                     <div className="flex flex-col items-start py-4">
 
-                                        <h4 className="font-bold text-sm mb-2 text-gray-900 text-left w-full">Advies</h4>
-                                        <ul className="list-disc pl-5 mb-4 text-[14px] font-mono leading-relaxed text-gray-700 w-full">
-                                            <li>Educatie & AI-geletterdheid</li>
-                                            <li>Risicoanalyse & AI-governance</li>
-                                        </ul>
-                                        <h4 className="font-bold text-sm mb-2 text-gray-900 text-left w-full">Ontwerp</h4>
-                                        <ul className="list-disc pl-5 mb-4 text-[14px] font-mono leading-relaxed text-gray-700 w-full">
-                                            <li>Value Sensitive Design</li>
-                                            <li>Co-creatie & mensgericht ontwerp</li>
-                                        </ul>
-                                        <h4 className="font-bold text-sm mb-2 text-gray-900 text-left w-full">Toetsing</h4>
-                                        <ul className="list-disc pl-5 text-[14px] font-mono leading-relaxed text-gray-700 w-full">
-                                            <li>Ethiek- & impactassessment</li>
-                                            <li>AI-audit & compliance-toets</li>
-                                        </ul>
+                                        <ReactMarkdown
+                                            remarkPlugins={[remarkGfm]}
+                                            components={{
+                                                h2: ({ node, ...props }) => <h4 className="font-bold text-sm mb-2 text-gray-900 text-left w-full" {...props} />,
+                                                p: ({ node, ...props }) => <p className="mb-4 text-[14px] font-mono leading-relaxed text-gray-700" {...props} />,
+                                                ul: ({ node, ...props }) => <ul className="list-disc pl-5 mb-4 text-[14px] font-mono leading-relaxed text-gray-700 w-full" {...props} />,
+                                                li: ({ node, ...props }) => <li className="mb-1" {...props} />,
+                                            }}
+
+                                        >
+                                            {servicesTileContent}
+                                        </ReactMarkdown>
                                     </div>
                                 </motion.div>
                             </motion.div>

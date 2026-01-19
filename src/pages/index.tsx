@@ -14,6 +14,7 @@ interface HomeProps {
     problemTileContent: string;
     solutionTileContent: string;
     approachTileContent: string;
+    servicesTileContent: string;
 }
 
 export const getStaticProps: GetStaticProps<HomeProps> = async () => {
@@ -21,6 +22,7 @@ export const getStaticProps: GetStaticProps<HomeProps> = async () => {
     let problemTileContent = '';
     let solutionTileContent = '';
     let approachTileContent = '';
+    let servicesTileContent = '';
 
     try {
         const dataDir = path.join(process.cwd(), 'src', 'data');
@@ -47,6 +49,9 @@ export const getStaticProps: GetStaticProps<HomeProps> = async () => {
         // Read approach text
         approachTileContent = safelyReadFile('aanpak_tekst.md');
 
+        // Read services text
+        servicesTileContent = safelyReadFile('diensten_tekst.md');
+
     } catch (error) {
         console.error('Critical error in getStaticProps:', error);
         // Fallback to empty strings acts as safety net
@@ -61,12 +66,13 @@ export const getStaticProps: GetStaticProps<HomeProps> = async () => {
             problemTileContent,
             solutionTileContent,
             approachTileContent,
+            servicesTileContent,
         },
         revalidate: 60, // ISR: Revalidate every 60 seconds
     };
 };
 
-export default function Home({ posts, problemTileContent, solutionTileContent, approachTileContent }: HomeProps) {
+export default function Home({ posts, problemTileContent, solutionTileContent, approachTileContent, servicesTileContent }: HomeProps) {
     const [isMobile, setIsMobile] = useState<boolean | null>(null);
 
     useEffect(() => {
@@ -97,6 +103,7 @@ export default function Home({ posts, problemTileContent, solutionTileContent, a
                         problemTileContent={problemTileContent}
                         solutionTileContent={solutionTileContent}
                         approachTileContent={approachTileContent}
+                        servicesTileContent={servicesTileContent}
                     />
                 </div>
             ) : (
