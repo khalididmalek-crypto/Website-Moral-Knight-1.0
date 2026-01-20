@@ -336,7 +336,7 @@ export const ContentRenderer = React.memo<Props>(
         return (
           <div
             className={`w-full group-hover:bg-transparent overflow-hidden ${className} ${isPreview
-              ? `h-full ${data.id.startsWith('serv-') ? 'flex flex-col justify-center' : ''} ` + (data.id === 'tile-1'
+              ? `h-full ` + (data.id === 'tile-1'
                 ? 'pt-24 px-4 pb-4 md:pt-32 md:px-6 md:pb-6' // Custom padding for tile-1 to move text down
                 : SPACING.TEXT_PADDING_PREVIEW)
               : `h-auto max-h-[80vh] ${SPACING.TEXT_PADDING_FULLSCREEN} overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']`
