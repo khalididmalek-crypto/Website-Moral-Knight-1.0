@@ -46,7 +46,7 @@ const getIconConfig = (tileId: string) => {
     case 'tile-4':
       return { icon: <Briefcase size={24} strokeWidth={1.5} aria-hidden="true" />, variant: 'cross' as const, color: '#F1E1DB' };
     case 'tile-5':
-      return { icon: <Send size={27} strokeWidth={1.05} aria-hidden="true" />, variant: 'cross' as const, color: '#888F93', hoverColor: '#020617' };
+      return { icon: <Send size={27} strokeWidth={1.05} aria-hidden="true" />, variant: 'cross' as const, color: '#374151', hoverColor: '#020617' };
     case 'tile-6':
       return { icon: <FileText size={24} strokeWidth={1.5} aria-hidden="true" />, variant: 'cross' as const, color: COLORS.PRIMARY_GREEN };
     default:

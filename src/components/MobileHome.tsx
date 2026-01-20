@@ -442,7 +442,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                 >
 
                     <div className="absolute top-4 right-4 opacity-50">
-                        <Send size={20} strokeWidth={1.2} color="#888F93" />
+                        <Send size={20} strokeWidth={1.2} color="#374151" />
                     </div>
                     <div className="px-3 py-1.5 bg-white border border-black w-fit">
                         <div className="font-mono text-[13.2px] font-semibold uppercase tracking-widest text-gray-900">Contact</div>
