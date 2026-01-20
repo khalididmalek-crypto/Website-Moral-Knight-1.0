@@ -366,7 +366,7 @@ export const SERVICES_TILES: TileData[] = [
     title: 'Stress-test',
     type: ContentType.TEXT,
     content: {
-      text: '<div class="flex flex-col items-start text-left"><h4 class="font-medium text-base mb-0 uppercase tracking-wider text-[#194D25]">transparantie en privacy</h4></div>',
+      text: '<div class="flex flex-col items-start text-left mt-[5%]"><h4 class="font-medium text-base mb-0 uppercase tracking-wider text-[#194D25]">transparantie en privacy</h4></div>',
     } as TextContent,
     fillColor: '#AEB5B9',
   },
@@ -376,7 +376,7 @@ export const SERVICES_TILES: TileData[] = [
     title: 'Justice Audit',
     type: ContentType.TEXT,
     content: {
-      text: '<div class="flex flex-col items-start text-left"><h4 class="font-medium text-base mb-0 uppercase tracking-wider text-[#194D25]">bias en rechtvaardigheid</h4></div>',
+      text: '<div class="flex flex-col items-start text-left mt-[5%]"><h4 class="font-medium text-base mb-0 uppercase tracking-wider text-[#194D25]">bias en rechtvaardigheid</h4></div>',
     } as TextContent,
     fillColor: '#AEB5B9',
   },
@@ -386,7 +386,7 @@ export const SERVICES_TILES: TileData[] = [
     title: 'Accountability Check',
     type: ContentType.TEXT,
     content: {
-      text: '<div class="flex flex-col items-start text-left"><h4 class="font-medium text-base mb-0 uppercase tracking-wider text-[#194D25]">menselijke regie</h4></div>',
+      text: '<div class="flex flex-col items-start text-left mt-[5%]"><h4 class="font-medium text-base mb-0 uppercase tracking-wider text-[#194D25]">menselijke regie</h4></div>',
     } as TextContent,
     fillColor: '#AEB5B9',
   },
