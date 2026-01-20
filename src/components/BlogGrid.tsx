@@ -154,10 +154,12 @@ export const BlogPostDetail: React.FC<BlogPostDetailProps> = ({ post, onClose })
   return (
     <div
       ref={containerRef}
-      className="w-full h-full flex flex-col animate-fade-in bg-subtle-tv-noise items-center justify-center"
+      className="fixed inset-0 z-[250] flex items-center justify-center p-4 md:p-8 animate-fade-in bg-black/20 backdrop-blur-sm"
+      onClick={onClose}
     >
       <div
-        className="bg-white border border-black rounded-sm w-full h-full shadow-sm flex flex-col overflow-hidden"
+        className="bg-white border border-black rounded-sm w-full max-w-5xl h-[85vh] shadow-2xl flex flex-col overflow-hidden"
+        onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
         <div className={`${SPACING.CONTENT_PADDING_LG} border-b border-gray-200 flex items-start justify-between gap-4 bg-white`}>
