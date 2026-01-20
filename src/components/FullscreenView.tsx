@@ -309,7 +309,7 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
                   posts={posts.length > 0 ? posts : BLOG_POSTS}
                   introContent={
                     <p className="font-mono text-sm md:text-base leading-relaxed text-[#194D25]">
-                      AI-systemen kunnen menselijk overkomen, terwijl ze eigenlijk slechts patronen volgen. Dat wordt ook wel het <a href="https://www.smithsonianmag.com/history/why-the-computer-scientist-behind-the-worlds-first-chatbot-dedicated-his-life-to-publicizing-the-threat-posed-by-ai-180987971/" target="_blank" rel="noopener noreferrer" style={{ color: '#8B1A3D', textDecoration: 'underline' }}>ELIZA-effect</a> genoemd. Mensen projecteren dan onterecht menselijke gevoelens, gedachten en empathie op een computerprogramma. Ondanks de voordelen van technologische vooruitgang, leidt het ELIZA-effect ook tot risico's.
+                      AI-systemen kunnen menselijk overkomen, terwijl ze eigenlijk slechts patronen volgen. Dat wordt ook wel het <a href="https://www.smithsonianmag.com/history/why-the-computer-scientist-behind-the-worlds-first-chatbot-dedicated-his-life-to-publicizing-the-threat-posed-by-ai-180987971/" target="_blank" rel="noopener noreferrer" style={{ color: '#8B1A3D', textDecoration: 'underline' }}>ELIZA-effect</a> genoemd. Mensen projecteren dan onterecht menselijke gevoelens, gedachten en empathie op een computerprogramma. Ondanks de voordelen van technologische vooruitgang, leidt het ELIZA-effect ook tot risico&apos;s.
                       <br /><br />
                       Binnenkort begint hier ons blog waarbij we op zoek gaan naar de veelzijdigheid van menselijke projectie en de noodzaak tot onafhankelijke toetsing.
                     </p>
