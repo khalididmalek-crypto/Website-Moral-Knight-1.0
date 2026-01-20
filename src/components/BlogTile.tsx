@@ -39,7 +39,7 @@ export const BlogTile: React.FC<BlogTileProps> = ({ post, onClick }) => {
         w-full 
         aspect-auto md:aspect-[5/4]
         bg-white
-        border border-black
+        border border-[#374151]
         rounded-sm
         transition-all duration-200 ease-out
         cursor-pointer
