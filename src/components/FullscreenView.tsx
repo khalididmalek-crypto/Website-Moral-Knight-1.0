@@ -4,7 +4,7 @@ import { useSwipeable } from 'react-swipeable';
 import { TileData, TextContent, ContentType } from '../types';
 import { X } from 'lucide-react';
 import { Tile } from './Tile';
-import { EMPTY_SUB_TILES, THEME, COLORS, SPACING, BLOG_POSTS, PROBLEM_TILES, SOLUTION_TILES, HOW_TILES, SERVICES_TILES, SERVICES_DETAILS, SERVICES_SUB_SUB_TILES } from '../constants';
+import { EMPTY_SUB_TILES, THEME, COLORS, SPACING, BLOG_POSTS, PROBLEM_TILES, SOLUTION_TILES, HOW_TILES, SERVICES_TILES, SERVICES_DETAILS } from '../constants';
 import { sanitizeHTML } from '../lib/sanitize';
 import { useFocusTrap } from '../hooks/useFocusTrap';
 import { LoadingSpinner } from './LoadingSpinner';
@@ -508,48 +508,23 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
 
 
             <div
-              className={`relative z-10 ${(activeSubTile.id.startsWith('serv-')) ? 'w-[95vw] max-w-6xl' : 'w-[90vw] md:max-w-4xl'}`}
+              className={`relative z-10 w-[90vw] md:max-w-4xl`}
               onClick={(e) => e.stopPropagation()}
             >
-              {(activeSubTile.id.startsWith('serv-')) ? (
-                <div className="relative">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 animate-in fade-in zoom-in-95 duration-300 items-stretch">
-                    {SERVICES_SUB_SUB_TILES[activeSubTile.id]?.map((subSubData, idx) => (
-                      <div key={`${activeSubTile.id}-sub-${idx}`} className="h-full flex flex-col">
-                        <Tile
-                          data={{
-                            ...activeSubTile,
-                            id: `${activeSubTile.id}-inner-${idx}`,
-                            title: subSubData.title,
-                            content: { text: subSubData.content } as TextContent,
-                            fillColor: '#E1EBF5'
-                          }}
-                          onClick={() => { }}
-                          typingComplete={true}
-                          mode="fullscreen"
-                          className="flex-1 rounded-sm overflow-hidden border border-black p-6 shadow-2xl"
-                          disableHoverEffects={true}
-                        />
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              ) : (
-                <Tile
-                  data={
-                    (activeSubTile.id.startsWith('prob-') ||
-                      activeSubTile.id.startsWith('serv-') ||
-                      activeSubTile.id.startsWith('how-'))
-                      ? { ...activeSubTile, fillColor: '#E1EBF5' }
-                      : activeSubTile
-                  }
-                  onClick={() => { }}
-                  typingComplete={true}
-                  mode="fullscreen"
-                  className="min-h-[300px] max-h-[80vh] overflow-y-auto rounded-sm border border-black p-6 shadow-2xl"
-                  disableHoverEffects={true}
-                />
-              )}
+              <Tile
+                data={
+                  (activeSubTile.id.startsWith('prob-') ||
+                    activeSubTile.id.startsWith('serv-') ||
+                    activeSubTile.id.startsWith('how-'))
+                    ? { ...activeSubTile, fillColor: '#E1EBF5' }
+                    : activeSubTile
+                }
+                onClick={() => { }}
+                typingComplete={true}
+                mode="fullscreen"
+                className="min-h-[300px] max-h-[80vh] overflow-y-auto rounded-sm border border-black p-6 shadow-2xl"
+                disableHoverEffects={true}
+              />
               <button
                 onClick={() => setActiveSubTile(null)}
                 className="absolute top-[-40px] right-0 md:top-3 md:right-3 p-2 bg-transparent transition-colors z-[260] group"

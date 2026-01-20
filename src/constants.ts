@@ -366,7 +366,7 @@ export const SERVICES_TILES: TileData[] = [
     title: 'Stress-test',
     type: ContentType.TEXT,
     content: {
-      text: '<div class="flex flex-col items-start text-left"><h4 class="font-bold text-base mb-3 uppercase tracking-wider text-[#194D25]">transparantie en privacy</h4><p class="text-sm md:text-base leading-relaxed max-w-2xl">Onze basistest ten aanzien van publiek vertrouwen. Wij testen of uw AI-besluiten en uitingen voldoende transparant en privacygevoelig zijn. En daarmee of uw toepassing voldoet aan de gangbare normen zoals de EU AI Act of richtlijnen op het vlak van mensenrechten.</p></div>',
+      text: '<div class="flex flex-col items-start text-left"><h4 class="font-bold text-base mb-3 uppercase tracking-wider text-[#194D25]">transparantie en privacy</h4></div>',
     } as TextContent,
     fillColor: '#AEB5B9',
   },
@@ -376,7 +376,7 @@ export const SERVICES_TILES: TileData[] = [
     title: 'Justice Audit',
     type: ContentType.TEXT,
     content: {
-      text: '<div class="flex flex-col items-start text-left"><h4 class="font-bold text-base mb-3 uppercase tracking-wider text-[#194D25]">bias en rechtvaardigheid</h4><p class="text-sm md:text-base leading-relaxed max-w-2xl">Onze voornaamste test ten aanzien van eerlijkheid. Sluit uw algoritme onbedoeld groepen uit? Wij sporen verborgen vooroordelen (bias) op en toetsen of uw systeem elke burger gelijk behandelt.</p></div>',
+      text: '<div class="flex flex-col items-start text-left"><h4 class="font-bold text-base mb-3 uppercase tracking-wider text-[#194D25]">bias en rechtvaardigheid</h4></div>',
     } as TextContent,
     fillColor: '#AEB5B9',
   },
@@ -386,104 +386,16 @@ export const SERVICES_TILES: TileData[] = [
     title: 'Accountability Check',
     type: ContentType.TEXT,
     content: {
-      text: '<div class="flex flex-col items-start text-left"><h4 class="font-bold text-base mb-3 uppercase tracking-wider text-[#194D25]">menselijke regie</h4><p class="text-sm md:text-base leading-relaxed max-w-2xl">De test van macht en controle. Heeft de mens nog écht de controle? Of zijn er risico\'s waardoor de organisatie AI-ethiek uit het oog verliest? Wij auditen of uw medewerkers een verkeerd AI-besluit daadwerkelijk kunnen signaleren of herstellen wanneer dat nodig is.</p></div>',
+      text: '<div class="flex flex-col items-start text-left"><h4 class="font-bold text-base mb-3 uppercase tracking-wider text-[#194D25]">menselijke regie</h4></div>',
     } as TextContent,
     fillColor: '#AEB5B9',
   },
 ];
 
-export const SERVICES_SUB_SUB_TILES: Record<string, { title: string, content: string }[]> = {
-  'serv-1': [
-    {
-      title: 'Educatie & AI-geletterdheid',
-      content: 'Strategische regie begint bij fundamenteel begrip. In een wereld waar de afhankelijkheid van AI sneller groeit dan de kennis erover, creëren wij een gedeelde taal en kritisch denkvermogen binnen de organisatie. Wij maken bestuurders en stakeholders AI-geletterd, zodat zij door de hype heen kunnen kijken en zelfverzekerd sturen op menswaardige innovatie in het publieke domein.'
-    },
-    {
-      title: 'Risicoanalyse & AI-governance',
-      content: 'Innovatie zonder ethisch fundament is een bestuurlijk risico. Wij richten de governance zo in dat verantwoordelijkheden en escalatiemechanismen kristalhelder zijn voordat systemen diep ingrijpen in de praktijk. Door onafhankelijk juridische en ethische kaders (EU AI Act) vast te leggen, borgen we de menselijke controle over technologische groei.'
-    }
-  ],
-  'serv-2': [
-    {
-      title: 'Value Sensitive Design',
-      content: 'AI is nooit neutraal. Elke toepassing bevat de impliciete keuzes en aannames van de makers. Wij maken deze keuzes expliciet en vertalen publieke waarden, zoals rechtvaardigheid en transparantie, naar het technisch ontwerp. Door ontwerpteams te leren deze waarden concreet te maken, bekrachtigt de technologie de missie van de organisatie in plaats van deze onbedoeld te ondergraven.'
-    },
-    {
-      title: 'Co-creatie & Mensgericht ontwerp',
-      content: 'De menselijke maat is de enige weg naar duurzaam vertrouwen. Wij borgen menselijke waardigheid en autonomie door professionals en eindgebruikers vanaf de eerste schets bij het ontwerpproces te betrekken. Onze educatieve aanpak van co-creatie zorgt ervoor dat AI-systemen de menselijke expertise versterken en de regie bij de professional houden.'
-    }
-  ],
-  'serv-3': [
-    {
-      title: 'Ethische assessments',
-      content: 'Voorkom ethische blunders door de impact van AI vooraf meetbaar te maken. Met onafhankelijke assessments (zoals IAMA) identificeren we vooroordelen en misstanden voordat deze schade kunnen aanrichten in de samenleving. We leren de organisatie deze bevindingen te gebruiken als een moreel kompas dat vervolgens de geloofwaardigheid van beslissingen ten goede komt.'
-    },
-    {
-      title: 'Toetsing van compliance',
-      content: 'Integriteit krijgt pas waarde wanneer deze aantoonbaar is voor de buitenwereld. Onze audits toetsen de feitelijke werking van systemen aan wereldwijde standaarden zoals ISO 42001. Wij leveren het concrete bewijs en de benodigde kennis om systemen continu te verbeteren naar een menselijke waarden. Zodat maatschappelijke verantwoorde, robuuste en juridisch veilige inzet van AI de norm wordt binnen de organisatie.'
-    }
-  ],
-  'how-1': [
-    {
-      title: 'Kansen & Risico\'s',
-      content: 'AI brengt niet alleen kansen, maar ook juridische en maatschappelijke risico’s met zich mee. Aansprakelijkheid bij schade is vaak onduidelijk, terwijl systemen zoals chatbots al worden ingezet voordat ze veilig en voorspelbaar zijn.'
-    },
-    {
-      title: 'Regie & Governance',
-      content: 'Wij helpen organisaties daarom zelf richting te bepalen: met heldere governance, expliciete keuzes over menselijke regie en duidelijke verantwoordelijkheden, zodat besluitvorming controleerbaar blijft.'
-    }
-  ],
-  'how-2': [
-    {
-      title: 'Waarden inbedden',
-      content: 'AI-systemen zijn nooit neutraal: ze dragen impliciete aannames en vooroordelen met zich mee. Wij begeleiden organisaties bij het ontwerpen en selecteren van AI waarin waarden expliciet worden ingebed.'
-    },
-    {
-      title: 'Methodiek',
-      content: 'Door methoden als Value Sensitive Design en co-creatie maken we zichtbaar welke normen het systeem volgt — en zorgen we dat technologie aansluit bij de maatschappelijke context.'
-    }
-  ],
-  'how-3': [
-    {
-      title: 'Datakwaliteit',
-      content: 'Betrouwbare AI begint bij datakwaliteit: modellen zijn nooit beter dan de data waarop ze zijn getraind. Slechte of scheve data leiden direct tot onbetrouwbare uitkomsten en verlies van vertrouwen.'
-    },
-    {
-      title: 'Validatie',
-      content: 'Wij toetsen AI-toepassingen grondig op data, bias, transparantie en reproduceerbaarheid, zodat organisaties weten of hun systemen wetenschappelijk houdbaar en maatschappelijk geloofwaardig zijn.'
-    }
-  ]
-};
+export const SERVICES_SUB_SUB_TILES: Record<string, { title: string, content: string }[]> = {};
 
 export const SERVICES_DETAILS: Record<string, string> = {
-  'serv-1': `<div class="flex flex-col items-center text-center space-y-8">
-    <div>
-      <h4 class="font-bold text-lg mb-3 uppercase tracking-wider">Educatie & AI-geletterdheid</h4>
-      <p class="text-sm md:text-base leading-relaxed max-w-2xl">Strategische regie begint bij fundamenteel begrip. In een wereld waar de afhankelijkheid van AI sneller groeit dan de kennis erover, creëren wij een gedeelde taal en kritisch denkvermogen binnen de organisatie. Wij maken bestuurders en stakeholders AI-geletterd, zodat zij door de hype heen kunnen kijken en zelfverzekerd sturen op menswaardige innovatie in het publieke domein.</p>
-    </div>
-    <div>
-      <h4 class="font-bold text-lg mb-3 uppercase tracking-wider">Risicoanalyse & AI-governance</h4>
-      <p class="text-sm md:text-base leading-relaxed max-w-2xl">Innovatie zonder ethisch fundament is een bestuurlijk risico. Wij richten de governance zo in dat verantwoordelijkheden en escalatiemechanismen kristalhelder zijn voordat systemen diep ingrijpen in de praktijk. Door onafhankelijk juridische en ethische kaders (EU AI Act) vast te leggen, borgen we de menselijke controle over technologische groei.</p>
-    </div>
-  </div>`,
-  'serv-2': `<div class="flex flex-col items-center text-center space-y-8">
-    <div>
-      <h4 class="font-bold text-lg mb-3 uppercase tracking-wider">Value Sensitive Design</h4>
-      <p class="text-sm md:text-base leading-relaxed max-w-2xl">AI is nooit neutraal. Elke toepassing bevat de impliciete keuzes en aannames van de makers. Wij maken deze keuzes expliciet en vertalen publieke waarden, zoals rechtvaardigheid en transparantie, naar het technisch ontwerp. Door ontwerpteams te leren deze waarden concreet te maken, bekrachtigt de technologie de missie van de organisatie in plaats van deze onbedoeld te ondergraven.</p>
-    </div>
-    <div>
-      <h4 class="font-bold text-lg mb-3 uppercase tracking-wider">Co-creatie & Mensgericht ontwerp</h4>
-      <p class="text-sm md:text-base leading-relaxed max-w-2xl">De menselijke maat is de enige weg naar duurzaam vertrouwen. Wij borgen menselijke waardigheid en autonomie door professionals en eindgebruikers vanaf de eerste schets bij het ontwerpproces te betrekken. Onze educatieve aanpak van co-creatie zorgt ervoor dat AI-systemen de menselijke expertise versterken en de regie bij de professional houden.</p>
-    </div>
-  </div>`,
-  'serv-3': `<div class="flex flex-col items-center text-center space-y-8">
-    <div>
-      <h4 class="font-bold text-lg mb-3 uppercase tracking-wider">Ethische assessments</h4>
-      <p class="text-sm md:text-base leading-relaxed max-w-2xl">Voorkom ethische blunders door de impact van AI vooraf meetbaar te maken. Met onafhankelijke assessments (zoals IAMA) identificeren we vooroordelen en misstanden voordat deze schade kunnen aanrichten in de samenleving. We leren de organisatie deze bevindingen te gebruiken als een moreel kompas dat vervolgens de geloofwaardigheid van beslissingen ten goede komt.</p>
-    </div>
-    <div>
-      <h4 class="font-bold text-lg mb-3 uppercase tracking-wider">Toetsing van compliance</h4>
-      <p class="text-sm md:text-base leading-relaxed max-w-2xl">Integriteit krijgt pas waarde wanneer deze aantoonbaar is voor de buitenwereld. Onze audits toetsen de feitelijke werking van systemen aan wereldwijde standaarden zoals ISO 42001. Wij leveren het concrete bewijs en de benodigde kennis om systemen continu te verbeteren naar een menselijke waarden. Zodat maatschappelijke verantwoorde, robuuste en juridisch veilige inzet van AI de norm wordt binnen de organisatie.</p>
-    </div>
-  </div>`
+  'serv-1': `<div class="flex flex-col items-start text-left"><h4 class="font-bold text-base mb-3 uppercase tracking-wider text-[#194D25]">transparantie en privacy</h4><p class="text-sm md:text-base leading-relaxed max-w-2xl">Onze basistest ten aanzien van publiek vertrouwen. Wij testen of uw AI-besluiten en uitingen voldoende transparant en privacygevoelig zijn. En daarmee of uw toepassing voldoet aan de gangbare normen zoals de EU AI Act of richtlijnen op het vlak van mensenrechten.</p></div>`,
+  'serv-2': `<div class="flex flex-col items-start text-left"><h4 class="font-bold text-base mb-3 uppercase tracking-wider text-[#194D25]">bias en rechtvaardigheid</h4><p class="text-sm md:text-base leading-relaxed max-w-2xl">Onze voornaamste test ten aanzien van eerlijkheid. Sluit uw algoritme onbedoeld groepen uit? Wij sporen verborgen vooroordelen (bias) op en toetsen of uw systeem elke burger gelijk behandelt.</p></div>`,
+  'serv-3': `<div class="flex flex-col items-start text-left"><h4 class="font-bold text-base mb-3 uppercase tracking-wider text-[#194D25]">menselijke regie</h4><p class="text-sm md:text-base leading-relaxed max-w-2xl">De test van macht en controle. Heeft de mens nog écht de controle? Of zijn er risico's waardoor de organisatie AI-ethiek uit het oog verliest? Wij auditen of uw medewerkers een verkeerd AI-besluit daadwerkelijk kunnen signaleren of herstellen wanneer dat nodig is.</p></div>`
 };
