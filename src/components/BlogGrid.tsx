@@ -69,12 +69,10 @@ export const BlogGrid: React.FC<BlogGridProps> = ({ posts, introContent }) => {
           {/* Optional Introduction Content */}
           {introContent && (
             <div
-              className="mb-8 md:mb-12 font-mono text-sm md:text-base leading-relaxed text-[#37422F]"
+              className="mb-8 md:mb-12 font-mono text-sm md:text-base leading-relaxed text-[#194D25]"
               style={{
                 width: '100%',
-                lineHeight: '1.6',
-                textAlign: 'justify',
-                textWrap: 'balance' as any
+                lineHeight: '1.6'
               }}
             >
               {introContent}
