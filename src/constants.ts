@@ -334,12 +334,12 @@ export const HOW_TILES: TileData[] = [
   {
     id: 'how-1',
     index: 0,
-    title: 'Advies',
+    title: 'Toetsing',
     type: ContentType.TEXT,
     content: {
       text: `<div class="flex flex-col items-start text-left">
-        <h4 class="font-bold text-base mb-3 uppercase tracking-wider text-[#194D25]">samen de koers bepalen</h4>
-        <p class="text-sm md:text-base leading-relaxed max-w-2xl">Innovatie zonder duidelijke koers veroorzaakt onwenselijke risico’s voor organisaties. Zoals klachten en in het ergste geval juridische consequenties. Onze aanpak begint altijd bij het fundament: we bepalen de ethische kaders waarbinnen technologie moet functioneren. In deze fase voeren we de dialoog over de noodzakelijkheid van AI (waarom en waartoe is het noodzakelijk?) en komen we tot een breed gedragen plan van aanpak. Zowel voor bestuurders en beleidsmakers, ontwikkelaars en andere relevante betrokkenen werken we tegelijkertijd aan educatie. Daarbij staat het stellen van de juiste vragen over publieke AI-toepassingen centraal. Over de maatschappelijke impact: waarbij je focust op eerlijke en betrouwbare AI. Hiermee leggen we de basis die regie weer teruggeeft aan de organisatie zelf, zodat investeringen vanaf de eerste dag waardevol, veilig en juridisch houdbaar zijn.</p>
+        <h4 class="font-bold text-base mb-3 uppercase tracking-wider text-[#194D25]">Van ethiek naar harde feiten</h4>
+        <p class="text-sm md:text-base leading-relaxed max-w-2xl">Wij vertalen abstracte ethische kaders naar meetbare, technische normen. Door systemen diepgaand te auditeren, leveren wij de feitelijke bewijslast die nodig is voor toezichthouders en de samenleving. Onze toetsing maakt onzichtbare vooroordelen zichtbaar en zorgt dat digitale besluiten voor iedereen begrijpelijk en betwistbaar blijven.</p>
       </div>`,
     } as TextContent,
     fillColor: '#CCD5C6',
@@ -347,25 +347,12 @@ export const HOW_TILES: TileData[] = [
   {
     id: 'how-2',
     index: 1,
-    title: 'Ontwerp',
+    title: 'Borging',
     type: ContentType.TEXT,
     content: {
       text: `<div class="flex flex-col items-start text-left">
-        <h4 class="font-bold text-base mb-3 uppercase tracking-wider text-[#194D25]">publieke waarden verankeren</h4>
-        <p class="text-sm md:text-base leading-relaxed max-w-2xl">Een strategisch plan vraagt om een zorgvuldige vertaling naar de dagelijkse praktijk om echt impact te maken. In de ontwerpfase bouwen we voort op de gestelde kaders door ethische principes om te zetten in concrete spelregels en heldere werkafspraken. We focussen hierbij op de menselijke maat: het inregelen van menselijk toezicht en het borgen van transparantie vanaf de eerste stap. Educatie vormt de kern van dit proces; we trainen teams om risico’s zoals uitsluiting of onduidelijke besluiten zelf tijdig te herkennen en te voorkomen. Door waarden direct te verankeren in de inrichting, creëren we een systeem dat niet alleen voldoet aan de strengste wetgeving, maar ook het vertrouwen van medewerkers en cliënten wint.</p>
-      </div>`,
-    } as TextContent,
-    fillColor: '#CCD5C6',
-  },
-  {
-    id: 'how-3',
-    index: 2,
-    title: 'Toetsing',
-    type: ContentType.TEXT,
-    content: {
-      text: `<div class="flex flex-col items-start text-left">
-        <h4 class="font-bold text-base mb-3 uppercase tracking-wider text-[#194D25]">voortdurend controle uitoefenen</h4>
-        <p class="text-sm md:text-base leading-relaxed max-w-2xl">Het toepassen van AI in het publieke domein vraagt om een kritische blik die resultaten toetst in de feitelijke praktijk. Wij meten of systemen in de praktijk doen wat ze behoren te doen en achterhalen waarin de organisatie kan groeien en verbeteren. Elke controle is een leermoment waarbij we feitelijke bevindingen gebruiken om de organisatie te informeren over hoe systemen eerlijker, transparanter en verbeterd kunnen worden naar maatschappelijke normen en waarden en de wet- en regelgeving. Deze aanpak biedt niet alleen de nodige bewijslast voor toezichthouders, maar zorgt ook voor een cultuur van verbetering die de organisatie elke ronde sterker en slimmer maakt. In het geval van onregelmatigheden zoals klachten heb je als organisatie simpelweg een ‘goed verhaal’ nodig waarmee je laat zien dat je streeft naar menswaardige AI.</p>
+        <h4 class="font-bold text-base mb-3 uppercase tracking-wider text-[#194D25]">Permanent toezicht op de menselijke maat</h4>
+        <p class="text-sm md:text-base leading-relaxed max-w-2xl">De impact van AI verandert continu door nieuwe data. Via 'Ethical Maintenance' bieden wij permanent toezicht op de gehele levenscyclus van een algoritme. Hiermee borgen we de rechtsstaat en geven we professionals de tools om weer regie te voeren. Zo zorgen we dat technologie altijd onder menselijke controle blijft en het publiek belang dient.</p>
       </div>`,
     } as TextContent,
     fillColor: '#CCD5C6',

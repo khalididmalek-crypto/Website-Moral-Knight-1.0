@@ -197,7 +197,7 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
         subTileContent = '';
         break;
       case 'tile-3':
-        subTileTitle = 'Advies. Ontwerp. Toetsing.';
+        subTileTitle = 'Toetsing & Borging';
         subTileContent = '';
         break;
       case 'tile-4':
@@ -370,7 +370,7 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
                   {isServicesView ? 'Maatwerk' : 'Onze aanpak'}
                 </h3>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+              <div className={`grid grid-cols-1 ${isServicesView ? 'md:grid-cols-3' : 'md:grid-cols-2'} gap-4 md:gap-6`}>
                 {(isServicesView ? SERVICES_TILES : HOW_TILES).map((tileData) => (
                   <div key={tileData.id} className="h-60">
                     <Tile
