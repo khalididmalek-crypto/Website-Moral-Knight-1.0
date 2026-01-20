@@ -201,7 +201,7 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
         subTileContent = '';
         break;
       case 'tile-4':
-        subTileTitle = 'Maatwerk';
+        subTileTitle = 'Onafhankelijke AI-Toetsing';
         subTileContent = '';
         break;
       default:
@@ -367,7 +367,7 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
                 <h3
                   className="font-mono text-[16px] font-semibold uppercase tracking-widest m-0 text-gray-900"
                 >
-                  {isServicesView ? 'Maatwerk' : 'Onze aanpak'}
+                  {isServicesView ? 'Onafhankelijke AI-Toetsing' : 'Onze aanpak'}
                 </h3>
               </div>
               <div className={`grid grid-cols-1 ${isServicesView ? 'md:grid-cols-3' : 'md:grid-cols-2'} gap-4 md:gap-6`}>

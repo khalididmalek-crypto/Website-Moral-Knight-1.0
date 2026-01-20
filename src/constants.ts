@@ -363,30 +363,30 @@ export const SERVICES_TILES: TileData[] = [
   {
     id: 'serv-1',
     index: 0,
-    title: 'Advies',
+    title: 'Stress-test',
     type: ContentType.TEXT,
     content: {
-      text: '<ul class="list-disc pl-4 font-mono text-sm leading-relaxed space-y-2"><li>Educatie & AI-geletterdheid</li><li>Risicoanalyse & AI-governance</li></ul>',
+      text: '<div class="flex flex-col items-start text-left"><h4 class="font-bold text-base mb-3 uppercase tracking-wider text-[#194D25]">transparantie en privacy</h4><p class="text-sm md:text-base leading-relaxed max-w-2xl">Onze basistest ten aanzien van publiek vertrouwen. Wij testen of uw AI-besluiten en uitingen voldoende transparant en privacygevoelig zijn. En daarmee of uw toepassing voldoet aan de gangbare normen zoals de EU AI Act of richtlijnen op het vlak van mensenrechten.</p></div>',
     } as TextContent,
     fillColor: '#AEB5B9',
   },
   {
     id: 'serv-2',
     index: 1,
-    title: 'Ontwerp',
+    title: 'Justice Audit',
     type: ContentType.TEXT,
     content: {
-      text: '<ul class="list-disc pl-4 font-mono text-sm leading-relaxed space-y-2"><li>Value Sensitive Design</li><li>Co-creatie & mensgericht ontwerp</li></ul>',
+      text: '<div class="flex flex-col items-start text-left"><h4 class="font-bold text-base mb-3 uppercase tracking-wider text-[#194D25]">bias en rechtvaardigheid</h4><p class="text-sm md:text-base leading-relaxed max-w-2xl">Onze voornaamste test ten aanzien van eerlijkheid. Sluit uw algoritme onbedoeld groepen uit? Wij sporen verborgen vooroordelen (bias) op en toetsen of uw systeem elke burger gelijk behandelt.</p></div>',
     } as TextContent,
     fillColor: '#AEB5B9',
   },
   {
     id: 'serv-3',
     index: 2,
-    title: 'Toetsing',
+    title: 'Accountability Check',
     type: ContentType.TEXT,
     content: {
-      text: '<ul class="list-disc pl-4 font-mono text-sm leading-relaxed space-y-2"><li>Ethiek- & impactassessment</li><li>AI-audit & compliance-toets</li></ul>',
+      text: '<div class="flex flex-col items-start text-left"><h4 class="font-bold text-base mb-3 uppercase tracking-wider text-[#194D25]">menselijke regie</h4><p class="text-sm md:text-base leading-relaxed max-w-2xl">De test van macht en controle. Heeft de mens nog écht de controle? Of zijn er risico\'s waardoor de organisatie AI-ethiek uit het oog verliest? Wij auditen of uw medewerkers een verkeerd AI-besluit daadwerkelijk kunnen signaleren of herstellen wanneer dat nodig is.</p></div>',
     } as TextContent,
     fillColor: '#AEB5B9',
   },
