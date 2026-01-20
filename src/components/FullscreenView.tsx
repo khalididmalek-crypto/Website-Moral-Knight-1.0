@@ -299,7 +299,7 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
         <div className={`w-full flex flex-col items-center justify-center transition-opacity duration-300 ${activeSubTile ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
           {isBlogView ? (
             // Blog Grid View
-            <div className="w-full flex items-center justify-center p-4 md:p-8">
+            <div className="w-full flex items-center justify-center p-4 md:p-8" style={{ marginTop: '-10vh' }}>
               <Suspense fallback={
                 <div className="flex items-center justify-center py-12">
                   <LoadingSpinner size="lg" aria-label="Blog artikelen laden" />
