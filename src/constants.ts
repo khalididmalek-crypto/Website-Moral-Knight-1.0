@@ -202,46 +202,43 @@ export const GRID_COLUMNS = {
 export const BLOG_POSTS: BlogPost[] = [
   {
     id: 'blog-1',
-    slug: 'heeft-nederland-een-ai-gigafabriek-nodig',
-    title: 'Heeft Nederland een AI gigafabriek nodig?',
-    excerpt: 'Om digitaal soeverein te blijven, moet Nederland investeren in eigen AI-infrastructuur. Maar is een gigafabriek de juiste oplossing?',
+    slug: 'de-uitwassen-van-digitaal-kolonialisme',
+    title: 'De uitwassen van digitaal kolonialisme',
+    excerpt: 'Grote techbedrijven eigenen zich data en infrastructuur toe op een manier die historische uitbuiting weerspiegelt. Wie profiteert er werkelijk van deze digitale expansie?',
     date: '2025-02-15',
-    tag: 'Infrastructuur',
+    tag: 'Maatschappij',
     content: `
       <div class="font-mono text-xs md:text-sm leading-snug text-gray-800">
-        <p class="mb-3">De roep om strategische autonomie in Europa klinkt steeds luider. Afhankelijkheid van Amerikaanse en Chinese techreuzen maakt ons kwetsbaar. Het idee van een "AI gigafabriek" – een grootschalig centrum voor de ontwikkeling van nationale AI-modellen – wint aan populariteit.</p>
-        <p class="mb-3">Voorstanders wijzen op het belang van controle over data en algoritmen. Als we onze eigen infrastructuur bouwen, kunnen we garanderen dat deze voldoet aan onze waarden en wetgeving. Maar critici vrezen een verspilling van middelen in een race die we wellicht niet kunnen winnen op schaal.</p>
-        <p>De vraag is niet alleen of we de rekenkracht kunnen bouwen, maar of we de kennis en het talent kunnen vasthouden om deze fabriek te laten draaien. Een slimme samenwerking binnen Europa lijkt de meest haalbare kaart.</p>
+        <p class="mb-3">De roep om technologische vooruitgang overschaduwt vaak de verborgen kosten voor gemeenschappen wereldwijd. Grote techbedrijven eigenen zich data en digitale infrastructuur toe op een manier die historische patronen van uitbuiting weerspiegelt. Lokale waarden en culturele nuances worden hierbij regelmatig genegeerd ten gunste van schaalbaarheid en winst. Dit creëert een nieuwe vorm van afhankelijkheid waarbij soevereiniteit onder druk komt te staan. Het is tijd om kritisch te kijken naar wie er werkelijk profiteert van deze digitale expansie.</p>
+        <p class="font-bold mt-4">...meer volgt</p>
       </div>
     `,
   },
   {
     id: 'blog-2',
-    slug: 'hoe-maken-we-ai-empathisch',
-    title: 'Hoe maken we AI empathisch?',
-    excerpt: 'AI kan emoties simuleren, maar is dat hetzelfde als empathie? En wat zijn de risico\'s van machines die doen alsof ze ons begrijpen?',
+    slug: 'heb-jij-al-een-ai-therapeut',
+    title: 'Heb jij al een AI-therapeut?',
+    excerpt: 'AI-chatbots worden gepresenteerd als oplossing voor de mentale zorg. Maar kan een algoritme empathie tonen of simuleert het slechts begrip?',
     date: '2025-02-10',
-    tag: 'Ethiek',
+    tag: 'Zorg',
     content: `
       <div class="font-mono text-xs md:text-sm leading-snug text-gray-800">
-        <p class="mb-3">Emotionele AI is in opkomst. Chatbots reageren "bezorgd" als je zegt dat je ziek bent, en zorgrobots kijken "blij" als je medicijnen neemt. Dit lijkt een vooruitgang in gebruiksvriendelijkheid, maar het roept fundamentele vragen op.</p>
-        <p class="mb-3">Empathie vereist bewustzijn en gedeelde menselijke ervaring, iets wat een algoritme per definitie mist. Wat AI doet is simulatie: het herkent patronen en projecteert een gepaste reactie. Het risico is dat mensen zich emotioneel hechten aan systemen die niets terugvoelen.</p>
-        <p>Moeten we AI-systemen ontwerpen die empathie veinzen? Of is eerlijkheid over de machinale aard van de interactie uiteindelijk respectvoller naar de menselijke gebruiker? Het antwoord ligt in de balans tussen comfort en transparantie.</p>
+        <p class="mb-3">De mentale gezondheidszorg staat onder enorme druk en AI-chatbots worden steeds vaker gepresenteerd als dé oplossing. Ze zijn altijd beschikbaar, oordelen niet en kosten een fractie van een menselijke therapeut. Maar kan een algoritme werkelijk empathie tonen of simuleert het slechts begrip? Het risico bestaat dat we kwetsbare mensen overlaten aan systemen die emoties niet daadwerkelijk kunnen doorgronden. We moeten ons afvragen of efficiëntie hier niet ten koste gaat van menselijke verbinding.</p>
+        <p class="font-bold mt-4">...meer volgt</p>
       </div>
     `,
   },
   {
     id: 'blog-3',
-    slug: 'hoe-intelligent-is-ai',
-    title: 'Hoe intelligent is AI?',
-    excerpt: 'Generatieve AI verbaast ons dagelijks, maar begrijpt het echt wat het doet? Een kritische blik op de definitie van intelligentie.',
+    slug: 'hoe-intelligent-mag-ai-worden',
+    title: 'Hoe intelligent mag AI worden?',
+    excerpt: 'Wanneer systemen beslissingen nemen over mensenlevens, waar ligt dan de verantwoordelijkheid? We moeten grenzen stellen aan autonome AI.',
     date: '2025-02-01',
     tag: 'Filosofie',
     content: `
       <div class="font-mono text-xs md:text-sm leading-snug text-gray-800">
-        <p class="mb-3">We noemen het "Kunstmatige Intelligentie", maar de manier waarop AI leert verschilt fundamenteel van menselijke intelligentie. Grote taalmodellen zijn in essentie geavanceerde voorspellers van het volgende woord, getraind op enorme bergen tekst.</p>
-        <p class="mb-3">Ze hebben geen begrip van de wereld, geen "common sense" en geen intentie. Toch vertonen ze gedrag dat door menigeen als intelligent wordt bestempeld. Dit fenomeen, waarbij we menselijke eigenschappen toedichten aan levenloze objecten, heet antropomorfisme.</p>
-        <p>Het gevaar is dat we de capaciteiten van AI overschatten. Als we denken dat het systeem "weet" wat feiten zijn, vertrouwen we het te blindelings. Het erkennen van de grenzen van AI-intelligentie is cruciaal voor een verantwoorde inzet ervan.</p>
+        <p class="mb-3">De ontwikkeling van kunstmatige intelligentie gaat razendsnel en roept fundamentele vragen op over grenzen. Wanneer systemen beslissingen nemen die mensenlevens beïnvloeden, moeten we weten waar de verantwoordelijkheid ligt. Is er een punt waarop AI te autonoom wordt en onze controle verliest? Het definiëren van de grens tussen behulpzame assistentie en onwenselijke dominantie is cruciaal voor onze toekomst. We moeten nu bepalen welke intelligentie ons dient en welke ons bedreigt.</p>
+        <p class="font-bold mt-4">...meer volgt</p>
       </div>
     `,
   },
