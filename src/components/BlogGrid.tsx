@@ -158,7 +158,7 @@ export const BlogPostDetail: React.FC<BlogPostDetailProps> = ({ post, onClose })
       onClick={onClose}
     >
       <div
-        className="bg-white border border-black rounded-sm w-full max-w-5xl h-[85vh] shadow-2xl flex flex-col overflow-hidden"
+        className="bg-white border border-black rounded-sm w-full max-w-3xl h-auto max-h-[80vh] shadow-2xl flex flex-col overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
