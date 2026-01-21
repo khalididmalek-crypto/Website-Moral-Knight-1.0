@@ -278,7 +278,7 @@ const App: React.FC<AppProps> = ({
 
           {/* Footer */}
           <footer className={`-mt-8 flex justify-between items-center text-[12px] text-gray-400`}>
-            <span className="font-mono uppercase tracking-widest" style={{ fontSize: '14.4px' }}>
+            <span className="font-mono uppercase tracking-widest" style={{ fontSize: 'clamp(10px, 1.1vw, 14.4px)' }}>
               <FlowingText
                 text={`/ ${CONFIG.organisation} since 2025 - Auditing public AI`}
                 baseColor={COLORS.SECONDARY_GREEN}
