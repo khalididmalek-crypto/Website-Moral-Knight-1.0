@@ -299,6 +299,12 @@ const App: React.FC<AppProps> = ({
               >
                 / MK Dashboard
               </button>
+              <button
+                className="font-mono font-bold antialiased uppercase tracking-widest hover:opacity-75 transition-opacity focus:outline-none"
+                style={{ color: '#8B1A3D', fontSize: '14.4px' }}
+              >
+                / MK Kennisbank
+              </button>
             </div>
           </footer>
         </div>

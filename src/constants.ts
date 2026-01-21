@@ -78,7 +78,7 @@ export const INITIAL_TILES: TileData[] = [
       text: 'Gedachten en inzichten over verantwoorde AI',
     } as BlogContent,
     disableHighlight: true,
-    fillColor: '#E1EBF5',
+    fillColor: '#E8CDD5',
   },
 ];
 

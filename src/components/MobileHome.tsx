@@ -475,16 +475,17 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
 
                 {/* Footer */}
                 <div className="mt-6 px-1 pb-12">
-                    <div className="text-[12px] font-mono uppercase tracking-widest leading-relaxed mb-6">
+                    <div className="text-[10px] font-mono uppercase tracking-widest leading-relaxed mb-6">
                         <FlowingText
-                            text={`/ Moral Knight since 2025 - Auditing public AI`}
+                            text={`/ Moral Knight Est. 2025 - auditing public AI`}
                             baseColor={COLORS.SECONDARY_GREEN}
-                            className="flex"
+                            className="flex text-[9px]"
                         />
                     </div>
-                    <div className="flex flex-col gap-2 items-start">
+                    <div className="flex flex-col gap-0.5 items-start">
                         <button onClick={() => setMeldpuntOpen(true)} className="text-[11px] font-bold uppercase tracking-widest" style={{ color: '#8B1A3D' }}>/ MK Meldpunt</button>
                         <button onClick={() => setView('DASHBOARD')} className="text-[11px] font-bold uppercase tracking-widest" style={{ color: '#8B1A3D' }}>/ MK Dashboard</button>
+                        <button className="text-[11px] font-bold uppercase tracking-widest" style={{ color: '#8B1A3D' }}>/ MK Kennisbank</button>
                     </div>
                 </div>
             </motion.div>
