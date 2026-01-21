@@ -475,11 +475,11 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
 
                 {/* Footer */}
                 <div className="mt-6 px-1 pb-12">
-                    <div className="text-[10px] font-mono uppercase tracking-widest leading-relaxed mb-6">
+                    <div className="text-[2.8vw] font-mono uppercase tracking-widest leading-relaxed mb-6 whitespace-nowrap">
                         <FlowingText
                             text={`/ Moral Knight Est. 2025 - auditing public AI`}
                             baseColor={COLORS.SECONDARY_GREEN}
-                            className="flex text-[9px]"
+                            className="flex text-[2.8vw]"
                         />
                     </div>
                     <div className="flex flex-col gap-0.5 items-start">
