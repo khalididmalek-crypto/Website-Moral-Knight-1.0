@@ -8,6 +8,7 @@ import { Dashboard } from './Dashboard';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
+import { FlowingText } from './FlowingText';
 import { Meldpunt } from './Meldpunt';
 
 type MobileView = 'HOME' | 'DASHBOARD' | 'MELDPUNT';
@@ -474,14 +475,12 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
 
                 {/* Footer */}
                 <div className="mt-6 px-1 pb-12">
-                    <div className="text-[12px] text-black font-mono uppercase tracking-widest leading-relaxed mb-6">
-                        <div className="flex">
-                            <span className="mr-2">/</span>
-                            <div>
-                                Moral Knight since 2025<br />
-                                Auditing public AI
-                            </div>
-                        </div>
+                    <div className="text-[12px] font-mono uppercase tracking-widest leading-relaxed mb-6">
+                        <FlowingText
+                            text={`/ Moral Knight since 2025 - Auditing public AI`}
+                            baseColor={COLORS.SECONDARY_GREEN}
+                            className="flex"
+                        />
                     </div>
                     <div className="flex flex-col gap-2 items-start">
                         <button onClick={() => setMeldpuntOpen(true)} className="text-[11px] font-bold uppercase tracking-widest" style={{ color: '#8B1A3D' }}>/ MK Meldpunt</button>

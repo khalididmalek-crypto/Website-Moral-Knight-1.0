@@ -4,7 +4,8 @@ import { useSwipeable } from 'react-swipeable';
 import { TileData, TextContent, ContentType } from '../types';
 import { X } from 'lucide-react';
 import { Tile } from './Tile';
-import { EMPTY_SUB_TILES, THEME, COLORS, SPACING, BLOG_POSTS, PROBLEM_TILES, SOLUTION_TILES, HOW_TILES, SERVICES_TILES, SERVICES_DETAILS } from '../constants';
+import { Typewriter } from './Typewriter';
+import { EMPTY_SUB_TILES, THEME, COLORS, SPACING, BLOG_POSTS, PROBLEM_TILES, SOLUTION_TILES, HOW_TILES, SERVICES_TILES, SERVICES_DETAILS, ANIMATION_DELAYS } from '../constants';
 import { sanitizeHTML } from '../lib/sanitize';
 import { useFocusTrap } from '../hooks/useFocusTrap';
 import { LoadingSpinner } from './LoadingSpinner';
@@ -235,14 +236,16 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
   // Use special background color for blog or problem view
   const baseColor = isBlogView
     ? COLORS.BLOG_BACKGROUND
-    : isProblemView
-      ? '#E1E8ED' // Match main site blue-grey theme
-      : (isSolutionView || isHowView)
-        ? (tile.fillColor || THEME.colors.background)
-        : (tile.fillColor || THEME.colors.background);
+    : tile.fillColor || THEME.colors.background;
 
   // Use 0.10 opacity as requested
-  const backgroundColor = hexToRgba(baseColor, 0.10);
+  let alphaValue = 0.30; // Default opacity
+
+  if (tile.id === 'tile-5' || tile.id === 'tile-6') { // Check for Contact or Blog tiles
+    alphaValue = 0.40; // 30% more intense (0.30 * 1.30 = 0.39, rounded to 0.40)
+  }
+
+  const backgroundColor = hexToRgba(baseColor, alphaValue);
 
   return (
     <div
@@ -294,7 +297,7 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
       </div>
 
       {/* Main Content Area - Blog Grid or Single Tile */}
-      <main className={`relative flex-1 w-full max-w-[1400px] ${SPACING.MODAL_CONTENT_PADDING} ${isBlogView ? '' : SPACING.MODAL_BOTTOM_SPACING} flex flex-col items-center ${(isHowView || isServicesView) ? 'justify-center' : 'justify-start pt-12 md:pt-20'}`}>
+      <main className={`relative flex-1 w-full max-w-[1400px] ${SPACING.MODAL_CONTENT_PADDING} ${isBlogView ? '' : SPACING.MODAL_BOTTOM_SPACING} flex flex-col items-center ${(isHowView || isServicesView) ? 'justify-center' : 'justify-start pt-20 md:pt-28'}`}>
 
         <div className={`w-full flex flex-col items-center justify-center transition-opacity duration-300 ${activeSubTile ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
           {isBlogView ? (
@@ -420,7 +423,11 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
                     <h3
                       className="font-mono text-[13.2px] font-semibold uppercase tracking-widest m-0 text-gray-900"
                     >
-                      WIE ZIJN DE OPRICHTERS?
+                      <Typewriter
+                        text="WIE ZIJN DE OPRICHTERS?"
+                        buggy
+                        speed={ANIMATION_DELAYS.TYPEWRITER_TITLE_SPEED}
+                      />
                     </h3>
                   </div>
 
