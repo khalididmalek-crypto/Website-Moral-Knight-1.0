@@ -19,6 +19,7 @@ import { ProjectorOverlay } from './components/ProjectorOverlay';
 import { LoadingSpinner } from './components/LoadingSpinner';
 import { Dashboard } from './components/Dashboard';
 import { Meldpunt } from './components/Meldpunt';
+import { Kennisbank } from './components/Kennisbank';
 import { useToast } from './components/Toast';
 import { CONFIG } from './lib/config';
 import { loadTiles, saveTiles } from './lib/storage';
@@ -83,6 +84,12 @@ const App: React.FC<AppProps> = ({
     }
     return false;
   });
+  const [kennisbankOpen, setKennisbankOpen] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return sessionStorage.getItem('kennisbankOpen') === 'true';
+    }
+    return false;
+  });
   const mainContainerRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
 
@@ -117,7 +124,8 @@ const App: React.FC<AppProps> = ({
 
     sessionStorage.setItem('meldpuntOpen', String(meldpuntOpen));
     sessionStorage.setItem('dashboardOpen', String(dashboardOpen));
-  }, [activeTileId, meldpuntOpen, dashboardOpen]);
+    sessionStorage.setItem('kennisbankOpen', String(kennisbankOpen));
+  }, [activeTileId, meldpuntOpen, dashboardOpen, kennisbankOpen]);
 
   // Save persistence with feedback
   useEffect(() => {
@@ -300,6 +308,7 @@ const App: React.FC<AppProps> = ({
                 / MK Dashboard
               </button>
               <button
+                onClick={() => setKennisbankOpen(true)}
                 className="font-mono font-bold antialiased uppercase tracking-widest hover:opacity-75 transition-opacity focus:outline-none"
                 style={{ color: '#8B1A3D', fontSize: '14.4px' }}
               >
@@ -324,6 +333,7 @@ const App: React.FC<AppProps> = ({
               posts={posts}
               allTiles={tiles}
               onNavigate={handleTileClick}
+              onOpenMeldpunt={() => setMeldpuntOpen(true)}
             />
           </Suspense>
         )}
@@ -336,6 +346,11 @@ const App: React.FC<AppProps> = ({
         {/* Meldpunt Modal */}
         {meldpuntOpen && (
           <Meldpunt onClose={() => setMeldpuntOpen(false)} />
+        )}
+
+        {/* Kennisbank Modal */}
+        {kennisbankOpen && (
+          <Kennisbank onClose={() => setKennisbankOpen(false)} />
         )}
       </div>
     </TileStateProvider>

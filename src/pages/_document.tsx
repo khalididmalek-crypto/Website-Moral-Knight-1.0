@@ -82,12 +82,12 @@ export default function Document() {
                         '100%': { opacity: '0.02' },
                       },
                       'retro-boot': {
-                        '0%': { opacity: '0', transform: 'scale(0.92) skewX(2deg)', filter: 'blur(8px) brightness(0.2)' },
-                        '10%': { opacity: '0.6', transform: 'scale(0.96) skewX(-1deg)', filter: 'blur(4px)' },
+                        '0%': { opacity: '0', transform: 'scale(0.96) skewX(1deg)', filter: 'blur(8px) brightness(0.2)' },
+                        '10%': { opacity: '0.6', transform: 'scale(0.98) skewX(-0.5deg)', filter: 'blur(4px)' },
                         '15%': { opacity: '0.1', filter: 'blur(10px)' }, /* Flicker Out (Bad connection) */
-                        '30%': { opacity: '0.8', transform: 'scale(1.01) skewX(0.5deg)', filter: 'blur(2px) brightness(1.2)' }, /* Bulb Surge */
-                        '50%': { opacity: '0.9', transform: 'scale(0.99)', filter: 'blur(0.5px)' },
-                        '70%': { opacity: '1', transform: 'scale(1.002)', filter: 'blur(0.2px)' },
+                        '30%': { opacity: '0.8', transform: 'scale(1.005) skewX(0.25deg)', filter: 'blur(2px) brightness(1.2)' }, /* Bulb Surge */
+                        '50%': { opacity: '0.9', transform: 'scale(0.995)', filter: 'blur(0.5px)' },
+                        '70%': { opacity: '1', transform: 'scale(1.001)', filter: 'blur(0.2px)' },
                         '100%': { opacity: '1', transform: 'scale(1) skewX(0deg)', filter: 'blur(0)' },
                       },
                       'retro-shutdown': {

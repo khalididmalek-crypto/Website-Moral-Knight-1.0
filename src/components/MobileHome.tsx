@@ -9,9 +9,11 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
 import { FlowingText } from './FlowingText';
+import { Kennisbank } from './Kennisbank';
 import { Meldpunt } from './Meldpunt';
 
-type MobileView = 'HOME' | 'DASHBOARD' | 'MELDPUNT';
+type MobileView = 'HOME' | 'DASHBOARD' | 'MELDPUNT' | 'KENNISBANK';
+
 
 
 interface MobileHomeProps {
@@ -120,6 +122,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
     }
 
     if (view === 'DASHBOARD') return <Dashboard onClose={handleBack} />;
+    if (view === 'KENNISBANK') return <Kennisbank onClose={handleBack} />;
     if (view === 'MELDPUNT' || meldpuntOpen) return <Meldpunt onClose={handleBack} />;
 
 
@@ -485,7 +488,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                     <div className="flex flex-col gap-0.5 items-start">
                         <button onClick={() => setMeldpuntOpen(true)} className="text-[11px] font-bold uppercase tracking-widest" style={{ color: '#8B1A3D' }}>/ MK Meldpunt</button>
                         <button onClick={() => setView('DASHBOARD')} className="text-[11px] font-bold uppercase tracking-widest" style={{ color: '#8B1A3D' }}>/ MK Dashboard</button>
-                        <button className="text-[11px] font-bold uppercase tracking-widest" style={{ color: '#8B1A3D' }}>/ MK Kennisbank</button>
+                        <button onClick={() => setView('KENNISBANK')} className="text-[11px] font-bold uppercase tracking-widest" style={{ color: '#8B1A3D' }}>/ MK Kennisbank</button>
                     </div>
                 </div>
             </motion.div>

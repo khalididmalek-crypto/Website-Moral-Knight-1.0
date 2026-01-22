@@ -22,9 +22,10 @@ interface FullscreenViewProps {
   posts?: import('../types').BlogPost[];
   allTiles?: TileData[];
   onNavigate?: (tileId: string) => void;
+  onOpenMeldpunt?: () => void;
 }
 
-export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, posts = [], allTiles = [], onNavigate }) => {
+export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, posts = [], allTiles = [], onNavigate, onOpenMeldpunt }) => {
   // Focus trap for accessibility
   const modalRef = useFocusTrap(true);
   const closeButtonRef = React.useRef<HTMLButtonElement>(null);
@@ -324,7 +325,7 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
             </div>
           ) : (isProblemView || isSolutionView) ? (
             // Problem & Solution Grid View (4 tiles)
-            <div className="w-full max-w-4xl min-h-[520px] relative shadow-2xl animate-in zoom-in-50 duration-300">
+            <div className="w-full max-w-4xl min-h-[520px] relative shadow-2xl animate-fade-in duration-300">
 
               {/* Label above the grid */}
               {isProblemView && (
@@ -539,6 +540,32 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
               >
                 <X size={24} strokeWidth={1.5} className="text-gray-900 group-hover:text-[#194D25] transition-colors" />
               </button>
+
+              {/* CTA for Problem Tiles */}
+              {(isProblemView || activeSubTile.id.startsWith('prob-')) && (
+                <div className="mt-8 border-t border-black/10 pt-8 pb-4">
+                  <h3 className="font-mono text-[1.1rem] uppercase tracking-widest font-bold mb-4" style={{ color: COLORS.PRIMARY_GREEN }}>
+                    Twijfels over AI?
+                  </h3>
+                  <p className="font-mono text-[15px] leading-relaxed max-w-2xl text-gray-600">
+                    Heb je als burger of werknemer twijfels over AI en ethiek in jouw dagelijkse of professionele leven?{' '}
+                    <button
+                      onClick={() => {
+                        // Close the sub-tile and the fullscreen view? Or just open the modal on top?
+                        // The requirement implies opening the meldpunt.
+                        // Since Meldpunt is in App.tsx and controlled by meldpuntOpen state, calling onOpenMeldpunt should work.
+                        // We might want to close the sub-tile or keep it open in the background.
+                        // Let's keep it open in background as is standard for modals.
+                        if (onOpenMeldpunt) onOpenMeldpunt();
+                      }}
+                      className="font-bold underline hover:opacity-75 transition-opacity"
+                      style={{ color: COLORS.BORDEAUX_RED }}
+                    >
+                      Stuur je zorgen op naar ons meldpunt.
+                    </button>
+                  </p>
+                </div>
+              )}
             </div>
           </div>
         )}

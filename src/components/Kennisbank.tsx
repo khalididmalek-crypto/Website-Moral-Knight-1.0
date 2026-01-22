@@ -1,0 +1,71 @@
+import React, { useEffect } from 'react';
+import { X } from 'lucide-react';
+import { THEME, COLORS } from '../constants';
+
+interface KennisbankProps {
+    onClose: () => void;
+}
+
+export const Kennisbank: React.FC<KennisbankProps> = ({ onClose }) => {
+    useEffect(() => {
+        const handleKeyDown = (e: KeyboardEvent) => {
+            if (e.key === 'Escape') onClose();
+        };
+        window.addEventListener('keydown', handleKeyDown);
+        return () => window.removeEventListener('keydown', handleKeyDown);
+    }, [onClose]);
+
+    // Unified styles resembling the Dashboard - consistent across desktop and mobile
+    const containerClasses = "fixed inset-0 z-[200] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 pt-[calc(1rem+env(safe-area-inset-top))] pb-[calc(1rem+env(safe-area-inset-bottom))] overflow-y-auto";
+
+    const contentClasses = "relative w-full max-w-3xl border border-black p-6 md:p-12 shadow-2xl mx-4 max-h-[80dvh] overflow-y-auto";
+
+    return (
+        <div
+            className={containerClasses}
+            onClick={(e) => {
+                if (e.target === e.currentTarget) onClose();
+            }}
+        >
+            <div
+                className={contentClasses}
+                style={{
+                    color: THEME.colors.text,
+                    backgroundColor: '#E6EBE8',
+                    boxShadow: '0 0 50px rgba(0,0,0,0.5), inset 0 0 120px rgba(0,0,0,0.15)',
+                    backgroundImage: 'linear-gradient(135deg, #DDE6E2 0%, #E4E4E1 60%, #E4D4D4 100%)',
+                    border: '1px solid black',
+                }}
+                role="dialog"
+                aria-modal="true"
+                aria-label="MK Kennisbank"
+            >
+                {/* Internal Projector Noise Layer */}
+                <div className="absolute inset-0 pointer-events-none opacity-[0.15] mix-blend-multiply bg-[url('data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.65\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E')] z-0" />
+
+                <button
+                    onClick={onClose}
+                    className="absolute top-4 right-4 group p-2 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#194D25] min-w-[44px] min-h-[44px] flex items-center justify-center z-20"
+                    aria-label="Sluiten"
+                >
+                    <X
+                        size={24}
+                        strokeWidth={1.5}
+                        className="text-[#194D25] group-hover:text-[#8B1A3D] transition-colors duration-200"
+                    />
+                </button>
+
+                <header className="mb-8 border-b border-black pb-4 relative z-10 pt-8 md:pt-0">
+                    <h2 className="text-2xl md:text-3xl flex flex-wrap gap-3 items-baseline">
+                        <span className="font-mono font-medium tracking-tight" style={{ color: THEME.colors.text }}>Moral Knight</span>
+                        <span className="font-mono font-medium tracking-tight" style={{ color: COLORS.PRIMARY_GREEN }}>Kennisbank</span>
+                    </h2>
+                </header>
+
+                <div className="relative z-10 pb-12">
+                    <p className="text-center text-2xl font-mono">Under Construction</p>
+                </div>
+            </div>
+        </div>
+    );
+};

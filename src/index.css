@@ -524,7 +524,7 @@ a:focus-visible {
 @keyframes fade-in {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(5px);
   }
 
   to {
@@ -540,7 +540,7 @@ a:focus-visible {
 @keyframes modal-pop {
   from {
     opacity: 0;
-    transform: scale(0.9) translateY(11px);
+    transform: scale(0.95) translateY(5px);
   }
 
   to {
@@ -747,7 +747,7 @@ textarea::placeholder {
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(20px);
+    transform: translateY(10px);
   }
 
   to {
