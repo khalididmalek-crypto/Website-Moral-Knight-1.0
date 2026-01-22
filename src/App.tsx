@@ -127,6 +127,20 @@ const App: React.FC<AppProps> = ({
     sessionStorage.setItem('kennisbankOpen', String(kennisbankOpen));
   }, [activeTileId, meldpuntOpen, dashboardOpen, kennisbankOpen]);
 
+  // Prevent body scroll when modals are open
+  useEffect(() => {
+    if (meldpuntOpen || dashboardOpen || kennisbankOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+
+    // Cleanup on unmount
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [meldpuntOpen, dashboardOpen, kennisbankOpen]);
+
   // Save persistence with feedback
   useEffect(() => {
     if (tiles.length > 0) {

@@ -1,12 +1,15 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { X } from 'lucide-react';
 import { THEME, COLORS } from '../constants';
+import { Search } from './Search';
 
 interface KennisbankProps {
     onClose: () => void;
 }
 
 export const Kennisbank: React.FC<KennisbankProps> = ({ onClose }) => {
+    const [searchResults, setSearchResults] = useState<string[]>([]);
+
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
             if (e.key === 'Escape') onClose();
@@ -14,6 +17,12 @@ export const Kennisbank: React.FC<KennisbankProps> = ({ onClose }) => {
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
     }, [onClose]);
+
+    const handleSearch = (query: string) => {
+        // Implement search logic here
+        console.log('Searching for:', query);
+        //-setSearchResults(['Result 1', 'Result 2']);
+    };
 
     // Unified styles resembling the Dashboard - consistent across desktop and mobile
     const containerClasses = "fixed inset-0 z-[200] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 pt-[calc(1rem+env(safe-area-inset-top))] pb-[calc(1rem+env(safe-area-inset-bottom))] overflow-y-auto";
@@ -62,8 +71,10 @@ export const Kennisbank: React.FC<KennisbankProps> = ({ onClose }) => {
                     </h2>
                 </header>
 
-                <div className="relative z-10 pb-12">
-                    <p className="text-center text-2xl font-mono">Under Construction</p>
+                <div className="relative z-10 flex flex-col gap-4 pb-12">
+                    <div className="animate-pulse" style={{ color: COLORS.PRIMARY_GREEN, fontWeight: '300', fontSize: '1.25rem' }}>
+                        Under construction.
+                    </div>
                 </div>
             </div>
         </div>

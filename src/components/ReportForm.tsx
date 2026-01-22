@@ -336,7 +336,7 @@ export const ReportForm: React.FC<Props> = () => {
                     onChange={handleChange}
                     onKeyDown={handleInputKeyDown}
                     onBlur={() => handleBlur('description')}
-                    rows={5}
+                    rows={4}
                     className="w-full p-3 border outline-none font-mono text-[11px] md:text-sm bg-[#F7F7F7] focus:bg-white transition-all resize-none"
                     style={{ borderColor: touched.description && errors.description ? FORM_COLORS.ERROR : FORM_COLORS.INPUT_BORDER }}
                     placeholder="Wat is het probleem?"

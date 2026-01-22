@@ -324,46 +324,60 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
               </Suspense>
             </div>
           ) : (isProblemView || isSolutionView) ? (
-            // Problem & Solution Grid View (4 tiles)
-            <div className="w-full max-w-4xl min-h-[520px] relative shadow-2xl animate-fade-in duration-300">
-
-              {/* Label above the grid */}
-              {isProblemView && (
-                <div className="absolute bottom-full left-0 mb-6 md:mb-8 bg-white border border-black px-3 py-1.5">
-                  <h3
-                    className="font-mono text-[16px] font-semibold uppercase tracking-widest m-0 text-gray-900"
-                  >
-                    AI die mensen schaadt
-                  </h3>
-                </div>
-              )}
-              {isSolutionView && (
-                <div className="absolute bottom-full left-0 mb-6 md:mb-8 bg-white border border-black px-3 py-1.5">
-                  <h3
-                    className="font-mono text-[16px] font-semibold uppercase tracking-widest m-0 text-gray-900"
-                  >
-                    ethische ai
-                  </h3>
-                </div>
-              )}
-
-              {(isServicesView && false) && (
-                // Deprecated in this block
-                <div className="hidden"></div>
-              )}
-              <div className={`grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 auto-rows-fr ${activeSubTile ? 'pointer-events-none' : ''}`}>
-                {(isProblemView ? PROBLEM_TILES : SOLUTION_TILES).map((gridTile) => (
-                  <div key={gridTile.id} className="min-h-[240px] h-full">
-                    <Tile
-                      data={gridTile}
-                      onClick={() => setActiveSubTile(gridTile)}
-                      typingComplete={true}
-                      disableHoverEffects={!!activeSubTile}
-                    />
+            <>
+              {/* Problem & Solution Grid View (4 tiles) */}
+              <div className="w-full max-w-4xl min-h-[520px] relative shadow-2xl animate-fade-in duration-300">
+                
+                {isProblemView && (
+                  <div className="absolute bottom-full left-0 mb-6 md:mb-8 bg-white border border-black px-3 py-1.5">
+                    <h3 className="font-mono text-[16px] font-semibold uppercase tracking-widest m-0 text-gray-900">
+                      AI die mensen schaadt
+                    </h3>
                   </div>
-                ))}
+                )}
+                {isSolutionView && (
+                  <div className="absolute bottom-full left-0 mb-6 md:mb-8 bg-white border border-black px-3 py-1.5">
+                    <h3 className="font-mono text-[16px] font-semibold uppercase tracking-widest m-0 text-gray-900">
+                      AI-ethiek
+                    </h3>
+                  </div>
+                )}
+
+                <div className={`grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 auto-rows-fr ${activeSubTile ? 'pointer-events-none' : ''}`}>
+                  {(isProblemView ? PROBLEM_TILES : SOLUTION_TILES).map((gridTile) => (
+                    <div key={gridTile.id} className="min-h-[240px] h-full">
+                      <Tile
+                        data={gridTile}
+                        onClick={() => setActiveSubTile(gridTile)}
+                        typingComplete={true}
+                        disableHoverEffects={!!activeSubTile}
+                      />
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
+
+              {isSolutionView && (
+                <div className="w-full flex flex-col items-center">
+                  <div className="mt-8 border-t border-black/10 w-full max-w-3xl"></div> {/* Divider */}
+                  <div className="mt-0 pt-4 pb-4 w-full max-w-3xl">
+                    <h3 className="font-mono text-[1.1rem] uppercase tracking-widest font-bold mb-4" style={{ color: COLORS.PRIMARY_GREEN }}>
+                      Heeft u behoefte aan onafhankelijke toetsing?
+                    </h3>
+                    <p className="font-mono text-[14px] leading-relaxed text-gray-600">
+                      U kunt ons benaderen voor een vrijblijvend inhoudelijk gesprek over onze werkwijze en het toetsen van publieke AI.{' '}
+                      <button
+                        onClick={() => onNavigate?.('tile-5')}
+                        className="font-bold underline hover:opacity-75 transition-opacity whitespace-nowrap"
+                        style={{ color: COLORS.BORDEAUX_RED }}
+                      >
+                        Benader ons via het contactformulier.
+                      </button>
+                    </p>
+                  </div>
+                </div>
+              )}
+            </>
           ) : (isHowView || isServicesView) ? (
             // How & Services View (3 tiles horizontal row)
             <div className="w-[95%] md:w-[90%] max-w-6xl flex flex-col relative gap-1">
@@ -402,7 +416,7 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
                   className="font-mono text-sm md:text-base text-left"
                   style={{ color: COLORS.PRIMARY_GREEN }}
                 >
-                  Wilt u een geheel vrijblijvend en inhoudelijk gesprek over een maatwerk traject? Weet ons te vinden en stuur een{' '}
+                  Wilt u een geheel vrijblijvend en inhoudelijk gesprek over onze manier van toetsing? Weet ons te vinden en stuur een{' '}
                   <button
                     onClick={() => onNavigate?.('tile-5')}
                     className="font-bold transition-colors duration-300 cursor-pointer align-baseline hover:text-[#6D1430]"
@@ -530,7 +544,7 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
                 onClick={() => { }}
                 typingComplete={true}
                 mode="fullscreen"
-                className="min-h-[300px] max-h-[80vh] overflow-y-auto rounded-sm border border-black p-6 shadow-2xl"
+                className={`max-h-[80vh] overflow-y-auto rounded-sm border border-black p-6 shadow-2xl ${isProblemView ? 'h-[400px]' : 'min-h-[300px]'}`}
                 disableHoverEffects={true}
               />
               <button
