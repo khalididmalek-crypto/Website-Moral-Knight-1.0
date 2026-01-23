@@ -525,7 +525,7 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
                 onClick={() => { }}
                 typingComplete={true}
                 mode="fullscreen"
-                className={`max-h-[80vh] overflow-y-auto rounded-sm border border-black p-6 shadow-2xl ${isProblemView ? 'h-[400px]' : 'min-h-[300px]'}`}
+                className={`max-h-[80vh] overflow-y-auto rounded-sm border border-black p-6 shadow-2xl ${isProblemView ? 'h-[400px]' : 'min-h-[300px]'} [scrollbar-gutter:stable]`}
                 disableHoverEffects={true}
               />
               <button
