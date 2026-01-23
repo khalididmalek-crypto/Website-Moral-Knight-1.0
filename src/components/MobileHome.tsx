@@ -324,6 +324,29 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                                         >
                                             {solutionTileContent}
                                         </ReactMarkdown>
+
+                                        {/* Added CTA matching Problem Tile style */}
+                                        <div className="w-full mt-2">
+                                            <h4 className="font-bold text-base mb-2 text-[#194D25] text-left w-full">
+                                                Heeft u behoefte aan onafhankelijke toetsing?
+                                            </h4>
+                                            <p className="mb-4 text-[14px] font-mono leading-relaxed text-gray-700">
+                                                U kunt ons benaderen voor een vrijblijvend inhoudelijk gesprek over onze werkwijze en het toetsen van publieke AI.{' '}
+                                                <button
+                                                    onClick={(e) => {
+                                                        e.preventDefault();
+                                                        if (!activeTiles.includes('CONTACT')) {
+                                                            handleTileClick('CONTACT');
+                                                        } else {
+                                                            tileRefs.CONTACT.current?.scrollIntoView({ behavior: 'smooth' });
+                                                        }
+                                                    }}
+                                                    className="text-[#8B1A3D] font-bold hover:underline cursor-pointer"
+                                                >
+                                                    Benader ons via het contactformulier.
+                                                </button>
+                                            </p>
+                                        </div>
                                     </div>
                                 </motion.div>
                             </motion.div>
