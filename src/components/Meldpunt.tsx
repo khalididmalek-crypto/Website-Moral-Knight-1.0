@@ -61,7 +61,7 @@ export const Meldpunt: React.FC<MeldpuntProps> = ({ onClose }) => {
                         <span className="font-mono font-medium tracking-tight" style={{ color: THEME.colors.text }}>Moral Knight</span>
                         <span className="font-mono font-medium tracking-tight" style={{ color: COLORS.PRIMARY_GREEN }}>Meldpunt</span>
                     </h2>
-                    <p className="font-mono text-[10px] md:text-xs uppercase tracking-widest mt-2 opacity-70">
+                    <p className="font-mono text-[10px] md:text-xs uppercase tracking-widest mt-2 opacity-70 whitespace-nowrap">
                         Melden van misstanden door publieke AI
                     </p>
                 </header>
