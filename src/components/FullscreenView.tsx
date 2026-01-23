@@ -327,7 +327,7 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
             <>
               {/* Problem & Solution Grid View (4 tiles) */}
               <div className="w-full max-w-4xl min-h-[520px] relative shadow-2xl animate-fade-in duration-300">
-                
+
                 {isProblemView && (
                   <div className="absolute bottom-full left-0 mb-6 md:mb-8 bg-white border border-black px-3 py-1.5">
                     <h3 className="font-mono text-[16px] font-semibold uppercase tracking-widest m-0 text-gray-900">
@@ -357,26 +357,7 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
                 </div>
               </div>
 
-              {isSolutionView && (
-                <div className="w-full flex flex-col items-center">
-                  <div className="mt-8 border-t border-black/10 w-full max-w-3xl"></div> {/* Divider */}
-                  <div className="mt-0 pt-4 pb-4 w-full max-w-3xl">
-                    <h3 className="font-mono text-[1.1rem] uppercase tracking-widest font-bold mb-4" style={{ color: COLORS.PRIMARY_GREEN }}>
-                      Heeft u behoefte aan onafhankelijke toetsing?
-                    </h3>
-                    <p className="font-mono text-[14px] leading-relaxed text-gray-600">
-                      U kunt ons benaderen voor een vrijblijvend inhoudelijk gesprek over onze werkwijze en het toetsen van publieke AI.{' '}
-                      <button
-                        onClick={() => onNavigate?.('tile-5')}
-                        className="font-bold underline hover:opacity-75 transition-opacity whitespace-nowrap"
-                        style={{ color: COLORS.BORDEAUX_RED }}
-                      >
-                        Benader ons via het contactformulier.
-                      </button>
-                    </p>
-                  </div>
-                </div>
-              )}
+
             </>
           ) : (isHowView || isServicesView) ? (
             // How & Services View (3 tiles horizontal row)
@@ -565,17 +546,31 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
                     Heb je als burger of werknemer twijfels over AI en ethiek in jouw dagelijkse of professionele leven?{' '}
                     <button
                       onClick={() => {
-                        // Close the sub-tile and the fullscreen view? Or just open the modal on top?
-                        // The requirement implies opening the meldpunt.
-                        // Since Meldpunt is in App.tsx and controlled by meldpuntOpen state, calling onOpenMeldpunt should work.
-                        // We might want to close the sub-tile or keep it open in the background.
-                        // Let's keep it open in background as is standard for modals.
                         if (onOpenMeldpunt) onOpenMeldpunt();
                       }}
                       className="font-bold underline hover:opacity-75 transition-opacity"
                       style={{ color: COLORS.BORDEAUX_RED }}
                     >
                       Stuur je zorgen op naar ons meldpunt.
+                    </button>
+                  </p>
+                </div>
+              )}
+
+              {/* CTA for Solution Tiles */}
+              {(isSolutionView || activeSubTile.id.startsWith('sol-')) && (
+                <div className="mt-8 border-t border-black/10 pt-8 pb-4">
+                  <h3 className="font-mono text-[1.1rem] uppercase tracking-widest font-bold mb-4" style={{ color: COLORS.PRIMARY_GREEN }}>
+                    Heeft u behoefte aan onafhankelijke toetsing?
+                  </h3>
+                  <p className="font-mono text-[15px] leading-relaxed max-w-2xl text-gray-600">
+                    U kunt ons benaderen voor een vrijblijvend inhoudelijk gesprek over onze werkwijze en het toetsen van publieke AI.{' '}
+                    <button
+                      onClick={() => onNavigate?.('tile-5')}
+                      className="font-bold underline hover:opacity-75 transition-opacity"
+                      style={{ color: COLORS.BORDEAUX_RED }}
+                    >
+                      Benader ons via het contactformulier.
                     </button>
                   </p>
                 </div>
