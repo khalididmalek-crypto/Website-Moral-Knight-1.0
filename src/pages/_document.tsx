@@ -7,7 +7,7 @@ export default function Document() {
         {/* Primary Meta Tags */}
         <meta charSet="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description" content="Moral Knight bewaakt AI die functioneert volgens menselijke waarden. Wij testen, adviseren en ontwerpen AI-toepassingen in het publieke domein voor eerlijke, veilige en begrijpelijke dienstverlening." />
+        <meta name="description" content="Onafhankelijke toetsing." />
         <meta name="keywords" content="AI ethiek, verantwoorde AI, publieke AI, AI audit, AI governance, chatbot testing, algoritme transparantie" />
         <meta name="author" content="Moral Knight" />
         <meta name="robots" content="index, follow" />
@@ -17,7 +17,7 @@ export default function Document() {
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://moralknight.nl/" />
         <meta property="og:title" content="Moral Knight: Waakhond van publieke AI" />
-        <meta property="og:description" content="Wij bewaken AI die functioneert volgens menselijke waarden. Van chatbot testing tot AI governance - voor eerlijke publieke dienstverlening." />
+        <meta property="og:description" content="Onafhankelijke toetsing." />
         <meta property="og:image" content="https://moralknight.nl/og-image.png" />
         <meta property="og:locale" content="nl_NL" />
         <meta property="og:site_name" content="Moral Knight" />
@@ -26,7 +26,7 @@ export default function Document() {
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:url" content="https://moralknight.nl/" />
         <meta name="twitter:title" content="Moral Knight: Waakhond van publieke AI" />
-        <meta name="twitter:description" content="Wij bewaken AI die functioneert volgens menselijke waarden. AI testing, audit en governance voor publieke organisaties." />
+        <meta name="twitter:description" content="Onafhankelijke toetsing." />
         <meta name="twitter:image" content="https://moralknight.nl/twitter-image.png" />
 
         {/* Favicon */}
