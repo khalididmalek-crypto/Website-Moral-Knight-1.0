@@ -73,6 +73,40 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
         setHasMounted(true);
     }, []);
 
+    // Scroll Locking for iOS/Mobile to ensure background is static when modal is open
+    useEffect(() => {
+        const container = containerRef.current;
+        if (!container) return;
+
+        const isModalOpen = view !== 'HOME' || meldpuntOpen;
+
+        if (isModalOpen) {
+            const scrollY = container.scrollTop;
+            container.dataset.scrollY = scrollY.toString();
+
+            // Fix position to prevent background scrolling (iOS friendly)
+            Object.assign(container.style, {
+                position: 'fixed',
+                top: `-${scrollY}px`,
+                width: '100%',
+                height: '100dvh',
+                overflow: 'hidden'
+            });
+        } else {
+            const scrollY = parseInt(container.dataset.scrollY || '0', 10);
+
+            Object.assign(container.style, {
+                position: '',
+                top: '',
+                width: '',
+                height: '',
+                overflow: ''
+            });
+
+            container.scrollTop = scrollY;
+        }
+    }, [view, meldpuntOpen]);
+
     const handleTileClick = (tile: string) => {
         setActiveTiles(prev => {
             if (prev.includes(tile)) {
@@ -160,7 +194,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
 
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5 }}
-                className={`flex flex-col min-h-[100dvh] w-full font-mono transition-colors duration-500 ease-in-out md:hidden ${(view !== 'HOME' || meldpuntOpen) ? 'overflow-hidden h-[100dvh]' : 'overflow-y-auto'}`}
+                className="flex flex-col min-h-[100dvh] w-full font-mono transition-colors duration-500 ease-in-out md:hidden overflow-y-auto"
                 style={{
                     backgroundColor: BG_COLORS[lastActiveTile as keyof typeof BG_COLORS],
                     backgroundImage: activeTiles.length > 0 ? getActiveGradient(lastActiveTile) : 'none',
