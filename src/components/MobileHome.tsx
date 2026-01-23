@@ -121,10 +121,6 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
         return null;
     }
 
-    if (view === 'DASHBOARD') return <Dashboard onClose={handleBack} />;
-    if (view === 'KENNISBANK') return <Kennisbank onClose={handleBack} />;
-    if (view === 'MELDPUNT' || meldpuntOpen) return <Meldpunt onClose={handleBack} />;
-
 
     const containerVariants = {
         hidden: { opacity: 0 },
@@ -157,364 +153,370 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
     const lastActiveTile = activeTiles.length > 0 ? activeTiles[activeTiles.length - 1] : 'HOME';
 
     return (
-        <motion.div
-            ref={containerRef}
-            initial={{ opacity: 0 }}
-
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.5 }}
-            className="flex flex-col min-h-[100dvh] w-full font-mono overflow-y-auto md:hidden transition-colors duration-500 ease-in-out"
-            style={{
-                backgroundColor: BG_COLORS[lastActiveTile as keyof typeof BG_COLORS],
-                backgroundImage: activeTiles.length > 0 ? getActiveGradient(lastActiveTile) : 'none',
-            }}
-        >
-            {/* Projector Noise Layer for the background when active */}
-            {activeTiles.length > 0 && (
-                <div className="fixed inset-0 pointer-events-none opacity-[0.10] mix-blend-multiply bg-[url('data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.65\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E')] z-0" />
-            )}
-
-            {/* Common Noise Pattern for Tiles - Defined here to be reused if needed */}
-
-            <svg className="hidden">
-                <filter id="tileNoiseFilter">
-                    <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" />
-                </filter>
-            </svg>
-
-            {/* Header */}
-            <div className="pt-12 mx-4 pb-2 border-b border-black">
-                <h1 className="text-4xl font-medium tracking-tight text-[#111111] mb-1">Moral Knight</h1>
-                <div className="text-xs font-bold uppercase tracking-widest text-[#194D25] pt-1.5 opacity-90 leading-relaxed">
-                    Wij zijn een onafhankelijke waakhond<br />
-                    en toetsen publieke AI
-                </div>
-            </div>
-
-            {/* Accordion Tiles */}
+        <>
             <motion.div
-                variants={containerVariants}
-                initial="hidden"
-                animate="visible"
-                className="flex-1 flex flex-col w-full p-4 pl-4 gap-y-4 pb-12"
-                style={{ overflowAnchor: 'none' }}
+                ref={containerRef}
+                initial={{ opacity: 0 }}
+
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.5 }}
+                className={`flex flex-col min-h-[100dvh] w-full font-mono transition-colors duration-500 ease-in-out md:hidden ${(view !== 'HOME' || meldpuntOpen) ? 'overflow-hidden h-[100dvh]' : 'overflow-y-auto'}`}
+                style={{
+                    backgroundColor: BG_COLORS[lastActiveTile as keyof typeof BG_COLORS],
+                    backgroundImage: activeTiles.length > 0 ? getActiveGradient(lastActiveTile) : 'none',
+                }}
             >
-                {/* Tile 1: PROBLEEM */}
-                <motion.div
-                    layout="position"
-                    ref={tileRefs.PROBLEM}
-                    variants={tileVariants}
-                    onClick={() => handleTileClick('PROBLEM')}
-                    onLayoutAnimationComplete={() => handleLayoutComplete('PROBLEM')}
-                    className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTiles.includes('PROBLEM')
-                        ? 'bg-white rounded-none shadow-md'
-                        : 'bg-[#F2E8E4] rounded-sm'
-                        }`}
-                    style={{ overflowAnchor: 'none' }}
-                >
+                {/* Projector Noise Layer for the background when active */}
+                {activeTiles.length > 0 && (
+                    <div className="fixed inset-0 pointer-events-none opacity-[0.10] mix-blend-multiply bg-[url('data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.65\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E')] z-0" />
+                )}
 
-                    <div className="absolute top-4 right-4 opacity-50">
-                        <X size={18} strokeWidth={2} color={COLORS.PRIMARY_GREEN} />
-                    </div>
-                    <div className="px-3 py-1.5 bg-white border border-black w-fit">
-                        <div className="font-mono text-[13.2px] font-semibold uppercase tracking-widest text-gray-900">Wat is het probleem?</div>
-                    </div>
-                    <AnimatePresence>
-                        {activeTiles.includes('PROBLEM') && (
-                            <motion.div
-                                initial={{ height: 0, opacity: 0 }}
-                                animate={{ height: 'auto', opacity: 1 }}
-                                exit={{ height: 0, opacity: 0 }}
-                                transition={{ duration: 0.3 }}
-                                className="overflow-hidden"
-                            >
-                                <motion.div exit={contentExitAnimation}>
-                                    <div className="flex flex-col items-start py-4">
+                {/* Common Noise Pattern for Tiles - Defined here to be reused if needed */}
 
-                                        <ReactMarkdown
-                                            remarkPlugins={[remarkGfm]}
-                                            components={{
-                                                h2: ({ node, ...props }) => <h4 className="font-bold text-base mb-2 text-[#194D25] text-left w-full" {...props} />,
-                                                h3: ({ node, ...props }) => <h5 className="font-semibold text-sm mt-4 mb-2 text-gray-800 text-left w-full" {...props} />,
-                                                p: ({ node, ...props }) => <p className="mb-4 text-[14px] font-mono leading-relaxed text-gray-700" {...props} />,
-                                                a: ({ node, href, ...props }) => {
-                                                    if (href === '#meldpunt') {
-                                                        return (
-                                                            <button
-                                                                onClick={(e) => {
-                                                                    e.preventDefault();
-                                                                    setMeldpuntOpen(true);
-                                                                }}
-                                                                className="text-[#8B1A3D] font-bold hover:underline cursor-pointer"
-                                                            >
-                                                                {props.children}
-                                                            </button>
-                                                        );
-                                                    }
-                                                    return <a href={href} className="text-[#8B1A3D] hover:underline" {...props} />;
-                                                }
-                                            }}
+                <svg className="hidden">
+                    <filter id="tileNoiseFilter">
+                        <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" />
+                    </filter>
+                </svg>
 
-                                        >
-                                            {problemTileContent}
-                                        </ReactMarkdown>
-                                    </div>
-                                </motion.div>
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
-                </motion.div>
-
-                {/* Tile 2: OPLOSSING */}
-                <motion.div
-                    layout="position"
-                    ref={tileRefs.SOLUTION}
-                    variants={tileVariants}
-                    onClick={() => handleTileClick('SOLUTION')}
-                    onLayoutAnimationComplete={() => handleLayoutComplete('SOLUTION')}
-                    className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTiles.includes('SOLUTION')
-                        ? 'bg-white rounded-none shadow-md'
-                        : 'bg-[#C1C9B9] rounded-sm'
-                        }`}
-                    style={{ overflowAnchor: 'none' }}
-                >
-
-                    <div className="absolute top-4 right-4 opacity-50">
-                        <ArrowLeft size={18} strokeWidth={2} color={COLORS.PRIMARY_GREEN} />
-                    </div>
-                    <div className="px-3 py-1.5 bg-white border border-black w-fit">
-                        <div className="font-mono text-[13.2px] font-semibold uppercase tracking-widest text-gray-900">Wat is de oplossing?</div>
-                    </div>
-                    <AnimatePresence>
-                        {activeTiles.includes('SOLUTION') && (
-                            <motion.div
-                                initial={{ height: 0, opacity: 0 }}
-                                animate={{ height: 'auto', opacity: 1 }}
-                                exit={{ height: 0, opacity: 0 }}
-                                transition={{ duration: 0.3 }}
-                                className="overflow-hidden"
-                            >
-                                <motion.div exit={contentExitAnimation}>
-                                    <div className="flex flex-col items-start py-4">
-
-                                        <ReactMarkdown
-                                            remarkPlugins={[remarkGfm]}
-                                            components={{
-                                                h2: ({ node, ...props }) => <h4 className="font-bold text-base mb-2 text-[#194D25] text-left w-full" {...props} />,
-                                                h3: ({ node, ...props }) => <h5 className="font-semibold text-sm mt-4 mb-2 text-gray-800 text-left w-full" {...props} />,
-                                                p: ({ node, ...props }) => <p className="mb-4 text-[14px] font-mono leading-relaxed text-gray-700" {...props} />,
-                                                a: ({ node, href, ...props }) => {
-                                                    if (href === '#meldpunt') {
-                                                        return (
-                                                            <button
-                                                                onClick={(e) => {
-                                                                    e.preventDefault();
-                                                                    setMeldpuntOpen(true);
-                                                                }}
-                                                                className="text-[#8B1A3D] font-bold hover:underline cursor-pointer"
-                                                            >
-                                                                {props.children}
-                                                            </button>
-                                                        );
-                                                    }
-                                                    return <a href={href} className="text-[#8B1A3D] hover:underline" {...props} />;
-                                                }
-                                            }}
-
-                                        >
-                                            {solutionTileContent}
-                                        </ReactMarkdown>
-
-                                        {/* Added CTA matching Problem Tile style */}
-                                        <div className="w-full mt-2">
-                                            <h4 className="font-bold text-base mb-2 text-[#194D25] text-left w-full">
-                                                Heeft u behoefte aan onafhankelijke toetsing?
-                                            </h4>
-                                            <p className="mb-4 text-[14px] font-mono leading-relaxed text-gray-700">
-                                                U kunt ons benaderen voor een vrijblijvend inhoudelijk gesprek over onze werkwijze en het toetsen van publieke AI.{' '}
-                                                <button
-                                                    onClick={(e) => {
-                                                        e.preventDefault();
-                                                        if (!activeTiles.includes('CONTACT')) {
-                                                            handleTileClick('CONTACT');
-                                                        } else {
-                                                            tileRefs.CONTACT.current?.scrollIntoView({ behavior: 'smooth' });
-                                                        }
-                                                    }}
-                                                    className="text-[#8B1A3D] font-bold hover:underline cursor-pointer"
-                                                >
-                                                    Benader ons via het contactformulier.
-                                                </button>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </motion.div>
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
-                </motion.div>
-
-                {/* New Tile: ONZE AANPAK */}
-                <motion.div
-                    layout="position"
-                    ref={tileRefs.APPROACH}
-                    variants={tileVariants}
-                    onClick={() => handleTileClick('APPROACH')}
-                    onLayoutAnimationComplete={() => handleLayoutComplete('APPROACH')}
-                    className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTiles.includes('APPROACH')
-                        ? 'bg-white rounded-none shadow-md'
-                        : 'bg-[#CCD5C6] rounded-sm'
-                        }`}
-                    style={{ overflowAnchor: 'none' }}
-                >
-
-                    <div className="absolute top-4 right-4 opacity-50">
-                        <Cpu size={18} strokeWidth={2} color={COLORS.PRIMARY_GREEN} />
-                    </div>
-                    <div className="px-3 py-1.5 bg-white border border-black w-fit">
-                        <div className="font-mono text-[13.2px] font-semibold uppercase tracking-widest text-gray-900">ONZE AANPAK</div>
-                    </div>
-                    <AnimatePresence>
-                        {activeTiles.includes('APPROACH') && (
-                            <motion.div
-                                initial={{ height: 0, opacity: 0 }}
-                                animate={{ height: 'auto', opacity: 1 }}
-                                exit={{ height: 0, opacity: 0 }}
-                                transition={{ duration: 0.3 }}
-                                className="overflow-hidden"
-                            >
-                                <motion.div exit={contentExitAnimation}>
-                                    <div className="flex flex-col items-start py-4">
-
-                                        <ReactMarkdown
-                                            remarkPlugins={[remarkGfm]}
-                                            components={{
-                                                h2: ({ node, ...props }) => <h4 className="font-bold text-base mb-2 text-[#194D25] text-left w-full" {...props} />,
-                                                p: ({ node, ...props }) => <p className="mb-4 text-[14px] font-mono leading-relaxed text-gray-700" {...props} />,
-                                            }}
-
-                                        >
-                                            {approachTileContent}
-                                        </ReactMarkdown>
-                                    </div>
-                                </motion.div>
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
-                </motion.div>
-
-                {/* New Tile: ONZE DIENSTEN */}
-                <motion.div
-                    layout="position"
-                    ref={tileRefs.SERVICES}
-                    variants={tileVariants}
-                    onClick={() => handleTileClick('SERVICES')}
-                    onLayoutAnimationComplete={() => handleLayoutComplete('SERVICES')}
-                    className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTiles.includes('SERVICES')
-                        ? 'bg-white rounded-none shadow-md'
-                        : 'bg-[#AEB5B9] rounded-sm'
-                        }`}
-                    style={{ overflowAnchor: 'none' }}
-                >
-
-                    <div className="absolute top-4 right-4 opacity-50">
-                        <Briefcase size={18} strokeWidth={2} color="#F1E1DB" />
-                    </div>
-                    <div className="px-3 py-1.5 bg-white border border-black w-fit">
-                        <div className="font-mono text-[13.2px] font-semibold uppercase tracking-widest text-gray-900">ONZE DIENSTEN</div>
-                    </div>
-                    <AnimatePresence>
-                        {activeTiles.includes('SERVICES') && (
-                            <motion.div
-                                initial={{ height: 0, opacity: 0 }}
-                                animate={{ height: 'auto', opacity: 1 }}
-                                exit={{ height: 0, opacity: 0 }}
-                                transition={{ duration: 0.3 }}
-                                className="overflow-hidden"
-                            >
-                                <motion.div exit={contentExitAnimation}>
-                                    <div className="flex flex-col items-start py-4">
-
-                                        <ReactMarkdown
-                                            remarkPlugins={[remarkGfm]}
-                                            components={{
-                                                h2: ({ node, ...props }) => <h4 className="font-bold text-base mb-2 text-[#194D25] text-left w-full" {...props} />,
-                                                p: ({ node, ...props }) => <p className="mb-4 text-[14px] font-mono leading-relaxed text-gray-700" {...props} />,
-                                                ul: ({ node, ...props }) => <ul className="list-disc pl-5 mb-4 text-[14px] font-mono leading-relaxed text-gray-700 w-full" {...props} />,
-                                                li: ({ node, ...props }) => <li className="mb-1" {...props} />,
-                                            }}
-
-                                        >
-                                            {servicesTileContent}
-                                        </ReactMarkdown>
-                                    </div>
-                                </motion.div>
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
-                </motion.div>
-
-                {/* Tile 3: CONTACT */}
-                <motion.div
-                    layout="position"
-                    ref={tileRefs.CONTACT}
-                    variants={tileVariants}
-                    onClick={() => handleTileClick('CONTACT')}
-                    onLayoutAnimationComplete={() => handleLayoutComplete('CONTACT')}
-                    className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTiles.includes('CONTACT')
-                        ? 'bg-white rounded-none shadow-md'
-                        : 'bg-[#F0E6D2] rounded-sm'
-                        }`}
-                    style={{ overflowAnchor: 'none' }}
-                >
-
-                    <div className="absolute top-4 right-4 opacity-50">
-                        <Send size={20} strokeWidth={1.2} color="#374151" />
-                    </div>
-                    <div className="px-3 py-1.5 bg-white border border-black w-fit">
-                        <div className="font-mono text-[13.2px] font-semibold uppercase tracking-widest text-gray-900">Contact</div>
-                    </div>
-                    <AnimatePresence>
-                        {activeTiles.includes('CONTACT') && hasMounted && (
-                            <motion.div
-                                initial={{ height: 0, opacity: 0 }}
-                                animate={{ height: 'auto', opacity: 1 }}
-                                exit={{ height: 0, opacity: 0 }}
-                                transition={{ duration: 0.3 }}
-                                className="overflow-hidden"
-                                onClick={(e) => e.stopPropagation()}
-                            >
-                                <motion.div exit={contentExitAnimation}>
-                                    <div className="flex flex-col items-start py-4">
-                                        <div className="w-full bg-white">
-                                            <ContactForm mode="fullscreen" className="!p-0" />
-                                        </div>
-                                    </div>
-                                </motion.div>
-                            </motion.div>
-                        )}
-                    </AnimatePresence>
-                </motion.div>
-
-                {/* Divider Line under tiles */}
-                <div className="border-b border-black" />
-
-                {/* Footer */}
-                <div className="mt-6 px-1 pb-12">
-                    <div className="text-[2.66vw] font-mono uppercase tracking-widest leading-relaxed mb-6 whitespace-nowrap">
-                        <FlowingText
-                            text={`/ Moral Knight Est. 2025 - auditing public AI`}
-                            baseColor={COLORS.SECONDARY_GREEN}
-                            className="flex text-[2.66vw]"
-                        />
-                    </div>
-                    <div className="flex flex-col gap-0.5 items-start">
-                        <button onClick={() => setMeldpuntOpen(true)} className="text-[11px] font-bold uppercase tracking-widest" style={{ color: '#8B1A3D' }}>/ MK Meldpunt</button>
-                        <button onClick={() => setView('DASHBOARD')} className="text-[11px] font-bold uppercase tracking-widest" style={{ color: '#8B1A3D' }}>/ MK Dashboard</button>
-                        <button onClick={() => setView('KENNISBANK')} className="text-[11px] font-bold uppercase tracking-widest" style={{ color: '#8B1A3D' }}>/ MK Kennisbank</button>
+                {/* Header */}
+                <div className="pt-12 mx-4 pb-2 border-b border-black">
+                    <h1 className="text-4xl font-medium tracking-tight text-[#111111] mb-1">Moral Knight</h1>
+                    <div className="text-xs font-bold uppercase tracking-widest text-[#194D25] pt-1.5 opacity-90 leading-relaxed">
+                        Wij zijn een onafhankelijke waakhond<br />
+                        en toetsen publieke AI
                     </div>
                 </div>
+
+                {/* Accordion Tiles */}
+                <motion.div
+                    variants={containerVariants}
+                    initial="hidden"
+                    animate="visible"
+                    className="flex-1 flex flex-col w-full p-4 pl-4 gap-y-4 pb-12"
+                    style={{ overflowAnchor: 'none' }}
+                >
+                    {/* Tile 1: PROBLEEM */}
+                    <motion.div
+                        layout="position"
+                        ref={tileRefs.PROBLEM}
+                        variants={tileVariants}
+                        onClick={() => handleTileClick('PROBLEM')}
+                        onLayoutAnimationComplete={() => handleLayoutComplete('PROBLEM')}
+                        className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTiles.includes('PROBLEM')
+                            ? 'bg-white rounded-none shadow-md'
+                            : 'bg-[#F2E8E4] rounded-sm'
+                            }`}
+                        style={{ overflowAnchor: 'none' }}
+                    >
+
+                        <div className="absolute top-4 right-4 opacity-50">
+                            <X size={18} strokeWidth={2} color={COLORS.PRIMARY_GREEN} />
+                        </div>
+                        <div className="px-3 py-1.5 bg-white border border-black w-fit">
+                            <div className="font-mono text-[13.2px] font-semibold uppercase tracking-widest text-gray-900">Wat is het probleem?</div>
+                        </div>
+                        <AnimatePresence>
+                            {activeTiles.includes('PROBLEM') && (
+                                <motion.div
+                                    initial={{ height: 0, opacity: 0 }}
+                                    animate={{ height: 'auto', opacity: 1 }}
+                                    exit={{ height: 0, opacity: 0 }}
+                                    transition={{ duration: 0.3 }}
+                                    className="overflow-hidden"
+                                >
+                                    <motion.div exit={contentExitAnimation}>
+                                        <div className="flex flex-col items-start py-4">
+
+                                            <ReactMarkdown
+                                                remarkPlugins={[remarkGfm]}
+                                                components={{
+                                                    h2: ({ node, ...props }) => <h4 className="font-bold text-base mb-2 text-[#194D25] text-left w-full" {...props} />,
+                                                    h3: ({ node, ...props }) => <h5 className="font-semibold text-sm mt-4 mb-2 text-gray-800 text-left w-full" {...props} />,
+                                                    p: ({ node, ...props }) => <p className="mb-4 text-[14px] font-mono leading-relaxed text-gray-700" {...props} />,
+                                                    a: ({ node, href, ...props }) => {
+                                                        if (href === '#meldpunt') {
+                                                            return (
+                                                                <button
+                                                                    onClick={(e) => {
+                                                                        e.preventDefault();
+                                                                        setMeldpuntOpen(true);
+                                                                    }}
+                                                                    className="text-[#8B1A3D] font-bold hover:underline cursor-pointer"
+                                                                >
+                                                                    {props.children}
+                                                                </button>
+                                                            );
+                                                        }
+                                                        return <a href={href} className="text-[#8B1A3D] hover:underline" {...props} />;
+                                                    }
+                                                }}
+
+                                            >
+                                                {problemTileContent}
+                                            </ReactMarkdown>
+                                        </div>
+                                    </motion.div>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+                    </motion.div>
+
+                    {/* Tile 2: OPLOSSING */}
+                    <motion.div
+                        layout="position"
+                        ref={tileRefs.SOLUTION}
+                        variants={tileVariants}
+                        onClick={() => handleTileClick('SOLUTION')}
+                        onLayoutAnimationComplete={() => handleLayoutComplete('SOLUTION')}
+                        className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTiles.includes('SOLUTION')
+                            ? 'bg-white rounded-none shadow-md'
+                            : 'bg-[#C1C9B9] rounded-sm'
+                            }`}
+                        style={{ overflowAnchor: 'none' }}
+                    >
+
+                        <div className="absolute top-4 right-4 opacity-50">
+                            <ArrowLeft size={18} strokeWidth={2} color={COLORS.PRIMARY_GREEN} />
+                        </div>
+                        <div className="px-3 py-1.5 bg-white border border-black w-fit">
+                            <div className="font-mono text-[13.2px] font-semibold uppercase tracking-widest text-gray-900">Wat is de oplossing?</div>
+                        </div>
+                        <AnimatePresence>
+                            {activeTiles.includes('SOLUTION') && (
+                                <motion.div
+                                    initial={{ height: 0, opacity: 0 }}
+                                    animate={{ height: 'auto', opacity: 1 }}
+                                    exit={{ height: 0, opacity: 0 }}
+                                    transition={{ duration: 0.3 }}
+                                    className="overflow-hidden"
+                                >
+                                    <motion.div exit={contentExitAnimation}>
+                                        <div className="flex flex-col items-start py-4">
+
+                                            <ReactMarkdown
+                                                remarkPlugins={[remarkGfm]}
+                                                components={{
+                                                    h2: ({ node, ...props }) => <h4 className="font-bold text-base mb-2 text-[#194D25] text-left w-full" {...props} />,
+                                                    h3: ({ node, ...props }) => <h5 className="font-semibold text-sm mt-4 mb-2 text-gray-800 text-left w-full" {...props} />,
+                                                    p: ({ node, ...props }) => <p className="mb-4 text-[14px] font-mono leading-relaxed text-gray-700" {...props} />,
+                                                    a: ({ node, href, ...props }) => {
+                                                        if (href === '#meldpunt') {
+                                                            return (
+                                                                <button
+                                                                    onClick={(e) => {
+                                                                        e.preventDefault();
+                                                                        setMeldpuntOpen(true);
+                                                                    }}
+                                                                    className="text-[#8B1A3D] font-bold hover:underline cursor-pointer"
+                                                                >
+                                                                    {props.children}
+                                                                </button>
+                                                            );
+                                                        }
+                                                        return <a href={href} className="text-[#8B1A3D] hover:underline" {...props} />;
+                                                    }
+                                                }}
+
+                                            >
+                                                {solutionTileContent}
+                                            </ReactMarkdown>
+
+                                            {/* Added CTA matching Problem Tile style */}
+                                            <div className="w-full mt-2">
+                                                <h4 className="font-bold text-base mb-2 text-[#194D25] text-left w-full">
+                                                    Heeft u behoefte aan onafhankelijke toetsing?
+                                                </h4>
+                                                <p className="mb-4 text-[14px] font-mono leading-relaxed text-gray-700">
+                                                    U kunt ons benaderen voor een vrijblijvend inhoudelijk gesprek over onze werkwijze en het toetsen van publieke AI.{' '}
+                                                    <button
+                                                        onClick={(e) => {
+                                                            e.preventDefault();
+                                                            if (!activeTiles.includes('CONTACT')) {
+                                                                handleTileClick('CONTACT');
+                                                            } else {
+                                                                tileRefs.CONTACT.current?.scrollIntoView({ behavior: 'smooth' });
+                                                            }
+                                                        }}
+                                                        className="text-[#8B1A3D] font-bold hover:underline cursor-pointer"
+                                                    >
+                                                        Benader ons via het contactformulier.
+                                                    </button>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </motion.div>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+                    </motion.div>
+
+                    {/* New Tile: ONZE AANPAK */}
+                    <motion.div
+                        layout="position"
+                        ref={tileRefs.APPROACH}
+                        variants={tileVariants}
+                        onClick={() => handleTileClick('APPROACH')}
+                        onLayoutAnimationComplete={() => handleLayoutComplete('APPROACH')}
+                        className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTiles.includes('APPROACH')
+                            ? 'bg-white rounded-none shadow-md'
+                            : 'bg-[#CCD5C6] rounded-sm'
+                            }`}
+                        style={{ overflowAnchor: 'none' }}
+                    >
+
+                        <div className="absolute top-4 right-4 opacity-50">
+                            <Cpu size={18} strokeWidth={2} color={COLORS.PRIMARY_GREEN} />
+                        </div>
+                        <div className="px-3 py-1.5 bg-white border border-black w-fit">
+                            <div className="font-mono text-[13.2px] font-semibold uppercase tracking-widest text-gray-900">ONZE AANPAK</div>
+                        </div>
+                        <AnimatePresence>
+                            {activeTiles.includes('APPROACH') && (
+                                <motion.div
+                                    initial={{ height: 0, opacity: 0 }}
+                                    animate={{ height: 'auto', opacity: 1 }}
+                                    exit={{ height: 0, opacity: 0 }}
+                                    transition={{ duration: 0.3 }}
+                                    className="overflow-hidden"
+                                >
+                                    <motion.div exit={contentExitAnimation}>
+                                        <div className="flex flex-col items-start py-4">
+
+                                            <ReactMarkdown
+                                                remarkPlugins={[remarkGfm]}
+                                                components={{
+                                                    h2: ({ node, ...props }) => <h4 className="font-bold text-base mb-2 text-[#194D25] text-left w-full" {...props} />,
+                                                    p: ({ node, ...props }) => <p className="mb-4 text-[14px] font-mono leading-relaxed text-gray-700" {...props} />,
+                                                }}
+
+                                            >
+                                                {approachTileContent}
+                                            </ReactMarkdown>
+                                        </div>
+                                    </motion.div>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+                    </motion.div>
+
+                    {/* New Tile: ONZE DIENSTEN */}
+                    <motion.div
+                        layout="position"
+                        ref={tileRefs.SERVICES}
+                        variants={tileVariants}
+                        onClick={() => handleTileClick('SERVICES')}
+                        onLayoutAnimationComplete={() => handleLayoutComplete('SERVICES')}
+                        className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTiles.includes('SERVICES')
+                            ? 'bg-white rounded-none shadow-md'
+                            : 'bg-[#AEB5B9] rounded-sm'
+                            }`}
+                        style={{ overflowAnchor: 'none' }}
+                    >
+
+                        <div className="absolute top-4 right-4 opacity-50">
+                            <Briefcase size={18} strokeWidth={2} color="#F1E1DB" />
+                        </div>
+                        <div className="px-3 py-1.5 bg-white border border-black w-fit">
+                            <div className="font-mono text-[13.2px] font-semibold uppercase tracking-widest text-gray-900">ONZE DIENSTEN</div>
+                        </div>
+                        <AnimatePresence>
+                            {activeTiles.includes('SERVICES') && (
+                                <motion.div
+                                    initial={{ height: 0, opacity: 0 }}
+                                    animate={{ height: 'auto', opacity: 1 }}
+                                    exit={{ height: 0, opacity: 0 }}
+                                    transition={{ duration: 0.3 }}
+                                    className="overflow-hidden"
+                                >
+                                    <motion.div exit={contentExitAnimation}>
+                                        <div className="flex flex-col items-start py-4">
+
+                                            <ReactMarkdown
+                                                remarkPlugins={[remarkGfm]}
+                                                components={{
+                                                    h2: ({ node, ...props }) => <h4 className="font-bold text-base mb-2 text-[#194D25] text-left w-full" {...props} />,
+                                                    p: ({ node, ...props }) => <p className="mb-4 text-[14px] font-mono leading-relaxed text-gray-700" {...props} />,
+                                                    ul: ({ node, ...props }) => <ul className="list-disc pl-5 mb-4 text-[14px] font-mono leading-relaxed text-gray-700 w-full" {...props} />,
+                                                    li: ({ node, ...props }) => <li className="mb-1" {...props} />,
+                                                }}
+
+                                            >
+                                                {servicesTileContent}
+                                            </ReactMarkdown>
+                                        </div>
+                                    </motion.div>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+                    </motion.div>
+
+                    {/* Tile 3: CONTACT */}
+                    <motion.div
+                        layout="position"
+                        ref={tileRefs.CONTACT}
+                        variants={tileVariants}
+                        onClick={() => handleTileClick('CONTACT')}
+                        onLayoutAnimationComplete={() => handleLayoutComplete('CONTACT')}
+                        className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTiles.includes('CONTACT')
+                            ? 'bg-white rounded-none shadow-md'
+                            : 'bg-[#F0E6D2] rounded-sm'
+                            }`}
+                        style={{ overflowAnchor: 'none' }}
+                    >
+
+                        <div className="absolute top-4 right-4 opacity-50">
+                            <Send size={20} strokeWidth={1.2} color="#374151" />
+                        </div>
+                        <div className="px-3 py-1.5 bg-white border border-black w-fit">
+                            <div className="font-mono text-[13.2px] font-semibold uppercase tracking-widest text-gray-900">Contact</div>
+                        </div>
+                        <AnimatePresence>
+                            {activeTiles.includes('CONTACT') && hasMounted && (
+                                <motion.div
+                                    initial={{ height: 0, opacity: 0 }}
+                                    animate={{ height: 'auto', opacity: 1 }}
+                                    exit={{ height: 0, opacity: 0 }}
+                                    transition={{ duration: 0.3 }}
+                                    className="overflow-hidden"
+                                    onClick={(e) => e.stopPropagation()}
+                                >
+                                    <motion.div exit={contentExitAnimation}>
+                                        <div className="flex flex-col items-start py-4">
+                                            <div className="w-full bg-white">
+                                                <ContactForm mode="fullscreen" className="!p-0" />
+                                            </div>
+                                        </div>
+                                    </motion.div>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+                    </motion.div>
+
+                    {/* Divider Line under tiles */}
+                    <div className="border-b border-black" />
+
+                    {/* Footer */}
+                    <div className="mt-6 px-1 pb-12">
+                        <div className="text-[2.66vw] font-mono uppercase tracking-widest leading-relaxed mb-6 whitespace-nowrap">
+                            <FlowingText
+                                text={`/ Moral Knight Est. 2025 - auditing public AI`}
+                                baseColor={COLORS.SECONDARY_GREEN}
+                                className="flex text-[2.66vw]"
+                            />
+                        </div>
+                        <div className="flex flex-col gap-0.5 items-start">
+                            <button onClick={() => setMeldpuntOpen(true)} className="text-[11px] font-bold uppercase tracking-widest" style={{ color: '#8B1A3D' }}>/ MK Meldpunt</button>
+                            <button onClick={() => setView('DASHBOARD')} className="text-[11px] font-bold uppercase tracking-widest" style={{ color: '#8B1A3D' }}>/ MK Dashboard</button>
+                            <button onClick={() => setView('KENNISBANK')} className="text-[11px] font-bold uppercase tracking-widest" style={{ color: '#8B1A3D' }}>/ MK Kennisbank</button>
+                        </div>
+                    </div>
+                </motion.div>
             </motion.div>
-        </motion.div>
+
+            {view === 'DASHBOARD' && <Dashboard onClose={handleBack} />}
+            {view === 'KENNISBANK' && <Kennisbank onClose={handleBack} />}
+            {(view === 'MELDPUNT' || meldpuntOpen) && <Meldpunt onClose={handleBack} />}
+        </>
     );
 };
