@@ -9,6 +9,14 @@ interface KennisbankProps {
 
 export const Kennisbank: React.FC<KennisbankProps> = ({ onClose }) => {
     const [searchResults, setSearchResults] = useState<string[]>([]);
+    const [opacity, setOpacity] = useState(1);
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setOpacity((prev) => (prev === 1 ? 0.7 : 1));
+        }, 2000);
+        return () => clearInterval(timer);
+    }, []);
 
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
@@ -72,7 +80,15 @@ export const Kennisbank: React.FC<KennisbankProps> = ({ onClose }) => {
                 </header>
 
                 <div className="relative z-10 flex flex-col gap-4 pb-12">
-                    <div className="animate-pulse" style={{ color: COLORS.PRIMARY_GREEN, fontWeight: '300', fontSize: '1.25rem' }}>
+                    <div
+                        style={{
+                            color: COLORS.PRIMARY_GREEN,
+                            fontWeight: '300',
+                            fontSize: '1.125rem',
+                            opacity: opacity,
+                            transition: 'opacity 1.5s ease-in-out'
+                        }}
+                    >
                         Under construction.
                     </div>
                 </div>
