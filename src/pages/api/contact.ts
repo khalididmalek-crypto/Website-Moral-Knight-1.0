@@ -191,7 +191,7 @@ async function sendEmail(data: FormData): Promise<{ success: boolean; reportId?:
                                     <div class="header-slogan">Auditing public AI</div>
                                 </td>
                                 <td class="logo-cell" style="padding-right: 0;">
-                                    <img src="cid:logo" alt="Moral Knight" width="105" style="display: block; margin-left: auto; height: auto;">
+                                    <img src="cid:logo" alt="Moral Knight" width="115" style="display: block; margin-left: auto; height: auto; pointer-events: none; -webkit-user-drag: none; user-select: none; touch-action: none; -ms-touch-action: none;">
                                 </td>
                             </tr>
                         </table>

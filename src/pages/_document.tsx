@@ -29,16 +29,13 @@ export default function Document() {
         <meta name="twitter:description" content="Onafhankelijke toetsing." />
         <meta name="twitter:image" content="https://moralknight.nl/twitter-image.png" />
 
-        {/* Favicon */}
-        <link rel="icon" href="/favicon.ico" />
+        {/* Favicon / Icons */}
+        <link rel="icon" type="image/png" href="/favicon.png" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
         <link rel="manifest" href="/site.webmanifest" />
-        <meta name="theme-color" content="#194D25" />
-
-
-
+        <meta name="theme-color" content="#061424" />
         {/* Tailwind CDN and Config */}
         <script src="https://cdn.tailwindcss.com" defer></script>
         <link rel="preconnect" href="https://fonts.googleapis.com" />
