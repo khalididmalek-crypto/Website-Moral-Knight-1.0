@@ -91,13 +91,9 @@ export default async function handler(
 
     } catch (error) {
         console.error('[API] Global Error:', error);
-
-        // Debug info voor het scherm van de gebruiker
-        const keys = Object.keys(process.env).filter(k => k.includes('SMTP') || k.includes('MAIL') || k.includes('EMAIL')).join(', ');
-
         return res.status(500).json({
             success: false,
-            message: `Systeemfout. Gevonden sleutels in Vercel: [${keys || 'GEEN'}]. Neem contact op met beheer.`,
+            message: 'Er is een interne serverfout opgetreden. Probeer het later opnieuw.',
         });
     }
 }
@@ -264,7 +260,7 @@ async function sendEmail(data: FormData): Promise<{ success: boolean; reportId?:
     };
 
     try {
-        // 1. Send to Admin
+        // 1. Send to Admin (PRIORITY)
         await transporter.sendMail({
             from: `"Moral Knight" <${adminEmail}>`,
             to: adminEmail,
@@ -273,22 +269,30 @@ async function sendEmail(data: FormData): Promise<{ success: boolean; reportId?:
             html: getHtml(false),
         });
 
-        // 2. Send confirmation to Melder
-        await transporter.sendMail({
-            from: `"Moral Knight" <${adminEmail}>`,
-            to: data.email,
-            subject: isReport
-                ? `Bevestiging Melding: ${reportId} - Moral Knight`
-                : `Ontvangstbevestiging contactformulier - Moral Knight`,
-            html: getHtml(true),
-        });
+        console.log(`[SMTP] Admin email sent successfully for ${reportId}`);
+
+        // 2. Try to send confirmation to Melder/User (SECONDARY)
+        try {
+            await transporter.sendMail({
+                from: `"Moral Knight" <${adminEmail}>`,
+                to: data.email,
+                subject: isReport
+                    ? `Bevestiging Melding: ${reportId} - Moral Knight`
+                    : `Ontvangstbevestiging contactformulier - Moral Knight`,
+                html: getHtml(true),
+            });
+            console.log(`[SMTP] User confirmation sent successfully to ${data.email}`);
+        } catch (userMailError) {
+            // Log as warning, but don't fail the whole request because the admin already has the data
+            console.warn(`[SMTP] Warning: Could not send confirmation to user ${data.email}. Error: ${userMailError instanceof Error ? userMailError.message : 'Unknown'}`);
+        }
 
         return { success: true, reportId };
     } catch (error) {
-        console.error('[SMTP] Transport Error:', error);
+        console.error('[SMTP] Critical Transport Error (Admin email failed):', error);
         return {
             success: false,
-            error: error instanceof Error ? error.message : 'UNKNOWN_SMTP_ERROR'
+            error: error instanceof Error ? error.message : 'CRITICAL_SMTP_ERROR'
         };
     }
 }
