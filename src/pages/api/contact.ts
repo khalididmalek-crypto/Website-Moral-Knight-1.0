@@ -146,8 +146,8 @@ async function sendEmail(data: FormData): Promise<{ success: boolean; reportId?:
         : `[CONTACT] Bericht van ${data.name} - Moral Knight`;
 
     const getHtml = (isForUser: boolean) => {
-        const primaryColor = '#061424'; // Extra Deep Navy
-        const secondaryColor = '#E11D48'; // Red Accent
+        const primaryColor = '#E9E0D2'; // Contact Tile Sandy Beige
+        const secondaryColor = '#B6C3AC'; // Moss Green
         const bgColor = '#F8FAFC';
 
         return `
@@ -160,10 +160,10 @@ async function sendEmail(data: FormData): Promise<{ success: boolean; reportId?:
                 body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; line-height: 1.6; color: #1a1a1a; margin: 0; padding: 0; background-color: ${bgColor}; -webkit-text-size-adjust: 100%; }
                 .wrapper { padding: 40px 10px; }
                 .container { width: 100%; max-width: 600px; margin: 0 auto; background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 4px; overflow: hidden; }
-                .header { background-color: ${primaryColor}; padding: 25px 30px; color: #ffffff; border-bottom: 4px solid ${secondaryColor}; }
+                .header { background-color: ${primaryColor}; padding: 25px 30px; color: #1a1a1a; border-bottom: 2px solid ${secondaryColor}; }
                 .header-table { width: 100%; border-collapse: collapse; }
-                .logo-text { font-size: 24px; font-weight: 600; letter-spacing: 0.5px; color: #ffffff; text-decoration: none; line-height: 1.2; }
-                .header-slogan { font-size: 13px; letter-spacing: 0.5px; margin-top: 2px; opacity: 0.9; color: #ffffff; font-weight: 400; }
+                .logo-text { font-size: 24px; font-weight: 600; letter-spacing: 0.5px; color: #194D25; text-decoration: none; line-height: 1.2; }
+                .header-slogan { font-size: 13px; letter-spacing: 0.5px; margin-top: 2px; opacity: 0.85; color: #37422F; font-weight: 400; }
                 .logo-cell { text-align: right; vertical-align: middle; }
                 .badge-section { padding: 25px 30px; border-bottom: 1px solid #f0f0f0; background-color: #ffffff; }
                 .badge-id { margin: 0; font-size: 14px; color: #64748b; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; }
