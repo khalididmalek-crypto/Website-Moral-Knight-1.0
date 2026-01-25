@@ -6,6 +6,7 @@
  */
 import type { NextApiRequest, NextApiResponse } from 'next';
 import nodemailer from 'nodemailer';
+import path from 'path';
 
 interface FormData {
     formType: 'contact' | 'report';
@@ -186,7 +187,7 @@ async function sendEmail(data: FormData): Promise<{ success: boolean; reportId?:
                         <table class="header-table">
                             <tr>
                                 <td style="width: 60px; vertical-align: middle;">
-                                    <img src="https://www.moralknight.nl/images/mk-shield-logo.png" alt="Moral Knight" width="45" style="display: block;">
+                                    <img src="cid:logo" alt="Moral Knight" width="45" style="display: block;">
                                 </td>
                                 <td style="vertical-align: middle;">
                                     <div class="logo-text">Moral Knight</div>
@@ -273,6 +274,15 @@ async function sendEmail(data: FormData): Promise<{ success: boolean; reportId?:
         `;
     };
 
+    const logoPath = path.join(process.cwd(), 'public', 'images', 'mk-shield-logo.png');
+    const attachments = [
+        {
+            filename: 'logo.png',
+            path: logoPath,
+            cid: 'logo' // Verwijst naar <img src="cid:logo">
+        }
+    ];
+
     try {
         // 1. Send to Admin (PRIORITY)
         await transporter.sendMail({
@@ -281,6 +291,7 @@ async function sendEmail(data: FormData): Promise<{ success: boolean; reportId?:
             replyTo: data.email,
             subject: subject,
             html: getHtml(false),
+            attachments: attachments
         });
 
         console.log(`[SMTP] Admin email sent successfully for ${reportId}`);
@@ -294,6 +305,7 @@ async function sendEmail(data: FormData): Promise<{ success: boolean; reportId?:
                     ? `Bevestiging Melding: ${reportId} - Moral Knight`
                     : `Ontvangstbevestiging contactformulier - Moral Knight`,
                 html: getHtml(true),
+                attachments: attachments
             });
             console.log(`[SMTP] User confirmation sent successfully to ${data.email}`);
         } catch (userMailError) {
