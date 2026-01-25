@@ -18,7 +18,7 @@ export default function Document() {
         <meta property="og:url" content="https://moralknight.nl/" />
         <meta property="og:title" content="Moral Knight: Waakhond van publieke AI" />
         <meta property="og:description" content="Onafhankelijke toetsing." />
-        <meta property="og:image" content="https://moralknight.nl/og-image.png" />
+        <meta property="og:image" content="https://moralknight.nl/og-image.png?v=4" />
         <meta property="og:locale" content="nl_NL" />
         <meta property="og:site_name" content="Moral Knight" />
 
@@ -27,15 +27,15 @@ export default function Document() {
         <meta name="twitter:url" content="https://moralknight.nl/" />
         <meta name="twitter:title" content="Moral Knight: Waakhond van publieke AI" />
         <meta name="twitter:description" content="Onafhankelijke toetsing." />
-        <meta name="twitter:image" content="https://moralknight.nl/twitter-image.png" />
+        <meta name="twitter:image" content="https://moralknight.nl/twitter-image.png?v=4" />
 
         {/* Favicon / Icons */}
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=3" />
-        <link rel="icon" type="image/png" href="/favicon.png?v=3" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=3" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=3" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=3" />
-        <link rel="manifest" href="/site.webmanifest?v=3" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=4" />
+        <link rel="icon" type="image/png" href="/favicon.png?v=4" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=4" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=4" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=4" />
+        <link rel="manifest" href="/site.webmanifest?v=4" />
         <meta name="theme-color" content="#061424" />
         {/* Tailwind CDN and Config */}
         <script src="https://cdn.tailwindcss.com" defer></script>
