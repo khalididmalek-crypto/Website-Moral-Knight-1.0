@@ -271,10 +271,10 @@ async function sendEmail(data: FormData): Promise<{ success: boolean; reportId?:
         `;
     };
 
-    const logoPath = path.join(process.cwd(), 'public', 'images', 'shield-logo.svg');
+    const logoPath = path.join(process.cwd(), 'public', 'images', 'knight-head-transparent.png');
     const attachments = [
         {
-            filename: 'logo.svg',
+            filename: 'logo.png',
             path: logoPath,
             cid: 'logo' // Verwijst naar <img src="cid:logo">
         }
