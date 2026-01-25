@@ -99,29 +99,38 @@ export default async function handler(
 }
 
 async function sendEmail(data: FormData): Promise<{ success: boolean; reportId?: string; error?: string }> {
-    const smtpUser = process.env.SMTP_USER || 'info@moralknight.nl';
-    const smtpPass = process.env.SMTP_PASS;
+    // Probeer zowel de nieuwe als oude namen voor maximale compatibiliteit
+    const smtpUser = process.env.SMTP_USER || process.env.EMAIL_SERVER_USER || 'info@moralknight.nl';
+    const smtpPass = process.env.SMTP_PASS || process.env.MAIL_SERVER_PASSWORD;
+    const smtpHost = process.env.EMAIL_SERVER_HOST || 'web0170.zxcs.nl';
+    const smtpPort = parseInt(process.env.EMAIL_SERVER_PORT || '587');
     const adminEmail = 'info@moralknight.nl';
 
-    if (!smtpUser || !smtpPass) {
-        return { success: false, error: 'SMTP Credentials are not configured in .env.local' };
+    console.log(`[SMTP] Configuratie check - User: ${smtpUser ? 'OK' : 'MISSING'}, Pass: ${smtpPass ? 'OK' : 'MISSING'}`);
+
+    if (!smtpPass) {
+        return {
+            success: false,
+            error: `Configuratiefout: Wachtwoord (SMTP_PASS) ontbreekt in Vercel settings. Gebruiker was: ${smtpUser}`
+        };
     }
 
-    // Set up transporter for Vimexx (Host: web0170.zxcs.nl, Port: 587)
+    // Probeer poort 587 met STARTTLS (Vimexx standaard)
     const transporter = nodemailer.createTransport({
-        host: 'web0170.zxcs.nl',
-        port: 587,
-        secure: false, // Use STARTTLS
+        host: smtpHost,
+        port: smtpPort,
+        secure: smtpPort === 465,
         auth: {
             user: smtpUser,
             pass: smtpPass,
         },
         tls: {
-            rejectUnauthorized: false
+            rejectUnauthorized: false,
+            minVersion: 'TLSv1.2'
         }
-    });
+    } as any);
 
-    console.log(`[SMTP] Attempting connection as ${smtpUser} to web0170.zxcs.nl`);
+    console.log(`[SMTP] Attempting connection as ${smtpUser} to ${smtpHost}:${smtpPort}`);
 
     const isReport = data.formType === 'report';
     const reportId = `MK-${new Date().getFullYear()}-${Math.random().toString(36).substring(2, 6).toUpperCase()}`;
