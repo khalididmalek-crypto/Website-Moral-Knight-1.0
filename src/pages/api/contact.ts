@@ -91,9 +91,13 @@ export default async function handler(
 
     } catch (error) {
         console.error('[API] Global Error:', error);
+
+        // Debug info voor het scherm van de gebruiker
+        const keys = Object.keys(process.env).filter(k => k.includes('SMTP') || k.includes('MAIL') || k.includes('EMAIL')).join(', ');
+
         return res.status(500).json({
             success: false,
-            message: 'Er is een interne serverfout opgetreden.',
+            message: `Systeemfout. Gevonden sleutels in Vercel: [${keys || 'GEEN'}]. Neem contact op met beheer.`,
         });
     }
 }
