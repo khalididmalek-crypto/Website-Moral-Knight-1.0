@@ -146,8 +146,7 @@ async function sendEmail(data: FormData): Promise<{ success: boolean; reportId?:
         : `[CONTACT] Bericht van ${data.name} - Moral Knight`;
 
     const getHtml = (isForUser: boolean) => {
-        const title = isReport ? 'OFFICIEEL RAPPORT' : 'CONTACT BERICHT';
-        const primaryColor = '#0A192F'; // Navy Blue
+        const primaryColor = '#061424'; // Extra Deep Navy
         const secondaryColor = '#E11D48'; // Red Accent
         const bgColor = '#F8FAFC';
 
@@ -191,7 +190,7 @@ async function sendEmail(data: FormData): Promise<{ success: boolean; reportId?:
                                     <div class="header-slogan">Auditing public AI</div>
                                 </td>
                                 <td class="logo-cell" style="padding-right: 0;">
-                                    <img src="cid:logo" alt="Moral Knight" width="85" style="display: block; margin-left: auto;">
+                                    <img src="cid:logo" alt="Moral Knight" width="90" style="display: block; margin-left: auto; background-color: transparent;">
                                 </td>
                             </tr>
                         </table>
@@ -271,10 +270,10 @@ async function sendEmail(data: FormData): Promise<{ success: boolean; reportId?:
         `;
     };
 
-    const logoPath = path.join(process.cwd(), 'public', 'images', 'final-shield-logo.png');
+    const logoPath = path.join(process.cwd(), 'public', 'images', 'shield-logo.svg');
     const attachments = [
         {
-            filename: 'logo.png',
+            filename: 'logo.svg',
             path: logoPath,
             cid: 'logo' // Verwijst naar <img src="cid:logo">
         }
