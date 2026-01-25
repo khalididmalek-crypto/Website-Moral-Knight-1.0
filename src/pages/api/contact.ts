@@ -191,7 +191,7 @@ async function sendEmail(data: FormData): Promise<{ success: boolean; reportId?:
                                     <div class="header-slogan">Auditing public AI</div>
                                 </td>
                                 <td class="logo-cell" style="padding-right: 0;">
-                                    <img src="cid:logo" alt="Moral Knight" width="110" style="display: block; margin-left: auto; height: auto;">
+                                    <img src="cid:logo" alt="Moral Knight" width="105" style="display: block; margin-left: auto; height: auto;">
                                 </td>
                             </tr>
                         </table>
@@ -271,10 +271,10 @@ async function sendEmail(data: FormData): Promise<{ success: boolean; reportId?:
         `;
     };
 
-    const logoPath = path.join(process.cwd(), 'public', 'images', 'shield-logo.png');
+    const logoPath = path.join(process.cwd(), 'public', 'images', 'shield-logo.svg');
     const attachments = [
         {
-            filename: 'logo.png',
+            filename: 'logo.svg',
             path: logoPath,
             cid: 'logo' // Verwijst naar <img src="cid:logo">
         }
