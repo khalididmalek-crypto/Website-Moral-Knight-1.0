@@ -103,15 +103,19 @@ export default async function handler(
 }
 
 async function sendEmail(data: FormData): Promise<{ success: boolean; reportId?: string; error?: string }> {
-    const smtpUser = process.env.SMTP_USER || process.env.EMAIL_SERVER_USER || 'info@moralknight.nl';
-    const smtpPass = process.env.SMTP_PASS || process.env.MAIL_SERVER_PASSWORD;
+    // Aggressieve fallback: zoek naar alles wat lijkt op SMTP_USER of SMTP_PASS
+    const allKeys = Object.keys(process.env);
+    const passKey = allKeys.find(k => k.includes('SMTP_PASS') || k.includes('MAIL_SERVER_PASSWORD') || k.includes('PASS'));
+    const userKey = allKeys.find(k => k.includes('SMTP_USER') || k.includes('EMAIL_SERVER_USER') || k.includes('USER'));
+
+    const smtpUser = process.env.SMTP_USER || (userKey ? process.env[userKey] : null) || 'info@moralknight.nl';
+    const smtpPass = process.env.SMTP_PASS || (passKey ? process.env[passKey] : null);
+
     const smtpHost = process.env.EMAIL_SERVER_HOST || 'web0170.zxcs.nl';
     const smtpPort = parseInt(process.env.EMAIL_SERVER_PORT || '587');
     const adminEmail = 'info@moralknight.nl';
 
-    // Debugging: Toon welke sleutels aanwezig zijn (niet de waarden zelf!)
-    const envKeys = Object.keys(process.env).filter(k => k.includes('SMTP') || k.includes('MAIL') || k.includes('EMAIL'));
-    console.log(`[SMTP] Aanwezige configuratie-sleutels: ${envKeys.join(', ')}`);
+    console.log(`[SMTP] Gevonden sleutels voor pass: ${passKey || 'GEEN'}, voor user: ${userKey || 'GEEN'}`);
     console.log(`[SMTP] Configuratie check - User: ${smtpUser === 'info@moralknight.nl' ? 'DEFAULT' : 'FOUND'}, Pass: ${smtpPass ? 'OK' : 'MISSING'}`);
 
     if (!smtpPass) {
