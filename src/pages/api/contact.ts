@@ -99,14 +99,16 @@ export default async function handler(
 }
 
 async function sendEmail(data: FormData): Promise<{ success: boolean; reportId?: string; error?: string }> {
-    // Probeer zowel de nieuwe als oude namen voor maximale compatibiliteit
     const smtpUser = process.env.SMTP_USER || process.env.EMAIL_SERVER_USER || 'info@moralknight.nl';
     const smtpPass = process.env.SMTP_PASS || process.env.MAIL_SERVER_PASSWORD;
     const smtpHost = process.env.EMAIL_SERVER_HOST || 'web0170.zxcs.nl';
     const smtpPort = parseInt(process.env.EMAIL_SERVER_PORT || '587');
     const adminEmail = 'info@moralknight.nl';
 
-    console.log(`[SMTP] Configuratie check - User: ${smtpUser ? 'OK' : 'MISSING'}, Pass: ${smtpPass ? 'OK' : 'MISSING'}`);
+    // Debugging: Toon welke sleutels aanwezig zijn (niet de waarden zelf!)
+    const envKeys = Object.keys(process.env).filter(k => k.includes('SMTP') || k.includes('MAIL') || k.includes('EMAIL'));
+    console.log(`[SMTP] Aanwezige configuratie-sleutels: ${envKeys.join(', ')}`);
+    console.log(`[SMTP] Configuratie check - User: ${smtpUser === 'info@moralknight.nl' ? 'DEFAULT' : 'FOUND'}, Pass: ${smtpPass ? 'OK' : 'MISSING'}`);
 
     if (!smtpPass) {
         return {
