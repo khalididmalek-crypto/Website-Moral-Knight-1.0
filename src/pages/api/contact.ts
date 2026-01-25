@@ -111,32 +111,30 @@ async function sendEmail(data: FormData): Promise<{ success: boolean; reportId?:
     const smtpUser = process.env.SMTP_USER || (userKey ? process.env[userKey] : null) || 'info@moralknight.nl';
     const smtpPass = process.env.SMTP_PASS || (passKey ? process.env[passKey] : null);
 
-    const smtpHost = process.env.EMAIL_SERVER_HOST || 'web0170.zxcs.nl';
-    const smtpPort = parseInt(process.env.EMAIL_SERVER_PORT || '587');
+    const smtpHost = 'web0170.zxcs.nl';
+    const smtpPort = 465;
     const adminEmail = 'info@moralknight.nl';
 
-    console.log(`[SMTP] Gevonden sleutels voor pass: ${passKey || 'GEEN'}, voor user: ${userKey || 'GEEN'}`);
-    console.log(`[SMTP] Configuratie check - User: ${smtpUser === 'info@moralknight.nl' ? 'DEFAULT' : 'FOUND'}, Pass: ${smtpPass ? 'OK' : 'MISSING'}`);
+    console.log(`[SMTP] Attempting SSL connection to ${smtpHost}:${smtpPort} as ${smtpUser}`);
 
     if (!smtpPass) {
         return {
             success: false,
-            error: `Configuratiefout: Wachtwoord (SMTP_PASS) ontbreekt in Vercel settings. Gebruiker was: ${smtpUser}`
+            error: `Configuratiefout: Wachtwoord (SMTP_PASS) ontbreekt in Vercel settings.`
         };
     }
 
-    // Probeer poort 587 met STARTTLS (Vimexx standaard)
+    // Probeer poort 465 met SSL
     const transporter = nodemailer.createTransport({
         host: smtpHost,
         port: smtpPort,
-        secure: smtpPort === 465,
+        secure: true,
         auth: {
             user: smtpUser,
             pass: smtpPass,
         },
         tls: {
-            rejectUnauthorized: false,
-            minVersion: 'TLSv1.2'
+            rejectUnauthorized: false
         }
     } as any);
 
