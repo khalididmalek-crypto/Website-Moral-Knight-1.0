@@ -159,11 +159,11 @@ async function sendEmail(data: FormData): Promise<{ success: boolean; reportId?:
                 body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; line-height: 1.6; color: #1a1a1a; margin: 0; padding: 0; background-color: ${bgColor}; }
                 .wrapper { padding: 40px 10px; }
                 .container { width: 100%; max-width: 600px; margin: 0 auto; background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 4px; overflow: hidden; }
-                .header { background-color: ${primaryColor}; padding: 30px; color: #ffffff; border-bottom: 4px solid ${secondaryColor}; position: relative; }
+                .header { background-color: ${primaryColor}; padding: 25px 30px; color: #ffffff; border-bottom: 4px solid ${secondaryColor}; }
                 .header-table { width: 100%; border-collapse: collapse; }
-                .logo-text { font-size: 20px; font-weight: bold; letter-spacing: 3px; color: #ffffff; text-decoration: none; }
-                .header-title { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; margin-top: 8px; opacity: 0.9; color: #ffffff; }
-                .logo-img { text-align: right; }
+                .logo-text { font-size: 22px; font-weight: 500; letter-spacing: 1px; color: #ffffff; text-decoration: none; }
+                .header-slogan { font-size: 11px; letter-spacing: 1px; margin-top: 2px; opacity: 0.9; color: #ffffff; }
+                .report-type { font-size: 10px; text-transform: uppercase; letter-spacing: 2px; opacity: 0.8; text-align: right; vertical-align: bottom; }
                 .badge-section { padding: 25px 30px; border-bottom: 1px solid #f0f0f0; background-color: #ffffff; }
                 .badge-id { margin: 0; font-size: 14px; color: #64748b; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; }
                 .badge-id span { color: ${secondaryColor}; font-weight: bold; }
@@ -185,12 +185,15 @@ async function sendEmail(data: FormData): Promise<{ success: boolean; reportId?:
                     <div class="header">
                         <table class="header-table">
                             <tr>
-                                <td>
-                                    <span class="logo-text">MORAL KNIGHT</span>
-                                    <div class="header-title">${title}</div>
+                                <td style="width: 60px; vertical-align: middle;">
+                                    <img src="https://www.moralknight.nl/images/mk-shield-logo.png" alt="Moral Knight" width="45" style="display: block;">
                                 </td>
-                                <td class="logo-img">
-                                    <img src="https://www.moralknight.nl/logo.png" alt="Logo" width="50" style="display: block; margin-left: auto;">
+                                <td style="vertical-align: middle;">
+                                    <div class="logo-text">Moral Knight</div>
+                                    <div class="header-slogan">- Auditing public AI</div>
+                                </td>
+                                <td class="report-type">
+                                    ${title}
                                 </td>
                             </tr>
                         </table>
