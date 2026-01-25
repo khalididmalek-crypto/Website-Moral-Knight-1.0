@@ -146,8 +146,8 @@ async function sendEmail(data: FormData): Promise<{ success: boolean; reportId?:
 
     const getHtml = (isForUser: boolean) => {
         const title = isReport ? 'OFFICIEEL RAPPORT' : 'CONTACT BERICHT';
-        const primaryColor = '#194D25'; // Corporate Green
-        const secondaryColor = '#8B1A3D'; // Bordeaux Red Accent
+        const primaryColor = '#0A192F'; // Navy Blue
+        const secondaryColor = '#E11D48'; // Red Accent
         const bgColor = '#F8FAFC';
 
         return `
@@ -159,9 +159,11 @@ async function sendEmail(data: FormData): Promise<{ success: boolean; reportId?:
                 body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; line-height: 1.6; color: #1a1a1a; margin: 0; padding: 0; background-color: ${bgColor}; }
                 .wrapper { padding: 40px 10px; }
                 .container { width: 100%; max-width: 600px; margin: 0 auto; background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 4px; overflow: hidden; }
-                .header { background-color: ${primaryColor}; padding: 35px 30px; color: #ffffff; border-bottom: 4px solid ${secondaryColor}; }
-                .logo-text { font-size: 20px; font-weight: bold; letter-spacing: 3px; color: #ffffff; text-decoration: none; display: block; }
+                .header { background-color: ${primaryColor}; padding: 30px; color: #ffffff; border-bottom: 4px solid ${secondaryColor}; position: relative; }
+                .header-table { width: 100%; border-collapse: collapse; }
+                .logo-text { font-size: 20px; font-weight: bold; letter-spacing: 3px; color: #ffffff; text-decoration: none; }
                 .header-title { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; margin-top: 8px; opacity: 0.9; color: #ffffff; }
+                .logo-img { text-align: right; }
                 .badge-section { padding: 25px 30px; border-bottom: 1px solid #f0f0f0; background-color: #ffffff; }
                 .badge-id { margin: 0; font-size: 14px; color: #64748b; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; }
                 .badge-id span { color: ${secondaryColor}; font-weight: bold; }
@@ -174,15 +176,24 @@ async function sendEmail(data: FormData): Promise<{ success: boolean; reportId?:
                 .value { color: #1e293b; line-height: 1.6; }
                 .footer { background-color: #ffffff; padding: 30px; font-size: 11px; color: #94a3b8; line-height: 1.8; text-align: left; border-top: 1px solid #f1f5f9; }
                 .legal { margin: 0; }
-                .brand { color: ${primaryColor}; font-weight: bold; }
+                .brand { color: ${primaryColor}; font-weight: 500; }
             </style>
         </head>
         <body>
             <div class="wrapper">
                 <div class="container">
                     <div class="header">
-                        <span class="logo-text">MORAL KNIGHT</span>
-                        <div class="header-title">${title}</div>
+                        <table class="header-table">
+                            <tr>
+                                <td>
+                                    <span class="logo-text">MORAL KNIGHT</span>
+                                    <div class="header-title">${title}</div>
+                                </td>
+                                <td class="logo-img">
+                                    <img src="https://www.moralknight.nl/logo.png" alt="Logo" width="50" style="display: block; margin-left: auto;">
+                                </td>
+                            </tr>
+                        </table>
                     </div>
                     
                     <div class="badge-section">
@@ -245,7 +256,7 @@ async function sendEmail(data: FormData): Promise<{ success: boolean; reportId?:
                     
                     <div class="footer">
                         <p class="legal">
-                            © ${new Date().getFullYear()} <span class="brand">MORAL KNIGHT</span> – Mensgerichte AI in het publieke domein.
+                            © ${new Date().getFullYear()} <span class="brand">MORAL KNIGHT</span> – Auditing public AI
                         </p>
                         <p class="legal" style="margin-top: 10px;">
                             Dit is een officieel bericht verzonden via <span class="brand">moralknight.nl</span>.
