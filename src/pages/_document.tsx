@@ -30,6 +30,7 @@ export default function Document() {
         <meta name="twitter:image" content="https://moralknight.nl/twitter-image.png" />
 
         {/* Favicon / Icons */}
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <link rel="icon" type="image/png" href="/favicon.png" />
         <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />

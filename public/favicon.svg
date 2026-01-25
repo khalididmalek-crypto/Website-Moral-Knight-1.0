@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="goldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#D4AF37;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#F9E076;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#CFB53B;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <!-- Shield Shape -->
+  <path d="M50 5 L88 16 V45 C88 72 50 92 50 92 C50 92 12 72 12 45 V16 Z" 
+        fill="#061424" 
+        stroke="url(#goldGradient)" 
+        stroke-width="6" 
+        stroke-linejoin="round"/>
+</svg>
