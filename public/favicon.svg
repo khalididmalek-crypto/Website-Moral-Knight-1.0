@@ -1,8 +1,0 @@
-<svg viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
-  <!-- Empty Moss Green Shield with Bordeaux Red Border (+25% thick) -->
-  <path d="M50 5 L88 18 V50 C88 80 50 105 50 105 C50 105 12 80 12 50 V18 Z" 
-        fill="#445040" 
-        stroke="#800020" 
-        stroke-width="3.2" 
-        stroke-linejoin="round" />
-</svg>

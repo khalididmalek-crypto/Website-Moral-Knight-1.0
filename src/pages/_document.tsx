@@ -16,7 +16,7 @@ export default function Document() {
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://moralknight.nl/" />
-        <meta property="og:title" content="Moral Knight: Waakhond van publieke AI" />
+        <meta property="og:title" content="Moral Knight: De onafhankelijke waakhond van publieke AI" />
         <meta property="og:description" content="Onafhankelijke toetsing." />
         <meta property="og:image" content="https://moralknight.nl/og-image.png?v=4" />
         <meta property="og:locale" content="nl_NL" />
@@ -25,7 +25,7 @@ export default function Document() {
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:url" content="https://moralknight.nl/" />
-        <meta name="twitter:title" content="Moral Knight: Waakhond van publieke AI" />
+        <meta name="twitter:title" content="Moral Knight: De onafhankelijke waakhond van publieke AI" />
         <meta name="twitter:description" content="Onafhankelijke toetsing." />
         <meta name="twitter:image" content="https://moralknight.nl/twitter-image.png?v=4" />
 

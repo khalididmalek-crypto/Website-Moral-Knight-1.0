@@ -281,7 +281,8 @@ const App: React.FC<AppProps> = ({
                   }`}
                 style={{ color: COLORS.PRIMARY_GREEN }}
               >
-                Wij zijn een onafhankelijke waakhond en toetsen publieke AI
+                De onafhankelijke waakhond<br />
+                van publieke AI
               </p>
             </div>
 

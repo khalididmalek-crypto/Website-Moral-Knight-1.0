@@ -93,7 +93,7 @@ export default function Home({ posts, problemTileContent, solutionTileContent, a
     return (
         <>
             <Head>
-                <title>Moral Knight: Waakhond van publieke AI</title>
+                <title>Moral Knight: De onafhankelijke waakhond van publieke AI</title>
             </Head>
 
             {isMobile ? (
