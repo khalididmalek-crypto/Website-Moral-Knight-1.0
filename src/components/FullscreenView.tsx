@@ -430,12 +430,12 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
                     {/* Directielid 1 */}
                     <div className="flex flex-col border border-black bg-white h-full transition-all duration-200 hover:border-[#194D25]">
-                      <div className="aspect-square bg-white relative border-b border-black cursor-pointer p-2" onClick={() => setShowSecret(true)}>
+                      <div className="bg-white relative border-b border-black cursor-pointer p-2" onClick={() => setShowSecret(true)}>
                         <ProgressiveImage
                           src="/images/team/bear-yellow.png"
                           alt="Lola Velvet"
                           onClick={() => setShowSecret(true)}
-                          className="object-cover w-full h-full no-hover animate-beam-in"
+                          className="object-cover w-full aspect-square no-hover animate-beam-in"
                         />
                       </div>
                       <div className="flex flex-col gap-0.5 p-4 bg-white">
@@ -450,12 +450,12 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
 
                     {/* Directielid 2 */}
                     <div className="flex flex-col border border-black bg-white h-full transition-all duration-200 hover:border-[#194D25]">
-                      <div className="aspect-square bg-white relative border-b border-black cursor-pointer p-2" onClick={() => setShowSecret(true)}>
+                      <div className="bg-white relative border-b border-black cursor-pointer p-2" onClick={() => setShowSecret(true)}>
                         <ProgressiveImage
                           src="/images/team/bear-red.png"
                           alt="Zuri Nexus"
                           onClick={() => setShowSecret(true)}
-                          className="object-cover w-full h-full no-hover animate-beam-in"
+                          className="object-cover w-full aspect-square no-hover animate-beam-in"
                         />
                       </div>
                       <div className="flex flex-col gap-0.5 p-4 bg-white">
@@ -470,12 +470,12 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
 
                     {/* Directielid 3 */}
                     <div className="flex flex-col border border-black bg-white h-full transition-all duration-200 hover:border-[#194D25]">
-                      <div className="aspect-square bg-white relative border-b border-black cursor-pointer p-2" onClick={() => setShowSecret(true)}>
+                      <div className="bg-white relative border-b border-black cursor-pointer p-2" onClick={() => setShowSecret(true)}>
                         <ProgressiveImage
                           src="/images/team/bear-blue.png"
                           alt="Kito Kivuli"
                           onClick={() => setShowSecret(true)}
-                          className="object-cover w-full h-full no-hover animate-beam-in"
+                          className="object-cover w-full aspect-square no-hover animate-beam-in"
                         />
                       </div>
                       <div className="flex flex-col gap-0.5 p-4 bg-white">
