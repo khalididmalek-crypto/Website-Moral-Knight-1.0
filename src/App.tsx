@@ -277,7 +277,7 @@ const App: React.FC<AppProps> = ({
             <div className="w-full max-w-[1400px] mb-10">
               <h2 className="sr-only">Onze aanpak</h2>
               <p
-                className={`font-mono text-[1.1rem] uppercase tracking-widest font-normal transition-opacity duration-200 delay-50 text-left ml-2 ${typingComplete ? 'opacity-100' : 'opacity-0'
+                className={`font-mono text-[1.1rem] uppercase tracking-widest font-normal transition-opacity duration-200 delay-50 text-left ${typingComplete ? 'opacity-100' : 'opacity-0'
                   }`}
                 style={{ color: COLORS.PRIMARY_GREEN }}
               >
