@@ -270,6 +270,7 @@ const App: React.FC<AppProps> = ({
                 </h1>
               </div>
             </div>
+
           </header>
 
           {/* Grid Area */}
@@ -281,8 +282,7 @@ const App: React.FC<AppProps> = ({
                   }`}
                 style={{ color: COLORS.PRIMARY_GREEN }}
               >
-                De onafhankelijke waakhond<br />
-                van publieke AI
+                De onafhankelijke waakhond van publieke AI
               </p>
             </div>
 
