@@ -83,16 +83,20 @@ export const generateEmailHtml = (data: EmailTemplateData, isForUser: boolean, i
                             <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                 <tr>
                                     <td align="left" style="vertical-align: middle;">
-                                        <div style="font-family: 'Courier New', Courier, monospace; font-size: 24px; font-weight: 600; color: #FFFFFF; letter-spacing: 0.5px;">
-                                            MORAL KNIGHT
-                                        </div>
-                                        <div style="font-family: 'Courier New', Courier, monospace; font-size: 12px; font-weight: 400; color: #FFFFFF; letter-spacing: 1px; text-transform: uppercase; margin-top: 14px;">
-                                            De onafhankelijke waakhond voor publieke AI
-                                        </div>
+                                        <a href="https://www.moralknight.nl" style="text-decoration: none; color: inherit;">
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-size: 24px; font-weight: 600; color: #FFFFFF; letter-spacing: 0.5px;">
+                                                MORAL KNIGHT
+                                            </div>
+                                            <div style="font-family: 'Courier New', Courier, monospace; font-size: 12px; font-weight: 400; color: #FFFFFF; letter-spacing: 1px; text-transform: uppercase; margin-top: 14px;">
+                                                De onafhankelijke waakhond voor publieke AI
+                                            </div>
+                                        </a>
                                     </td>
                                     <td align="right" style="vertical-align: middle; padding-left: 20px;">
                                          <!-- Logo -->
-                                        <img src="cid:logo" alt="Moral Knight" width="135" height="auto" style="display: block; border: 0;" />
+                                        <a href="https://www.moralknight.nl">
+                                            <img src="cid:logo" alt="Moral Knight" width="135" height="auto" style="display: block; border: 0;" />
+                                        </a>
                                     </td>
                                 </tr>
                             </table>
