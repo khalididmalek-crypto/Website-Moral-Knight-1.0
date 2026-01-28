@@ -7,6 +7,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import nodemailer from 'nodemailer';
 import path from 'path';
+import { generateEmailHtml } from '../../utils/emailTemplate';
 
 interface FormData {
     formType: 'contact' | 'report';
@@ -150,128 +151,10 @@ async function sendEmail(data: FormData): Promise<{ success: boolean; reportId?:
         const secondaryColor = '#B6C3AC'; // Moss Green
         const bgColor = '#F8FAFC';
 
-        return `
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <meta charset="utf-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <style>
-                body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; line-height: 1.6; color: #1a1a1a; margin: 0; padding: 0; background-color: ${bgColor}; -webkit-text-size-adjust: 100%; }
-                .wrapper { padding: 40px 10px; }
-                .container { width: 100%; max-width: 600px; margin: 0 auto; background-color: #ffffff; border: 1px solid #e2e8f0; border-radius: 4px; overflow: hidden; }
-                .header { background-color: ${primaryColor}; padding: 25px 30px; color: #1a1a1a; border-bottom: 2px solid ${secondaryColor}; }
-                .header-table { width: 100%; border-collapse: collapse; }
-                .logo-text { font-size: 24px; font-weight: 600; letter-spacing: 0.5px; color: #194D25; text-decoration: none; line-height: 1.2; }
-                .header-slogan { font-size: 13px; letter-spacing: 0.5px; margin-top: 2px; opacity: 0.85; color: #37422F; font-weight: 400; }
-                .logo-cell { text-align: right; vertical-align: middle; }
-                .badge-section { padding: 25px 30px; border-bottom: 1px solid #f0f0f0; background-color: #ffffff; }
-                .badge-id { margin: 0; font-size: 14px; color: #64748b; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; }
-                .badge-id span { color: ${secondaryColor}; font-weight: bold; }
-                .badge-date { margin: 5px 0 0 0; font-size: 11px; color: #94a3b8; font-family: monospace; }
-                .content { padding: 30px; background-color: #ffffff; }
-                .greeting { margin-bottom: 25px; font-size: 16px; font-weight: 600; color: ${primaryColor}; }
-                .data-table { width: 100%; border-collapse: collapse; }
-                .data-table td { padding: 15px 0; border-bottom: 1px solid #f1f5f9; font-size: 14px; vertical-align: top; }
-                .label { font-weight: bold; width: 35%; color: #475569; text-transform: uppercase; font-size: 10px; letter-spacing: 1px; padding-top: 2px; }
-                .value { color: #1e293b; line-height: 1.6; }
-                .footer { background-color: #ffffff; padding: 30px; font-size: 11px; color: #94a3b8; line-height: 1.8; text-align: left; border-top: 1px solid #f1f5f9; }
-                .legal { margin: 0; }
-                .brand { color: ${primaryColor}; font-weight: 500; }
-            </style>
-        </head>
-        <body>
-            <div class="wrapper">
-                <div class="container">
-                    <div class="header">
-                        <table class="header-table">
-                            <tr>
-                                <td style="vertical-align: middle; padding-left: 0;">
-                                    <div class="logo-text">Moral Knight</div>
-                                    <div class="header-slogan">Auditing public AI</div>
-                                </td>
-                                <td class="logo-cell" style="padding-right: 0;">
-                                    <img src="cid:logo" alt="Moral Knight" width="115" style="display: block; margin-left: auto; height: auto; pointer-events: none; -webkit-user-drag: none; user-select: none; touch-action: none; -ms-touch-action: none;">
-                                </td>
-                            </tr>
-                        </table>
-                    </div>
-                    
-                    <div class="badge-section">
-                        <p class="badge-id">KENMERK: <span>${reportId}</span></p>
-                        <p class="badge-date">${dateStr}</p>
-                    </div>
-                    
-                    <div class="content">
-                        ${isForUser ? `
-                        <div class="greeting">
-                            Hartelijk dank voor uw bericht aan Moral Knight.
-                        </div>
-                        <p style="font-size: 14px; color: #475569; margin-bottom: 25px;">
-                            Wij hebben uw ${isReport ? 'melding' : 'bericht'} in goede orde ontvangen en zullen deze zo spoedig mogelijk in behandeling nemen.
-                        </p>
-                        ` : `
-                        <div class="greeting">
-                            Nieuwe ${isReport ? 'melding' : 'contactaanvraag'} via de website.
-                        </div>
-                        `}
-                        
-                        <table class="data-table">
-                            <tr>
-                                <td class="label">Naam</td>
-                                <td class="value">${data.name}</td>
-                            </tr>
-                            ${data.organisation ? `
-                            <tr>
-                                <td class="label">Organisatie</td>
-                                <td class="value">${data.organisation}</td>
-                            </tr>
-                            ` : ''}
-                            <tr>
-                                <td class="label">Email</td>
-                                <td class="value">${data.email}</td>
-                            </tr>
-                            ${isReport ? `
-                            <tr>
-                                <td class="label">Instantie/Systeem</td>
-                                <td class="value">${data.aiSystem || 'Onbekend'}</td>
-                            </tr>
-                            <tr>
-                                <td class="label">Omschrijving</td>
-                                <td class="value" style="white-space: pre-wrap;">${data.description}</td>
-                            </tr>
-                            ` : `
-                            <tr>
-                                <td class="label">Bericht</td>
-                                <td class="value" style="white-space: pre-wrap;">${data.message}</td>
-                            </tr>
-                            `}
-                            ${data.file ? `
-                            <tr>
-                                <td class="label">Bijlage</td>
-                                <td class="value" style="color: ${secondaryColor}; font-weight: bold;">Ingesloten (${data.file})</td>
-                            </tr>
-                            ` : ''}
-                        </table>
-                    </div>
-                    
-                    <div class="footer">
-                        <p class="legal">
-                            © ${new Date().getFullYear()} <span class="brand">MORAL KNIGHT</span> – Auditing public AI
-                        </p>
-                        <p class="legal" style="margin-top: 10px;">
-                            Dit is een officieel bericht verzonden via <span class="brand">moralknight.nl</span>.
-                            Deze communicatie voldoet aan de richtlijnen voor Dataminimalisatie en Responsible AI.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </body>
-        </html>
-        `;
+        return generateEmailHtml(data, isForUser, isReport, reportId, dateStr);
     };
 
-    const logoPath = path.join(process.cwd(), 'public', 'images', 'knight-head-transparent.png');
+    const logoPath = path.join(process.cwd(), 'public', 'images', 'mail-logo.png');
     const attachments = [
         {
             filename: 'logo.png',

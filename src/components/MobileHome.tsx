@@ -214,12 +214,15 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                 </svg>
 
                 {/* Header */}
-                <div className="pt-12 mx-4 pb-2 border-b border-black">
-                    <h1 className="text-4xl font-medium tracking-tight text-[#111111] mb-1">Moral Knight</h1>
-                    <div className="text-xs font-bold uppercase tracking-widest text-[#194D25] pt-1.5 opacity-90 leading-relaxed">
-                        De onafhankelijke waakhond<br />
-                        van publieke AI
+                <div className="pt-12 mx-4 pb-2 border-b border-black flex justify-between items-end">
+                    <div>
+                        <h1 className="text-4xl font-medium tracking-tight text-[#111111] mb-1">Moral Knight</h1>
+                        <div className="text-xs font-bold uppercase tracking-widest text-[#194D25] pt-1.5 opacity-90 leading-relaxed">
+                            De onafhankelijke waakhond<br />
+                            van publieke AI
+                        </div>
                     </div>
+
                 </div>
 
                 {/* Accordion Tiles */}
@@ -227,7 +230,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                     variants={containerVariants}
                     initial="hidden"
                     animate="visible"
-                    className="flex-1 flex flex-col w-full p-4 pl-4 gap-y-4 pb-12"
+                    className="flex-1 flex flex-col w-full p-4 gap-y-4 pb-12"
                     style={{ overflowAnchor: 'none' }}
                 >
                     {/* Tile 1: PROBLEEM */}
@@ -237,11 +240,11 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                         variants={tileVariants}
                         onClick={() => handleTileClick('PROBLEM')}
                         onLayoutAnimationComplete={() => handleLayoutComplete('PROBLEM')}
-                        className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTiles.includes('PROBLEM')
+                        className={`w-full p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTiles.includes('PROBLEM')
                             ? 'bg-white rounded-none shadow-md'
                             : 'bg-[#F2E8E4] rounded-sm'
                             }`}
-                        style={{ overflowAnchor: 'none' }}
+                        style={{ overflowAnchor: 'none', borderWidth: '1.1px', borderColor: '#061424', borderStyle: 'solid' }}
                     >
 
                         <div className="absolute top-4 right-4 opacity-50">
@@ -303,11 +306,11 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                         variants={tileVariants}
                         onClick={() => handleTileClick('SOLUTION')}
                         onLayoutAnimationComplete={() => handleLayoutComplete('SOLUTION')}
-                        className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTiles.includes('SOLUTION')
+                        className={`w-full p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTiles.includes('SOLUTION')
                             ? 'bg-white rounded-none shadow-md'
                             : 'bg-[#C1C9B9] rounded-sm'
                             }`}
-                        style={{ overflowAnchor: 'none' }}
+                        style={{ overflowAnchor: 'none', borderWidth: '1.1px', borderColor: '#061424', borderStyle: 'solid' }}
                     >
 
                         <div className="absolute top-4 right-4 opacity-50">
@@ -392,11 +395,11 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                         variants={tileVariants}
                         onClick={() => handleTileClick('APPROACH')}
                         onLayoutAnimationComplete={() => handleLayoutComplete('APPROACH')}
-                        className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTiles.includes('APPROACH')
+                        className={`w-full p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTiles.includes('APPROACH')
                             ? 'bg-white rounded-none shadow-md'
                             : 'bg-[#CCD5C6] rounded-sm'
                             }`}
-                        style={{ overflowAnchor: 'none' }}
+                        style={{ overflowAnchor: 'none', borderWidth: '1.1px', borderColor: '#061424', borderStyle: 'solid' }}
                     >
 
                         <div className="absolute top-4 right-4 opacity-50">
@@ -441,11 +444,11 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                         variants={tileVariants}
                         onClick={() => handleTileClick('SERVICES')}
                         onLayoutAnimationComplete={() => handleLayoutComplete('SERVICES')}
-                        className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTiles.includes('SERVICES')
+                        className={`w-full p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTiles.includes('SERVICES')
                             ? 'bg-white rounded-none shadow-md'
                             : 'bg-[#AEB5B9] rounded-sm'
                             }`}
-                        style={{ overflowAnchor: 'none' }}
+                        style={{ overflowAnchor: 'none', borderWidth: '1.1px', borderColor: '#061424', borderStyle: 'solid' }}
                     >
 
                         <div className="absolute top-4 right-4 opacity-50">
@@ -492,11 +495,11 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                         variants={tileVariants}
                         onClick={() => handleTileClick('CONTACT')}
                         onLayoutAnimationComplete={() => handleLayoutComplete('CONTACT')}
-                        className={`w-full border border-black p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTiles.includes('CONTACT')
+                        className={`w-full p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTiles.includes('CONTACT')
                             ? 'bg-white rounded-none shadow-md'
                             : 'bg-[#F0E6D2] rounded-sm'
                             }`}
-                        style={{ overflowAnchor: 'none' }}
+                        style={{ overflowAnchor: 'none', borderWidth: '1.1px', borderColor: '#061424', borderStyle: 'solid' }}
                     >
 
                         <div className="absolute top-4 right-4 opacity-50">

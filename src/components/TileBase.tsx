@@ -102,8 +102,8 @@ export const TileBase: React.FC<TileBaseProps> = ({
         // Apply border directly to container if not animated
         // This ensures content can NEVER cover the border
         ...(isAnimatedBorder ? {} : {
-          borderWidth: isActive ? '2px' : '1px',
-          borderColor: 'black',
+          borderWidth: isActive ? '2.2px' : '1.1px',
+          borderColor: '#061424',
           borderStyle: 'solid',
           boxShadow: isActive ? '4px 4px 0px 0px rgba(0,0,0,0.1)' : 'none',
         })
