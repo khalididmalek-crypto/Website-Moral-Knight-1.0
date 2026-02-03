@@ -112,6 +112,14 @@ export const ReportForm: React.FC<Props> = () => {
 
     const handleFileChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         const file = e.target.files?.[0] || null;
+
+        if (file && file.size > 3 * 1024 * 1024) {
+            alert('Bestand is te groot. Selecteer een bestand van maximaal 3MB.');
+            e.target.value = '';
+            setFormData((prev) => ({ ...prev, file: null }));
+            return;
+        }
+
         setFormData((prev) => ({ ...prev, file }));
     }, []);
 
@@ -371,7 +379,7 @@ export const ReportForm: React.FC<Props> = () => {
 
             <div className="flex flex-col gap-1.5">
                 <label htmlFor="file" className="font-mono text-[10px] md:text-xs uppercase tracking-widest" style={{ color: COLORS.PRIMARY_GREEN }}>
-                    Documentatie uploaden <span className="text-xs font-normal normal-case" style={{ color: FORM_COLORS.PLACEHOLDER }}>(max 5MB) (optioneel)</span>
+                    Documentatie uploaden <span className="text-xs font-normal normal-case" style={{ color: FORM_COLORS.PLACEHOLDER }}>(max 3MB) (optioneel)</span>
                 </label>
                 <div className="relative">
                     <input

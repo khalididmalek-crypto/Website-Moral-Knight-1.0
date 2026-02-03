@@ -9,6 +9,14 @@ import nodemailer from 'nodemailer';
 import path from 'path';
 import { generateEmailHtml } from '../../utils/emailTemplate';
 
+export const config = {
+    api: {
+        bodyParser: {
+            sizeLimit: '5mb',
+        },
+    },
+};
+
 interface FormData {
     formType: 'contact' | 'report';
     name: string;
