@@ -43,7 +43,7 @@ export const generateEmailHtml = (data: EmailTemplateData, isForUser: boolean, i
             ${label}
           </span>
         </td>
-        <td class="data-value" style="padding: 12px 0; border-bottom: 1px solid #E5E7EB; vertical-align: top; color: ${colors.text}; font-size: 14px; line-height: 1.6;">
+        <td class="data-value" style="padding: 12px 0 12px 15px; border-bottom: 1px solid #E5E7EB; vertical-align: top; color: ${colors.text}; font-size: 14px; line-height: 1.6;">
           ${isLongText ? value.replace(/\\n/g, '<br>') : value}
         </td>
       </tr>
@@ -174,7 +174,7 @@ export const generateEmailHtml = (data: EmailTemplateData, isForUser: boolean, i
             
             p[class="privacy-text"] {
                 font-size: 9px !important;
-                margin: 8px 0 0 -2px !important;
+                margin: 8px 0 0 0 !important;
             }
         }
     </style>
@@ -200,7 +200,7 @@ export const generateEmailHtml = (data: EmailTemplateData, isForUser: boolean, i
                                                 MORAL KNIGHT
                                             </div>
                                             <div class="header-subtitle" style="font-family: 'Courier New', Courier, monospace; font-size: 12px; font-weight: 400; color: #FFFFFF; letter-spacing: 1px; text-transform: uppercase; margin-top: 14px;">
-                                                De onafhankelijke waakhond voor publieke AI
+                                                De&nbsp;onafhankelijke waakhond voor publieke AI
                                             </div>
                                         </a>
                                     </td>
@@ -278,7 +278,7 @@ export const generateEmailHtml = (data: EmailTemplateData, isForUser: boolean, i
                             <p class="footer-text" style="margin: 0; font-family: 'Courier New', Courier, monospace; font-size: 12px; color: ${colors.footerText}; letter-spacing: 1px; text-transform: uppercase; margin-left: -2px;">
                                 / Moral Knight since 2025 - Auditing public AI
                             </p>
-                            <p class="privacy-text" style="margin: 10px 0 0 17px; font-family: 'Courier New', Courier, monospace; font-size: 11px; color: ${colors.footerText}; letter-spacing: 1px; text-transform: uppercase; opacity: 0.8;">
+                            <p class="privacy-text" style="margin: 10px 0 0 0; font-family: 'Courier New', Courier, monospace; font-size: 11px; color: ${colors.footerText}; letter-spacing: 1px; text-transform: uppercase; opacity: 0.8;">
                                 Wij verwerken uw gegevens volgens de <a href="https://www.moralknight.nl/privacy" class="privacy-link" style="color: ${colors.footerText}; text-decoration: underline;">privacyverklaring</a>.
                             </p>
                         </td>
