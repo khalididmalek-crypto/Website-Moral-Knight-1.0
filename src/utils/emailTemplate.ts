@@ -36,14 +36,14 @@ export const generateEmailHtml = (data: EmailTemplateData, isForUser: boolean, i
     const renderRow = (label: string, value: string | undefined | null, isLongText = false) => {
         if (!value) return '';
         return `
-      <tr>
-        <td style="padding: 12px 0; border-bottom: 1px solid #E5E7EB; vertical-align: top;" width="35%">
+      <tr class="data-row">
+        <td class="data-label" style="padding: 12px 0; border-bottom: 1px solid #E5E7EB; vertical-align: top;" width="35%">
           <span style="font-family: 'Courier New', Courier, monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: ${colors.secondary}; font-weight: 700;">
             ${label}
           </span>
         </td>
-        <td style="padding: 12px 0; border-bottom: 1px solid #E5E7EB; vertical-align: top; color: ${colors.text}; font-size: 14px; line-height: 1.6;">
-          ${isLongText ? value.replace(/\n/g, '<br>') : value}
+        <td class="data-value" style="padding: 12px 0; border-bottom: 1px solid #E5E7EB; vertical-align: top; color: ${colors.text}; font-size: 14px; line-height: 1.6;">
+          ${isLongText ? value.replace(/\\n/g, '<br>') : value}
         </td>
       </tr>
     `;
@@ -65,6 +65,117 @@ export const generateEmailHtml = (data: EmailTemplateData, isForUser: boolean, i
         .privacy-link:hover {
             text-decoration-color: ${colors.shieldBorder} !important;
         }
+        
+        /* Mobile Responsive Styles */
+        @media only screen and (max-width: 600px) {
+            /* Force table width to 100% */
+            table[class="email-container"] {
+                width: 100% !important;
+            }
+            
+            /* Header layout adjustments */
+            td[class="header-cell"] {
+                display: block !important;
+                width: 100% !important;
+                text-align: center !important;
+                padding: 10px 0 !important;
+            }
+            
+            div[class="header-title"] {
+                font-size: 20px !important;
+            }
+            
+            div[class="header-subtitle"] {
+                font-size: 10px !important;
+                margin-top: 8px !important;
+            }
+            
+            img[class="header-logo"] {
+                width: 100px !important;
+                margin: 15px auto 0 auto !important;
+            }
+            
+            /* Status bar stacking */
+            td[class="status-cell"] {
+                display: block !important;
+                width: 100% !important;
+                text-align: center !important;
+                margin: 8px 0 !important;
+            }
+            
+            span[class="status-badge"] {
+                margin-right: 0 !important;
+            }
+            
+            span[class="status-date"] {
+                margin-right: 0 !important;
+                display: block !important;
+                margin-top: 10px !important;
+            }
+            
+            /* Main content padding */
+            td[class="content-cell"] {
+                padding: 25px 20px !important;
+            }
+            
+            /* Title adjustments */
+            h2[class="main-title"] {
+                font-size: 14px !important;
+            }
+            
+            /* Intro text */
+            p[class="intro-text"] {
+                font-size: 14px !important;
+                line-height: 1.5 !important;
+            }
+            
+            /* Data table stacking */
+            tr[class="data-row"] {
+                display: block !important;
+                margin-bottom: 15px !important;
+                border-bottom: 1px solid #E5E7EB !important;
+                padding-bottom: 15px !important;
+            }
+            
+            td[class="data-label"] {
+                display: block !important;
+                width: 100% !important;
+                padding: 0 0 5px 0 !important;
+                border-bottom: none !important;
+            }
+            
+            td[class="data-value"] {
+                display: block !important;
+                width: 100% !important;
+                padding: 0 0 5px 0 !important;
+                border-bottom: none !important;
+            }
+            
+            /* CTA Button */
+            a[class="cta-button"] {
+                display: block !important;
+                width: 100% !important;
+                padding: 16px 20px !important;
+                font-size: 14px !important;
+                text-align: center !important;
+                box-sizing: border-box !important;
+            }
+            
+            /* Footer adjustments */
+            td[class="footer-cell"] {
+                padding: 20px !important;
+            }
+            
+            p[class="footer-text"] {
+                font-size: 10px !important;
+                margin-left: -2px !important;
+            }
+            
+            p[class="privacy-text"] {
+                font-size: 9px !important;
+                margin: 8px 0 0 -2px !important;
+            }
+        }
     </style>
 </head>
 <body style="margin: 0; padding: 0; background-color: ${colors.background}; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%;">
@@ -75,27 +186,27 @@ export const generateEmailHtml = (data: EmailTemplateData, isForUser: boolean, i
             <td align="center" style="padding: 40px 10px;">
                 
                 <!-- Container -->
-                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px; background-color: ${colors.surface}; border: 1px solid ${colors.border}; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" class="email-container" style="max-width: 600px; background-color: ${colors.surface}; border: 1px solid ${colors.border}; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
                     
                     <!-- Header -->
                     <tr>
                         <td style="background-color: ${colors.primary}; padding: 30px;">
                             <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                 <tr>
-                                    <td align="left" style="vertical-align: middle;">
+                                    <td align="left" class="header-cell" style="vertical-align: middle;">
                                         <a href="https://www.moralknight.nl" style="text-decoration: none; color: inherit;">
-                                            <div style="font-family: 'Courier New', Courier, monospace; font-size: 24px; font-weight: 600; color: #FFFFFF; letter-spacing: 0.5px;">
+                                            <div class="header-title" style="font-family: 'Courier New', Courier, monospace; font-size: 24px; font-weight: 600; color: #FFFFFF; letter-spacing: 0.5px;">
                                                 MORAL KNIGHT
                                             </div>
-                                            <div style="font-family: 'Courier New', Courier, monospace; font-size: 12px; font-weight: 400; color: #FFFFFF; letter-spacing: 1px; text-transform: uppercase; margin-top: 14px;">
+                                            <div class="header-subtitle" style="font-family: 'Courier New', Courier, monospace; font-size: 12px; font-weight: 400; color: #FFFFFF; letter-spacing: 1px; text-transform: uppercase; margin-top: 14px;">
                                                 De onafhankelijke waakhond voor publieke AI
                                             </div>
                                         </a>
                                     </td>
-                                    <td align="right" style="vertical-align: middle; padding-left: 20px;">
+                                    <td align="right" class="header-cell" style="vertical-align: middle; padding-left: 20px;">
                                          <!-- Logo -->
                                         <a href="https://www.moralknight.nl">
-                                            <img src="cid:logo" alt="Moral Knight" width="135" height="auto" style="display: block; border: 0;" />
+                                            <img src="cid:logo" alt="Moral Knight" width="135" height="auto" class="header-logo" style="display: block; border: 0;" />
                                         </a>
                                     </td>
                                 </tr>
@@ -108,13 +219,13 @@ export const generateEmailHtml = (data: EmailTemplateData, isForUser: boolean, i
                         <td style="background-color: #FFFFFF; padding: 20px 30px; border-bottom: 1px solid #F3F4F6;">
                             <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                 <tr>
-                                    <td align="left">
-                                        <span style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 11px; color: ${colors.secondary}; background-color: #F3F4F6; padding: 6px 10px; border-radius: 4px; border: 1px solid ${colors.shieldBorder};">
+                                    <td align="left" class="status-cell">
+                                        <span class="status-badge" style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 11px; color: ${colors.secondary}; background-color: #F3F4F6; padding: 6px 10px; border-radius: 4px; border: 1px solid ${colors.shieldBorder};">
                                             KENMERK: <span style="font-weight: 700; color: ${colors.text};">${reportId}</span>
                                         </span>
                                     </td>
-                                    <td align="right">
-                                        <span style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 12px; color: ${colors.shieldBorder}; margin-right: 35px;">
+                                    <td align="right" class="status-cell">
+                                        <span class="status-date" style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 12px; color: ${colors.text}; margin-right: 35px;">
                                             ${dateStr}
                                         </span>
                                     </td>
@@ -125,14 +236,14 @@ export const generateEmailHtml = (data: EmailTemplateData, isForUser: boolean, i
 
                     <!-- Main Content -->
                     <tr>
-                        <td style="padding: 40px 30px;">
+                        <td class="content-cell" style="padding: 40px 30px;">
                             <!-- Title -->
-                            <h2 style="margin: 0 0 20px 0; font-family: 'Courier New', Courier, monospace; font-size: 16px; color: ${colors.primary}; font-weight: 700; letter-spacing: -0.5px; text-transform: uppercase;">
+                            <h2 class="main-title" style="margin: 0 0 20px 0; font-family: 'Courier New', Courier, monospace; font-size: 16px; color: ${colors.primary}; font-weight: 700; letter-spacing: -0.5px; text-transform: uppercase;">
                                 ${title}
                             </h2>
 
                             <!-- Intro Text -->
-                            <p style="margin: 0 0 30px 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 15px; line-height: 1.6; color: ${colors.text};">
+                            <p class="intro-text" style="margin: 0 0 30px 0; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 15px; line-height: 1.6; color: ${colors.text};">
                                 ${introText}
                             </p>
 
@@ -152,7 +263,7 @@ export const generateEmailHtml = (data: EmailTemplateData, isForUser: boolean, i
                             <!-- CTA Button (Admin Only) -->
                             ${!isForUser ? `
                             <div style="margin-top: 30px; padding-top: 20px; border-top: 1px dashed #E5E7EB;">
-                                <a href="mailto:${data.email}?subject=Re: ${reportId} - Reactie op uw bericht" style="display: inline-block; background-color: ${colors.primary}; color: #FFFFFF; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 13px; font-weight: 600; text-decoration: none; padding: 12px 24px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; border: 1px solid ${colors.shieldBorder};">
+                                <a href="mailto:${data.email}?subject=Re: ${reportId} - Reactie op uw bericht" class="cta-button" style="display: inline-block; background-color: ${colors.primary}; color: #FFFFFF; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 13px; font-weight: 600; text-decoration: none; padding: 12px 24px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; border: 1px solid ${colors.shieldBorder};">
                                     BEANTWOORDEN
                                 </a>
                             </div>
@@ -162,11 +273,11 @@ export const generateEmailHtml = (data: EmailTemplateData, isForUser: boolean, i
 
                     <!-- Footer -->
                     <tr>
-                        <td style="background-color: #F8FAFC; padding: 30px; border-top: 2px solid ${colors.shieldBorder}; text-align: left;">
-                            <p style="margin: 0; font-family: 'Courier New', Courier, monospace; font-size: 12px; color: ${colors.footerText}; letter-spacing: 1px; text-transform: uppercase; margin-left: -2px;">
+                        <td class="footer-cell" style="background-color: #F8FAFC; padding: 30px; border-top: 2px solid ${colors.shieldBorder}; text-align: left;">
+                            <p class="footer-text" style="margin: 0; font-family: 'Courier New', Courier, monospace; font-size: 12px; color: ${colors.footerText}; letter-spacing: 1px; text-transform: uppercase; margin-left: -2px;">
                                 / Moral Knight since 2025 - Auditing public AI
                             </p>
-                            <p style="margin: 10px 0 0 17px; font-family: 'Courier New', Courier, monospace; font-size: 11px; color: ${colors.footerText}; letter-spacing: 1px; text-transform: uppercase; opacity: 0.8;">
+                            <p class="privacy-text" style="margin: 10px 0 0 17px; font-family: 'Courier New', Courier, monospace; font-size: 11px; color: ${colors.footerText}; letter-spacing: 1px; text-transform: uppercase; opacity: 0.8;">
                                 Wij verwerken uw gegevens volgens de <a href="https://www.moralknight.nl/privacy" class="privacy-link" style="color: ${colors.footerText}; text-decoration: underline;">privacyverklaring</a>.
                             </p>
                         </td>
