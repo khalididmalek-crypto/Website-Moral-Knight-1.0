@@ -38,6 +38,15 @@ const validateEmail = (email: string): boolean => {
     return EMAIL_REGEX.test(email.trim());
 };
 
+const fileToBase64 = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result as string);
+        reader.onerror = (error) => reject(error);
+    });
+};
+
 export const ReportForm: React.FC<Props> = () => {
     const [formData, setFormData] = useState<FormData>({
         name: '',
@@ -175,12 +184,28 @@ export const ReportForm: React.FC<Props> = () => {
 
         try {
             console.log('[ReportForm] Submitting report...');
+
+            let fileData = null;
+            if (formData.file) {
+                try {
+                    fileData = await fileToBase64(formData.file);
+                } catch (e) {
+                    console.error('Error converting file to base64', e);
+                    throw new Error('Fout bij het verwerken van het bestand');
+                }
+            }
+
             const response = await fetch('/api/contact', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ ...formData, file: formData.file?.name || null, formType: 'report' }),
+                body: JSON.stringify({
+                    ...formData,
+                    file: fileData,
+                    fileName: formData.file?.name,
+                    formType: 'report'
+                }),
             });
 
             const data = await response.json();

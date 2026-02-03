@@ -20,6 +20,7 @@ interface FormData {
     newsletter?: boolean;
     privacyConsent: boolean;
     file?: string | null;
+    fileName?: string;
     _website?: string; // Honeypot field
 }
 
@@ -147,21 +148,42 @@ async function sendEmail(data: FormData): Promise<{ success: boolean; reportId?:
         : `[CONTACT] Bericht van ${data.name} - Moral Knight`;
 
     const getHtml = (isForUser: boolean) => {
-        const primaryColor = '#E9E0D2'; // Contact Tile Sandy Beige
-        const secondaryColor = '#B6C3AC'; // Moss Green
-        const bgColor = '#F8FAFC';
-
         return generateEmailHtml(data, isForUser, isReport, reportId, dateStr);
     };
 
     const logoPath = path.join(process.cwd(), 'public', 'images', 'mail-logo.png');
-    const attachments = [
+    const attachments: any[] = [
         {
             filename: 'logo.png',
             path: logoPath,
             cid: 'logo' // Verwijst naar <img src="cid:logo">
         }
     ];
+
+    // Handle User Attachment
+    if (data.file && data.fileName) {
+        try {
+            let content = data.file;
+
+            // Strip data URI prefix if present (e.g., "data:image/png;base64,...")
+            if (content.startsWith('data:')) {
+                const base64Marker = ';base64,';
+                const base64Index = content.indexOf(base64Marker);
+                if (base64Index !== -1) {
+                    content = content.substring(base64Index + base64Marker.length);
+                }
+            }
+
+            attachments.push({
+                filename: data.fileName,
+                content: content,
+                encoding: 'base64'
+            });
+            console.log(`[SMTP] Added user attachment: ${data.fileName}`);
+        } catch (e) {
+            console.error('[SMTP] Error processing attachment:', e);
+        }
+    }
 
     try {
         // 1. Send to Admin (PRIORITY)
