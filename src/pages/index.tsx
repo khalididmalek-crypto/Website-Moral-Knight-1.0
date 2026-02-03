@@ -57,8 +57,9 @@ export const getStaticProps: GetStaticProps<HomeProps> = async () => {
         // Fallback to empty strings acts as safety net
     }
 
-    // Local mode: Return empty posts array to use static data from constants
-    const posts: BlogPost[] = [];
+    // Fetch blog posts from local file system
+    const { getSortedPostsData } = await import('../lib/blog');
+    const posts = getSortedPostsData();
 
     return {
         props: {
@@ -104,6 +105,7 @@ export default function Home({ posts, problemTileContent, solutionTileContent, a
                         solutionTileContent={solutionTileContent}
                         approachTileContent={approachTileContent}
                         servicesTileContent={servicesTileContent}
+                        posts={posts}
                     />
                 </div>
             ) : (

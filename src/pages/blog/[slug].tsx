@@ -1,7 +1,7 @@
 import { GetStaticProps, GetStaticPaths } from 'next';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import { fetchPosts, fetchPostBySlug } from '../../lib/wordpress';
+import { getSortedPostsData, getPostData } from '../../lib/blog';
 import { BlogPost } from '../../types';
 import { BlogPostDetail } from '../../components/BlogGrid';
 import { LoadingSpinner } from '../../components/LoadingSpinner';
@@ -11,7 +11,7 @@ interface BlogPostPageProps {
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
-    const posts = await fetchPosts();
+    const posts = getSortedPostsData();
 
     const paths = posts.map((post) => ({
         params: { slug: post.slug },
@@ -25,7 +25,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
 export const getStaticProps: GetStaticProps<BlogPostPageProps> = async ({ params }) => {
     const slug = params?.slug as string;
-    const post = await fetchPostBySlug(slug);
+    const post = await getPostData(slug);
 
     if (!post) {
         return {

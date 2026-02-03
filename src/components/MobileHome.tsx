@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { X, ArrowLeft, Cpu, Briefcase, Send } from 'lucide-react';
+import { X, ArrowLeft, Cpu, Briefcase, Send, BookOpen } from 'lucide-react';
 import { COLORS } from '../constants';
+import { BlogPost } from '../types';
 
 import { motion, AnimatePresence } from 'framer-motion';
 import { ContactForm } from './ContactForm';
@@ -21,9 +22,10 @@ interface MobileHomeProps {
     solutionTileContent: string;
     approachTileContent: string;
     servicesTileContent: string;
+    posts: BlogPost[];
 }
 
-export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solutionTileContent, approachTileContent, servicesTileContent }) => {
+export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solutionTileContent, approachTileContent, servicesTileContent, posts = [] }) => {
     const [view, setView] = useState<MobileView>('HOME');
     const [meldpuntOpen, setMeldpuntOpen] = useState(false);
     const [activeTiles, setActiveTiles] = useState<string[]>([]);
@@ -38,6 +40,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
         SOLUTION: '#E0E4DC', // Much lighter green
         APPROACH: '#E5E9E2', // Much lighter neutral green
         SERVICES: '#D7DADE', // Much lighter blue/grey
+        BLOG: '#E6E6E6',    // Light grey for blog
         CONTACT: '#F7F2E8',  // Much lighter sandy yellow
         HOME: '#f8fafc'
     };
@@ -54,6 +57,8 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                 return 'linear-gradient(135deg, #E5E9E2 0%, #D1DEC8 50%, #BCC8B4 100%)';
             case 'SERVICES':
                 return 'linear-gradient(135deg, #D7DADE 0%, #BEC7CF 50%, #AEBEC9 100%)';
+            case 'BLOG':
+                return 'linear-gradient(135deg, #E6E6E6 0%, #D4D4D4 50%, #C4C4C4 100%)';
             case 'CONTACT':
                 return 'linear-gradient(135deg, #F7F2E8 0%, #EEE1C8 50%, #E4D4B8 100%)';
             default:
@@ -66,6 +71,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
         SOLUTION: useRef<HTMLDivElement>(null),
         APPROACH: useRef<HTMLDivElement>(null),
         SERVICES: useRef<HTMLDivElement>(null),
+        BLOG: useRef<HTMLDivElement>(null),
         CONTACT: useRef<HTMLDivElement>(null),
     };
 
@@ -488,6 +494,9 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                         </AnimatePresence>
                     </motion.div>
 
+
+
+
                     {/* Tile 3: CONTACT */}
                     <motion.div
                         layout="position"
@@ -523,6 +532,61 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                                             <div className="w-full bg-white">
                                                 <ContactForm mode="fullscreen" className="!p-0" />
                                             </div>
+                                        </div>
+                                    </motion.div>
+                                </motion.div>
+                            )}
+                        </AnimatePresence>
+                    </motion.div>
+
+                    {/* New Tile: BLOG */}
+                    <motion.div
+                        layout="position"
+                        ref={tileRefs.BLOG}
+                        variants={tileVariants}
+                        onClick={() => handleTileClick('BLOG')}
+                        onLayoutAnimationComplete={() => handleLayoutComplete('BLOG')}
+                        className={`w-full p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTiles.includes('BLOG')
+                            ? 'bg-white rounded-none shadow-md'
+                            : 'bg-[#D4D4D4] rounded-sm'
+                            }`}
+                        style={{ overflowAnchor: 'none', borderWidth: '1.1px', borderColor: '#061424', borderStyle: 'solid' }}
+                    >
+
+                        <div className="absolute top-4 right-4 opacity-50">
+                            <BookOpen size={18} strokeWidth={2} color="#4B5563" />
+                        </div>
+                        <div className="px-3 py-1.5 bg-white border border-black w-fit">
+                            <div className="font-mono text-[13.2px] font-semibold uppercase tracking-widest text-gray-900">BLOG</div>
+                        </div>
+                        <AnimatePresence>
+                            {activeTiles.includes('BLOG') && (
+                                <motion.div
+                                    initial={{ height: 0, opacity: 0 }}
+                                    animate={{ height: 'auto', opacity: 1 }}
+                                    exit={{ height: 0, opacity: 0 }}
+                                    transition={{ duration: 0.3 }}
+                                    className="overflow-hidden"
+                                >
+                                    <motion.div exit={contentExitAnimation}>
+                                        <div className="flex flex-col items-start py-4">
+                                            {posts.length > 0 ? (
+                                                <div className="w-full flex flex-col gap-4">
+                                                    {posts.map((post) => (
+                                                        <a
+                                                            key={post.id}
+                                                            href={`/blog/${post.slug}`}
+                                                            className="block border-b border-gray-200 pb-3 last:border-0 hover:opacity-75"
+                                                        >
+                                                            <div className="text-[10px] font-mono text-gray-500 mb-1">{post.date} | {post.tag}</div>
+                                                            <h4 className="font-bold text-base text-[#194D25] mb-1 leading-tight">{post.title}</h4>
+                                                            <p className="text-xs font-mono text-gray-600 line-clamp-2">{post.excerpt}</p>
+                                                        </a>
+                                                    ))}
+                                                </div>
+                                            ) : (
+                                                <p className="text-sm font-mono text-gray-500 italic">Geen blogposts gevonden.</p>
+                                            )}
                                         </div>
                                     </motion.div>
                                 </motion.div>
