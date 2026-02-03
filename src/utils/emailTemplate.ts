@@ -76,10 +76,11 @@ export const generateEmailHtml = (data: EmailTemplateData, isForUser: boolean, i
             
             /* Header layout adjustments */
             td[class="header-cell"] {
-                display: block !important;
-                width: 100% !important;
-                text-align: center !important;
-                padding: 10px 0 !important;
+                display: table-cell !important;
+                width: auto !important;
+                text-align: left !important;
+                padding: 10px 5px !important;
+                vertical-align: top !important;
             }
             
             div[class="header-title"] {
@@ -92,8 +93,8 @@ export const generateEmailHtml = (data: EmailTemplateData, isForUser: boolean, i
             }
             
             img[class="header-logo"] {
-                width: 100px !important;
-                margin: 15px auto 0 auto !important;
+                width: 80px !important;
+                margin: 0 !important;
             }
             
             /* Status bar stacking */
