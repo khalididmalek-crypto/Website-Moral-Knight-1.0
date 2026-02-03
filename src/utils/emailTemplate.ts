@@ -78,9 +78,14 @@ export const generateEmailHtml = (data: EmailTemplateData, isForUser: boolean, i
             td[class="header-cell"] {
                 display: table-cell !important;
                 width: auto !important;
-                text-align: left !important;
                 padding: 10px 5px !important;
                 vertical-align: top !important;
+            }
+            
+            /* Target the logo cell specifically to align right and top */
+            td[class="header-cell"][align="right"] {
+                text-align: right !important;
+                padding-top: 0 !important; /* Remove top padding for logo to push it up */
             }
             
             div[class="header-title"] {
@@ -94,7 +99,7 @@ export const generateEmailHtml = (data: EmailTemplateData, isForUser: boolean, i
             
             img[class="header-logo"] {
                 width: 80px !important;
-                margin: 0 !important;
+                margin: 5px 0 0 0 !important;
             }
             
             /* Status bar stacking */
