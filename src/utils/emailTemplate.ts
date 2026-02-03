@@ -7,6 +7,7 @@ export interface EmailTemplateData {
     description?: string;
     formType: 'contact' | 'report';
     file?: string | null;
+    fileName?: string;
 }
 
 export const generateEmailHtml = (data: EmailTemplateData, isForUser: boolean, isReport: boolean, reportId: string, dateStr: string) => {
@@ -257,7 +258,7 @@ export const generateEmailHtml = (data: EmailTemplateData, isForUser: boolean, i
             ? renderRow('Omschrijving', data.description, true)
             : renderRow('Bericht', data.message, true)
         }
-                                ${data.file ? renderRow('Bijlage', `Ingesloten: ${data.file}`) : ''}
+                                ${data.fileName ? renderRow('Bijlage', `Ingesloten: ${data.fileName}`) : ''}
                             </table>
 
                             <!-- CTA Button (Admin Only) -->

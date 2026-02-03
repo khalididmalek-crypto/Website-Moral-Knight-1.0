@@ -179,11 +179,20 @@ async function sendEmail(data: FormData): Promise<{ success: boolean; reportId?:
             console.log(`[SMTP] Raw file start: ${rawStart}...`);
 
             let content = data.file;
+            let contentType = undefined;
 
             // Strip data URI prefix if present (e.g., "data:image/png;base64,...")
             if (content.startsWith('data:')) {
                 const base64Marker = ';base64,';
                 const base64Index = content.indexOf(base64Marker);
+
+                // Extract Content Type
+                const colonIndex = content.indexOf(':');
+                if (colonIndex !== -1 && base64Index !== -1) {
+                    contentType = content.substring(colonIndex + 1, base64Index);
+                    console.log(`[SMTP] Extracted content type: ${contentType}`);
+                }
+
                 if (base64Index !== -1) {
                     content = content.substring(base64Index + base64Marker.length);
                     console.log(`[SMTP] Stripped data prefix. New start: ${content.substring(0, 20)}...`);
@@ -197,7 +206,8 @@ async function sendEmail(data: FormData): Promise<{ success: boolean; reportId?:
             attachments.push({
                 filename: data.fileName,
                 content: content,
-                encoding: 'base64'
+                encoding: 'base64',
+                contentType: contentType
             });
             console.log(`[SMTP] Added user attachment: ${data.fileName} (Size: ${content.length})`);
         } catch (e) {
