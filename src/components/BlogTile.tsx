@@ -39,7 +39,7 @@ export const BlogTile: React.FC<BlogTileProps> = ({ post, onClick }) => {
         w-full 
         aspect-auto md:aspect-[5/4]
         bg-white
-        border border-[#374151]
+        border
         rounded-sm
         transition-all duration-200 ease-out
         cursor-pointer
@@ -49,7 +49,7 @@ export const BlogTile: React.FC<BlogTileProps> = ({ post, onClick }) => {
         overflow-hidden
         hover-scale-blog
       "
-      style={{ backgroundColor: THEME.colors.tileDefault }}
+      style={{ backgroundColor: THEME.colors.tileDefault, borderWidth: '1.3px', borderColor: '#061424', borderStyle: 'solid' }}
     >
       {/* Content Container */}
       <div className="p-4 md:p-6 flex-1 flex flex-col justify-between h-full">

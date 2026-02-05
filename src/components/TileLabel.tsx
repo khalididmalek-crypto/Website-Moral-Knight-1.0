@@ -30,10 +30,9 @@ export const TileLabel: React.FC<TileLabelProps> = ({
         ${SPACING.TILE_LABEL_PADDING_X} 
         ${SPACING.TILE_LABEL_PADDING_Y} 
         bg-white 
-        border 
-        group-hover:border-gray-400 
+        border-[1.8px] 
         transition-colors 
-        ${typingComplete ? 'border-black' : 'border-gray-300'}
+        ${typingComplete ? 'border-[#194D25]' : 'border-gray-300'}
         ${className}
       `}
     >

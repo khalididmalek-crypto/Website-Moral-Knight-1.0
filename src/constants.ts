@@ -25,7 +25,7 @@ export const INITIAL_TILES: TileData[] = [
     content: {
       text: '',
     } as TextContent,
-    fillColor: '#F1E1DB',
+    fillColor: '#EBC6C1',
   },
   {
     id: 'tile-2',
@@ -45,7 +45,7 @@ export const INITIAL_TILES: TileData[] = [
     content: {
       text: '',
     } as TextContent,
-    fillColor: '#CCD5C6',
+    fillColor: '#FDDFC8',
   },
   {
     id: 'tile-4',
@@ -67,7 +67,7 @@ export const INITIAL_TILES: TileData[] = [
       text: 'Neem contact op',
     } as ContactContent,
     disableHighlight: true,
-    fillColor: '#E9E0D2',
+    fillColor: '#D6E3D1',
   },
   {
     id: 'tile-6',
@@ -78,7 +78,7 @@ export const INITIAL_TILES: TileData[] = [
       text: 'Gedachten en inzichten over verantwoorde AI',
     } as BlogContent,
     disableHighlight: true,
-    fillColor: '#E8CDD5',
+    fillColor: '#EED2B9',
   },
 ];
 
@@ -202,43 +202,15 @@ export const GRID_COLUMNS = {
 export const BLOG_POSTS: BlogPost[] = [
   {
     id: 'blog-1',
-    slug: 'de-uitwassen-van-digitaal-kolonialisme',
-    title: 'De uitwassen van digitaal kolonialisme',
-    excerpt: 'Grote techbedrijven eigenen zich data en infrastructuur toe op een manier die historische uitbuiting weerspiegelt. Wie profiteert er werkelijk van deze digitale expansie?',
-    date: '2026-01-15',
-    tag: 'Maatschappij',
+    slug: 'onafhankelijke-toetsing-van-ai',
+    title: 'Onafhankelijke toetsing van AI',
+    excerpt: 'Vanaf augustus 2026 gelden harde deadlines voor publieke AI. Geen vrijblijvendheid meer, maar registratie, impact assessments en een verplichte \'stopknop\'.',
+    date: '2026-02-03',
+    tag: 'Wetgeving',
     content: `
       <div class="font-mono text-xs md:text-sm leading-snug text-gray-800">
-        <p class="mb-3">De roep om technologische vooruitgang overschaduwt vaak de verborgen kosten voor gemeenschappen wereldwijd. Grote techbedrijven eigenen zich data en digitale infrastructuur toe op een manier die historische patronen van uitbuiting weerspiegelt. Lokale waarden en culturele nuances worden hierbij regelmatig genegeerd ten gunste van schaalbaarheid en winst. Dit creëert een nieuwe vorm van afhankelijkheid waarbij soevereiniteit onder druk komt te staan. Het is tijd om kritisch te kijken naar wie er werkelijk profiteert van deze digitale expansie.</p>
-        <p class="font-bold mt-4" style="color: #2C3E50">... meer volgt</p>
-      </div>
-    `,
-  },
-  {
-    id: 'blog-2',
-    slug: 'heb-jij-al-een-ai-therapeut',
-    title: 'Heb jij al een AI-therapeut?',
-    excerpt: 'AI-chatbots worden gepresenteerd als oplossing voor de mentale zorg. Maar kan een algoritme empathie tonen of simuleert het slechts begrip?',
-    date: '2026-01-10',
-    tag: 'Zorg',
-    content: `
-      <div class="font-mono text-xs md:text-sm leading-snug text-gray-800">
-        <p class="mb-3">De mentale gezondheidszorg staat onder enorme druk en AI-chatbots worden steeds vaker gepresenteerd als dé oplossing. Ze zijn altijd beschikbaar, oordelen niet en kosten een fractie van een menselijke therapeut. Maar kan een algoritme werkelijk empathie tonen of simuleert het slechts begrip? Het risico bestaat dat we kwetsbare mensen overlaten aan systemen die emoties niet daadwerkelijk kunnen doorgronden. We moeten ons afvragen of efficiëntie hier niet ten koste gaat van menselijke verbinding.</p>
-        <p class="font-bold mt-4" style="color: #2C3E50">... meer volgt</p>
-      </div>
-    `,
-  },
-  {
-    id: 'blog-3',
-    slug: 'hoe-intelligent-mag-ai-worden',
-    title: 'Hoe intelligent mag AI worden?',
-    excerpt: 'Wanneer systemen beslissingen nemen over mensenlevens, waar ligt dan de verantwoordelijkheid? We moeten grenzen stellen aan autonome AI.',
-    date: '2025-12-20',
-    tag: 'Filosofie',
-    content: `
-      <div class="font-mono text-xs md:text-sm leading-snug text-gray-800">
-        <p class="mb-3">De ontwikkeling van kunstmatige intelligentie gaat razendsnel en roept fundamentele vragen op over grenzen. Wanneer systemen beslissingen nemen die mensenlevens beïnvloeden, moeten we weten waar de verantwoordelijkheid ligt. Is er een punt waarop AI te autonoom wordt en onze controle verliest? Het definiëren van de grens tussen behulpzame assistentie en onwenselijke dominantie is cruciaal voor onze toekomst. We moeten nu bepalen welke intelligentie ons dient en welke ons bedreigt.</p>
-        <p class="font-bold mt-4" style="color: #2C3E50">... meer volgt</p>
+        <p class="mb-3">De wittebroodsweken van vrijblijvende AI zijn definitief voorbij. Vanaf 2 augustus 2026 wordt de EU AI Act serieus en verloopt de overgangsperiode voor 'High-Risk' systemen. Voor publieke organisaties betekent dit concreet huiswerk. Er geldt een registratieplicht voor hoog-risico systemen en een verplichte FRIA om discriminatie vooraf uit te sluiten. Daarnaast is menselijk toezicht cruciaal: ambtenaren moeten getraind zijn om in te grijpen en een algoritme direct stil te kunnen leggen.</p>
+        <p class="mt-4" style="color: #2C3E50">Dus, wie durft er straks nog op de knop te drukken als de computer 'nee' zegt?</p>
       </div>
     `,
   },
@@ -253,7 +225,7 @@ export const PROBLEM_TILES: TileData[] = [
     content: {
       text: '<p class="mb-3">Algoritmes sturen onze maatschappelijke infrastructuur aan, van zorg tot sociale zekerheid. Onder druk van commerciële belangen wordt het publiek belang vaak ondergeschikt gemaakt aan winstmaximalisatie. Hierdoor verliest de burger zijn stem en wordt technologie een instrument van uitsluiting in plaats van vooruitgang.</p>',
     } as TextContent,
-    fillColor: '#F1E1DB',
+    fillColor: '#EBC6C1',
   },
   {
     id: 'prob-2',
@@ -263,7 +235,7 @@ export const PROBLEM_TILES: TileData[] = [
     content: {
       text: '<p class="mb-3">Systemen nemen besluiten over levensbepalende zaken zoals werk en inkomen, maar de logica erachter blijft vaak onzichtbaar. Zonder transparantie staan burgers en werknemers alleen wanneer \'het systeem\' een fout maakt. Er ontstaat een ondoordringbare muur van techniek die grondrechten aantast en kwetsbaren beschadigt.</p>',
     } as TextContent,
-    fillColor: '#F1E1DB',
+    fillColor: '#EBC6C1',
   },
   {
     id: 'prob-3',
@@ -273,7 +245,7 @@ export const PROBLEM_TILES: TileData[] = [
     content: {
       text: '<p class="mb-3">Professionals worden gereduceerd tot passieve procesbewakers. Zij dragen de juridische verantwoordelijkheid voor besluiten van een machine die zij zelf niet meer volledig kunnen doorgronden. Deze beklemming zorgt ervoor dat werknemers niet kunnen ingrijpen bij evidente misslagen, met reputatieschade en morele schade tot gevolg.</p>',
     } as TextContent,
-    fillColor: '#F1E1DB',
+    fillColor: '#EBC6C1',
   },
   {
     id: 'prob-4',
@@ -283,7 +255,7 @@ export const PROBLEM_TILES: TileData[] = [
     content: {
       text: '<p class="mb-3">Zonder onafhankelijke controle opereren algoritmes in een vacuüm. Mistanden in de samenwerking tussen mens en techniek blijven onopgemerkt totdat het te laat is. Dit gebrek aan toezicht holt de rechtsstaat uit en maakt van burgers proefkonijnen in een digitaliserende samenleving.</p>',
     } as TextContent,
-    fillColor: '#F1E1DB',
+    fillColor: '#EBC6C1',
   },
 ];
 
@@ -342,7 +314,7 @@ export const HOW_TILES: TileData[] = [
         <p class="text-sm md:text-base leading-relaxed max-w-2xl">Wij vertalen abstracte ethische kaders naar meetbare, technische normen. Door systemen diepgaand te auditeren, leveren wij de feitelijke bewijslast die nodig is voor toezichthouders en de samenleving. Onze toetsing maakt onzichtbare vooroordelen zichtbaar en zorgt dat digitale besluiten voor iedereen begrijpelijk en betwistbaar blijven.</p>
       </div>`,
     } as TextContent,
-    fillColor: '#CCD5C6',
+    fillColor: '#FDDFC8',
   },
   {
     id: 'how-2',
@@ -355,7 +327,7 @@ export const HOW_TILES: TileData[] = [
         <p class="text-sm md:text-base leading-relaxed max-w-2xl">De impact van AI verandert continu door nieuwe data. Via 'Ethical Maintenance' bieden wij permanent toezicht op de gehele levenscyclus van een algoritme. Hiermee borgen we de rechtsstaat en geven we professionals de tools om weer regie te voeren. Zo zorgen we dat technologie altijd onder menselijke controle blijft en het publiek belang dient.</p>
       </div>`,
     } as TextContent,
-    fillColor: '#CCD5C6',
+    fillColor: '#FDDFC8',
   },
 ];
 

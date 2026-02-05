@@ -36,12 +36,12 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
     const containerRef = useRef<HTMLDivElement>(null);
 
     const BG_COLORS = {
-        PROBLEM: '#F8F3F1', // Much lighter redish
+        PROBLEM: '#EBC6C1', // Pale Bordeaux
         SOLUTION: '#E0E4DC', // Much lighter green
-        APPROACH: '#E5E9E2', // Much lighter neutral green
+        APPROACH: '#FDDFC8', // Pale Sun shifted 10% towards ochre
         SERVICES: '#D7DADE', // Much lighter blue/grey
-        BLOG: '#E6E6E6',    // Light grey for blog
-        CONTACT: '#F7F2E8',  // Much lighter sandy yellow
+        BLOG: '#EED2B9',    // Shifted 10% towards terracotta
+        CONTACT: '#D6E3D1',  // Bright Sage
         HOME: '#f8fafc'
     };
 
@@ -49,18 +49,17 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
     const getActiveGradient = (tile: string) => {
         switch (tile) {
             case 'PROBLEM':
-                // Intensified gradient: more contrast from top-left to bottom-right
-                return 'linear-gradient(135deg, #F8F3F1 0%, #F2E3DC 50%, #E8CDCD 100%)';
+                return 'linear-gradient(135deg, #EBC6C1 0%, #DDB6B0 50%, #D1A6A0 100%)';
             case 'SOLUTION':
                 return 'linear-gradient(135deg, #E0E4DC 0%, #CAD4C5 50%, #B4C0AD 100%)';
             case 'APPROACH':
-                return 'linear-gradient(135deg, #E5E9E2 0%, #D1DEC8 50%, #BCC8B4 100%)';
+                return 'linear-gradient(135deg, #FDDFC8 0%, #F5D1AE 50%, #ECBB8E 100%)';
             case 'SERVICES':
                 return 'linear-gradient(135deg, #D7DADE 0%, #BEC7CF 50%, #AEBEC9 100%)';
             case 'BLOG':
-                return 'linear-gradient(135deg, #E6E6E6 0%, #D4D4D4 50%, #C4C4C4 100%)';
+                return 'linear-gradient(135deg, #EED2B9 0%, #E4C8AF 50%, #DABEA5 100%)';
             case 'CONTACT':
-                return 'linear-gradient(135deg, #F7F2E8 0%, #EEE1C8 50%, #E4D4B8 100%)';
+                return 'linear-gradient(135deg, #D6E3D1 0%, #C8D7C2 50%, #BCCBB3 100%)';
             default:
                 return 'none';
         }
@@ -248,9 +247,9 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                         onLayoutAnimationComplete={() => handleLayoutComplete('PROBLEM')}
                         className={`w-full p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTiles.includes('PROBLEM')
                             ? 'bg-white rounded-none shadow-md'
-                            : 'bg-[#F2E8E4] rounded-sm'
+                            : 'bg-[#EBC6C1] rounded-sm'
                             }`}
-                        style={{ overflowAnchor: 'none', borderWidth: '1.1px', borderColor: '#061424', borderStyle: 'solid' }}
+                        style={{ overflowAnchor: 'none', borderWidth: '1.3px', borderColor: '#061424', borderStyle: 'solid' }}
                     >
 
                         <div className="absolute top-4 right-4 opacity-50">
@@ -316,7 +315,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                             ? 'bg-white rounded-none shadow-md'
                             : 'bg-[#C1C9B9] rounded-sm'
                             }`}
-                        style={{ overflowAnchor: 'none', borderWidth: '1.1px', borderColor: '#061424', borderStyle: 'solid' }}
+                        style={{ overflowAnchor: 'none', borderWidth: '1.3px', borderColor: '#061424', borderStyle: 'solid' }}
                     >
 
                         <div className="absolute top-4 right-4 opacity-50">
@@ -403,9 +402,9 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                         onLayoutAnimationComplete={() => handleLayoutComplete('APPROACH')}
                         className={`w-full p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTiles.includes('APPROACH')
                             ? 'bg-white rounded-none shadow-md'
-                            : 'bg-[#CCD5C6] rounded-sm'
+                            : 'bg-[#FDE9DE] rounded-sm'
                             }`}
-                        style={{ overflowAnchor: 'none', borderWidth: '1.1px', borderColor: '#061424', borderStyle: 'solid' }}
+                        style={{ overflowAnchor: 'none', borderWidth: '1.3px', borderColor: '#061424', borderStyle: 'solid' }}
                     >
 
                         <div className="absolute top-4 right-4 opacity-50">
@@ -454,7 +453,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                             ? 'bg-white rounded-none shadow-md'
                             : 'bg-[#AEB5B9] rounded-sm'
                             }`}
-                        style={{ overflowAnchor: 'none', borderWidth: '1.1px', borderColor: '#061424', borderStyle: 'solid' }}
+                        style={{ overflowAnchor: 'none', borderWidth: '1.3px', borderColor: '#061424', borderStyle: 'solid' }}
                     >
 
                         <div className="absolute top-4 right-4 opacity-50">
@@ -506,9 +505,9 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                         onLayoutAnimationComplete={() => handleLayoutComplete('CONTACT')}
                         className={`w-full p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTiles.includes('CONTACT')
                             ? 'bg-white rounded-none shadow-md'
-                            : 'bg-[#F0E6D2] rounded-sm'
+                            : 'bg-[#D6E3D1] rounded-sm'
                             }`}
-                        style={{ overflowAnchor: 'none', borderWidth: '1.1px', borderColor: '#061424', borderStyle: 'solid' }}
+                        style={{ overflowAnchor: 'none', borderWidth: '1.3px', borderColor: '#061424', borderStyle: 'solid' }}
                     >
 
                         <div className="absolute top-4 right-4 opacity-50">
@@ -548,9 +547,9 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                         onLayoutAnimationComplete={() => handleLayoutComplete('BLOG')}
                         className={`w-full p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTiles.includes('BLOG')
                             ? 'bg-white rounded-none shadow-md'
-                            : 'bg-[#D4D4D4] rounded-sm'
+                            : 'bg-[#EEDCC8] rounded-sm'
                             }`}
-                        style={{ overflowAnchor: 'none', borderWidth: '1.1px', borderColor: '#061424', borderStyle: 'solid' }}
+                        style={{ overflowAnchor: 'none', borderWidth: '1.3px', borderColor: '#061424', borderStyle: 'solid' }}
                     >
 
                         <div className="absolute top-4 right-4 opacity-50">

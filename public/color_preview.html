@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kleurvoorstellen Wat is het probleem? - Moral Knight</title>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #F4F1EC;
+            --text: #111111;
+            --border: #000000;
+
+            /* Current Palette */
+            --color-problem: #F1E1DB;
+            --color-solution: #B6C3AC;
+            --color-approach: #FDE9DE;
+            --color-services: #AEB5B9;
+            --color-blog: #EEDCC8;
+            --color-contact: #D6E3D1;
+            --color-probleem-current: #F1E1DB;
+
+            /* Suggestions for Wat is het probleem? (Light Red) */
+            --opt-1: #F8E5E1;
+            /* Soft Blush */
+            --opt-2: #F2D5D0;
+            /* Muted Rose */
+            --opt-3: #EBC6C1;
+            /* Pale Bordeaux */
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: 'JetBrains+Mono', monospace;
+            padding: 40px;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 500;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 10px;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .option-card {
+            border: 1px solid var(--border);
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            background: white;
+            box-shadow: 4px 4px 0px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s;
+        }
+
+        .option-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .tile-preview {
+            height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid var(--border);
+            position: relative;
+        }
+
+        .tile-label {
+            background: white;
+            border: 1px solid var(--border);
+            padding: 10px 20px;
+            font-weight: bold;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .info {
+            padding: 20px;
+            flex-grow: 1;
+        }
+
+        .info h2 {
+            margin: 0 0 10px 0;
+            font-size: 16px;
+            color: #194D25;
+        }
+
+        .info p {
+            margin: 0;
+            font-size: 13px;
+            line-height: 1.6;
+            color: #37422F;
+        }
+
+        .context {
+            margin-top: 60px;
+            padding: 20px;
+            border: 1px dashed #999;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .palette-row {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .swatch {
+            width: 50px;
+            height: 50px;
+            border: 1px solid var(--border);
+        }
+
+        .swatch-label {
+            font-size: 10px;
+            text-align: center;
+            margin-top: 5px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Kleurvoorstellen "Wat is het probleem?"</h1>
+
+    <div class="container">
+        <!-- Option 1 -->
+        <div class="option-card">
+            <div class="tile-preview" style="background-color: var(--opt-1);">
+                <div class="tile-label">Wat is het probleem?</div>
+            </div>
+            <div class="info">
+                <h2>Optie 1: Soft Blush</h2>
+                <p>Een heel lichte, bijna pastelachtige roodtint. Het behoudt de associatie met een probleem (rood),
+                    maar op een subtiele en frisse manier.</p>
+            </div>
+        </div>
+
+        <!-- Option 2 -->
+        <div class="option-card">
+            <div class="tile-preview" style="background-color: var(--opt-2);">
+                <div class="tile-label">Wat is het probleem?</div>
+            </div>
+            <div class="info">
+                <h2>Optie 2: Muted Rose</h2>
+                <p>Iets meer diepgang in de roze/rood-tinten. Past heel goed bij de warme perzikkleur van de
+                    Aanpak-tegel.</p>
+            </div>
+        </div>
+
+        <!-- Option 3 -->
+        <div class="option-card">
+            <div class="tile-preview" style="background-color: var(--opt-3);">
+                <div class="tile-label">Wat is het probleem?</div>
+            </div>
+            <div class="info">
+                <h2>Optie 3: Pale Bordeaux</h2>
+                <p>Een verwaterde versie van de Bordeaux-kleur die we elders gebruiken. Het geeft een serieuzere maar
+                    toch lichte ondertoon.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="context">
+        <label>Huidige Palet Context:</label>
+        <div class="palette-row">
+            <div>
+                <div class="swatch" style="background-color: var(--color-problem);"></div>
+                <div class="swatch-label">Prob</div>
+            </div>
+            <div>
+                <div class="swatch" style="background-color: var(--color-solution);"></div>
+                <div class="swatch-label">Sol</div>
+            </div>
+            <div>
+                <div class="swatch" style="background-color: var(--color-approach);"></div>
+                <div class="swatch-label">App</div>
+            </div>
+            <div>
+                <div>
+                    <div class="swatch" style="background-color: var(--color-blog);"></div>
+                    <div class="swatch-label">Blog</div>
+                </div>
+                <div>
+                    <div class="swatch" style="background-color: var(--color-contact);"></div>
+                    <div class="swatch-label">Cont</div>
+                </div>
+                <div>
+                    <div class="swatch" style="background-color: var(--color-approach);"></div>
+                    <div class="swatch-label">Aanp</div>
+                </div>
+                <div style="margin-left: 20px; border-left: 1px solid #ccc; padding-left: 20px;">
+                    <div class="swatch" style="background-color: var(--color-probleem-current);"></div>
+                    <div class="swatch-label">Huidig</div>
+                </div>
+            </div>
+        </div>
+
+</body>
+
+</html>

@@ -124,8 +124,8 @@ export const Tile: React.FC<TileProps> = memo(({
       borderVariant="default"
       ariaLabel={`Open tile: ${data.title}`}
       className={className}
-      reducedLift={data.id === 'tile-5'}
-      disableHoverEffects={disableHoverEffects || hasClicked}
+      reducedLift={data.id === 'tile-5' || hasClicked}
+      disableHoverEffects={disableHoverEffects}
       isActive={isActive}
       label={
         <TileLabel

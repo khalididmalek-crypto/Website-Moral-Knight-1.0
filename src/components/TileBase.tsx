@@ -102,7 +102,7 @@ export const TileBase: React.FC<TileBaseProps> = ({
         // Apply border directly to container if not animated
         // This ensures content can NEVER cover the border
         ...(isAnimatedBorder ? {} : {
-          borderWidth: isActive ? '2.2px' : '1.1px',
+          borderWidth: isActive ? '2.2px' : '1.3px',
           borderColor: '#061424',
           borderStyle: 'solid',
           boxShadow: isActive ? '4px 4px 0px 0px rgba(0,0,0,0.1)' : 'none',
@@ -138,7 +138,7 @@ export const TileBase: React.FC<TileBaseProps> = ({
         className={`
           absolute inset-0 z-[5] pointer-events-none 
           opacity-0 ${shouldApplyHover ? 'group-hover:opacity-100' : ''} transition-opacity duration-500 ease-in-out
-          bg-[radial-gradient(circle_at_50%_30%,_rgba(255,255,255,0.3)_0%,_rgba(255,255,255,0.1)_40%,_transparent_70%)]
+          bg-[radial-gradient(circle_at_50%_30%,_rgba(255,255,255,0.4)_0%,_rgba(255,255,255,0.15)_40%,_transparent_70%)]
           mix-blend-hard-light
         `}
         aria-hidden="true"

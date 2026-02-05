@@ -235,9 +235,7 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
   };
 
   // Use special background color for blog or problem view
-  const baseColor = isBlogView
-    ? COLORS.BLOG_BACKGROUND
-    : tile.fillColor || THEME.colors.background;
+  const baseColor = tile.fillColor || THEME.colors.background;
 
   // Use 0.10 opacity as requested
   let alphaValue = 0.30; // Default opacity
@@ -326,7 +324,7 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
           ) : (isProblemView || isSolutionView) ? (
             <>
               {/* Problem & Solution Grid View (4 tiles) */}
-              <div className="w-full max-w-4xl min-h-[520px] relative shadow-2xl animate-fade-in duration-300">
+              <div className="w-full max-w-4xl relative animate-fade-in duration-300">
 
                 {isProblemView && (
                   <div className="absolute bottom-full left-0 mb-6 md:mb-8 bg-white border border-black px-3 py-1.5">

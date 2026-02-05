@@ -734,7 +734,34 @@ textarea::placeholder {
   transform: scale(1.02);
 }
 
-/* Smooth Shadow */
+/* Homepage Tile Hover Effects - 10% Stronger intensity */
+.tile-hover-lift {
+  transition: transform 0.4s cubic-bezier(0.2, 0, 0.2, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+  will-change: transform;
+}
+
+.tile-hover-lift:hover {
+  transform: translateY(-6px);
+  border-color: #B6C3AC !important;
+  box-shadow:
+    0 12px 24px -6px rgba(0, 0, 0, 0.12),
+    0 0 16px 0px rgba(182, 195, 172, 0.5);
+}
+
+.tile-hover-lift-reduced {
+  transition: transform 0.4s cubic-bezier(0.2, 0, 0.2, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+  will-change: transform;
+}
+
+.tile-hover-lift-reduced:hover {
+  transform: translateY(-3px);
+  border-color: #B6C3AC !important;
+  box-shadow:
+    0 6px 12px -3px rgba(0, 0, 0, 0.08),
+    0 0 10px 0px rgba(182, 195, 172, 0.4);
+}
+
+/* Smooth Shadows */
 .hover-shadow-smooth {
   transition: box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
