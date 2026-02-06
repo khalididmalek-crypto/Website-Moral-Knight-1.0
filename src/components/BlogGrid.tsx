@@ -154,15 +154,27 @@ export const BlogPostDetail: React.FC<BlogPostDetailProps> = ({ post, onClose })
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 z-[250] flex items-center justify-center p-4 md:p-8 animate-fade-in bg-black/20 backdrop-blur-sm"
+      className="fixed inset-0 z-[200] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 pt-[calc(1rem+env(safe-area-inset-top))] pb-[calc(1rem+env(safe-area-inset-bottom))] overflow-y-auto min-h-[100dvh] supports-[min-height:100dvh]:min-h-[100dvh] h-full"
+      style={{
+        WebkitBackdropFilter: 'blur(4px)', // Safari/Chrome Mobile fallback
+      }}
       onClick={onClose}
     >
       <div
-        className="bg-white border border-black rounded-sm w-full max-w-3xl h-auto max-h-[90vh] md:max-h-[80vh] shadow-2xl flex flex-col overflow-hidden"
+        className="relative w-full max-w-3xl border border-black rounded-sm h-auto max-h-[80vh] md:max-h-[85vh] shadow-[0_0_50px_rgba(0,0,0,0.5)] flex flex-col overflow-hidden"
+        style={{
+          maxHeight: '80dvh', // Modern browsers
+          backgroundColor: '#E6EBE8',
+          backgroundImage: 'linear-gradient(135deg, #DDE6E2 0%, #E4E4E1 60%, #E4D4D4 100%)',
+          boxShadow: '0 0 50px rgba(0,0,0,0.5), inset 0 0 120px rgba(0,0,0,0.15)',
+        }}
         onClick={(e) => e.stopPropagation()}
       >
+        {/* Internal Projector Noise Layer */}
+        <div className="absolute inset-0 pointer-events-none opacity-[0.15] mix-blend-multiply bg-[url('data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.65\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E')] z-0" />
+
         {/* Header */}
-        <div className="p-4 md:p-8 border-b border-gray-200 flex items-start justify-between gap-4 bg-white">
+        <div className="p-4 md:p-8 border-b border-black flex items-start justify-between gap-4 bg-transparent relative z-10">
           <div className="flex-1">
             <div className="flex flex-wrap items-center gap-2 md:gap-3 text-[10px] md:text-xs font-mono uppercase tracking-widest mb-2 md:mb-3">
               <button
