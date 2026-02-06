@@ -441,14 +441,20 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
                     {/* Bio Tile */}
                     <div className="flex flex-col border border-black bg-white h-full p-6 md:p-8 justify-center">
                       <h4 className="font-mono text-lg font-bold uppercase tracking-wider mb-4 text-[#194D25]">
-                        Drs. K. (Khalid) el Maliki
+                        Khalid Idmalek
                       </h4>
                       <div className="font-mono text-sm leading-relaxed text-gray-800 space-y-4">
                         <p>
-                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                          Met ruime ervaring in het onderwijs als filosoof en docent levensbeschouwing en ethiek, is de oprichter van Moral Knight gedreven door democratisch idealisme en een diepe overtuiging in rechtvaardigheid. Met een creatief brein dat filosofische principes vertaalt naar praktische toepassingen, focust hij zich op het beschermen van kwetsbaren in de samenleving.
                         </p>
                         <p>
-                          Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                          Vanuit de overtuiging dat technologie transparant en verantwoordelijk moet zijn, helpt hij organisaties door middel van onafhankelijke evaluaties. Als third party voert hij gevraagd en ongevraagd kritische toetsingen uit van AI-systemen, waarbij ethische normen en maatschappelijke impact centraal staan.
+                        </p>
+                        <p>
+                          De verschillende opvattingen die over AI de ronde gaan, lijken soms op intellectueel confetti. Uiteindelijk is het cruciaal om simpelweg te toetsen wat AI in het publieke domein feitelijk doet.
+                        </p>
+                        <p>
+                          Deze combinatie van onderwijskundige achtergrond en praktische expertise maakt hem tot een onafhankelijke stem die bruggen bouwt tussen technologische ontwikkeling en maatschappelijke waarden.
                         </p>
                       </div>
                     </div>
