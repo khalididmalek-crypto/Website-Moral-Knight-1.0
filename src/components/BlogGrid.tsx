@@ -204,7 +204,7 @@ export const BlogPostDetail: React.FC<BlogPostDetailProps> = ({ post, onClose })
             </div>
             <h3
               id="blog-post-title"
-              className="font-mono text-lg md:text-2xl font-medium tracking-tight mt-1 md:mt-2 leading-tight text-[#194D25]"
+              className="font-mono text-lg md:text-2xl font-medium tracking-tight mt-1 md:mt-2 leading-tight text-[#12361A]"
             >
               {post.title}
             </h3>
