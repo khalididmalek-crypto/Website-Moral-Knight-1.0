@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { X, ArrowLeft, Cpu, Briefcase, Send, BookOpen, Activity } from 'lucide-react';
+import { X, ArrowLeft, Cpu, Briefcase, Send, BookOpen } from 'lucide-react';
 import { COLORS } from '../constants';
 import { BlogPost } from '../types';
 
@@ -228,14 +228,6 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                         from { transform: scaleX(0); }
                         to { transform: scaleX(1); }
                     }
-                    @keyframes buggyHeartbeat {
-                        0% { opacity: 0.2; transform: scale(1); filter: blur(0px); }
-                        5% { opacity: 1; transform: scale(1.1) translateX(-1px); filter: blur(0.5px); }
-                        10% { opacity: 0.8; transform: scale(0.95); filter: blur(0px); }
-                        15% { opacity: 1; transform: scale(1.05) translateX(1px); }
-                        30% { opacity: 0.2; transform: scale(1); }
-                        100% { opacity: 0.2; transform: scale(1); }
-                    }
                 `}</style>
                 <div className="pt-12 mx-4 pb-2 flex justify-between items-end relative">
                     <div className="relative w-full">
@@ -249,16 +241,6 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                             className="w-full h-[1px] bg-[#A31F47] origin-left mt-2"
                             style={{ animation: 'drawLine 1.2s ease-out forwards', animationDelay: '0.2s', transform: 'scaleX(0)' }}
                         />
-                        {/* Heartbeat Symbol */}
-                        <div
-                            className="absolute right-0 -bottom-[10px] opacity-0"
-                            style={{
-                                animation: 'buggyHeartbeat 3s infinite',
-                                animationDelay: '1.2s'
-                            }}
-                        >
-                            <Activity size={20} color="#A31F47" strokeWidth={2} />
-                        </div>
                     </div>
 
                 </div>
@@ -561,7 +543,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                                 >
                                     <motion.div exit={contentExitAnimation}>
                                         <div className="flex flex-col items-start py-4 gap-8">
-                                            {/* Founder Section */}
+                                            {/* Founder Section - Integrated here as requested */}
                                             <div className="w-full flex flex-col gap-4 mb-8">
                                                 <div className="inline-block bg-white border border-black px-3 py-1.5 w-fit">
                                                     <h3 className="font-mono text-[13.2px] font-semibold uppercase tracking-widest m-0 text-gray-900">
@@ -596,6 +578,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                                                 </div>
                                             </div>
 
+                                            {/* Contact Form Details */}
                                             <div className="w-full bg-white">
                                                 <ContactForm mode="fullscreen" className="!p-0" />
                                             </div>
