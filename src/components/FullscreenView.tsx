@@ -10,7 +10,6 @@ import { sanitizeHTML } from '../lib/sanitize';
 import { useFocusTrap } from '../hooks/useFocusTrap';
 import { LoadingSpinner } from './LoadingSpinner';
 import { TileNavigationArrows } from './TileNavigationArrows';
-import { ProgressiveImage } from './ProgressiveImage';
 
 
 // Lazy load BlogGrid for better performance (only loads when blog tile is opened)
@@ -30,7 +29,7 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
   const modalRef = useFocusTrap(true);
   const closeButtonRef = React.useRef<HTMLButtonElement>(null);
 
-  const [showSecret, setShowSecret] = useState(false);
+
   const [activeSubTile, setActiveSubTile] = useState<TileData | null>(null);
 
   // View types
@@ -418,70 +417,38 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
                       className="font-mono text-[13.2px] font-semibold uppercase tracking-widest m-0 text-gray-900"
                     >
                       <Typewriter
-                        text="WIE ZIJN DE OPRICHTERS?"
+                        text="OPRICHTER"
                         buggy
                         speed={ANIMATION_DELAYS.TYPEWRITER_TITLE_SPEED}
                       />
                     </h3>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
-                    {/* Directielid 1 */}
-                    <div className="flex flex-col border border-black bg-white h-full transition-all duration-200 hover:border-[#194D25]">
-                      <div className="bg-white relative border-b border-black cursor-pointer p-2" onClick={() => setShowSecret(true)}>
-                        <ProgressiveImage
-                          src="/images/team/bear-yellow.png"
-                          alt="Lola Velvet"
-                          onClick={() => setShowSecret(true)}
-                          className="object-cover w-full aspect-square no-hover animate-beam-in"
+                  <div className="grid grid-cols-1 md:grid-cols-[26%_1fr] gap-4 md:gap-8">
+                    {/* Photo Tile */}
+                    <div className="flex flex-col border border-black bg-white h-full p-2 transition-all duration-300 hover:border-[#fed48b] hover:border-[1.3px] group relative">
+                      <div className="relative w-full h-full grayscale group-hover:grayscale-0 transition-all duration-500 bg-gray-100">
+                        <Image
+                          src="/images/team/founder.jpg"
+                          alt="Oprichter"
+                          fill
+                          className="object-cover"
+                          sizes="(max-width: 768px) 100vw, 50vw"
                         />
-                      </div>
-                      <div className="flex flex-col gap-0.5 p-4 bg-white">
-                        <h4 className="font-mono text-xs md:text-sm font-semibold uppercase tracking-widest text-[#111111]">
-                          Lola Velvet
-                        </h4>
-                        <p className="font-mono text-[11px] md:text-xs text-[#37422F] tracking-wide">
-                          Technologie Baas
-                        </p>
                       </div>
                     </div>
 
-                    {/* Directielid 2 */}
-                    <div className="flex flex-col border border-black bg-white h-full transition-all duration-200 hover:border-[#194D25]">
-                      <div className="bg-white relative border-b border-black cursor-pointer p-2" onClick={() => setShowSecret(true)}>
-                        <ProgressiveImage
-                          src="/images/team/bear-red.png"
-                          alt="Zuri Nexus"
-                          onClick={() => setShowSecret(true)}
-                          className="object-cover w-full aspect-square no-hover animate-beam-in"
-                        />
-                      </div>
-                      <div className="flex flex-col gap-0.5 p-4 bg-white">
-                        <h4 className="font-mono text-xs md:text-sm font-semibold uppercase tracking-widest text-[#111111]">
-                          Zuri Nexus
-                        </h4>
-                        <p className="font-mono text-[11px] md:text-xs text-[#37422F] tracking-wide">
-                          Moraalridder
+                    {/* Bio Tile */}
+                    <div className="flex flex-col border border-black bg-white h-full p-6 md:p-8 justify-center">
+                      <h4 className="font-mono text-lg font-bold uppercase tracking-wider mb-4 text-[#194D25]">
+                        Drs. K. (Khalid) el Maliki
+                      </h4>
+                      <div className="font-mono text-sm leading-relaxed text-gray-800 space-y-4">
+                        <p>
+                          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                         </p>
-                      </div>
-                    </div>
-
-                    {/* Directielid 3 */}
-                    <div className="flex flex-col border border-black bg-white h-full transition-all duration-200 hover:border-[#194D25]">
-                      <div className="bg-white relative border-b border-black cursor-pointer p-2" onClick={() => setShowSecret(true)}>
-                        <ProgressiveImage
-                          src="/images/team/bear-blue.png"
-                          alt="Kito Kivuli"
-                          onClick={() => setShowSecret(true)}
-                          className="object-cover w-full aspect-square no-hover animate-beam-in"
-                        />
-                      </div>
-                      <div className="flex flex-col gap-0.5 p-4 bg-white">
-                        <h4 className="font-mono text-xs md:text-sm font-semibold uppercase tracking-widest text-[#111111]">
-                          Kito Kivuli
-                        </h4>
-                        <p className="font-mono text-[11px] md:text-xs text-[#37422F] tracking-wide">
-                          Blinde Pier
+                        <p>
+                          Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
                         </p>
                       </div>
                     </div>
@@ -580,22 +547,6 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
 
 
 
-      {showSecret && (
-        <div
-          className="fixed inset-0 z-[300] bg-black/90 flex items-center justify-center p-4 cursor-pointer animate-fade-in"
-          onClick={() => setShowSecret(false)}
-        >
-          <div className="relative w-full h-full max-w-4xl max-h-[80vh]">
-            <Image
-              src="/images/geordi.png"
-              alt="Secret"
-              className="object-contain"
-              fill
-              sizes="100vw"
-            />
-          </div>
-        </div>
-      )}
 
       {/* Navigation Arrows (Globally positioned for consistency) */}
       {(activeSubTile || (allTiles.length > 0 && onNavigate)) && (

@@ -56,7 +56,7 @@ export const INITIAL_TILES: TileData[] = [
       text: '',
     } as TextContent,
     disableHighlight: true,
-    fillColor: '#AEB5B9',
+    fillColor: '#B0C4D4',
   },
   {
     id: 'tile-5',
@@ -340,7 +340,7 @@ export const SERVICES_TILES: TileData[] = [
     content: {
       text: '',
     } as TextContent,
-    fillColor: '#AEB5B9',
+    fillColor: '#B0C4D4',
   },
   {
     id: 'serv-2',
@@ -350,7 +350,7 @@ export const SERVICES_TILES: TileData[] = [
     content: {
       text: '',
     } as TextContent,
-    fillColor: '#AEB5B9',
+    fillColor: '#B0C4D4',
   },
   {
     id: 'serv-3',
@@ -360,7 +360,7 @@ export const SERVICES_TILES: TileData[] = [
     content: {
       text: '',
     } as TextContent,
-    fillColor: '#AEB5B9',
+    fillColor: '#B0C4D4',
   },
 ];
 

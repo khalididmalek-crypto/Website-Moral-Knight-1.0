@@ -12,6 +12,7 @@
  */
 import React, { useEffect, useState, useCallback, useRef, useMemo, Suspense, lazy } from 'react';
 import { TileData, TextContent } from './types';
+import { Activity } from 'lucide-react';
 
 import { INITIAL_TILES, THEME, COLORS, SPACING } from './constants';
 import { Grid } from './components/Grid';
@@ -259,7 +260,26 @@ const App: React.FC<AppProps> = ({
         {/* Layout Container */}
         <div className={`w-full max-w-7xl ${SPACING.CONTAINER_X} ${SPACING.CONTAINER_Y} flex flex-col ${SPACING.SECTION_GAP} z-10`}>
           {/* Header */}
-          <header className="flex justify-between items-end border-b border-black pb-2">
+          <header className="flex justify-between items-end pb-2 relative">
+            {/* Animated Pen Stroke */}
+            <style jsx>{`
+              @keyframes drawLine {
+                from { transform: scaleX(0); }
+                to { transform: scaleX(1); }
+              }
+              @keyframes buggyHeartbeat {
+                0% { opacity: 0.2; transform: scale(1); filter: blur(0px); }
+                5% { opacity: 1; transform: scale(1.1) translateX(-1px); filter: blur(0.5px); }
+                10% { opacity: 0.8; transform: scale(0.95); filter: blur(0px); }
+                15% { opacity: 1; transform: scale(1.05) translateX(1px); }
+                30% { opacity: 0.2; transform: scale(1); }
+                100% { opacity: 0.2; transform: scale(1); }
+              }
+            `}</style>
+            <div
+              className="absolute bottom-0 left-0 w-full h-[1px] bg-[#A31F47] origin-left"
+              style={{ animation: 'drawLine 1.2s ease-out forwards' }}
+            />
             <div className="flex items-end gap-4">
               <div className="flex items-baseline gap-6 md:gap-12">
                 <h1
@@ -284,6 +304,18 @@ const App: React.FC<AppProps> = ({
               >
                 De onafhankelijke waakhond van publieke AI
               </p>
+              {/* Animated Pen Stroke for Subtitle */}
+
+            </div>
+            {/* Heartbeat Symbol */}
+            <div
+              className="absolute right-0 -bottom-[10px] opacity-0"
+              style={{
+                animation: 'buggyHeartbeat 3s infinite',
+                animationDelay: '1.2s' // Starts after pen stroke (1.2s)
+              }}
+            >
+              <Activity size={24} color="#A31F47" strokeWidth={2} />
             </div>
 
             <div ref={gridRef} className="mb-6">

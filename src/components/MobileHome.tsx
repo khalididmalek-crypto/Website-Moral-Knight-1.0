@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { X, ArrowLeft, Cpu, Briefcase, Send, BookOpen } from 'lucide-react';
+import { X, ArrowLeft, Cpu, Briefcase, Send, BookOpen, Activity } from 'lucide-react';
 import { COLORS } from '../constants';
 import { BlogPost } from '../types';
 
@@ -13,6 +13,7 @@ import { FlowingText } from './FlowingText';
 import { Kennisbank } from './Kennisbank';
 import { Meldpunt } from './Meldpunt';
 import { BlogPostDetail } from './BlogGrid';
+import Image from 'next/image';
 
 type MobileView = 'HOME' | 'DASHBOARD' | 'MELDPUNT' | 'KENNISBANK';
 
@@ -41,7 +42,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
         PROBLEM: '#EBC6C1', // Pale Bordeaux
         SOLUTION: '#E0E4DC', // Much lighter green
         APPROACH: '#fed48b', // Soft Mustard 
-        SERVICES: '#D7DADE', // Much lighter blue/grey
+        SERVICES: '#D0E0EB', // Sky Blue variant
         BLOG: '#e8c4b8',    // Light Terra Cotta
         CONTACT: '#D6E3D1',  // Bright Sage
         HOME: '#f8fafc'
@@ -57,7 +58,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
             case 'APPROACH':
                 return 'linear-gradient(135deg, #fed48b 0%, #feca6e 50%, #fdbf51 100%)';
             case 'SERVICES':
-                return 'linear-gradient(135deg, #D7DADE 0%, #BEC7CF 50%, #AEBEC9 100%)';
+                return 'linear-gradient(135deg, #D0E0EB 0%, #C4D4E0 50%, #B8C8D5 100%)';
             case 'BLOG':
                 return 'linear-gradient(135deg, #e8c4b8 0%, #dfb4a6 50%, #d6a495 100%)';
             case 'CONTACT':
@@ -222,12 +223,41 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                 </svg>
 
                 {/* Header */}
-                <div className="pt-12 mx-4 pb-2 border-b border-black flex justify-between items-end">
-                    <div>
+                <style jsx>{`
+                    @keyframes drawLine {
+                        from { transform: scaleX(0); }
+                        to { transform: scaleX(1); }
+                    }
+                    @keyframes buggyHeartbeat {
+                        0% { opacity: 0.2; transform: scale(1); filter: blur(0px); }
+                        5% { opacity: 1; transform: scale(1.1) translateX(-1px); filter: blur(0.5px); }
+                        10% { opacity: 0.8; transform: scale(0.95); filter: blur(0px); }
+                        15% { opacity: 1; transform: scale(1.05) translateX(1px); }
+                        30% { opacity: 0.2; transform: scale(1); }
+                        100% { opacity: 0.2; transform: scale(1); }
+                    }
+                `}</style>
+                <div className="pt-12 mx-4 pb-2 flex justify-between items-end relative">
+                    <div className="relative w-full">
                         <h1 className="text-4xl font-medium tracking-tight text-[#111111] mb-1">Moral Knight</h1>
                         <div className="text-xs font-bold uppercase tracking-widest text-[#194D25] pt-1.5 opacity-90 leading-relaxed">
                             De onafhankelijke waakhond<br />
                             van publieke AI
+                        </div>
+                        {/* Animated Pen Stroke for Subtitle */}
+                        <div
+                            className="w-full h-[1px] bg-[#A31F47] origin-left mt-2"
+                            style={{ animation: 'drawLine 1.2s ease-out forwards', animationDelay: '0.2s', transform: 'scaleX(0)' }}
+                        />
+                        {/* Heartbeat Symbol */}
+                        <div
+                            className="absolute right-0 -bottom-[10px] opacity-0"
+                            style={{
+                                animation: 'buggyHeartbeat 3s infinite',
+                                animationDelay: '1.2s'
+                            }}
+                        >
+                            <Activity size={20} color="#A31F47" strokeWidth={2} />
                         </div>
                     </div>
 
@@ -454,7 +484,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                         onLayoutAnimationComplete={() => handleLayoutComplete('SERVICES')}
                         className={`w-full p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTiles.includes('SERVICES')
                             ? 'bg-white rounded-none shadow-md'
-                            : 'bg-[#AEB5B9] rounded-sm'
+                            : 'bg-[#B0C4D4] rounded-sm'
                             }`}
                         style={{ overflowAnchor: 'none', borderWidth: '1.3px', borderColor: '#061424', borderStyle: 'solid' }}
                     >
@@ -530,7 +560,42 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                                     onClick={(e) => e.stopPropagation()}
                                 >
                                     <motion.div exit={contentExitAnimation}>
-                                        <div className="flex flex-col items-start py-4">
+                                        <div className="flex flex-col items-start py-4 gap-8">
+                                            {/* Founder Section */}
+                                            <div className="w-full flex flex-col gap-4">
+                                                <div className="inline-block bg-white border border-black px-3 py-1.5 w-fit">
+                                                    <h3 className="font-mono text-[13.2px] font-semibold uppercase tracking-widest m-0 text-gray-900">
+                                                        OPRICHTER
+                                                    </h3>
+                                                </div>
+
+                                                <div className="flex flex-col border border-black bg-white w-full p-2 transition-all duration-300 hover:border-[#fed48b] hover:border-[1.3px] group relative">
+                                                    <div className="relative w-full aspect-[4/5] grayscale group-hover:grayscale-0 transition-all duration-500 bg-gray-100">
+                                                        <Image
+                                                            src="/images/team/founder.jpg"
+                                                            alt="Oprichter"
+                                                            fill
+                                                            className="object-cover"
+                                                            sizes="(max-width: 768px) 100vw, 33vw"
+                                                        />
+                                                    </div>
+                                                </div>
+
+                                                <div className="flex flex-col border border-black bg-white w-full p-6 justify-center">
+                                                    <h4 className="font-mono text-lg font-bold uppercase tracking-wider mb-4 text-[#194D25]">
+                                                        Drs. K. (Khalid) el Maliki
+                                                    </h4>
+                                                    <div className="font-mono text-sm leading-relaxed text-gray-800 space-y-4">
+                                                        <p>
+                                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                                        </p>
+                                                        <p>
+                                                            Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                                        </p>
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                             <div className="w-full bg-white">
                                                 <ContactForm mode="fullscreen" className="!p-0" />
                                             </div>
