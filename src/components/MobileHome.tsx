@@ -528,9 +528,11 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                         <div className="absolute top-4 right-4 opacity-50">
                             <Send size={20} strokeWidth={1.2} color="#374151" />
                         </div>
-                        <div className="px-3 py-1.5 bg-white border border-black w-fit">
-                            <div className="font-mono text-[13.2px] font-semibold uppercase tracking-widest text-gray-900">Contact</div>
-                        </div>
+                        {!activeTiles.includes('CONTACT') && (
+                            <div className="px-3 py-1.5 bg-white border border-black w-fit">
+                                <div className="font-mono text-[13.2px] font-semibold uppercase tracking-widest text-gray-900">Contact</div>
+                            </div>
+                        )}
                         <AnimatePresence>
                             {activeTiles.includes('CONTACT') && hasMounted && (
                                 <motion.div
@@ -579,7 +581,12 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                                             </div>
 
                                             {/* Contact Form Details */}
-                                            <div className="w-full bg-white">
+                                            <div className="w-full bg-white flex flex-col gap-4">
+                                                <div className="inline-block bg-white border border-black px-3 py-1.5 w-fit">
+                                                    <h3 className="font-mono text-[13.2px] font-semibold uppercase tracking-widest m-0 text-gray-900">
+                                                        Contact
+                                                    </h3>
+                                                </div>
                                                 <ContactForm mode="fullscreen" className="!p-0" />
                                             </div>
                                         </div>
