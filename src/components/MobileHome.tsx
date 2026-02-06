@@ -519,10 +519,10 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                         onClick={() => handleTileClick('CONTACT')}
                         onLayoutAnimationComplete={() => handleLayoutComplete('CONTACT')}
                         className={`w-full p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTiles.includes('CONTACT')
-                            ? 'bg-white rounded-none shadow-md'
+                            ? 'bg-transparent rounded-none'
                             : 'bg-[#D6E3D1] rounded-sm'
                             }`}
-                        style={{ overflowAnchor: 'none', borderWidth: '1.3px', borderColor: '#061424', borderStyle: 'solid' }}
+                        style={{ overflowAnchor: 'none', borderWidth: activeTiles.includes('CONTACT') ? '0px' : '1.3px', borderColor: '#061424', borderStyle: 'solid' }}
                     >
 
                         <div className="absolute top-4 right-4 opacity-50">
