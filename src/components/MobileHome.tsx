@@ -562,7 +562,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                                     <motion.div exit={contentExitAnimation}>
                                         <div className="flex flex-col items-start py-4 gap-8">
                                             {/* Founder Section */}
-                                            <div className="w-full flex flex-col gap-4">
+                                            <div className="w-full flex flex-col gap-4 mb-8">
                                                 <div className="inline-block bg-white border border-black px-3 py-1.5 w-fit">
                                                     <h3 className="font-mono text-[13.2px] font-semibold uppercase tracking-widest m-0 text-gray-900">
                                                         OPRICHTER
