@@ -541,7 +541,6 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                                     exit={{ height: 0, opacity: 0 }}
                                     transition={{ duration: 0.3 }}
                                     className="overflow-hidden"
-                                    onClick={(e) => e.stopPropagation()}
                                 >
                                     <motion.div exit={contentExitAnimation}>
                                         <div className="flex flex-col items-start w-full">
@@ -553,7 +552,10 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                                                     </h3>
                                                 </div>
 
-                                                <div className="flex flex-col border border-black bg-white w-full p-2 transition-all duration-300 hover:border-[#fed48b] hover:border-[1.3px] group relative">
+                                                <div
+                                                    className="flex flex-col border border-black bg-white w-full p-2 transition-all duration-300 hover:border-[#fed48b] hover:border-[1.3px] group relative"
+                                                    onClick={(e) => e.stopPropagation()}
+                                                >
                                                     <div className="relative w-full aspect-[4/5] grayscale group-hover:grayscale-0 transition-all duration-500 bg-gray-100">
                                                         <Image
                                                             src="/images/team/founder.jpg"
@@ -565,7 +567,10 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                                                     </div>
                                                 </div>
 
-                                                <div className="flex flex-col border border-black bg-white w-full p-6 justify-center">
+                                                <div
+                                                    className="flex flex-col border border-black bg-white w-full p-6 justify-center"
+                                                    onClick={(e) => e.stopPropagation()}
+                                                >
                                                     <h4 className="font-mono text-lg font-bold uppercase tracking-wider mb-4 text-[#194D25]">
                                                         Drs. K. (Khalid) el Maliki
                                                     </h4>
@@ -584,7 +589,10 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                                             <div className="w-[calc(100%+2rem)] -ml-4 py-6 my-6 bg-[#D6E3D1]" />
 
                                             {/* Contact Form Details - Styled as a separate block */}
-                                            <div className="w-full bg-white flex flex-col gap-4 border border-black p-4">
+                                            <div
+                                                className="w-full bg-white flex flex-col gap-4 border border-black p-4"
+                                                onClick={(e) => e.stopPropagation()}
+                                            >
                                                 <div className="inline-block bg-white border border-black px-3 py-1.5 w-fit">
                                                     <h3 className="font-mono text-[13.2px] font-semibold uppercase tracking-widest m-0 text-gray-900">
                                                         Contact
