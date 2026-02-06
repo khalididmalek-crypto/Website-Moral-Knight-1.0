@@ -581,7 +581,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                                             </div>
 
                                             {/* Green Spacer to reveal 'background' */}
-                                            <div className="w-[calc(100%+2rem)] -ml-4 py-8 my-4" style={{ background: getActiveGradient('CONTACT') }} />
+                                            <div className="w-[calc(100%+2rem)] -ml-4 py-8 my-4 bg-[#D6E3D1]" />
 
                                             {/* Contact Form Details - Styled as a separate block */}
                                             <div className="w-full bg-white flex flex-col gap-4 border border-black p-4">
