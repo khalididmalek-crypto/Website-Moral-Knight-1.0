@@ -20,6 +20,7 @@ interface FormData {
     aiSystem: string;
     description: string;
     privacyConsent: boolean;
+    newsletter: boolean;
     file: File | null;
     _website: string; // Honeypot
 }
@@ -55,6 +56,7 @@ export const ReportForm: React.FC<Props> = () => {
         aiSystem: '',
         description: '',
         privacyConsent: false,
+        newsletter: false,
         file: null,
         _website: '',
     });
@@ -245,6 +247,7 @@ export const ReportForm: React.FC<Props> = () => {
             aiSystem: '',
             description: '',
             privacyConsent: false,
+            newsletter: false,
             file: null,
             _website: '',
         });
@@ -403,6 +406,20 @@ export const ReportForm: React.FC<Props> = () => {
                         </span>
                     </label>
                 </div>
+            </div>
+
+            <div className="flex items-start gap-3">
+                <input
+                    type="checkbox"
+                    id="newsletter"
+                    name="newsletter"
+                    checked={formData.newsletter}
+                    onChange={handleChange}
+                    className="mt-1 w-4 h-4 cursor-pointer"
+                />
+                <label htmlFor="newsletter" className="font-mono text-xs text-gray-600 cursor-pointer leading-relaxed">
+                    Ik wil op de hoogte blijven van Moral Knight updates en nieuws.
+                </label>
             </div>
 
             <div className="flex items-start gap-3">

@@ -8,6 +8,8 @@ export interface EmailTemplateData {
     formType: 'contact' | 'report';
     file?: string | null;
     fileName?: string;
+    newsletter?: boolean;
+    privacyConsent?: boolean;
 }
 
 export const generateEmailHtml = (data: EmailTemplateData, isForUser: boolean, isReport: boolean, reportId: string, dateStr: string) => {
@@ -265,6 +267,8 @@ export const generateEmailHtml = (data: EmailTemplateData, isForUser: boolean, i
             : renderRow('Bericht', data.message, true)
         }
                                 ${data.fileName ? renderRow('Bijlage', `Ingesloten: ${data.fileName}`) : ''}
+                                ${renderRow('Nieuwsbrief', data.newsletter ? 'Ja, ik wil op de hoogte blijven' : 'Nee')}
+                                ${renderRow('Privacy', data.privacyConsent ? 'Akkoord met privacyverklaring' : 'N.v.t.')}
                             </table>
 
                             <!-- CTA Button (Admin Only) -->
