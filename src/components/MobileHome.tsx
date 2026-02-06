@@ -580,8 +580,8 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                                                 </div>
                                             </div>
 
-                                            {/* Contact Form Details */}
-                                            <div className="w-full bg-white flex flex-col gap-4">
+                                            {/* Contact Form Details - Styled as a separate block */}
+                                            <div className="w-full bg-white flex flex-col gap-4 border border-black p-4 mt-4">
                                                 <div className="inline-block bg-white border border-black px-3 py-1.5 w-fit">
                                                     <h3 className="font-mono text-[13.2px] font-semibold uppercase tracking-widest m-0 text-gray-900">
                                                         Contact
