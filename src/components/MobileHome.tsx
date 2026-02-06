@@ -12,6 +12,7 @@ import remarkGfm from 'remark-gfm';
 import { FlowingText } from './FlowingText';
 import { Kennisbank } from './Kennisbank';
 import { Meldpunt } from './Meldpunt';
+import { BlogPostDetail } from './BlogGrid';
 
 type MobileView = 'HOME' | 'DASHBOARD' | 'MELDPUNT' | 'KENNISBANK';
 
@@ -28,6 +29,7 @@ interface MobileHomeProps {
 export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solutionTileContent, approachTileContent, servicesTileContent, posts = [] }) => {
     const [view, setView] = useState<MobileView>('HOME');
     const [meldpuntOpen, setMeldpuntOpen] = useState(false);
+    const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
     const [activeTiles, setActiveTiles] = useState<string[]>([]);
     const [hasMounted, setHasMounted] = useState(false);
     // Animation state - reserved for future scroll lock implementation during animation window
@@ -83,7 +85,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
         const container = containerRef.current;
         if (!container) return;
 
-        const isModalOpen = view !== 'HOME' || meldpuntOpen;
+        const isModalOpen = view !== 'HOME' || meldpuntOpen || selectedPost !== null;
 
         if (isModalOpen) {
             const scrollY = container.scrollTop;
@@ -110,7 +112,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
 
             container.scrollTop = scrollY;
         }
-    }, [view, meldpuntOpen]);
+    }, [view, meldpuntOpen, selectedPost]);
 
     const handleTileClick = (tile: string) => {
         setActiveTiles(prev => {
@@ -126,6 +128,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
     const handleBack = () => {
         setView('HOME');
         setMeldpuntOpen(false);
+        setSelectedPost(null);
         setActiveTiles([]);
     };
 
@@ -575,6 +578,10 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                                                         <a
                                                             key={post.id}
                                                             href={`/blog/${post.slug}`}
+                                                            onClick={(e) => {
+                                                                e.preventDefault();
+                                                                setSelectedPost(post);
+                                                            }}
                                                             className="block border-b border-gray-200 pb-3 last:border-0 hover:opacity-75"
                                                         >
                                                             <div className="text-[10px] font-mono text-gray-500 mb-1">{post.date} | {post.tag}</div>
@@ -617,6 +624,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
             {view === 'DASHBOARD' && <Dashboard onClose={handleBack} />}
             {view === 'KENNISBANK' && <Kennisbank onClose={handleBack} />}
             {(view === 'MELDPUNT' || meldpuntOpen) && <Meldpunt onClose={handleBack} />}
+            {selectedPost && <BlogPostDetail post={selectedPost} onClose={() => setSelectedPost(null)} />}
         </>
     );
 };
