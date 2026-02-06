@@ -7,7 +7,7 @@
 import React from 'react';
 import { BlogPost } from '../types';
 import { BlogTile } from './BlogTile';
-import { SPACING, A11Y_COLORS } from '../constants';
+import { A11Y_COLORS } from '../constants';
 
 interface BlogGridProps {
   posts: BlogPost[];
@@ -158,22 +158,22 @@ export const BlogPostDetail: React.FC<BlogPostDetailProps> = ({ post, onClose })
       onClick={onClose}
     >
       <div
-        className="bg-white border border-black rounded-sm w-full max-w-3xl h-auto max-h-[80vh] shadow-2xl flex flex-col overflow-hidden"
+        className="bg-white border border-black rounded-sm w-full max-w-3xl h-auto max-h-[90vh] md:max-h-[80vh] shadow-2xl flex flex-col overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className={`${SPACING.CONTENT_PADDING_LG} border-b border-gray-200 flex items-start justify-between gap-4 bg-white`}>
+        <div className="p-4 md:p-8 border-b border-gray-200 flex items-start justify-between gap-4 bg-white">
           <div className="flex-1">
-            <div className="flex items-center gap-3 text-xs font-mono uppercase tracking-widest mb-3">
+            <div className="flex flex-wrap items-center gap-2 md:gap-3 text-[10px] md:text-xs font-mono uppercase tracking-widest mb-2 md:mb-3">
               <button
                 onClick={onClose}
-                className="flex items-center gap-2 hover:underline text-gray-600 hover:text-black mr-4"
+                className="flex items-center gap-2 hover:underline text-gray-600 hover:text-black mr-2 md:mr-4"
               >
                 ← Terug
               </button>
               {post.tag && (
                 <span
-                  className="px-2 py-1 rounded-sm border border-black"
+                  className="px-2 py-0.5 md:py-1 rounded-sm border border-black"
                   style={{
                     backgroundColor: A11Y_COLORS.BADGE_BACKGROUND,
                     color: A11Y_COLORS.BADGE_TEXT
@@ -192,7 +192,7 @@ export const BlogPostDetail: React.FC<BlogPostDetailProps> = ({ post, onClose })
             </div>
             <h3
               id="blog-post-title"
-              className="font-mono text-xl md:text-2xl font-medium tracking-tight mt-2"
+              className="font-mono text-lg md:text-2xl font-medium tracking-tight mt-1 md:mt-2 leading-tight"
             >
               {post.title}
             </h3>
@@ -222,10 +222,14 @@ export const BlogPostDetail: React.FC<BlogPostDetailProps> = ({ post, onClose })
         {/* Content */}
         <div className="flex-1 overflow-y-auto">
           <div
-            className={`${SPACING.CONTENT_PADDING_LG} max-w-5xl mx-auto`}
+            className="p-4 md:p-8 max-w-5xl mx-auto"
           >
             <div
-              className="prose prose-sm md:prose-base font-mono max-w-none"
+              className="prose prose-sm md:prose-base font-mono max-w-none break-words text-gray-800"
+              style={{
+                fontSize: 'clamp(14px, 4vw, 16px)',
+                lineHeight: '1.7'
+              }}
               dangerouslySetInnerHTML={{ __html: post.content || post.excerpt }}
             />
           </div>

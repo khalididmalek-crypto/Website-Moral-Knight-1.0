@@ -38,9 +38,9 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
     const BG_COLORS = {
         PROBLEM: '#EBC6C1', // Pale Bordeaux
         SOLUTION: '#E0E4DC', // Much lighter green
-        APPROACH: '#FDDFC8', // Pale Sun shifted 10% towards ochre
+        APPROACH: '#fed48b', // Soft Mustard 
         SERVICES: '#D7DADE', // Much lighter blue/grey
-        BLOG: '#EED2B9',    // Shifted 10% towards terracotta
+        BLOG: '#e8c4b8',    // Light Terra Cotta
         CONTACT: '#D6E3D1',  // Bright Sage
         HOME: '#f8fafc'
     };
@@ -53,11 +53,11 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
             case 'SOLUTION':
                 return 'linear-gradient(135deg, #E0E4DC 0%, #CAD4C5 50%, #B4C0AD 100%)';
             case 'APPROACH':
-                return 'linear-gradient(135deg, #FDDFC8 0%, #F5D1AE 50%, #ECBB8E 100%)';
+                return 'linear-gradient(135deg, #fed48b 0%, #feca6e 50%, #fdbf51 100%)';
             case 'SERVICES':
                 return 'linear-gradient(135deg, #D7DADE 0%, #BEC7CF 50%, #AEBEC9 100%)';
             case 'BLOG':
-                return 'linear-gradient(135deg, #EED2B9 0%, #E4C8AF 50%, #DABEA5 100%)';
+                return 'linear-gradient(135deg, #e8c4b8 0%, #dfb4a6 50%, #d6a495 100%)';
             case 'CONTACT':
                 return 'linear-gradient(135deg, #D6E3D1 0%, #C8D7C2 50%, #BCCBB3 100%)';
             default:
@@ -402,7 +402,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                         onLayoutAnimationComplete={() => handleLayoutComplete('APPROACH')}
                         className={`w-full p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTiles.includes('APPROACH')
                             ? 'bg-white rounded-none shadow-md'
-                            : 'bg-[#FDE9DE] rounded-sm'
+                            : 'bg-[#fed48b] rounded-sm'
                             }`}
                         style={{ overflowAnchor: 'none', borderWidth: '1.3px', borderColor: '#061424', borderStyle: 'solid' }}
                     >
@@ -547,7 +547,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                         onLayoutAnimationComplete={() => handleLayoutComplete('BLOG')}
                         className={`w-full p-4 relative cursor-pointer transition-colors duration-300 ease-in-out scroll-mt-[100px] ${activeTiles.includes('BLOG')
                             ? 'bg-white rounded-none shadow-md'
-                            : 'bg-[#EEDCC8] rounded-sm'
+                            : 'bg-[#e8c4b8] rounded-sm'
                             }`}
                         style={{ overflowAnchor: 'none', borderWidth: '1.3px', borderColor: '#061424', borderStyle: 'solid' }}
                     >
