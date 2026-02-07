@@ -228,6 +228,9 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                         from { transform: scaleX(0); }
                         to { transform: scaleX(1); }
                     }
+                    @keyframes drawPath {
+                        to { stroke-dashoffset: 0; }
+                    }
                 `}</style>
                 <div className="pt-12 mx-4 pb-2 flex justify-between items-end relative">
                     <div className="relative w-full">
@@ -237,10 +240,30 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                             van publieke AI
                         </div>
                         {/* Animated Pen Stroke for Subtitle */}
-                        <div
-                            className="w-full h-[1px] bg-[#A31F47] origin-left mt-2"
-                            style={{ animation: 'drawLine 1.2s ease-out forwards', animationDelay: '0.2s', transform: 'scaleX(0)' }}
-                        />
+                        {/* Animated Pen Stroke with Flick */}
+                        <div className="w-full relative overflow-visible pointer-events-none mt-2" style={{ height: '15px' }}>
+                            <svg
+                                width="100%"
+                                height="20"
+                                viewBox="0 0 400 20"
+                                preserveAspectRatio="none"
+                                style={{ position: 'absolute', bottom: '0', left: 0, overflow: 'visible' }}
+                            >
+                                <path
+                                    d="M 0,15 L 392,15 L 398,0"
+                                    fill="none"
+                                    stroke="#A31F47"
+                                    strokeWidth="2"
+                                    vectorEffect="non-scaling-stroke"
+                                    style={{
+                                        strokeDasharray: 1000,
+                                        strokeDashoffset: 1000,
+                                        animation: 'drawPath 1.8s ease-out forwards',
+                                        animationDelay: '0.2s'
+                                    }}
+                                />
+                            </svg>
+                        </div>
                     </div>
 
                 </div>
