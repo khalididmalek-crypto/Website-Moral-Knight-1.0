@@ -284,7 +284,7 @@ export const generateEmailHtml = (data: EmailTemplateData, isForUser: boolean, i
 
                     <!-- Footer -->
                     <tr>
-                        <td class="footer-cell" style="background-color: #F8FAFC; padding: 30px; border-top: 2px solid ${colors.shieldBorder}; text-align: left;">
+                        <td class="footer-cell" style="background-color: #F8FAFC; padding: 30px; border-top: 2px solid ${colors.primary}; text-align: left;">
                             <p class="footer-text" style="margin: 0; font-family: 'Courier New', Courier, monospace; font-size: 12px; color: ${colors.footerText}; letter-spacing: 1px; text-transform: uppercase; margin-left: -2px;">
                                 / Moral Knight since 2025 - Auditing public AI
                             </p>

@@ -415,9 +415,9 @@ export const ReportForm: React.FC<Props> = () => {
                     name="newsletter"
                     checked={formData.newsletter}
                     onChange={handleChange}
-                    className="mt-1 w-4 h-4 cursor-pointer"
+                    className="mt-1.5 w-4 h-4 cursor-pointer transition-all duration-200"
                 />
-                <label htmlFor="newsletter" className="font-mono text-xs text-gray-600 cursor-pointer leading-relaxed">
+                <label htmlFor="newsletter" className="font-mono text-[12px] md:text-sm text-gray-600 cursor-pointer leading-relaxed flex-1">
                     Ik wil op de hoogte blijven van Moral Knight updates en nieuws.
                 </label>
             </div>
@@ -430,9 +430,9 @@ export const ReportForm: React.FC<Props> = () => {
                     checked={formData.privacyConsent}
                     onChange={handleChange}
                     onBlur={() => handleBlur('privacyConsent')}
-                    className="mt-1 w-4 h-4 cursor-pointer"
+                    className="mt-1.5 w-4 h-4 cursor-pointer transition-all duration-200"
                 />
-                <label htmlFor="privacyConsent" className="font-mono text-xs text-gray-600 cursor-pointer leading-relaxed">
+                <label htmlFor="privacyConsent" className="font-mono text-[12px] md:text-sm text-gray-600 cursor-pointer leading-relaxed flex-1">
                     Ik geef Moral Knight toestemming om mijn gegevens te verwerken conform de <Link href="/privacy" target="_blank" rel="noopener noreferrer" className="underline hover:text-[#8B1A3D] transition-colors duration-300">privacyverklaring</Link> en begrijp dat meldingen geanonimiseerd gerapporteerd kunnen worden aan instanties. <span style={{ color: FORM_COLORS.ERROR }}>*</span>
                 </label>
             </div>
@@ -443,14 +443,22 @@ export const ReportForm: React.FC<Props> = () => {
                     <button
                         type="submit"
                         disabled={isSubmitting || !formData.privacyConsent}
-                        className="px-8 py-3 border-2 font-mono text-xs uppercase tracking-widest transition-all disabled:opacity-50"
+                        className="group relative px-8 py-3 border-2 font-mono text-xs uppercase tracking-widest transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed min-h-[48px] min-w-full md:min-w-[240px] flex items-center justify-center"
                         style={{
-                            backgroundColor: COLORS.HIGHLIGHT_GREEN,
+                            backgroundColor: isSubmitting ? FORM_COLORS.INPUT_BG : COLORS.HIGHLIGHT_GREEN,
                             borderColor: COLORS.PRIMARY_GREEN,
-                            color: COLORS.PRIMARY_GREEN,
+                            color: isSubmitting ? FORM_COLORS.TEXT_PRIMARY : COLORS.PRIMARY_GREEN,
                         }}
                     >
-                        {isSubmitting ? 'Verzenden...' : 'Melding Versturen'}
+                        <span className="relative z-10 flex items-center justify-center gap-3 w-full">
+                            {isSubmitting ? 'Verzenden...' : 'Melding Versturen'}
+                            {!isSubmitting && (
+                                <Send
+                                    size={14}
+                                    style={{ color: COLORS.PRIMARY_GREEN }}
+                                />
+                            )}
+                        </span>
                     </button>
                 </div>
 
