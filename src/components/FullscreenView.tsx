@@ -341,8 +341,8 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
                 )}
 
                 <div className={`grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8 auto-rows-fr ${activeSubTile ? 'pointer-events-none' : ''}`}>
-                  {(isProblemView ? PROBLEM_TILES : SOLUTION_TILES).map((gridTile) => (
-                    <div key={gridTile.id} className="min-h-[240px] h-full">
+                  {(isProblemView ? PROBLEM_TILES : SOLUTION_TILES).map((gridTile, index) => (
+                    <div key={gridTile.id} className={`min-h-[240px] h-full animate-fade-in-up stagger-${(index % 4) + 1}`}>
                       <Tile
                         data={gridTile}
                         onClick={() => setActiveSubTile(gridTile)}
@@ -424,7 +424,7 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
                     </h3>
                   </div>
 
-                  <div className="grid grid-cols-1 md:grid-cols-[26%_1fr] gap-4 md:gap-8">
+                  <div className="grid grid-cols-1 md:grid-cols-[34%_1fr] gap-4 md:gap-4">
                     {/* Photo Tile */}
                     <div className="flex flex-col border border-black bg-white h-full p-2 transition-all duration-300 hover:border-[#fed48b] hover:border-[1.3px] group relative">
                       <div className="relative w-full h-full grayscale group-hover:grayscale-0 transition-all duration-500 bg-gray-100">
@@ -432,7 +432,7 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
                           src="/images/team/founder.jpg"
                           alt="Oprichter"
                           fill
-                          className="object-cover"
+                          className="object-cover object-center"
                           sizes="(max-width: 768px) 100vw, 50vw"
                         />
                       </div>
