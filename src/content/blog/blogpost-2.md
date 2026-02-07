@@ -1,21 +1,21 @@
 ---
-title: "Toekomst van AI (Test)"
-date: "2026-02-06"
-tag: "Technologie"
-excerpt: "Dit is een testbericht om de layout van meerdere blogposts te bekijken. Hier staat wat loze tekst om de weergave te controleren."
+title: "Gezakt voor het eindexamen?"
+date: "2026-02-07"
+tag: "Onderzoek"
+excerpt: "Met scores van 2,7% en 4,1% zakken de beste AI-modellen genadeloos voor Humanity's Last Exam. De weg naar expert-niveau is langer dan gedacht."
 status: "published"
 ---
 
 <div className="font-mono text-xs md:text-sm leading-snug text-gray-800">
   <p className="mb-3">
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+    Jarenlang was de MMLU de gouden standaard, maar nu modellen daarop 90%+ scoren, is die lat te laag. Enter <a href="https://www.nature.com/articles/s41586-025-09962-4.pdf" target="_blank" rel="noopener noreferrer" class="text-[#8B1A3D] underline">Humanity's Last Exam (HLE)</a>: 2.500 expert-vragen die de harde waarheid blootleggen. De resultaten zijn schokkend. Waar GPT-4o en Claude 3.5 Sonnet normaal uitblinken, scoren ze hier respectievelijk slechts <strong>2,7%</strong> en <strong>4,1%</strong>. Zelfs de langverwachte o1-modellen komen niet verder dan een magere 25,3%. 
   </p>
   
   <p className="mb-3">
-    Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.
+    Erger nog is de arrogantie: modellen vertonen een enorme 'calibration error'. Ze bluffen zich met 80-90% zekerheid door vragen heen die ze faliekant fout hebben. Dit onderzoek is een keiharde reality check: de weg van 'slimme chatbot' naar betrouwbare expert is nog lang. Onafhankelijke evaluatie is geen luxe, maar bittere noodzaak om door de blauwe ogen van deze modellen heen te kijken.
   </p>
 
   <p className="mt-4" style={{ color: "#2C3E50" }}>
-    ... dit is slechts een voorbeeldtekst om de layout te testen.
+    HLE is de nieuwe 'eindbaas'. Wie durft de strijd nog aan?
   </p>
 </div>
