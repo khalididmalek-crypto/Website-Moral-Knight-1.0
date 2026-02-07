@@ -591,8 +591,8 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                                                 </div>
                                             </div>
 
-                                            {/* Green Spacer to reveal 'background' */}
-                                            <div className="w-[calc(100%+2rem)] -ml-4 py-6 my-6 bg-[#D6E3D1]" />
+                                            {/* White Spacer - seamless integration */}
+                                            <div className="w-full py-4 bg-white" />
 
                                             {/* Contact Form Details - Styled as a separate block */}
                                             <div
