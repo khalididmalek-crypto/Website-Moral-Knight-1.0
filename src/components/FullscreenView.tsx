@@ -449,7 +449,7 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
                           Met ruime ervaring in het onderwijs als filosoof, docent levensbeschouwing en ethiek, ben ik gedreven door een gezonde portie democratisch idealisme. Met een creatief brein dat filosofische principes vertaalt naar praktische toepassingen, focus ik mij op het tegengaan van digitale uitsluiting en misstanden.
                         </p>
                         <p>
-                          Vanuit de overtuiging dat technologie transparant en verantwoordelijk moet zijn, help ik organisaties door middel van onafhankelijke toetsing. Als externe 'third party' voer ik gevraagd en ongevraagd kritische toetsingen uit van AI-systemen, waarbij wet- en regelgeving, normen en waarden, en maatschappelijke impact centraal staan.
+                          Vanuit de overtuiging dat technologie transparant en verantwoordelijk moet zijn, help ik organisaties door middel van onafhankelijke toetsing. Als externe&apos;third party&apos; voer ik gevraagd en ongevraagd kritische toetsingen uit van AI-systemen, waarbij wet- en regelgeving, normen en waarden, en maatschappelijke impact centraal staan.
                         </p>
                         <p>
                           Alle verschillende opvattingen die tegenwoordig over AI de ronde gaan, soms lijkt het op intellectueel confetti. Uiteindelijk is het cruciaal om simpelweg te toetsen wat AI feitelijk in het publieke domein teweegbrengt.
