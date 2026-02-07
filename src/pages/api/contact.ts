@@ -160,60 +160,44 @@ async function sendEmail(data: FormData): Promise<{ success: boolean; reportId?:
     };
 
     const logoPath = path.join(process.cwd(), 'public', 'images', 'mail-logo.png');
-    const attachments: any[] = [
-        {
-            filename: 'logo.png',
-            path: logoPath,
-            cid: 'logo' // Verwijst naar <img src="cid:logo">
-        }
-    ];
 
-    // Handle User Attachment
-    if (data.file && data.fileName) {
-        try {
-            console.log(`[SMTP] Processing attachment: ${data.fileName}`);
-            // Log raw input safely
-            const rawLength = data.file ? data.file.length : 0;
-            const rawStart = data.file ? data.file.substring(0, 50) : 'null';
-            console.log(`[SMTP] Raw file data length: ${rawLength}`);
-            console.log(`[SMTP] Raw file start: ${rawStart}...`);
+    const getLogoAttachment = () => ({
+        filename: 'logo.png',
+        path: logoPath,
+        cid: 'logo' // Verwijst naar <img src="cid:logo">
+    });
 
-            let content = data.file;
-            let contentType = undefined;
+    const getAttachments = () => {
+        const list = [getLogoAttachment()];
 
-            // Strip data URI prefix if present (e.g., "data:image/png;base64,...")
-            if (content.startsWith('data:')) {
-                const base64Marker = ';base64,';
-                const base64Index = content.indexOf(base64Marker);
-
-                // Extract Content Type
-                const colonIndex = content.indexOf(':');
-                if (colonIndex !== -1 && base64Index !== -1) {
-                    contentType = content.substring(colonIndex + 1, base64Index);
-                    console.log(`[SMTP] Extracted content type: ${contentType}`);
+        // Handle User Attachment
+        if (data.file && data.fileName) {
+            try {
+                let content = data.file;
+                let contentType = undefined;
+                if (content.startsWith('data:')) {
+                    const base64Marker = ';base64,';
+                    const base64Index = content.indexOf(base64Marker);
+                    const colonIndex = content.indexOf(':');
+                    if (colonIndex !== -1 && base64Index !== -1) {
+                        contentType = content.substring(colonIndex + 1, base64Index);
+                    }
+                    if (base64Index !== -1) {
+                        content = content.substring(base64Index + base64Marker.length);
+                    }
                 }
-
-                if (base64Index !== -1) {
-                    content = content.substring(base64Index + base64Marker.length);
-                    console.log(`[SMTP] Stripped data prefix. New start: ${content.substring(0, 20)}...`);
-                } else {
-                    console.warn('[SMTP] Data URI found but missing ;base64, marker');
-                }
-            } else {
-                console.log('[SMTP] No data: prefix, using raw content');
+                list.push({
+                    filename: data.fileName,
+                    content: content,
+                    encoding: 'base64',
+                    contentType: contentType
+                } as any);
+            } catch (e) {
+                console.error('[SMTP] Error processing attachment:', e);
             }
-
-            attachments.push({
-                filename: data.fileName,
-                content: content,
-                encoding: 'base64',
-                contentType: contentType
-            });
-            console.log(`[SMTP] Added user attachment: ${data.fileName} (Size: ${content.length})`);
-        } catch (e) {
-            console.error('[SMTP] Error processing attachment:', e);
         }
-    }
+        return list;
+    };
 
     try {
         // 1. Send to Admin (PRIORITY)
@@ -223,7 +207,7 @@ async function sendEmail(data: FormData): Promise<{ success: boolean; reportId?:
             replyTo: data.email,
             subject: subject,
             html: getHtml(false),
-            attachments: attachments
+            attachments: getAttachments()
         });
 
         console.log(`[SMTP] Admin email sent successfully for ${reportId}`);
@@ -237,7 +221,7 @@ async function sendEmail(data: FormData): Promise<{ success: boolean; reportId?:
                     ? `Bevestiging Melding: ${reportId} - Moral Knight`
                     : `Ontvangstbevestiging contactformulier - Moral Knight`,
                 html: getHtml(true),
-                attachments: attachments
+                attachments: getAttachments()
             });
             console.log(`[SMTP] User confirmation sent successfully to ${data.email}`);
         } catch (userMailError) {

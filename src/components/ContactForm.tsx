@@ -689,34 +689,30 @@ export const ContactForm: React.FC<Props> = ({ className = '', mode = 'preview',
           )}
 
           {/* Submit Button */}
-          <div className={`flex flex-col gap-4 ${isPreview ? 'pt-4' : 'pt-6'}`}>
-            <div className={`flex justify-end`}>
-              <button
-                type="submit"
-                disabled={isSubmitting || !formData.privacyConsent}
-                className={`group relative px-8 ${isPreview ? 'py-2' : 'py-3'} border-2 font-mono text-xs uppercase tracking-widest transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-2 focus-visible:outline-offset-2 ${isPreview ? 'min-h-[36px]' : 'min-h-[44px]'} hover:bg-accent-light`}
-                style={{
-                  backgroundColor: isSubmitting ? FORM_COLORS.INPUT_BG : COLORS.HIGHLIGHT_GREEN,
-                  borderColor: COLORS.PRIMARY_GREEN,
-                  color: isSubmitting ? FORM_COLORS.TEXT_PRIMARY : COLORS.PRIMARY_GREEN,
-                  '--tw-outline-color': COLORS.PRIMARY_GREEN,
-                } as React.CSSProperties & { '--tw-outline-color': string }}
-                aria-label={isSubmitting ? 'Bericht wordt verzonden...' : 'Verstuur contactformulier'}
-              >
-                <span className="relative z-10 flex items-center gap-3">
-                  {isSubmitting ? 'Verzenden...' : 'Versturen'}
-                  {!isSubmitting && (
-                    <Send
-                      size={14}
-                      style={{ color: COLORS.PRIMARY_GREEN }}
-                      aria-hidden="true"
-                    />
-                  )}
-                </span>
-              </button>
-            </div>
-
-
+          <div className={`flex justify-end w-full`}>
+            <button
+              type="submit"
+              disabled={isSubmitting || !formData.privacyConsent}
+              className={`group relative w-full md:w-auto md:min-w-[240px] px-8 ${isPreview ? 'py-2' : 'py-3'} border-2 font-mono text-xs uppercase tracking-widest transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-2 focus-visible:outline-offset-2 ${isPreview ? 'min-h-[36px]' : 'min-h-[48px]'} hover:bg-accent-light flex items-center justify-center rounded-none appearance-none`}
+              style={{
+                backgroundColor: isSubmitting ? FORM_COLORS.INPUT_BG : COLORS.HIGHLIGHT_GREEN,
+                borderColor: COLORS.PRIMARY_GREEN,
+                color: isSubmitting ? FORM_COLORS.TEXT_PRIMARY : COLORS.PRIMARY_GREEN,
+                '--tw-outline-color': COLORS.PRIMARY_GREEN,
+              } as React.CSSProperties & { '--tw-outline-color': string }}
+              aria-label={isSubmitting ? 'Bericht wordt verzonden...' : 'Verstuur contactformulier'}
+            >
+              <span className="relative z-10 flex items-center justify-center gap-3 w-full whitespace-nowrap">
+                {isSubmitting ? 'Verzenden...' : 'Versturen'}
+                {!isSubmitting && (
+                  <Send
+                    size={14}
+                    style={{ color: COLORS.PRIMARY_GREEN }}
+                    aria-hidden="true"
+                  />
+                )}
+              </span>
+            </button>
           </div>
         </form>
       </div>

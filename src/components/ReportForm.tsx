@@ -439,18 +439,18 @@ export const ReportForm: React.FC<Props> = () => {
             {touched.privacyConsent && errors.privacyConsent && <span className="text-xs font-mono -mt-4 ml-7" style={{ color: FORM_COLORS.ERROR }}>{errors.privacyConsent}</span>}
 
             <div className="flex flex-col gap-4 pt-4">
-                <div className="flex justify-end">
+                <div className="flex justify-end w-full">
                     <button
                         type="submit"
                         disabled={isSubmitting || !formData.privacyConsent}
-                        className="group relative px-8 py-3 border-2 font-mono text-xs uppercase tracking-widest transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed min-h-[48px] min-w-full md:min-w-[240px] flex items-center justify-center"
+                        className="group relative w-full md:w-auto md:min-w-[240px] px-8 py-3 border-2 font-mono text-xs uppercase tracking-widest transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed min-h-[48px] flex items-center justify-center rounded-none appearance-none"
                         style={{
                             backgroundColor: isSubmitting ? FORM_COLORS.INPUT_BG : COLORS.HIGHLIGHT_GREEN,
                             borderColor: COLORS.PRIMARY_GREEN,
                             color: isSubmitting ? FORM_COLORS.TEXT_PRIMARY : COLORS.PRIMARY_GREEN,
                         }}
                     >
-                        <span className="relative z-10 flex items-center justify-center gap-3 w-full">
+                        <span className="relative z-10 flex items-center justify-center gap-3 w-full whitespace-nowrap">
                             {isSubmitting ? 'Verzenden...' : 'Melding Versturen'}
                             {!isSubmitting && (
                                 <Send

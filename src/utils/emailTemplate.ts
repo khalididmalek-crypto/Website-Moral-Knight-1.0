@@ -229,7 +229,7 @@ export const generateEmailHtml = (data: EmailTemplateData, isForUser: boolean, i
                             <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                 <tr>
                                     <td align="left" class="status-cell">
-                                        <span class="status-badge" style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 11px; color: ${colors.secondary}; background-color: #F3F4F6; padding: 6px 10px; border-radius: 4px; border: 1px solid ${colors.shieldBorder};">
+                                        <span class="status-badge" style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 11px; color: ${colors.secondary}; background-color: #F3F4F6; padding: 6px 10px; border-radius: 4px; border: 1px solid ${colors.primary};">
                                             KENMERK: <span style="font-weight: 700; color: ${colors.text};">${reportId}</span>
                                         </span>
                                     </td>
@@ -274,7 +274,7 @@ export const generateEmailHtml = (data: EmailTemplateData, isForUser: boolean, i
                             <!-- CTA Button (Admin Only) -->
                             ${!isForUser ? `
                             <div style="margin-top: 30px; padding-top: 20px; border-top: 1px dashed #E5E7EB;">
-                                <a href="mailto:${data.email}?subject=Re: ${reportId} - Reactie op uw bericht" class="cta-button" style="display: inline-block; background-color: ${colors.primary}; color: #FFFFFF; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 13px; font-weight: 600; text-decoration: none; padding: 12px 24px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; border: 1px solid ${colors.shieldBorder};">
+                                <a href="mailto:${data.email}?subject=Re: ${reportId} - Reactie op uw bericht" class="cta-button" style="display: inline-block; background-color: ${colors.primary}; color: #FFFFFF; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 13px; font-weight: 600; text-decoration: none; padding: 12px 24px; border-radius: 4px; text-transform: uppercase; letter-spacing: 0.5px; border: 1px solid ${colors.primary};">
                                     BEANTWOORDEN
                                 </a>
                             </div>
