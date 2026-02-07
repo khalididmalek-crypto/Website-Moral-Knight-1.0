@@ -32,9 +32,9 @@ export const Meldpunt: React.FC<MeldpuntProps> = ({ onClose }) => {
                 className={contentClasses}
                 style={{
                     color: THEME.colors.text,
-                    backgroundColor: '#E6EBE8',
+                    backgroundColor: '#D6E3D1',
                     boxShadow: '0 0 50px rgba(0,0,0,0.5), inset 0 0 120px rgba(0,0,0,0.15)',
-                    backgroundImage: 'linear-gradient(135deg, #DDE6E2 0%, #E4E4E1 60%, #E4D4D4 100%)',
+                    backgroundImage: 'linear-gradient(135deg, #D6E3D1 0%, #C8D7C2 50%, #BCCBB3 100%)',
                     border: '1px solid black',
                 }}
                 role="dialog"
