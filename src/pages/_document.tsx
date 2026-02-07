@@ -18,7 +18,10 @@ export default function Document() {
         <meta property="og:url" content="https://moralknight.nl/" />
         <meta property="og:title" content="Moral Knight: De onafhankelijke waakhond van publieke AI" />
         <meta property="og:description" content="Onafhankelijke toetsing." />
-        <meta property="og:image" content="https://moralknight.nl/og-image.png?v=4" />
+        <meta property="og:image" content="https://moralknight.nl/android-chrome-512x512.png?v=5" />
+        <meta property="og:image:type" content="image/png" />
+        <meta property="og:image:width" content="512" />
+        <meta property="og:image:height" content="512" />
         <meta property="og:locale" content="nl_NL" />
         <meta property="og:site_name" content="Moral Knight" />
 
