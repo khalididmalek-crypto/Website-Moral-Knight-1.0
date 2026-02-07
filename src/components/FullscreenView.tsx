@@ -446,16 +446,16 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
                       </h4>
                       <div className="font-mono text-sm leading-relaxed text-gray-800 space-y-4">
                         <p>
-                          Met ruime ervaring in het onderwijs als filosoof en docent levensbeschouwing en ethiek, is de oprichter van Moral Knight gedreven door democratisch idealisme en een diepe overtuiging in rechtvaardigheid. Met een creatief brein dat filosofische principes vertaalt naar praktische toepassingen, focust hij zich op het beschermen van kwetsbaren in de samenleving.
+                          Met ruime ervaring in het onderwijs als filosoof, docent levensbeschouwing en ethiek, ben ik gedreven door een gezonde portie democratisch idealisme. Met een creatief brein dat filosofische principes vertaalt naar praktische toepassingen, focus ik mij op het tegengaan van digitale uitsluiting en misstanden.
                         </p>
                         <p>
-                          Vanuit de overtuiging dat technologie transparant en verantwoordelijk moet zijn, helpt hij organisaties door middel van onafhankelijke evaluaties. Als third party voert hij gevraagd en ongevraagd kritische toetsingen uit van AI-systemen, waarbij ethische normen en maatschappelijke impact centraal staan.
+                          Vanuit de overtuiging dat technologie transparant en verantwoordelijk moet zijn, help ik organisaties door middel van onafhankelijke toetsing. Als externe 'third party' voer ik gevraagd en ongevraagd kritische toetsingen uit van AI-systemen, waarbij wet- en regelgeving, normen en waarden, en maatschappelijke impact centraal staan.
                         </p>
                         <p>
-                          De verschillende opvattingen die over AI de ronde gaan, lijken soms op intellectueel confetti. Uiteindelijk is het cruciaal om simpelweg te toetsen wat AI in het publieke domein feitelijk doet.
+                          Alle verschillende opvattingen die tegenwoordig over AI de ronde gaan, soms lijkt het op intellectueel confetti. Uiteindelijk is het cruciaal om simpelweg te toetsen wat AI feitelijk in het publieke domein teweegbrengt.
                         </p>
                         <p>
-                          Deze combinatie van onderwijskundige achtergrond en praktische expertise maakt hem tot een onafhankelijke stem die bruggen bouwt tussen technologische ontwikkeling en maatschappelijke waarden.
+                          De combinatie van mijn educatieve achtergrond en praktische expertise maak ik mij hard voor het bouwen van bruggen tussen technologische ontwikkeling en het publieke belang.
                         </p>
                       </div>
                     </div>

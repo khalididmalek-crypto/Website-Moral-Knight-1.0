@@ -15,7 +15,7 @@ export interface EmailTemplateData {
 export const generateEmailHtml = (data: EmailTemplateData, isForUser: boolean, isReport: boolean, reportId: string, dateStr: string) => {
     // Moral Knight Branding Colors
     const colors = {
-        primary: '#061424',    // Exact Dark Blue from Logo
+        primary: '#0F172A',    // Moral Knight Dark Blue (Brand Identity)
         secondary: '#5C6B7F',  // Secondary Text (Blue-Grey)
         highlight: '#E2E8F0',  // Accents/Badges
         background: '#F8FAFC', // Page Background (Very light blue-grey)
@@ -24,7 +24,7 @@ export const generateEmailHtml = (data: EmailTemplateData, isForUser: boolean, i
         border: '#e2e8f0',     // Borders
         danger: '#8B1A3D',     // Alerts/Errors
         shieldBorder: '#E1BF7A', // Gold/Bronze from Logo Shield
-        footerText: '#061424',   // Dark blue from branding
+        footerText: '#0F172A',   // Matching Dark Blue
     };
 
     const title = isForUser
