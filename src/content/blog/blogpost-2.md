@@ -26,6 +26,6 @@ status: "published"
   </p>
 
   <p className="mt-4" style={{ color: "#2C3E50" }}>
-    Gelukkig worden deze faal-momenten steeds beter gedocumenteerd in de internationale <a href="https://incidentdatabase.ai/" target="_blank" rel="noopener noreferrer" class="text-[#8B1A3D] underline">AI Incident Database</a>, zodat we kunnen leren van fouten – net als in de luchtvaart. Kom je zelf een incident tegen? Meld het dan bij ons eigen <a href="/meldpunt" class="text-[#8B1A3D] underline">Meldpunt</a>.
+    Gelukkig worden deze faal-momenten steeds beter gedocumenteerd in de internationale <a href="https://incidentdatabase.ai/" target="_blank" rel="noopener noreferrer" class="text-[#8B1A3D] underline">AI Incident Database</a>, zodat we kunnen leren van fouten – net als in de luchtvaart. Kom je zelf een incident tegen? Meld het dan bij ons eigen <a href="#meldpunt" class="text-[#8B1A3D] underline">Meldpunt</a>.
   </p>
 </div>

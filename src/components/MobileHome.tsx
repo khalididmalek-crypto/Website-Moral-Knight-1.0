@@ -719,7 +719,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
             {view === 'DASHBOARD' && <Dashboard onClose={handleBack} />}
             {view === 'KENNISBANK' && <Kennisbank onClose={handleBack} />}
             {(view === 'MELDPUNT' || meldpuntOpen) && <Meldpunt onClose={handleBack} />}
-            {selectedPost && <BlogPostDetail post={selectedPost} onClose={() => setSelectedPost(null)} />}
+            {selectedPost && <BlogPostDetail post={selectedPost} onClose={() => setSelectedPost(null)} onOpenMeldpunt={() => setMeldpuntOpen(true)} />}
         </>
     );
 };

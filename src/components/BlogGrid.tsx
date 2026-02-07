@@ -12,9 +12,10 @@ import { A11Y_COLORS } from '../constants';
 interface BlogGridProps {
   posts: BlogPost[];
   introContent?: React.ReactNode;
+  onOpenMeldpunt?: () => void;
 }
 
-export const BlogGrid: React.FC<BlogGridProps> = ({ posts, introContent }) => {
+export const BlogGrid: React.FC<BlogGridProps> = ({ posts, introContent, onOpenMeldpunt }) => {
   const [selectedTag, setSelectedTag] = React.useState<string | null>(null);
   const [selectedPost, setSelectedPost] = React.useState<BlogPost | null>(null);
 
@@ -35,6 +36,7 @@ export const BlogGrid: React.FC<BlogGridProps> = ({ posts, introContent }) => {
       <BlogPostDetail
         post={selectedPost}
         onClose={() => setSelectedPost(null)}
+        onOpenMeldpunt={onOpenMeldpunt}
       />
     );
   }
@@ -138,9 +140,10 @@ export const BlogGrid: React.FC<BlogGridProps> = ({ posts, introContent }) => {
 interface BlogPostDetailProps {
   post: BlogPost;
   onClose: () => void;
+  onOpenMeldpunt?: () => void;
 }
 
-export const BlogPostDetail: React.FC<BlogPostDetailProps> = ({ post, onClose }) => {
+export const BlogPostDetail: React.FC<BlogPostDetailProps> = ({ post, onClose, onOpenMeldpunt }) => {
   // Focus trap for accessibility - still useful for the detail view area
   const containerRef = React.useRef<HTMLDivElement>(null);
 
@@ -150,6 +153,29 @@ export const BlogPostDetail: React.FC<BlogPostDetailProps> = ({ post, onClose })
       containerRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, []);
+
+  // Intercept hash links to open Meldpunt modal
+  React.useEffect(() => {
+    const handleLinkClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const link = target.closest('a');
+      if (link && link.getAttribute('href') === '#meldpunt') {
+        e.preventDefault();
+        onOpenMeldpunt?.();
+      }
+    };
+
+    const container = containerRef.current;
+    if (container) {
+      container.addEventListener('click', handleLinkClick);
+    }
+
+    return () => {
+      if (container) {
+        container.removeEventListener('click', handleLinkClick);
+      }
+    };
+  }, [onOpenMeldpunt]);
 
   return (
     <div

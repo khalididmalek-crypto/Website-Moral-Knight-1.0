@@ -308,6 +308,7 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
               }>
                 <BlogGrid
                   posts={posts.length > 0 ? posts : BLOG_POSTS}
+                  onOpenMeldpunt={onOpenMeldpunt}
                   introContent={
                     <p className="font-mono text-sm md:text-base leading-relaxed text-[#194D25]">
                       AI-systemen kunnen menselijk overkomen, terwijl ze eigenlijk slechts patronen volgen.
