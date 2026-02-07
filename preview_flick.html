@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moral Knight - Red Line Flick Preview</title>
+    <style>
+        body {
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: monospace;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 600px;
+            position: relative;
+        }
+
+        .title {
+            font-size: 48px;
+            margin-bottom: 0px;
+            color: #111;
+            font-weight: 500;
+        }
+
+        .underline-container {
+            position: relative;
+            width: 100%;
+            height: 20px;
+        }
+
+        svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+
+        .line-path {
+            stroke: #A31F47;
+            stroke-width: 2;
+            fill: none;
+            stroke-dasharray: 2000;
+            stroke-dashoffset: 2000;
+            animation: draw 1.5s ease-out forwards;
+        }
+
+        @keyframes draw {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        button {
+            margin-top: 40px;
+            padding: 10px 20px;
+            cursor: pointer;
+            background: #A31F47;
+            color: white;
+            border: none;
+            font-family: inherit;
+        }
+    </style>
+</head>
+
+<body>
+    <div style="display: flex; flex-direction: column; align-items: center;">
+        <div class="container">
+            <h1 class="title">Moral Knight</h1>
+            <div class="underline-container">
+                <svg viewBox="0 0 600 20" preserveAspectRatio="none">
+                    <!-- Final path: dy=10, dx=4 for ~68deg (near perfect slash angle) -->
+                    <path id="flick-path" class="line-path" d="M 0,10 L 594,10 L 598,0" />
+                </svg>
+            </div>
+        </div>
+        <button onclick="restartAnimation()">Herhaal Animatie</button>
+    </div>
+
+    <script>
+        function restartAnimation() {
+            const path = document.getElementById('flick-path');
+            path.style.animation = 'none';
+            path.offsetHeight; // force reflow
+            path.style.animation = 'draw 1.5s ease-out forwards';
+        }
+
+        window.onload = () => {
+            const path = document.getElementById('flick-path');
+            const length = path.getTotalLength();
+            path.style.strokeDasharray = length;
+            path.style.strokeDashoffset = length;
+        };
+    </script>
+</body>
+
+</html>

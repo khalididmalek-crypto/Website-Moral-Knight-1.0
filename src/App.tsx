@@ -262,16 +262,34 @@ const App: React.FC<AppProps> = ({
           {/* Header */}
           <header className="flex justify-between items-end pb-2 relative">
             {/* Animated Pen Stroke */}
-            <style jsx>{`
-              @keyframes drawLine {
-                from { transform: scaleX(0); }
-                to { transform: scaleX(1); }
-              }
-            `}</style>
-            <div
-              className="absolute bottom-0 left-0 w-full h-[1px] bg-[#A31F47] origin-left"
-              style={{ animation: 'drawLine 1.2s ease-out forwards' }}
-            />
+            {/* Animated Pen Stroke with Flick */}
+            <div className="absolute bottom-0 left-0 w-full overflow-visible pointer-events-none" style={{ height: '2px' }}>
+              <svg
+                width="100%"
+                height="30"
+                viewBox="0 0 1000 30"
+                preserveAspectRatio="none"
+                style={{ position: 'absolute', bottom: '-2px', left: 0, overflow: 'visible' }}
+              >
+                <path
+                  d="M 0,25 L 992,25 L 1000,5"
+                  fill="none"
+                  stroke="#A31F47"
+                  strokeWidth="1.5"
+                  vectorEffect="non-scaling-stroke"
+                  style={{
+                    strokeDasharray: 2000,
+                    strokeDashoffset: 2000,
+                    animation: 'drawPath 1.3s ease-out forwards'
+                  }}
+                />
+              </svg>
+              <style jsx>{`
+                @keyframes drawPath {
+                  to { stroke-dashoffset: 0; }
+                }
+              `}</style>
+            </div>
             <div className="flex items-end gap-4">
               <div className="flex items-baseline gap-6 md:gap-12">
                 <h1
