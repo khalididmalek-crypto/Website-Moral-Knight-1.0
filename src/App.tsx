@@ -280,7 +280,7 @@ const App: React.FC<AppProps> = ({
                   style={{
                     strokeDasharray: 2000,
                     strokeDashoffset: 2000,
-                    animation: 'drawPath 1.3s ease-out forwards'
+                    animation: 'drawPath 1.8s ease-out forwards'
                   }}
                 />
               </svg>
