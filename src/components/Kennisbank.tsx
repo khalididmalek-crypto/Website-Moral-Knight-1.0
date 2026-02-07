@@ -33,7 +33,7 @@ export const Kennisbank: React.FC<KennisbankProps> = ({ onClose }) => {
     };
 
     // Unified styles resembling the Dashboard - consistent across desktop and mobile
-    const containerClasses = "fixed inset-0 z-[200] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 pt-[calc(1rem+env(safe-area-inset-top))] pb-[calc(1rem+env(safe-area-inset-bottom))] overflow-y-auto";
+    const containerClasses = "fixed inset-0 z-[300] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4 pt-[calc(1rem+env(safe-area-inset-top))] pb-[calc(1rem+env(safe-area-inset-bottom))] overflow-y-auto";
 
     const contentClasses = "relative w-full max-w-3xl border border-black p-6 md:p-12 shadow-2xl mx-4 max-h-[80dvh] overflow-y-auto";
 
