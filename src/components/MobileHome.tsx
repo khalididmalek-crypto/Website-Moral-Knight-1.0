@@ -608,7 +608,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                                                             Alle verschillende opvattingen die tegenwoordig over AI de ronde gaan, soms lijkt het op intellectueel confetti. Uiteindelijk is het cruciaal om simpelweg te toetsen wat AI feitelijk in het publieke domein teweegbrengt.
                                                         </p>
                                                         <p>
-                                                            De combinatie van mijn educatieve achtergrond en praktische expertise maak ik mij hard voor het bouwen van bruggen tussen technologische ontwikkeling en het publieke belang.
+                                                            Door de combinatie van mijn educatieve achtergrond en praktische expertise maak ik mij hard voor het bouwen van bruggen tussen technologische ontwikkeling en het publieke belang.
                                                         </p>
                                                     </div>
                                                 </div>
