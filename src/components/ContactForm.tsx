@@ -699,18 +699,21 @@ export const ContactForm: React.FC<Props> = ({ className = '', mode = 'preview',
                 borderColor: COLORS.PRIMARY_GREEN,
                 color: isSubmitting ? FORM_COLORS.TEXT_PRIMARY : COLORS.PRIMARY_GREEN,
                 '--tw-outline-color': COLORS.PRIMARY_GREEN,
+                WebkitTapHighlightColor: 'transparent',
+                touchAction: 'manipulation'
               } as React.CSSProperties & { '--tw-outline-color': string }}
               aria-label={isSubmitting ? 'Bericht wordt verzonden...' : 'Verstuur contactformulier'}
             >
-              <span className="relative z-10 flex items-center justify-center gap-3 w-full whitespace-nowrap">
-                {isSubmitting ? 'Verzenden...' : 'Versturen'}
-                {!isSubmitting && (
+              <span className="relative z-10 flex items-center justify-center gap-3 w-full whitespace-nowrap pointer-events-none">
+                <span className="flex items-center gap-3">
+                  {isSubmitting ? 'Verzenden...' : 'Versturen'}
                   <Send
                     size={14}
+                    className={`transition-all duration-300 ${isSubmitting ? 'opacity-0 scale-0 w-0' : 'opacity-100 scale-100'}`}
                     style={{ color: COLORS.PRIMARY_GREEN }}
                     aria-hidden="true"
                   />
-                )}
+                </span>
               </span>
             </button>
           </div>

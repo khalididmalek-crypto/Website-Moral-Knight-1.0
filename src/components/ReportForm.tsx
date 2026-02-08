@@ -448,16 +448,19 @@ export const ReportForm: React.FC<Props> = () => {
                             backgroundColor: isSubmitting ? FORM_COLORS.INPUT_BG : COLORS.HIGHLIGHT_GREEN,
                             borderColor: COLORS.PRIMARY_GREEN,
                             color: isSubmitting ? FORM_COLORS.TEXT_PRIMARY : COLORS.PRIMARY_GREEN,
+                            WebkitTapHighlightColor: 'transparent',
+                            touchAction: 'manipulation'
                         }}
                     >
-                        <span className="relative z-10 flex items-center justify-center gap-3 w-full whitespace-nowrap">
-                            {isSubmitting ? 'Verzenden...' : 'Melding Versturen'}
-                            {!isSubmitting && (
+                        <span className="relative z-10 flex items-center justify-center gap-3 w-full whitespace-nowrap pointer-events-none">
+                            <span className="flex items-center gap-3">
+                                {isSubmitting ? 'Verzenden...' : 'Melding Versturen'}
                                 <Send
                                     size={14}
+                                    className={`transition-all duration-300 ${isSubmitting ? 'opacity-0 scale-0 w-0' : 'opacity-100 scale-100'}`}
                                     style={{ color: COLORS.PRIMARY_GREEN }}
                                 />
-                            )}
+                            </span>
                         </span>
                     </button>
                 </div>

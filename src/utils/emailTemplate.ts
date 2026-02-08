@@ -15,7 +15,7 @@ export interface EmailTemplateData {
 export const generateEmailHtml = (data: EmailTemplateData, isForUser: boolean, isReport: boolean, reportId: string, dateStr: string) => {
     // Moral Knight Branding Colors
     const colors = {
-        primary: '#0F172A',    // Moral Knight Dark Blue (Brand Identity)
+        primary: '#061424',    // Moral Knight Dark Blue (Exactly matching logo background)
         secondary: '#5C6B7F',  // Secondary Text (Blue-Grey)
         highlight: '#E2E8F0',  // Accents/Badges
         background: '#F8FAFC', // Page Background (Very light blue-grey)
@@ -23,8 +23,7 @@ export const generateEmailHtml = (data: EmailTemplateData, isForUser: boolean, i
         text: '#1e293b',       // Body Text (Slate-800)
         border: '#e2e8f0',     // Borders
         danger: '#8B1A3D',     // Alerts/Errors
-        shieldBorder: '#E1BF7A', // Gold/Bronze from Logo Shield
-        footerText: '#0F172A',   // Matching Dark Blue
+        footerText: '#061424',   // Matching Dark Blue
     };
 
     const title = isForUser
@@ -66,7 +65,7 @@ export const generateEmailHtml = (data: EmailTemplateData, isForUser: boolean, i
             color: ${colors.footerText};
         }
         .privacy-link:hover {
-            text-decoration-color: ${colors.shieldBorder} !important;
+            text-decoration-color: ${colors.primary} !important;
         }
         
         /* Mobile Responsive Styles */
