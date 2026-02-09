@@ -33,13 +33,13 @@ export default function Document() {
         <meta name="twitter:image" content="https://moralknight.nl/twitter-image.png?v=4" />
 
         {/* Favicon / Icons */}
-        <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=6" />
-        <link rel="icon" type="image/png" href="/favicon.png?v=6" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=6" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=6" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=6" />
-        <link rel="mask-icon" href="/favicon.svg?v=6" color="#0033CC" />
-        <link rel="manifest" href="/site.webmanifest?v=6" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=7" />
+        <link rel="icon" type="image/png" href="/favicon.png?v=7" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=7" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=7" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=7" />
+        <link rel="mask-icon" href="/favicon.svg?v=7" color="#0033CC" />
+        <link rel="manifest" href="/site.webmanifest?v=7" />
         <meta name="theme-color" content="#061424" />
         {/* Tailwind CDN and Config */}
         <script src="https://cdn.tailwindcss.com" defer></script>
