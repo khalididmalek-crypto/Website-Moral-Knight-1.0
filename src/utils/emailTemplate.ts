@@ -58,6 +58,8 @@ export const generateEmailHtml = (data: EmailTemplateData, isForUser: boolean, i
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="color-scheme" content="light only">
+    <meta name="supported-color-schemes" content="light">
     <title>${title}</title>
     <style>
         .privacy-link {
@@ -199,7 +201,7 @@ export const generateEmailHtml = (data: EmailTemplateData, isForUser: boolean, i
                     
                     <!-- Header -->
                     <tr>
-                        <td style="background-color: ${colors.primary}; padding: 30px;">
+                        <td bgcolor="${colors.primary}" style="background-color: ${colors.primary} !important; padding: 30px;" data-ogsc="${colors.primary}">
                             <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                 <tr>
                                     <td align="left" class="header-cell" style="vertical-align: middle;">
@@ -225,7 +227,7 @@ export const generateEmailHtml = (data: EmailTemplateData, isForUser: boolean, i
 
                     <!-- Status Bar / Badge -->
                     <tr>
-                        <td style="background-color: #FFFFFF; padding: 20px 30px; border-bottom: 1px solid #F3F4F6;">
+                        <td bgcolor="#FFFFFF" style="background-color: #FFFFFF !important; padding: 20px 30px; border-bottom: 1px solid #F3F4F6;">
                             <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                 <tr>
                                     <td align="left" class="status-cell">
@@ -245,7 +247,7 @@ export const generateEmailHtml = (data: EmailTemplateData, isForUser: boolean, i
 
                     <!-- Main Content -->
                     <tr>
-                        <td class="content-cell" style="padding: 40px 30px;">
+                        <td class="content-cell" bgcolor="#FFFFFF" style="background-color: #FFFFFF !important; padding: 40px 30px;">
                             <!-- Title -->
                             <h2 class="main-title" style="margin: 0 0 20px 0; font-family: 'Courier New', Courier, monospace; font-size: 16px; color: ${colors.primary}; font-weight: 700; letter-spacing: -0.5px; text-transform: uppercase;">
                                 ${title}
@@ -284,7 +286,7 @@ export const generateEmailHtml = (data: EmailTemplateData, isForUser: boolean, i
 
                     <!-- Footer -->
                     <tr>
-                        <td class="footer-cell" style="background-color: #F8FAFC; padding: 30px; border-top: 2px solid ${colors.primary}; text-align: left;">
+                        <td class="footer-cell" bgcolor="#F8FAFC" style="background-color: #F8FAFC !important; padding: 30px; border-top: 2px solid ${colors.primary}; text-align: left;">
                             <p class="footer-text" style="margin: 0; font-family: 'Courier New', Courier, monospace; font-size: 12px; color: ${colors.footerText}; letter-spacing: 1px; text-transform: uppercase; margin-left: -2px;">
                                 / Moral Knight since 2025 - Auditing public AI
                             </p>
