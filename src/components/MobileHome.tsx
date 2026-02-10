@@ -9,7 +9,7 @@ import { Dashboard } from './Dashboard';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
-import { FlowingText } from './FlowingText';
+import { FlowingText, Slash } from './FlowingText';
 import { Kennisbank } from './Kennisbank';
 import { Meldpunt } from './Meldpunt';
 import { BlogPostDetail } from './BlogGrid';
@@ -708,9 +708,9 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                             />
                         </div>
                         <div className="flex flex-col gap-0.5 items-start">
-                            <button onClick={() => setMeldpuntOpen(true)} className="text-[11px] font-bold uppercase tracking-widest" style={{ color: '#8B1A3D' }}>/ MK Meldpunt</button>
-                            <button onClick={() => setView('DASHBOARD')} className="text-[11px] font-bold uppercase tracking-widest" style={{ color: '#8B1A3D' }}>/ MK Dashboard</button>
-                            <button onClick={() => setView('KENNISBANK')} className="text-[11px] font-bold uppercase tracking-widest" style={{ color: '#8B1A3D' }}>/ MK Kennisbank</button>
+                            <button onClick={() => setMeldpuntOpen(true)} className="text-[11px] font-bold uppercase tracking-widest flex items-center" style={{ color: '#8B1A3D' }}><Slash className="w-[0.6em] h-[1.1em] mr-1.5" /> MK Meldpunt</button>
+                            <button onClick={() => setView('DASHBOARD')} className="text-[11px] font-bold uppercase tracking-widest flex items-center" style={{ color: '#8B1A3D' }}><Slash className="w-[0.6em] h-[1.1em] mr-1.5" /> MK Dashboard</button>
+                            <button onClick={() => setView('KENNISBANK')} className="text-[11px] font-bold uppercase tracking-widest flex items-center" style={{ color: '#8B1A3D' }}><Slash className="w-[0.6em] h-[1.1em] mr-1.5" /> MK Kennisbank</button>
                         </div>
                     </div>
                 </motion.div>
