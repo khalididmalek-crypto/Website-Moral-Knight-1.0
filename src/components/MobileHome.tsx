@@ -241,16 +241,16 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                         </div>
                         {/* Animated Pen Stroke for Subtitle */}
                         {/* Animated Pen Stroke with Flick */}
-                        <div className="w-full relative overflow-visible pointer-events-none mt-2" style={{ height: '15px' }}>
+                        <div className="w-full relative overflow-visible pointer-events-none mt-2" style={{ height: '18px' }}>
                             <svg
                                 width="100%"
-                                height="20"
-                                viewBox="0 0 400 20"
+                                height="22"
+                                viewBox="0 0 400 22"
                                 preserveAspectRatio="none"
                                 style={{ position: 'absolute', bottom: '0', left: 0, overflow: 'visible' }}
                             >
                                 <path
-                                    d="M 0,15 L 392,15 L 398,0"
+                                    d="M 0,16.5 L 392,16.5 L 398.6,0"
                                     fill="none"
                                     stroke="#A31F47"
                                     strokeWidth="2"
