@@ -708,9 +708,9 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                             />
                         </div>
                         <div className="flex flex-col gap-0.5 items-start">
-                            <button onClick={() => setMeldpuntOpen(true)} className="text-[11px] font-bold uppercase tracking-widest flex items-center" style={{ color: '#8B1A3D' }}><Slash className="w-[0.6em] h-[1.1em] mr-1.5" /> MK Meldpunt</button>
-                            <button onClick={() => setView('DASHBOARD')} className="text-[11px] font-bold uppercase tracking-widest flex items-center" style={{ color: '#8B1A3D' }}><Slash className="w-[0.6em] h-[1.1em] mr-1.5" /> MK Dashboard</button>
-                            <button onClick={() => setView('KENNISBANK')} className="text-[11px] font-bold uppercase tracking-widest flex items-center" style={{ color: '#8B1A3D' }}><Slash className="w-[0.6em] h-[1.1em] mr-1.5" /> MK Kennisbank</button>
+                            <button onClick={() => setMeldpuntOpen(true)} className="text-[11px] font-bold uppercase tracking-widest flex items-center gap-2" style={{ color: '#8B1A3D' }}><Slash className="w-[0.6em] h-[1.1em]" /> MK Meldpunt</button>
+                            <button onClick={() => setView('DASHBOARD')} className="text-[11px] font-bold uppercase tracking-widest flex items-center gap-2" style={{ color: '#8B1A3D' }}><Slash className="w-[0.6em] h-[1.1em]" /> MK Dashboard</button>
+                            <button onClick={() => setView('KENNISBANK')} className="text-[11px] font-bold uppercase tracking-widest flex items-center gap-2" style={{ color: '#8B1A3D' }}><Slash className="w-[0.6em] h-[1.1em]" /> MK Kennisbank</button>
                         </div>
                     </div>
                 </motion.div>
