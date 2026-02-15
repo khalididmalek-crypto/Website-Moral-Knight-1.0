@@ -293,23 +293,12 @@ const App: React.FC<AppProps> = ({
               `}</style>
             </div>
             <div className="flex items-end gap-4 overflow-visible">
-              <div className="flex items-center gap-3 md:gap-3">
-                <img
-                  src="/MK logo.png"
-                  alt="Moral Knight Logo"
-                  className="hidden md:block w-8 h-8 object-contain"
-                  style={{
-                    filter: 'drop-shadow(0 0 10px rgba(0,0,0,0.1))',
-                    marginTop: '2px' // Small adjustment to align with text baseline
-                  }}
-                />
-                <h1
-                  className="hero-title font-medium tracking-tight font-mono"
-                  style={{ color: THEME.colors.text }}
-                >
-                  {CONFIG.organisation}
-                </h1>
-              </div>
+              <h1
+                className="hero-title font-medium tracking-tight font-mono"
+                style={{ color: THEME.colors.text }}
+              >
+                {CONFIG.organisation}
+              </h1>
             </div>
 
           </header>
