@@ -307,7 +307,7 @@ const App: React.FC<AppProps> = ({
 
           {/* Grid Area */}
           <main id="main-content" className="relative" role="main">
-            <div className="w-full max-w-[1400px] mb-10 flex justify-between items-start">
+            <div className="w-full max-w-[1400px] mb-10">
               <div>
                 <h2 className="sr-only">Onze aanpak</h2>
                 <p
@@ -326,14 +326,6 @@ const App: React.FC<AppProps> = ({
                     'De onafhankelijke waakhond van publieke AI'
                   )}
                 </p>
-              </div>
-
-              <div className={`transition-opacity duration-1000 delay-700 ${typingComplete ? 'opacity-100' : 'opacity-0'}`} style={{ marginRight: '24px' }}>
-                <img
-                  src="/images/shield-logo-transparent.png"
-                  alt="Moral Knight Logo"
-                  className="h-[82px] w-auto object-contain"
-                />
               </div>
             </div>
 

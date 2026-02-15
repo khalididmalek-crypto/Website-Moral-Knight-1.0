@@ -265,13 +265,6 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                             </svg>
                         </div>
                     </div>
-                    <div className="pt-2 ml-4">
-                        <img
-                            src="/images/shield-logo-transparent.png"
-                            alt="Moral Knight Logo"
-                            className="h-[41px] w-auto object-contain opacity-90"
-                        />
-                    </div>
                 </div>
 
                 {/* Accordion Tiles */}
