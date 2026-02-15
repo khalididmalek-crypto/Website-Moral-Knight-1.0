@@ -19,6 +19,7 @@ interface Props {
   className?: string;
   mode?: 'preview' | 'fullscreen';
   onClose?: () => void;
+  onSuccess?: () => void;
 }
 
 interface FormData {
@@ -45,7 +46,7 @@ const validateEmail = (email: string): boolean => {
   return EMAIL_REGEX.test(email.trim());
 };
 
-export const ContactForm: React.FC<Props> = ({ className = '', mode = 'preview', onClose }) => {
+export const ContactForm: React.FC<Props> = ({ className = '', mode = 'preview', onClose, onSuccess }) => {
   const isPreview = mode === 'preview';
   const [formData, setFormData] = useState<FormData>({
     name: '',
@@ -213,6 +214,7 @@ export const ContactForm: React.FC<Props> = ({ className = '', mode = 'preview',
       console.log('[ContactForm] Submission success:', data);
       setIsSubmitting(false);
       setSubmitted(true);
+      if (onSuccess) onSuccess();
     } catch (error) {
       console.error('[ContactForm] Submission error:', error);
       setIsSubmitting(false);

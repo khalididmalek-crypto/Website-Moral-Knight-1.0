@@ -32,6 +32,7 @@ interface TileProps {
   className?: string;
   disableHoverEffects?: boolean;
   isActive?: boolean;
+  onSuccess?: () => void;
 }
 
 // Icon configuration per tile
@@ -65,6 +66,7 @@ export const Tile: React.FC<TileProps> = memo(({
   className = '',
   disableHoverEffects = false,
   isActive = false,
+  onSuccess,
 }) => {
   // Tile 1 has static text, so it's "complete" immediately. Others wait for Typewriter.
   const [titleTypingComplete, setTitleTypingComplete] = useState(data.id === 'tile-1');
@@ -164,11 +166,13 @@ export const Tile: React.FC<TileProps> = memo(({
               mode={mode}
               typingComplete={typingComplete}
               onClose={onClose}
+              onSuccess={onSuccess}
             />
           </div>
         )}
     </TileBase>
   );
+
 }, (prevProps, nextProps) => {
   // Custom comparison function for memoization
   return (

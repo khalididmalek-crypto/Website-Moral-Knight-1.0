@@ -37,6 +37,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
 
 
     const containerRef = useRef<HTMLDivElement>(null);
+    const contactFormRef = useRef<HTMLDivElement>(null);
 
     const BG_COLORS = {
         PROBLEM: '#EBC6C1', // Pale Bordeaux
@@ -133,29 +134,35 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
         setActiveTiles([]);
     };
 
+    const handleFormSuccess = () => {
+        // After 2.5 seconds, scroll back to the top of the contact tile (Founder section)
+        setTimeout(() => {
+            if (tileRefs.CONTACT.current) {
+                tileRefs.CONTACT.current.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }, 2500);
+    };
+
     // This function handles the scroll after the animation finishes
     const handleLayoutComplete = (tileKey: string) => {
         // Only scroll if the tile is outside the viewport
-        if (activeTiles.includes(tileKey) && tileRefs[tileKey as keyof typeof tileRefs].current) {
+        if (activeTiles.includes(tileKey)) {
             const tileElement = tileRefs[tileKey as keyof typeof tileRefs].current;
-            if (!tileElement) return;
-            const rect = tileElement.getBoundingClientRect();
-            const viewportHeight = window.innerHeight;
+            const targetElement = tileKey === 'CONTACT' ? contactFormRef.current : tileElement;
 
-            // Check if tile is fully visible in viewport
-            const isFullyVisible = rect.top >= 0 && rect.bottom <= viewportHeight;
+            if (!targetElement) return;
 
-            // Only scroll if tile is not fully visible
-            if (!isFullyVisible) {
-                // Use requestAnimationFrame for smoother scroll
-                requestAnimationFrame(() => {
-                    tileElement.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start',
-                        inline: 'nearest'
-                    });
+            // Use requestAnimationFrame for smoother scroll
+            requestAnimationFrame(() => {
+                targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: tileKey === 'CONTACT' ? 'center' : 'start',
+                    inline: 'nearest'
                 });
-            }
+            });
         }
     };
 
@@ -618,6 +625,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
 
                                             {/* Contact Form Details - Styled as a separate block */}
                                             <div
+                                                ref={contactFormRef}
                                                 className="w-full bg-white flex flex-col gap-4 border border-black p-4"
                                                 onClick={(e) => e.stopPropagation()}
                                             >
@@ -626,7 +634,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                                                         Contact
                                                     </h3>
                                                 </div>
-                                                <ContactForm mode="fullscreen" className="!p-0" />
+                                                <ContactForm mode="fullscreen" className="!p-0" onSuccess={handleFormSuccess} />
                                             </div>
                                         </div>
                                     </motion.div>

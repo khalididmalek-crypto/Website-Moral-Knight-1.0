@@ -541,6 +541,12 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
                   onClose={onClose}
                   typingComplete
                   mode="fullscreen"
+                  onSuccess={() => {
+                    // Scroll back to top after 2.5s on desktop too
+                    setTimeout(() => {
+                      modalRef.current?.scrollTo({ top: 0, behavior: 'smooth' });
+                    }, 2500);
+                  }}
                 />
               </div>
             )}

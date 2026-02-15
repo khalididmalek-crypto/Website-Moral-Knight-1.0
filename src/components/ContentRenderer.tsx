@@ -14,6 +14,7 @@ interface Props {
   mode: 'preview' | 'fullscreen';
   typingComplete?: boolean;
   onClose?: () => void;
+  onSuccess?: () => void;
 }
 
 export const ContentRenderer = React.memo<Props>(
@@ -23,6 +24,7 @@ export const ContentRenderer = React.memo<Props>(
     mode,
     typingComplete = false,
     onClose,
+    onSuccess,
   }) => {
     const { type, content } = data;
     const isPreview = mode === 'preview';
@@ -318,6 +320,7 @@ export const ContentRenderer = React.memo<Props>(
             className={className}
             mode={mode}
             onClose={onClose}
+            onSuccess={onSuccess}
           />
         );
 
