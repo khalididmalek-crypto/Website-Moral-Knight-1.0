@@ -33,6 +33,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
     const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
     const [activeTiles, setActiveTiles] = useState<string[]>([]);
     const [hasMounted, setHasMounted] = useState(false);
+    const [contactGlitchActive, setContactGlitchActive] = useState(false);
     // Animation state - reserved for future scroll lock implementation during animation window
 
 
@@ -150,19 +151,55 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
     const handleLayoutComplete = (tileKey: string) => {
         // Only scroll if the tile is outside the viewport
         if (activeTiles.includes(tileKey)) {
-            const tileElement = tileRefs[tileKey as keyof typeof tileRefs].current;
-            const targetElement = tileKey === 'CONTACT' ? contactFormRef.current : tileElement;
+            const container = containerRef.current;
+            if (!container) return;
 
-            if (!targetElement) return;
+            if (tileKey === 'CONTACT') {
+                const contactForm = contactFormRef.current;
+                if (!contactForm) return;
 
-            // Use requestAnimationFrame for smoother scroll
-            requestAnimationFrame(() => {
-                targetElement.scrollIntoView({
-                    behavior: 'smooth',
-                    block: tileKey === 'CONTACT' ? 'center' : 'start',
-                    inline: 'nearest'
+                // JS-driven scroll with glitch effect
+                const targetPos = contactForm.offsetTop - (window.innerHeight / 4);
+                const startPos = container.scrollTop;
+                const distance = targetPos - startPos;
+                const duration = 1200; // Slightly faster for mobile
+                const startTime = performance.now();
+
+                const animateScroll = (currentTime: number) => {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    const ease = (t: number) => 1 - Math.pow(1 - t, 3); // Cubic ease out
+
+                    container.scrollTop = startPos + (distance * ease(progress));
+
+                    // Glitch timing
+                    if (progress > 0.4 && progress < 0.6) {
+                        setContactGlitchActive(true);
+                    } else {
+                        setContactGlitchActive(false);
+                    }
+
+                    if (progress < 1) {
+                        requestAnimationFrame(animateScroll);
+                    } else {
+                        setContactGlitchActive(false);
+                    }
+                };
+
+                requestAnimationFrame(animateScroll);
+            } else {
+                const tileElement = tileRefs[tileKey as keyof typeof tileRefs].current;
+                if (!tileElement) return;
+
+                // Native smooth scroll for other tiles
+                requestAnimationFrame(() => {
+                    tileElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start',
+                        inline: 'nearest'
+                    });
                 });
-            });
+            }
         }
     };
 
@@ -210,10 +247,18 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
 
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5 }}
-                className="flex flex-col min-h-[100dvh] w-full font-mono transition-colors duration-500 ease-in-out md:hidden overflow-y-auto"
+                className={`flex flex-col min-h-[100dvh] w-full font-mono transition-colors duration-500 ease-in-out md:hidden overflow-y-auto ${contactGlitchActive ? 'glitch-effect' : ''}`}
                 style={{
                     backgroundColor: BG_COLORS[lastActiveTile as keyof typeof BG_COLORS],
                     backgroundImage: activeTiles.length > 0 ? getActiveGradient(lastActiveTile) : 'none',
+                    ...(contactGlitchActive ? {
+                        textShadow: '3px 0 #ff0000, -3px 0 #00ff00',
+                        transform: 'skewX(-2deg) translateX(3px)',
+                        filter: 'contrast(1.3) brightness(1.1)',
+                        animation: 'border-noise 0.2s infinite',
+                        borderLeft: '4px solid rgba(139, 26, 61, 0.5)',
+                        borderRight: '4px solid rgba(139, 26, 61, 0.5)'
+                    } : {})
                 }}
             >
                 {/* Projector Noise Layer for the background when active */}
@@ -237,6 +282,14 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                     }
                     @keyframes drawPath {
                         to { stroke-dashoffset: 0; }
+                    }
+                    @keyframes border-noise {
+                        0% { border-color: rgba(139, 26, 61, 0.4); box-shadow: inset 0 0 0 2px rgba(139, 26, 61, 0.4), 0 0 10px rgba(139, 26, 61, 0.2); }
+                        20% { border-color: rgba(139, 26, 61, 0.6); box-shadow: inset 0 0 0 4px rgba(139, 26, 61, 0.5), 0 0 20px rgba(139, 26, 61, 0.3); }
+                        40% { border-color: rgba(139, 26, 61, 0.3); box-shadow: inset 0 0 0 1px rgba(139, 26, 61, 0.3), 0 0 5px rgba(139, 26, 61, 0.1); }
+                        60% { border-color: rgba(139, 26, 61, 0.7); box-shadow: inset 0 0 0 5px rgba(139, 26, 61, 0.6), 0 0 25px rgba(139, 26, 61, 0.4); }
+                        80% { border-color: rgba(139, 26, 61, 0.5); box-shadow: inset 0 0 0 3px rgba(139, 26, 61, 0.4), 0 0 15px rgba(139, 26, 61, 0.2); }
+                        100% { border-color: rgba(139, 26, 61, 0.4); box-shadow: inset 0 0 0 2px rgba(139, 26, 61, 0.4), 0 0 10px rgba(139, 26, 61, 0.2); }
                     }
                 `}</style>
                 <div className="pt-12 mx-4 pb-2 flex justify-between items-start relative">
