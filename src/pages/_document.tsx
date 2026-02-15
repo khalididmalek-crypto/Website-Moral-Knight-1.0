@@ -18,8 +18,8 @@ export default function Document() {
         <meta property="og:url" content="https://www.moralknight.nl/" />
         <meta property="og:title" content="Moral Knight: De onafhankelijke waakhond van publieke AI" />
         <meta property="og:description" content="Onafhankelijke toetsing." />
-        <meta property="og:image" content="https://www.moralknight.nl/social-preview-padded-v3.png?v=4" />
-        <meta property="og:image:secure_url" content="https://www.moralknight.nl/social-preview-padded-v3.png?v=4" />
+        <meta property="og:image" content="https://www.moralknight.nl/social-preview-v4.png?v=1" />
+        <meta property="og:image:secure_url" content="https://www.moralknight.nl/social-preview-v4.png?v=1" />
         <meta property="og:image:alt" content="Moral Knight Social Preview" />
         <meta property="og:image:type" content="image/png" />
         <meta property="og:image:width" content="1200" />
@@ -32,7 +32,7 @@ export default function Document() {
         <meta name="twitter:url" content="https://www.moralknight.nl/" />
         <meta name="twitter:title" content="Moral Knight: De onafhankelijke waakhond van publieke AI" />
         <meta name="twitter:description" content="Onafhankelijke toetsing." />
-        <meta name="twitter:image" content="https://www.moralknight.nl/social-preview-padded-v3.png?v=4" />
+        <meta name="twitter:image" content="https://www.moralknight.nl/social-preview-v4.png?v=1" />
         <meta name="twitter:site" content="@moralknight" />
         <meta name="twitter:creator" content="@moralknight" />
 
