@@ -142,144 +142,54 @@
 
 <body>
 
-    <h1>Social Preview Checker (v4 Ready)</h1>
-    <p>Checking image: <strong>social-preview-v4.png</strong></p>
+    <h1>Social Preview Checker (Optie C)</h1>
+    <p>Gebruikt afbeelding: <strong>social-preview-padded-v3.png</strong></p>
 
     <div class="checker-grid">
 
         <!-- LinkedIn Preview -->
         <div class="preview-container">
-            <h2>LinkedIn Post Preview</h2>
+            <h2>LinkedIn & Facebook Preview (Groot)</h2>
             <div class="card linkedin-card">
                 <div class="linkedin-image-wrapper">
-                    <img src="/social-preview-v4.png?v=1" class="linkedin-image"
-                        onerror="this.src='/social-preview-padded-v3.png'; this.parentElement.classList.add('missing-file')"
-                        alt="OG Image">
+                    <img src="/social-preview-padded-v3.png?v=5" class="linkedin-image" alt="OG Image">
                 </div>
                 <div class="linkedin-text">
                     <div class="linkedin-title">Moral Knight: De onafhankelijke waakhond van publieke AI</div>
-                    <div class="linkedin-url">moralknight.nl</div>
+                    <div class="linkedin-url">www.moralknight.nl</div>
                 </div>
             </div>
             <p style="font-size: 0.9em; color: #666; margin-top: 10px;">
-                LinkedIn displays the image at a 1.91:1 ratio. Text is <strong>below</strong> the image.
+                LinkedIn en Facebook blijven de grote afbeelding gebruiken. Text staat er netjes <strong>onder</strong>.
             </p>
         </div>
 
-        <!-- Twitter Preview -->
+        <!-- Twitter Summary Preview -->
         <div class="preview-container">
-            <h2>X (Twitter) Card Preview</h2>
-            <div class="card twitter-card">
-                <div class="twitter-image-wrapper">
-                    <img src="/social-preview-v4.png?v=1" class="linkedin-image"
-                        onerror="this.src='/social-preview-padded-v3.png'" alt="Twitter Card">
-                    <!-- Overlay representing X's text bar -->
-                    <div
-                        style="position: absolute; bottom: 0; left: 0; right: 0; height: 18%; background: rgba(0,0,0,0.6); display: flex; align-items: center; padding-left: 10px; color: white; font-size: 14px; backdrop-filter: blur(4px);">
-                        Moral Knight: De onafhankelijke waakhond van...
-                        <div
-                            style="position: absolute; top: -20px; right: 10px; background: red; color: white; padding: 2px 6px; font-size: 10px; border-radius: 4px;">
-                            X DANGER ZONE (TEXT OVERLAY)</div>
-                    </div>
+            <h2>X (Twitter) Card Preview (Optie C: Summary)</h2>
+            <div class="card twitter-summary-card"
+                style="display: flex; border: 1px solid #cfd9de; border-radius: 12px; overflow: hidden; background: white;">
+                <div style="flex: 1; padding: 12px; display: flex; flex-direction: column; justify-content: center;">
+                    <div class="twitter-domain" style="color: #536471; font-size: 14px;">moralknight.nl</div>
+                    <div class="twitter-title"
+                        style="color: #0f1419; font-size: 15px; font-weight: 600; margin: 2px 0;">Moral Knight: De
+                        onafhankelijke waakhond van publieke AI</div>
+                    <div class="twitter-desc" style="color: #536471; font-size: 14px;">Onafhankelijke toetsing.</div>
                 </div>
-                <div class="twitter-text">
-                    <div class="twitter-domain">moralknight.nl</div>
-                    <div class="twitter-title">Moral Knight: De onafhankelijke waakhond van publieke AI</div>
+                <div
+                    style="width: 120px; height: 120px; background: #061424; display: flex; align-items: center; justify-content: center; overflow: hidden; border-left: 1px solid #cfd9de;">
+                    <img src="/social-preview-padded-v3.png?v=5" style="height: 100%; width: auto; object-fit: contain;"
+                        alt="Twitter Summary">
                 </div>
             </div>
             <p style="font-size: 0.9em; color: #666; margin-top: 10px;">
-                <strong>WAARSCHUWING:</strong> X plaatst vaak een zwarte balk (zie rood) <em>over</em> de onderkant van
-                de afbeelding.
-            </p>
-        </div>
-
-        <!-- Facebook Preview -->
-        <div class="preview-container">
-            <h2>Facebook Post Preview</h2>
-            <div class="card facebook-card">
-                <div class="facebook-image-wrapper">
-                    <img src="/social-preview-v4.png?v=1" class="linkedin-image"
-                        onerror="this.src='/social-preview-padded-v3.png'" alt="Facebook Share">
-                </div>
-                <div class="facebook-text">
-                    <div class="facebook-domain">MORALKNIGHT.NL</div>
-                    <div class="facebook-title">Moral Knight: De onafhankelijke waakhond van publieke AI</div>
-                    <div class="facebook-desc">Onafhankelijke toetsing.</div>
-                </div>
-            </div>
-            <p style="font-size: 0.9em; color: #666; margin-top: 10px;">
-                Facebook plaatst tekst onder de afbeelding, maar kan de afbeelding soms licht bijsnijden.
+                <strong>OPTIE C:</strong> Op X wordt de afbeelding nu een klein vierkantje <em>naast</em> de tekst. Er
+                is geen overlap meer mogelijk.
             </p>
         </div>
 
     </div>
 
-    <style>
-        .missing-file::after {
-            content: "BESTAND NOG NIET GEVONDEN! Toont nu v3 als tijdelijk voorbeeld.";
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(255, 0, 0, 0.7);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            font-weight: bold;
-            padding: 20px;
-        }
-    </style>
-    <style>
-        /* Add Facebook specific styles */
-        .facebook-card {
-            background: #f0f2f5;
-            border: 1px solid #dddfe2;
-        }
-
-        .facebook-image-wrapper {
-            position: relative;
-            width: 100%;
-            padding-top: 52.35%;
-            background: #fff;
-        }
-
-        .facebook-text {
-            padding: 10px 12px;
-            background: #f0f2f5;
-            border-top: 1px solid #dddfe2;
-        }
-
-        .facebook-domain {
-            font-size: 12px;
-            color: #65676b;
-            text-transform: uppercase;
-            margin-bottom: 4px;
-        }
-
-        .facebook-title {
-            font-family: Helvetica, Arial, sans-serif;
-            font-weight: 600;
-            font-size: 16px;
-            color: #050505;
-            margin-bottom: 3px;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .facebook-desc {
-            font-size: 14px;
-            color: #65676b;
-            display: -webkit-box;
-            -webkit-line-clamp: 1;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-    </style>
 </body>
 
 </html>
