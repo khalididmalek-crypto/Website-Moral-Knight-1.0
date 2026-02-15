@@ -155,50 +155,59 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
             if (!container) return;
 
             if (tileKey === 'CONTACT') {
-                const contactForm = contactFormRef.current;
-                if (!contactForm) return;
+                // Wait for layout to settle, then scroll
+                setTimeout(() => {
+                    const contactForm = contactFormRef.current;
+                    if (!contactForm || !container) return;
 
-                // JS-driven scroll with glitch effect
-                const targetPos = contactForm.offsetTop - (window.innerHeight / 4);
-                const startPos = container.scrollTop;
-                const distance = targetPos - startPos;
-                const duration = 1200; // Slightly faster for mobile
-                const startTime = performance.now();
+                    // Calculate position relative to container's scroll position
+                    const containerRect = container.getBoundingClientRect();
+                    const formRect = contactForm.getBoundingClientRect();
+                    const targetPos = container.scrollTop + formRect.top - containerRect.top - (window.innerHeight / 4);
+                    const startPos = container.scrollTop;
+                    const distance = targetPos - startPos;
 
-                const animateScroll = (currentTime: number) => {
-                    const elapsed = currentTime - startTime;
-                    const progress = Math.min(elapsed / duration, 1);
-                    const ease = (t: number) => 1 - Math.pow(1 - t, 3); // Cubic ease out
+                    // Only animate if there's meaningful distance
+                    if (Math.abs(distance) < 50) return;
 
-                    container.scrollTop = startPos + (distance * ease(progress));
+                    const duration = 1200;
+                    const startTime = performance.now();
 
-                    // Glitch timing
-                    if (progress > 0.4 && progress < 0.6) {
-                        setContactGlitchActive(true);
-                    } else {
-                        setContactGlitchActive(false);
-                    }
+                    const animateScroll = (currentTime: number) => {
+                        const elapsed = currentTime - startTime;
+                        const progress = Math.min(elapsed / duration, 1);
+                        const ease = (t: number) => 1 - Math.pow(1 - t, 3); // Cubic ease out
 
-                    if (progress < 1) {
-                        requestAnimationFrame(animateScroll);
-                    } else {
-                        setContactGlitchActive(false);
-                    }
-                };
+                        container.scrollTop = startPos + (distance * ease(progress));
 
-                requestAnimationFrame(animateScroll);
+                        // Glitch timing
+                        if (progress > 0.4 && progress < 0.6) {
+                            setContactGlitchActive(true);
+                        } else {
+                            setContactGlitchActive(false);
+                        }
+
+                        if (progress < 1) {
+                            requestAnimationFrame(animateScroll);
+                        } else {
+                            setContactGlitchActive(false);
+                        }
+                    };
+
+                    requestAnimationFrame(animateScroll);
+                }, 400); // Wait for expansion animation to complete
             } else {
                 const tileElement = tileRefs[tileKey as keyof typeof tileRefs].current;
                 if (!tileElement) return;
 
                 // Native smooth scroll for other tiles
-                requestAnimationFrame(() => {
+                setTimeout(() => {
                     tileElement.scrollIntoView({
                         behavior: 'smooth',
                         block: 'start',
                         inline: 'nearest'
                     });
-                });
+                }, 350);
             }
         }
     };
