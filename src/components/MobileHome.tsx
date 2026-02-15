@@ -232,8 +232,8 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                         to { stroke-dashoffset: 0; }
                     }
                 `}</style>
-                <div className="pt-12 mx-4 pb-2 flex justify-between items-end relative">
-                    <div className="relative w-full">
+                <div className="pt-12 mx-4 pb-2 flex justify-between items-start relative">
+                    <div className="relative flex-1">
                         <h1 className="text-4xl font-medium tracking-tight text-[#111111] mb-1">Moral Knight</h1>
                         <div className="text-xs font-bold uppercase tracking-widest text-[#194D25] pt-1.5 opacity-90 leading-relaxed">
                             De onafhankelijke waakhond<br />
@@ -265,7 +265,13 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                             </svg>
                         </div>
                     </div>
-
+                    <div className="pt-2 ml-4">
+                        <img
+                            src="/images/shield-logo-transparent.png"
+                            alt="Moral Knight Logo"
+                            className="h-[41px] w-auto object-contain opacity-90"
+                        />
+                    </div>
                 </div>
 
                 {/* Accordion Tiles */}
@@ -714,9 +720,10 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                         </div>
                     </div>
                 </motion.div>
-            </motion.div>
+            </motion.div >
 
-            {view === 'DASHBOARD' && <Dashboard onClose={handleBack} />}
+            {view === 'DASHBOARD' && <Dashboard onClose={handleBack} />
+            }
             {view === 'KENNISBANK' && <Kennisbank onClose={handleBack} />}
             {selectedPost && <BlogPostDetail post={selectedPost} onClose={() => setSelectedPost(null)} onOpenMeldpunt={() => setMeldpuntOpen(true)} />}
             {(view === 'MELDPUNT' || meldpuntOpen) && <Meldpunt onClose={() => setMeldpuntOpen(false)} />}

@@ -11,14 +11,16 @@ export default function Document() {
         <meta name="keywords" content="AI ethiek, verantwoorde AI, publieke AI, AI audit, AI governance, chatbot testing, algoritme transparantie" />
         <meta name="author" content="Moral Knight" />
         <meta name="robots" content="index, follow" />
-        <link rel="canonical" href="https://moralknight.nl" />
+        <link rel="canonical" href="https://www.moralknight.nl" />
 
         {/* Open Graph / Facebook */}
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://moralknight.nl/" />
+        <meta property="og:url" content="https://www.moralknight.nl/" />
         <meta property="og:title" content="Moral Knight: De onafhankelijke waakhond van publieke AI" />
         <meta property="og:description" content="Onafhankelijke toetsing." />
-        <meta property="og:image" content="https://moralknight.nl/social-preview-padded-v3.png" />
+        <meta property="og:image" content="https://www.moralknight.nl/social-preview-padded-v3.png?v=4" />
+        <meta property="og:image:secure_url" content="https://www.moralknight.nl/social-preview-padded-v3.png?v=4" />
+        <meta property="og:image:alt" content="Moral Knight Social Preview" />
         <meta property="og:image:type" content="image/png" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
@@ -27,10 +29,12 @@ export default function Document() {
 
         {/* Twitter Card */}
         <meta name="twitter:card" content="summary_large_image" />
-        <meta name="twitter:url" content="https://moralknight.nl/" />
+        <meta name="twitter:url" content="https://www.moralknight.nl/" />
         <meta name="twitter:title" content="Moral Knight: De onafhankelijke waakhond van publieke AI" />
         <meta name="twitter:description" content="Onafhankelijke toetsing." />
-        <meta name="twitter:image" content="https://moralknight.nl/social-preview-padded-v3.png" />
+        <meta name="twitter:image" content="https://www.moralknight.nl/social-preview-padded-v3.png?v=4" />
+        <meta name="twitter:site" content="@moralknight" />
+        <meta name="twitter:creator" content="@moralknight" />
 
         {/* Favicon / Icons */}
 
@@ -154,8 +158,8 @@ export default function Document() {
               "@type": "Organization",
               "name": "Moral Knight",
               "description": "Verantwoorde AI audit en governance voor het publieke domein",
-              "url": "https://moralknight.nl",
-              "logo": "https://moralknight.nl/logo.png",
+              "url": "https://www.moralknight.nl",
+              "logo": "https://www.moralknight.nl/MK logo.png",
               "foundingDate": "2025",
               "address": {
                 "@type": "PostalAddress",
