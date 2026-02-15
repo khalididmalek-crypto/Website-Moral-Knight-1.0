@@ -142,6 +142,8 @@ const App: React.FC<AppProps> = ({
     };
   }, [meldpuntOpen, dashboardOpen, kennisbankOpen]);
 
+
+
   // Save persistence with feedback
   useEffect(() => {
     if (tiles.length > 0) {

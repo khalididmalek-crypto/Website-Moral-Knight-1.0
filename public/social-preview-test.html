@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Social Media Preview Checker</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            background: #f0f2f5;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .preview-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 100%;
+        }
+
+        h2 {
+            margin-top: 0;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .card {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            /* Generic radius */
+            overflow: hidden;
+            background: #fff;
+        }
+
+        .linkedin-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+        }
+
+        .linkedin-image-wrapper {
+            position: relative;
+            width: 100%;
+            padding-top: 52.35%;
+            /* 1200 / 630 = 1.905 approx */
+            background: #eef3f8;
+        }
+
+        .linkedin-image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .linkedin-text {
+            padding: 12px 16px;
+            background: #fff;
+            border-top: 1px solid #f3f3f3;
+        }
+
+        .linkedin-title {
+            font-weight: 600;
+            font-size: 16px;
+            color: #000;
+            line-height: 1.4;
+            margin-bottom: 4px;
+        }
+
+        .linkedin-url {
+            font-size: 12px;
+            color: #666;
+        }
+
+        /* Twitter (X) */
+        .twitter-card {
+            border: 1px solid #cfd9de;
+            border-radius: 12px;
+        }
+
+        .twitter-image-wrapper {
+            position: relative;
+            width: 100%;
+            padding-top: 52.35%;
+            border-bottom: 1px solid #cfd9de;
+        }
+
+        .twitter-text {
+            padding: 12px;
+        }
+
+        .twitter-domain {
+            color: #536471;
+            font-size: 15px;
+            margin-bottom: 2px;
+        }
+
+        .twitter-title {
+            color: #0f1419;
+            font-size: 15px;
+            font-weight: 400;
+            /* Modern X is often just domain + title */
+        }
+
+        .safe-zone-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border: 2px dashed rgba(255, 0, 0, 0.5);
+            pointer-events: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .safe-zone-text {
+            background: rgba(255, 255, 255, 0.8);
+            padding: 4px;
+            font-size: 12px;
+            color: red;
+        }
+
+        .checker-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Social Preview Checker</h1>
+    <p>Checking image: <strong>social-preview-padded-v3.png</strong></p>
+
+    <div class="checker-grid">
+
+        <!-- LinkedIn Preview -->
+        <div class="preview-container">
+            <h2>LinkedIn Post Preview</h2>
+            <div class="card linkedin-card">
+                <div class="linkedin-image-wrapper">
+                    <img src="/social-preview-padded-v3.png" class="linkedin-image" alt="OG Image">
+                </div>
+                <div class="linkedin-text">
+                    <div class="linkedin-title">Moral Knight: De onafhankelijke waakhond van publieke AI</div>
+                    <div class="linkedin-url">moralknight.nl</div>
+                </div>
+            </div>
+            <p style="font-size: 0.9em; color: #666; margin-top: 10px;">
+                LinkedIn displays the image at a 1.91:1 ratio. Title and URL are below the image.
+            </p>
+        </div>
+
+        <!-- Twitter Preview -->
+        <div class="preview-container">
+            <h2>X (Twitter) Card Preview</h2>
+            <div class="card twitter-card">
+                <div class="twitter-image-wrapper">
+                    <img src="/social-preview-padded-v3.png" class="linkedin-image" alt="Twitter Card">
+                </div>
+                <div class="twitter-text">
+                    <div class="twitter-domain">moralknight.nl</div>
+                    <div class="twitter-title">Moral Knight: De onafhankelijke waakhond van publieke AI</div>
+                </div>
+            </div>
+            <p style="font-size: 0.9em; color: #666; margin-top: 10px;">
+                Twitter Summary Large Card. 1.91:1 ratio. Text is strictly below the image in the current design.
+            </p>
+        </div>
+
+        <!-- Facebook Preview -->
+        <div class="preview-container">
+            <h2>Facebook Post Preview</h2>
+            <div class="card facebook-card">
+                <div class="facebook-image-wrapper">
+                    <img src="/social-preview-padded-v3.png" class="linkedin-image" alt="Facebook Share">
+                </div>
+                <div class="facebook-text">
+                    <div class="facebook-domain">MORALKNIGHT.NL</div>
+                    <div class="facebook-title">Moral Knight: De onafhankelijke waakhond van publieke AI</div>
+                    <div class="facebook-desc">Onafhankelijke toetsing.</div>
+                </div>
+            </div>
+            <p style="font-size: 0.9em; color: #666; margin-top: 10px;">
+                Facebook uses the same Open Graph (og:image) tags. 1.91:1 ratio. Domain is uppercase.
+            </p>
+        </div>
+
+    </div>
+
+    <style>
+        /* Add Facebook specific styles */
+        .facebook-card {
+            background: #f0f2f5;
+            border: 1px solid #dddfe2;
+        }
+
+        .facebook-image-wrapper {
+            position: relative;
+            width: 100%;
+            padding-top: 52.35%;
+            background: #fff;
+        }
+
+        .facebook-text {
+            padding: 10px 12px;
+            background: #f0f2f5;
+            border-top: 1px solid #dddfe2;
+        }
+
+        .facebook-domain {
+            font-size: 12px;
+            color: #65676b;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .facebook-title {
+            font-family: Helvetica, Arial, sans-serif;
+            font-weight: 600;
+            font-size: 16px;
+            color: #050505;
+            margin-bottom: 3px;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .facebook-desc {
+            font-size: 14px;
+            color: #65676b;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+    </style>
+</body>
+
+</html>
