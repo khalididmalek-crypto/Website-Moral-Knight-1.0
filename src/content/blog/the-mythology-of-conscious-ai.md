@@ -1,7 +1,7 @@
 ---
 title: "De Mythe van Bewuste AI"
 date: "2026-02-16"
-tag: "Filosofie & AI"
+tag: "Filosofie"
 excerpt: "Is AI bewust of lijkt het alleen maar zo? Neuroloog Anil Seth betoogt waarom bewustzijn waarschijnlijk biologisch is en waarom het streven naar bewuste AI riskant is."
 status: "published"
 ---
