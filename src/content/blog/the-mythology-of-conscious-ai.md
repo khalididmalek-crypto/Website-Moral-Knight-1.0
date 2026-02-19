@@ -1,5 +1,5 @@
 ---
-title: "De Mythe van Bewuste AI"
+title: "De Mythe van bewuste AI"
 date: "2026-02-16"
 tag: "Filosofie"
 excerpt: "Is AI bewust of lijkt het alleen maar zo? Neuroloog Anil Seth betoogt waarom bewustzijn waarschijnlijk biologisch is en waarom het streven naar bewuste AI riskant is."
@@ -12,7 +12,7 @@ status: "published"
   </p>
 
   <p className="mb-3">
-    Wij mensen projecteren onze eigen menselijkheid op alles wat slim lijkt ('anthropomorfisme'). Vooral taalmodellen, die onze taal zo goed nabootsen, triggeren dit mechanisme. Maar volgens Seth is bewustzijn waarschijnlijk diep geworteld in onze biologie, in de processen die ons in leven houden, en niet iets dat je zomaar in siliconen kunt programmeren.
+    Wij mensen projecteren onze eigen menselijkheid op alles wat slim lijkt ('anthropomorfisme'). Vooral taalmodellen, die onze taal zo goed nabootsen, triggeren dit mechanisme. Maar volgens Seth is bewustzijn waarschijnlijk diep geworteld in onze biologie, in de processen die ons in leven houden, en niet iets dat je zomaar in silicium kunt programmeren.
   </p>
 
   <p className="mt-4" style={{ color: "#2C3E50" }}>
