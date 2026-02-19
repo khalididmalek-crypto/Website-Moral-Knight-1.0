@@ -11,6 +11,7 @@
  * All spacing values come from SPACING constants in constants.ts
  */
 import React, { useEffect, useState, useCallback, useRef, useMemo, Suspense, lazy } from 'react';
+import { useRouter } from 'next/router';
 import { TileData, TextContent } from './types';
 
 import { INITIAL_TILES, THEME, COLORS, SPACING } from './constants';
@@ -115,6 +116,9 @@ const App: React.FC<AppProps> = ({
     setActiveTileId(tileId);
   };
 
+  // Router for shallow routing
+  const router = useRouter();
+
   // Load persistence with error handling (Tiles only)
   useEffect(() => {
     try {
@@ -141,6 +145,71 @@ const App: React.FC<AppProps> = ({
     sessionStorage.setItem('dashboardOpen', String(dashboardOpen));
     sessionStorage.setItem('kennisbankOpen', String(kennisbankOpen));
   }, [activeTileId, meldpuntOpen, dashboardOpen, kennisbankOpen]);
+
+
+  // --- Shallow Routing Logic ---
+
+  // 1. Sync State -> URL
+  // When state changes, update the URL without reloading (shallow)
+  useEffect(() => {
+    if (!router.isReady) return;
+
+    const currentPath = router.asPath.split('?')[0]; // Ignore query params for now
+    let targetPath = '/';
+
+    if (meldpuntOpen) targetPath = '/meldpunt';
+    else if (dashboardOpen) targetPath = '/dashboard';
+    else if (kennisbankOpen) targetPath = '/kennisbank';
+    else if (activeTileId === 'tile-1') targetPath = '/probleem';
+    else if (activeTileId === 'tile-2') targetPath = '/oplossing';
+    else if (activeTileId === 'tile-3') targetPath = '/aanpak';
+    else if (activeTileId === 'tile-4') targetPath = '/diensten';
+    else if (activeTileId === 'tile-5') targetPath = '/contact';
+    else if (activeTileId === 'tile-6') targetPath = '/blog';
+
+    // Only push if different to avoid redundant history entries
+    // Also ensuring we don't interfere with the initial server-side render path
+    if (currentPath !== targetPath) {
+      router.push(targetPath, undefined, { shallow: true });
+    }
+  }, [activeTileId, meldpuntOpen, dashboardOpen, kennisbankOpen, router.isReady]);
+
+  // 2. Sync URL -> State (Handle Back/Forward navigation)
+  useEffect(() => {
+    if (!router.isReady) return;
+
+    const handleRouteChange = (url: string) => {
+      // We only care about the path, not query params for this mapping
+      const path = url.split('?')[0];
+
+      let newMeldpuntOpen = false;
+      let newDashboardOpen = false;
+      let newKennisbankOpen = false;
+      let newActiveTileId: string | null = null;
+
+      if (path === '/meldpunt') newMeldpuntOpen = true;
+      else if (path === '/dashboard') newDashboardOpen = true;
+      else if (path === '/kennisbank') newKennisbankOpen = true;
+      else if (path === '/probleem') newActiveTileId = 'tile-1';
+      else if (path === '/oplossing') newActiveTileId = 'tile-2';
+      else if (path === '/aanpak') newActiveTileId = 'tile-3';
+      else if (path === '/diensten') newActiveTileId = 'tile-4';
+      else if (path === '/contact') newActiveTileId = 'tile-5';
+      else if (path === '/blog') newActiveTileId = 'tile-6';
+
+      setMeldpuntOpen(newMeldpuntOpen);
+      setDashboardOpen(newDashboardOpen);
+      setKennisbankOpen(newKennisbankOpen);
+      setActiveTileId(newActiveTileId);
+    };
+
+    router.events.on('routeChangeComplete', handleRouteChange);
+
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange);
+    };
+  }, [router.isReady, router.events]);
+
 
   // Prevent body scroll when modals are open
   useEffect(() => {
@@ -428,6 +497,3 @@ const App: React.FC<AppProps> = ({
 };
 
 export default App;
-
-
-
