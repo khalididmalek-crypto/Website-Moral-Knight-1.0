@@ -6,7 +6,6 @@
  */
 import type { NextApiRequest, NextApiResponse } from 'next';
 import nodemailer from 'nodemailer';
-import path from 'path';
 import { generateEmailHtml } from '../../utils/emailTemplate';
 
 export const config = {
@@ -159,18 +158,10 @@ async function sendEmail(data: FormData): Promise<{ success: boolean; reportId?:
         return generateEmailHtml(data, isForUser, isReport, reportId, dateStr);
     };
 
-    // Logo with dark navy background - safe as email attachment
-    const logoPath = path.join(process.cwd(), 'public', 'images', 'logo-email.png');
-
     const getAttachments = () => {
-        const list: any[] = [
-            {
-                filename: 'Moral-Knight-Logo.png',
-                path: logoPath,
-            }
-        ];
+        const list: any[] = [];
 
-        // Handle User Attachment
+        // Handle User Attachment only
         if (data.file && data.fileName) {
             try {
                 let content = data.file;
