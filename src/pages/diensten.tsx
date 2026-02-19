@@ -7,7 +7,7 @@ import { getSharedStaticProps, SharedPageProps } from '../lib/staticProps';
 
 export const getStaticProps: GetStaticProps<SharedPageProps> = getSharedStaticProps;
 
-export default function MeldpuntPage(props: SharedPageProps) {
+export default function DienstenPage(props: SharedPageProps) {
     const [isMobile, setIsMobile] = useState<boolean | null>(null);
 
     useEffect(() => {
@@ -27,22 +27,16 @@ export default function MeldpuntPage(props: SharedPageProps) {
     return (
         <>
             <Head>
-                <title>Meldpunt - Moral Knight</title>
+                <title>Onze Diensten - Moral Knight</title>
             </Head>
 
             {isMobile ? (
-                /* Mobile View - Fallback to Home but maybe we want to open the component? 
-                   For now, reusing MobileHome behavior as requested "change nothing else" implies keeping consistent design.
-                   However, deep linking on mobile might ideally open the specific section. 
-                   Given the current MobileHome doesn't seem to support "open state" props easily, I will stick to rendering MobileHome.
-                   User said "website subpages", usually implying desktop structure. 
-                */
                 <div className="relative z-10 block min-h-[100dvh] bg-[#f8fafc]">
                     <MobileHome {...props} />
                 </div>
             ) : (
                 <div className="block">
-                    <App {...props} initialMeldpuntOpen={true} />
+                    <App {...props} initialActiveTileId="tile-4" />
                 </div>
             )}
         </>

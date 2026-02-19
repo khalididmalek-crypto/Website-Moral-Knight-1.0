@@ -1,29 +1,44 @@
-// @ts-nocheck
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
+import { GetStaticProps } from 'next';
+import { MobileHome } from '../components/MobileHome';
+import App from '../App';
+import { getSharedStaticProps, SharedPageProps } from '../lib/staticProps';
 
-export default function Dashboard() {
+export const getStaticProps: GetStaticProps<SharedPageProps> = getSharedStaticProps;
+
+export default function DashboardPage(props: SharedPageProps) {
+    const [isMobile, setIsMobile] = useState<boolean | null>(null);
+
+    useEffect(() => {
+        const checkMobile = () => {
+            setIsMobile(window.innerWidth < 768);
+        };
+
+        checkMobile();
+        window.addEventListener('resize', checkMobile);
+        return () => window.removeEventListener('resize', checkMobile);
+    }, []);
+
+    if (isMobile === null) {
+        return <div className="min-h-screen bg-[#f8fafc]" />;
+    }
+
     return (
-        <div className="min-h-screen bg-slate-50 font-sans">
+        <>
             <Head>
-                <title>Dashboard | Moral Knight</title>
-                <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+                <title>Dashboard - Moral Knight</title>
             </Head>
 
-            {/* Mobile Block Message */}
-            <div className="block md:hidden p-10 text-center flex flex-col items-center justify-center min-h-screen">
-                <p className="text-slate-500 font-mono">Deze pagina is alleen beschikbaar op desktop.</p>
-            </div>
-
-            {/* Content Only Visible on Desktop */}
-            <main className="hidden md:block max-w-4xl mx-auto px-4 py-12 md:py-24">
-                <div className="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-10">
-                    <h2 className="text-2xl font-bold text-slate-900 mb-6">Actuele Status</h2>
-                    <div className="overflow-x-auto">
-                        <p className="text-slate-500">Geen actuele meldingen om weer te geven.</p>
-                    </div>
+            {isMobile ? (
+                <div className="relative z-10 block min-h-[100dvh] bg-[#f8fafc]">
+                    <MobileHome {...props} />
                 </div>
-            </main>
-        </div>
+            ) : (
+                <div className="block">
+                    <App {...props} initialDashboardOpen={true} />
+                </div>
+            )}
+        </>
     );
 }

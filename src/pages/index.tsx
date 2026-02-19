@@ -1,79 +1,13 @@
-import fs from 'fs';
 import React, { useState, useEffect } from 'react';
-
-
-import path from 'path';
 import Head from 'next/head'
 import { GetStaticProps } from 'next'
-import { BlogPost } from '../types'
 import { MobileHome } from '../components/MobileHome'
 import App from '../App'
+import { getSharedStaticProps, SharedPageProps } from '../lib/staticProps'
 
-interface HomeProps {
-    posts: BlogPost[];
-    problemTileContent: string;
-    solutionTileContent: string;
-    approachTileContent: string;
-    servicesTileContent: string;
-}
+export const getStaticProps: GetStaticProps<SharedPageProps> = getSharedStaticProps;
 
-export const getStaticProps: GetStaticProps<HomeProps> = async () => {
-    // Read Markdown files
-    let problemTileContent = '';
-    let solutionTileContent = '';
-    let approachTileContent = '';
-    let servicesTileContent = '';
-
-    try {
-        const dataDir = path.join(process.cwd(), 'src', 'data');
-
-        // Helper to safely read file
-        const safelyReadFile = (filename: string): string => {
-            try {
-                const filePath = path.join(dataDir, filename);
-                if (fs.existsSync(filePath)) {
-                    return fs.readFileSync(filePath, 'utf8');
-                }
-            } catch (e) {
-                console.warn(`Failed to read ${filename}:`, e);
-            }
-            return '';
-        };
-
-        // Read problem text
-        problemTileContent = safelyReadFile('probleem_tekst.md');
-
-        // Read solution text
-        solutionTileContent = safelyReadFile('oplossing_tekst.md');
-
-        // Read approach text
-        approachTileContent = safelyReadFile('aanpak_tekst.md');
-
-        // Read services text
-        servicesTileContent = safelyReadFile('diensten_tekst.md');
-
-    } catch (error) {
-        console.error('Critical error in getStaticProps:', error);
-        // Fallback to empty strings acts as safety net
-    }
-
-    // Fetch blog posts from local file system
-    const { getSortedPostsData } = await import('../lib/blog');
-    const posts = getSortedPostsData();
-
-    return {
-        props: {
-            posts,
-            problemTileContent,
-            solutionTileContent,
-            approachTileContent,
-            servicesTileContent,
-        },
-        revalidate: 60, // ISR: Revalidate every 60 seconds
-    };
-};
-
-export default function Home({ posts, problemTileContent, solutionTileContent, approachTileContent, servicesTileContent }: HomeProps) {
+export default function Home({ posts, problemTileContent, solutionTileContent, approachTileContent, servicesTileContent }: SharedPageProps) {
     const [isMobile, setIsMobile] = useState<boolean | null>(null);
 
     useEffect(() => {

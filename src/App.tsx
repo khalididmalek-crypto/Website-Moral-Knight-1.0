@@ -37,6 +37,10 @@ interface AppProps {
   solutionTileContent?: string;
   approachTileContent?: string;
   servicesTileContent?: string;
+  initialMeldpuntOpen?: boolean;
+  initialDashboardOpen?: boolean;
+  initialKennisbankOpen?: boolean;
+  initialActiveTileId?: string;
 }
 
 
@@ -45,7 +49,11 @@ const App: React.FC<AppProps> = ({
   problemTileContent = '',
   solutionTileContent = '',
   approachTileContent = '',
-  servicesTileContent = ''
+  servicesTileContent = '',
+  initialMeldpuntOpen = false,
+  initialDashboardOpen = false,
+  initialKennisbankOpen = false,
+  initialActiveTileId = null,
 }) => {
   const [tiles, setTiles] = useState<TileData[]>(() => {
     return INITIAL_TILES.map(tile => {
@@ -66,6 +74,9 @@ const App: React.FC<AppProps> = ({
   });
 
   const [activeTileId, setActiveTileId] = useState<string | null>(() => {
+    if (initialActiveTileId) {
+      return initialActiveTileId;
+    }
     if (typeof window !== 'undefined') {
       return sessionStorage.getItem('activeTileId');
     }
@@ -74,18 +85,21 @@ const App: React.FC<AppProps> = ({
   const typingComplete = true;
   const [subtitleHover, setSubtitleHover] = useState(false);
   const [dashboardOpen, setDashboardOpen] = useState(() => {
+    if (initialDashboardOpen) return true;
     if (typeof window !== 'undefined') {
       return sessionStorage.getItem('dashboardOpen') === 'true';
     }
     return false;
   });
   const [meldpuntOpen, setMeldpuntOpen] = useState(() => {
+    if (initialMeldpuntOpen) return true;
     if (typeof window !== 'undefined') {
       return sessionStorage.getItem('meldpuntOpen') === 'true';
     }
     return false;
   });
   const [kennisbankOpen, setKennisbankOpen] = useState(() => {
+    if (initialKennisbankOpen) return true;
     if (typeof window !== 'undefined') {
       return sessionStorage.getItem('kennisbankOpen') === 'true';
     }
