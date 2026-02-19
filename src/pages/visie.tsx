@@ -242,7 +242,7 @@ export default function VisiePage({ content }: VisieProps) {
                     >
                         <div
                             className="bg-white w-full max-w-[550px] max-h-[90vh] overflow-y-auto p-6 relative shadow-xl border-t-4"
-                            style={{ borderTopColor: MK_BLUE, overscrollBehavior: 'contain' }}
+                            style={{ borderTopColor: MK_BLUE, overscrollBehavior: 'contain', touchAction: 'pan-y' }}
                             onClick={(e) => e.stopPropagation()}
                         >
                             <button
