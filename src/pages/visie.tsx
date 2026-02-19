@@ -154,11 +154,15 @@ export default function VisiePage({ content }: VisieProps) {
                         a { text-decoration: none !important; color: #222222 !important; }
                         h1, h2, h3, h4 { page-break-after: avoid; }
                         .page-break { break-before: page; }
-                        /* Literatuurlijst: altijd zichtbaar bij printen (ook op mobiel) */
+                        /* Zorg dat de literatuurlijst nooit wordt afgekapt */
+                        #literatuurlijst-print { page-break-inside: avoid; }
+                        /* Literatuurlijst: altijd zichtbaar bij printen - cross-browser fix */
                         #literatuurlijst-print {
                             display: block !important;
-                            margin-top: 3rem;
+                            visibility: visible !important;
+                            margin-top: 2rem;
                             padding-top: 2rem;
+                            border-top: 2px solid #8B1A3D;
                         }
                         /* Print-only header altijd zichtbaar */
                         #print-header {
@@ -246,7 +250,7 @@ export default function VisiePage({ content }: VisieProps) {
                             </ReactMarkdown>
 
                             {/* Scientific Sources - Print Only */}
-                            <div id="literatuurlijst-print" className="hidden print:block mt-12 pt-8 page-break">
+                            <div id="literatuurlijst-print" style={{ display: 'none' }} className="mt-12 pt-8">
                                 <h2 className="text-[14px] font-bold font-mono uppercase tracking-widest mb-6 border-b border-[#8B1A3D] pb-2 text-[#194D25]">
                                     Literatuurlijst
                                 </h2>
