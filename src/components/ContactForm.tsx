@@ -670,7 +670,7 @@ export const ContactForm: React.FC<Props> = ({ className = '', mode = 'preview',
                 Ik geef Moral Knight toestemming om mijn gegevens te verwerken conform de{' '}
                 <button
                   type="button"
-                  onClick={() => window.location.href = '/privacy'}
+                  onClick={() => window.open('/privacy', '_blank', 'noopener,noreferrer')}
                   className="inline underline bg-transparent border-none p-0 cursor-pointer transition-colors duration-300 hover:text-[#8B1A3D]"
                   style={{ pointerEvents: 'auto', position: 'relative' }}
                 >
