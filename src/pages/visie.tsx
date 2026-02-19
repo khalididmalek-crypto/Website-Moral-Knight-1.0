@@ -104,21 +104,10 @@ export default function VisiePage({ content }: VisieProps) {
         };
     }, [showSources]);
 
-    // Force desktop viewport before printing so md: breakpoints activate on mobile
+    // Simplified handlePrint for better cross-browser stability
     const handlePrint = () => {
-        const metaViewport = document.querySelector('meta[name=viewport]') as HTMLMetaElement | null;
-        const originalContent = metaViewport?.getAttribute('content') ?? '';
-        if (metaViewport) {
-            metaViewport.setAttribute('content', 'width=900');
-        }
-        setTimeout(() => {
-            window.print();
-            setTimeout(() => {
-                if (metaViewport) {
-                    metaViewport.setAttribute('content', originalContent || 'width=device-width, initial-scale=1');
-                }
-            }, 1000);
-        }, 100);
+        // Just call print, rely on the CSS media queries for layout
+        window.print();
     };
 
     // Colors
@@ -132,9 +121,18 @@ export default function VisiePage({ content }: VisieProps) {
             <Head>
                 <title>Onze Visie - Moral Knight</title>
                 <style>{`
+                    /* Screen-only hiding (prevents Chrome from skipping these during PDF generation) */
+                    @media screen {
+                        #literatuurlijst-print, 
+                        #print-header, 
+                        #print-title {
+                            display: none !important;
+                        }
+                    }
+
                     @media print {
                         @page { 
-                            margin: 2cm 2cm 2cm 2cm;
+                            margin: 1.5cm;
                             size: A4 portrait;
                         }
                         body { 
@@ -147,33 +145,25 @@ export default function VisiePage({ content }: VisieProps) {
                             background-color: white !important;
                         }
                         nav, footer, .no-print { display: none !important; }
-                        .print-only { display: block !important; }
+                        
                         main { width: 100% !important; max-width: none !important; margin: 0 !important; padding: 0 !important; }
-                        /* Keep source links visible, red and underlined in PDF */
-                        .source-list a { color: #8B1A3D !important; text-decoration: underline !important; font-size: 10px !important; }
-                        a { text-decoration: none !important; color: #222222 !important; }
-                        h1, h2, h3, h4 { page-break-after: avoid; }
-                        .page-break { break-before: page; }
-                        /* Zorg dat de literatuurlijst nooit wordt afgekapt */
-                        #literatuurlijst-print { page-break-inside: avoid; }
-                        /* Literatuurlijst: altijd zichtbaar bij printen - cross-browser fix */
+                        
+                        /* Literatuurlijst: forceer zichtbaarheid voor Chrome */
                         #literatuurlijst-print {
                             display: block !important;
                             visibility: visible !important;
                             margin-top: 2rem;
                             padding-top: 2rem;
                             border-top: 2px solid #8B1A3D;
+                            page-break-inside: avoid;
                         }
-                        /* Print-only header altijd zichtbaar */
-                        #print-header {
-                            display: block !important;
-                            margin-bottom: 2rem;
-                        }
-                        /* Document title print altijd zichtbaar */
-                        #print-title {
-                            display: block !important;
-                            margin-bottom: 3rem;
-                        }
+                        #print-header { display: block !important; margin-bottom: 2rem; }
+                        #print-title { display: block !important; margin-bottom: 2rem; }
+
+                        .source-list a { color: #8B1A3D !important; text-decoration: underline !important; font-size: 10px !important; }
+                        a { text-decoration: none !important; color: #222222 !important; }
+                        h1, h2, h3, h4 { page-break-after: avoid; }
+                        .page-break { break-before: page; }
                     }
                 `}</style>
             </Head>
@@ -181,14 +171,14 @@ export default function VisiePage({ content }: VisieProps) {
             <div className="min-h-screen py-10 px-6 md:px-0 relative print-white-bg" style={{ backgroundColor: BG_COLOR, color: TEXT_COLOR }}>
                 <div className="max-w-3xl mx-auto">
                     {/* Print-only Header (Matches Website Header Style) */}
-                    <div id="print-header" className="hidden print:block mb-8 bg-white p-4 border border-[#8B1A3D] text-left">
-                        <div className="font-mono font-bold uppercase tracking-widest text-[#194D25]">
+                    <div id="print-header">
+                        <div className="font-mono font-bold uppercase tracking-widest text-[#194D25] p-4 border border-[#8B1A3D] inline-block mb-4">
                             <span style={{ color: '#194D25' }}>/</span> Moral Knight
                         </div>
                     </div>
 
                     {/* Document Title for Print */}
-                    <div id="print-title" className="hidden print:block mb-12 text-left">
+                    <div id="print-title" className="mb-12 text-left">
                         <h1 className="font-mono text-xl font-bold tracking-[0.2em] uppercase text-black">
                             Visie op Onafhankelijke Toetsing
                         </h1>
@@ -250,7 +240,7 @@ export default function VisiePage({ content }: VisieProps) {
                             </ReactMarkdown>
 
                             {/* Scientific Sources - Print Only */}
-                            <div id="literatuurlijst-print" style={{ display: 'none' }} className="mt-12 pt-8">
+                            <div id="literatuurlijst-print" className="mt-12 pt-8">
                                 <h2 className="text-[14px] font-bold font-mono uppercase tracking-widest mb-6 border-b border-[#8B1A3D] pb-2 text-[#194D25]">
                                     Literatuurlijst
                                 </h2>
