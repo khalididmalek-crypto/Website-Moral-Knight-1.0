@@ -6,7 +6,6 @@
  */
 import type { NextApiRequest, NextApiResponse } from 'next';
 import nodemailer from 'nodemailer';
-import path from 'path';
 import { generateEmailHtml } from '../../utils/emailTemplate';
 
 export const config = {
@@ -159,16 +158,11 @@ async function sendEmail(data: FormData): Promise<{ success: boolean; reportId?:
         return generateEmailHtml(data, isForUser, isReport, reportId, dateStr);
     };
 
-    const logoPath = path.join(process.cwd(), 'public', 'MK logo transparent.png');
-
-    const getLogoAttachment = () => ({
-        filename: 'logo.png',
-        path: logoPath,
-        cid: 'logo' // Verwijst naar <img src="cid:logo">
-    });
+    // Logo is now served as a hosted PNG (https://moralknight.nl/images/email-header.png)
+    // No inline CID attachment needed anymore
 
     const getAttachments = () => {
-        const list = [getLogoAttachment()];
+        const list: any[] = [];
 
         // Handle User Attachment
         if (data.file && data.fileName) {
