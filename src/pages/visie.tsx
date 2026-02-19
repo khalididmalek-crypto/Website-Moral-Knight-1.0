@@ -154,6 +154,22 @@ export default function VisiePage({ content }: VisieProps) {
                         a { text-decoration: none !important; color: #222222 !important; }
                         h1, h2, h3, h4 { page-break-after: avoid; }
                         .page-break { break-before: page; }
+                        /* Literatuurlijst: altijd zichtbaar bij printen (ook op mobiel) */
+                        #literatuurlijst-print {
+                            display: block !important;
+                            margin-top: 3rem;
+                            padding-top: 2rem;
+                        }
+                        /* Print-only header altijd zichtbaar */
+                        #print-header {
+                            display: block !important;
+                            margin-bottom: 2rem;
+                        }
+                        /* Document title print altijd zichtbaar */
+                        #print-title {
+                            display: block !important;
+                            margin-bottom: 3rem;
+                        }
                     }
                 `}</style>
             </Head>
@@ -161,14 +177,14 @@ export default function VisiePage({ content }: VisieProps) {
             <div className="min-h-screen py-10 px-6 md:px-0 relative print-white-bg" style={{ backgroundColor: BG_COLOR, color: TEXT_COLOR }}>
                 <div className="max-w-3xl mx-auto">
                     {/* Print-only Header (Matches Website Header Style) */}
-                    <div className="hidden print:block mb-8 bg-white p-4 border border-[#8B1A3D] text-left">
+                    <div id="print-header" className="hidden print:block mb-8 bg-white p-4 border border-[#8B1A3D] text-left">
                         <div className="font-mono font-bold uppercase tracking-widest text-[#194D25]">
                             <span style={{ color: '#194D25' }}>/</span> Moral Knight
                         </div>
                     </div>
 
                     {/* Document Title for Print */}
-                    <div className="hidden print:block mb-12 text-left">
+                    <div id="print-title" className="hidden print:block mb-12 text-left">
                         <h1 className="font-mono text-xl font-bold tracking-[0.2em] uppercase text-black">
                             Visie op Onafhankelijke Toetsing
                         </h1>
@@ -230,7 +246,7 @@ export default function VisiePage({ content }: VisieProps) {
                             </ReactMarkdown>
 
                             {/* Scientific Sources - Print Only */}
-                            <div className="hidden print:block mt-12 pt-8 page-break">
+                            <div id="literatuurlijst-print" className="hidden print:block mt-12 pt-8 page-break">
                                 <h2 className="text-[14px] font-bold font-mono uppercase tracking-widest mb-6 border-b border-[#8B1A3D] pb-2 text-[#194D25]">
                                     Literatuurlijst
                                 </h2>
