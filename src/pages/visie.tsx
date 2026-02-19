@@ -13,15 +13,39 @@ interface VisieProps {
     content: string;
 }
 
-const SOURCES = [
-    "Bengio, Y., Clare, S., Prunkl, C., Murray, M., Andriushchenko, M., Bucknall, B., ... & Mindermann, S. (2026). *International AI Safety Report 2026* (DSIT 2026/001). Department for Science, Innovation and Technology. https://internationalaisafetyreport.org",
-    "Bleher, H., & Braun, M. (2023). Reflections on putting AI ethics into practice: How three AI ethics approaches conceptualize theory and practice. *Science and Engineering Ethics*, 29(3), 21. https://doi.org/10.1007/s11948-023-00443-3",
-    "Dignum, V. (2022). *Responsible artificial intelligence – from principles to practice*. Paper based on keynote at the Web Conference 2022. Umeå University. https://www.umu.se/en/research/groups/human-centered-ai/",
-    "Gerards, J., Muis, I., Straatman, J., Vankan, A., & Boiten, M. (2026). *IAMA Versie 2: Impact Assessment Mensenrechten en Algoritmes*. Universiteit Utrecht in opdracht van het Ministerie van Binnenlandse Zaken en Koninkrijksrelaties. https://www.government.nl/documents/publications/2021/02/25/impact-assessment-fundamental-rights-and-algorithms",
-    "Herzog, C., & Blank, S. (2024). A systemic perspective on bridging the principles-to-practice gap in creating ethical artificial intelligence solutions – a critique of dominant narratives and proposal for a collaborative way forward. *Journal of Responsible Innovation*, 11(1), 2431350. https://doi.org/10.1080/23299460.2024.2431350",
-    "OECD. (2024). *Governing with artificial intelligence: Are governments ready?* OECD Publishing. https://doi.org/10.1787/e0b636be-en",
-    "Ratti, E. (2025). Three Kinds of AI Ethics. [Preprint]. arXiv. https://doi.org/10.48550/arXiv.2503.18842",
-    "Yeung, K., & Li, W. (2025). From ‘wild west’ to ‘responsible’ AI testing ‘in-the-wild’: Lessons from live facial recognition testing by law enforcement authorities in Europe. *Data & Policy*, 7(e59). https://doi.org/10.1017/dap.2025.10019"
+const SOURCES: { citation: string; url: string }[] = [
+    {
+        citation: "Bengio, Y., Clare, S., Prunkl, C., Murray, M., Andriushchenko, M., Bucknall, B., ... & Mindermann, S. (2026). *International AI Safety Report 2026* (DSIT 2026/001). Department for Science, Innovation and Technology.",
+        url: "https://internationalaisafetyreport.org"
+    },
+    {
+        citation: "Bleher, H., & Braun, M. (2023). Reflections on putting AI ethics into practice: How three AI ethics approaches conceptualize theory and practice. *Science and Engineering Ethics*, 29(3), 21.",
+        url: "https://doi.org/10.1007/s11948-023-00443-3"
+    },
+    {
+        citation: "Dignum, V. (2022). *Responsible artificial intelligence – from principles to practice*. Paper based on keynote at the Web Conference 2022. Umeå University.",
+        url: "https://www.umu.se/en/research/groups/human-centered-ai/"
+    },
+    {
+        citation: "Gerards, J., Muis, I., Straatman, J., Vankan, A., & Boiten, M. (2026). *IAMA Versie 2: Impact Assessment Mensenrechten en Algoritmes*. Universiteit Utrecht / Ministerie van BZK.",
+        url: "https://www.government.nl/documents/publications/2021/02/25/impact-assessment-fundamental-rights-and-algorithms"
+    },
+    {
+        citation: "Herzog, C., & Blank, S. (2024). A systemic perspective on bridging the principles-to-practice gap in creating ethical AI solutions. *Journal of Responsible Innovation*, 11(1), 2431350.",
+        url: "https://doi.org/10.1080/23299460.2024.2431350"
+    },
+    {
+        citation: "OECD. (2024). *Governing with artificial intelligence: Are governments ready?* OECD Publishing.",
+        url: "https://doi.org/10.1787/e0b636be-en"
+    },
+    {
+        citation: "Ratti, E. (2025). Three Kinds of AI Ethics. [Preprint]. arXiv.",
+        url: "https://doi.org/10.48550/arXiv.2503.18842"
+    },
+    {
+        citation: "Yeung, K., & Li, W. (2025). From 'wild west' to 'responsible' AI testing 'in-the-wild': Lessons from live facial recognition testing by law enforcement authorities in Europe. *Data & Policy*, 7(e59).",
+        url: "https://doi.org/10.1017/dap.2025.10019"
+    }
 ];
 
 export const getStaticProps: GetStaticProps<VisieProps> = async () => {
@@ -213,15 +237,11 @@ export default function VisiePage({ content }: VisieProps) {
                                 <ul className="source-list space-y-4 font-mono text-xs text-gray-700">
                                     {SOURCES.map((source, index) => (
                                         <li key={index} className="pl-4 border-l-2 border-[#194D25]/20">
-                                            <ReactMarkdown
-                                                remarkPlugins={[remarkGfm]}
-                                                components={{
-                                                    p: ({ node, ...props }) => <p {...props} className="m-0" />,
-                                                    a: ({ node, ...props }) => <a {...props} target="_blank" rel="noopener noreferrer" style={{ color: '#194D25', textDecoration: 'underline' }} />
-                                                }}
-                                            >
-                                                {source}
+                                            <ReactMarkdown remarkPlugins={[remarkGfm]} components={{ p: ({ node, ...props }) => <p {...props} className="m-0 inline" /> }}>
+                                                {source.citation}
                                             </ReactMarkdown>
+                                            {' '}
+                                            <a href={source.url} target="_blank" rel="noopener noreferrer" style={{ color: '#8B1A3D', textDecoration: 'underline' }}>↗ link</a>
                                         </li>
                                     ))}
                                 </ul>
@@ -288,15 +308,19 @@ export default function VisiePage({ content }: VisieProps) {
                                 <ul className="source-list space-y-4">
                                     {SOURCES.map((source, index) => (
                                         <li key={index} className="pl-4 border-l-2" style={{ borderColor: MK_BLUE }}>
-                                            <ReactMarkdown
-                                                remarkPlugins={[remarkGfm]}
-                                                components={{
-                                                    p: ({ node, ...props }) => <p {...props} className="m-0" />,
-                                                    a: ({ node, ...props }) => <a {...props} target="_blank" rel="noopener noreferrer" style={{ color: '#194D25', textDecoration: 'underline' }} />
-                                                }}
-                                            >
-                                                {source}
+                                            <ReactMarkdown remarkPlugins={[remarkGfm]} components={{ p: ({ node, ...props }) => <p {...props} className="m-0 inline" /> }}>
+                                                {source.citation}
                                             </ReactMarkdown>
+                                            {' '}
+                                            <a
+                                                href={source.url}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                className="inline-block mt-1 font-mono text-xs font-bold uppercase tracking-widest hover:opacity-75 transition-opacity"
+                                                style={{ color: '#8B1A3D' }}
+                                            >
+                                                ↗ link
+                                            </a>
                                         </li>
                                     ))}
                                 </ul>
