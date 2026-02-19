@@ -92,12 +92,16 @@ export default function VisiePage({ content }: VisieProps) {
                 <style>{`
                     @media print {
                         @page { 
-                            margin: 2cm 2cm 2cm 2cm; 
+                            margin: 2cm 2cm 2cm 2cm;
+                            size: A4 portrait;
                         }
                         body { 
                             background-color: white !important; 
                             color: #222222 !important;
                             -webkit-print-color-adjust: exact;
+                            print-color-adjust: exact;
+                            /* Force desktop-like width so responsive breakpoints activate */
+                            min-width: 900px !important;
                         }
                         .print-white-bg {
                             background-color: white !important;
@@ -110,6 +114,10 @@ export default function VisiePage({ content }: VisieProps) {
                         .page-break { 
                             break-before: page;
                         }
+                        /* Desktop font sizes for all viewports in print */
+                        .print-force-md h1 { font-size: 2.25rem !important; }
+                        .print-force-md h2 { font-size: 1.5rem !important; font-size: 14px !important; }
+                        .print-force-md p { font-size: 1rem !important; }
                     }
                 `}</style>
             </Head>
