@@ -41,8 +41,8 @@ interface AppProps {
   initialMeldpuntOpen?: boolean;
   initialDashboardOpen?: boolean;
   initialKennisbankOpen?: boolean;
-  initialActiveTileId?: string;
-  initialActiveBlogSlug?: string;
+  initialActiveTileId?: string | null;
+  initialActiveBlogSlug?: string | null;
 }
 
 
@@ -176,11 +176,10 @@ const App: React.FC<AppProps> = ({
     else if (activeTileId === 'tile-6') targetPath = '/blog';
 
     // Only push if different to avoid redundant history entries
-    // Also ensuring we don't interfere with the initial server-side render path
     if (currentPath !== targetPath) {
       router.push(targetPath, undefined, { shallow: true });
     }
-  }, [activeTileId, meldpuntOpen, dashboardOpen, kennisbankOpen, activeBlogSlug, router]); // Added router to deps
+  }, [activeTileId, meldpuntOpen, dashboardOpen, kennisbankOpen, activeBlogSlug, router]);
 
   // 2. Sync URL -> State (Handle Back/Forward navigation)
   useEffect(() => {

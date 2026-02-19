@@ -493,13 +493,14 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
                     </h3>
                     <p className="font-mono text-[15px] leading-relaxed max-w-2xl text-gray-600">
                       Meer weten over de filosofie achter onze werkwijze?{' '}
-                      <Link
-                        href="/visie"
-                        className="font-bold underline transition-colors duration-300 cursor-pointer align-baseline hover:opacity-75"
-                        aria-label="Ga naar visie pagina"
-                        style={{ color: COLORS.BORDEAUX_RED }}
-                      >
-                        Lees meer over onze visie
+                      <Link href="/visie" passHref legacyBehavior>
+                        <a
+                          className="font-bold underline transition-colors duration-300 cursor-pointer align-baseline hover:opacity-75"
+                          aria-label="Ga naar visie pagina"
+                          style={{ color: COLORS.BORDEAUX_RED }}
+                        >
+                          Lees meer over onze visie
+                        </a>
                       </Link>
                       .
                     </p>

@@ -550,11 +550,10 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                                                 </h4>
                                                 <p className="mb-4 text-[14px] font-mono leading-relaxed text-gray-700">
                                                     Meer weten over de filosofie achter onze werkwijze?{' '}
-                                                    <Link
-                                                        href="/visie"
-                                                        className="text-[#8B1A3D] font-bold hover:underline cursor-pointer"
-                                                    >
-                                                        Lees meer over onze visie.
+                                                    <Link href="/visie" passHref legacyBehavior>
+                                                        <a className="text-[#8B1A3D] font-bold hover:underline cursor-pointer">
+                                                            Lees meer over onze visie.
+                                                        </a>
                                                     </Link>
                                                 </p>
                                             </div>

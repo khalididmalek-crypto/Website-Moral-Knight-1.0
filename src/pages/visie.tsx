@@ -13,10 +13,14 @@ interface VisieProps {
 }
 
 const SOURCES = [
-    "Yeung, K., & Li, M. (2025). *AI Accountability and the Rule of Law*. Oxford University Press.",
-    "OECD. (2024). *Recommendation of the Council on Artificial Intelligence*. OECD Legal Instruments.",
-    "Herzog, C., & Blank, J. (2024). *Operationalizing AI Ethics: A Framework for Independent Auditing*. Journal of AI Ethics, 4(2), 112-128.",
-    "Dignum, V. (2022). *Responsible Artificial Intelligence: How to Develop and Use AI in a Responsible Way*. Springer."
+    "Bengio, Y., Clare, S., Prunkl, C., Murray, M., Andriushchenko, M., Bucknall, B., ... & Mindermann, S. (2026). *International AI Safety Report 2026* (DSIT 2026/001). Department for Science, Innovation and Technology. https://internationalaisafetyreport.org",
+    "Bleher, H., & Braun, M. (2023). Reflections on putting AI ethics into practice: How three AI ethics approaches conceptualize theory and practice. *Science and Engineering Ethics*, 29(3), 21. https://doi.org/10.1007/s11948-023-00443-3",
+    "Dignum, V. (2022). *Responsible artificial intelligence – from principles to practice*. Paper based on keynote at the Web Conference 2022. Umeå University.",
+    "Gerards, J., Muis, I., Straatman, J., Vankan, A., & Boiten, M. (2026). *IAMA Versie 2: Impact Assessment Mensenrechten en Algoritmes*. Universiteit Utrecht in opdracht van het Ministerie van Binnenlandse Zaken en Koninkrijksrelaties.",
+    "Herzog, C., & Blank, S. (2024). A systemic perspective on bridging the principles-to-practice gap in creating ethical artificial intelligence solutions – a critique of dominant narratives and proposal for a collaborative way forward. *Journal of Responsible Innovation*, 11(1), 2431350. https://doi.org/10.1080/23299460.2024.2431350",
+    "OECD. (2024). *Governing with artificial intelligence: Are governments ready?* OECD Publishing.",
+    "Ratti, E. (2025). Three Kinds of AI Ethics. [Preprint]. arXiv. https://doi.org/10.48550/arXiv.2503.18842",
+    "Yeung, K., & Li, W. (2025). From ‘wild west’ to ‘responsible’ AI testing ‘in-the-wild’: Lessons from live facial recognition testing by law enforcement authorities in Europe. *Data & Policy*, 7(e59). https://doi.org/10.1017/dap.2025.10019"
 ];
 
 export const getStaticProps: GetStaticProps<VisieProps> = async () => {
@@ -63,6 +67,18 @@ export const getStaticProps: GetStaticProps<VisieProps> = async () => {
 export default function VisiePage({ content }: VisieProps) {
     const [showSources, setShowSources] = useState(false);
 
+    // Lock body scroll when sources modal is open
+    React.useEffect(() => {
+        if (showSources) {
+            document.body.style.overflow = 'hidden';
+        } else {
+            document.body.style.overflow = 'unset';
+        }
+        return () => {
+            document.body.style.overflow = 'unset';
+        };
+    }, [showSources]);
+
     // Colors
     const BG_COLOR = "#FAFAFA";
     const TEXT_COLOR = "#222222";
@@ -89,7 +105,7 @@ export default function VisiePage({ content }: VisieProps) {
                 <div className="max-w-3xl mx-auto">
                     {/* Header */}
                     <div className="mb-12 flex justify-between items-center bg-white p-4 border border-black shadow-sm no-print">
-                        <Link href="/" className="font-mono font-bold uppercase tracking-widest hover:opacity-75" style={{ color: "#194D25" }}>
+                        <Link href="/" className="font-mono font-bold uppercase tracking-widest transition-colors duration-300 hover:text-[#8B1A3D]" style={{ color: "#194D25" }}>
                             / Moral Knight
                         </Link>
                         <span className="font-mono text-xs text-gray-400">VISIE 2026</span>
@@ -141,7 +157,7 @@ export default function VisiePage({ content }: VisieProps) {
                 {showSources && (
                     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm no-print" onClick={() => setShowSources(false)}>
                         <div
-                            className="bg-white w-full max-w-2xl p-6 relative shadow-xl border-t-4"
+                            className="bg-white w-full max-w-[550px] max-h-[90vh] overflow-y-auto p-6 relative shadow-xl border-t-4"
                             style={{ borderTopColor: MK_BLUE }}
                             onClick={(e) => e.stopPropagation()}
                         >
