@@ -178,12 +178,12 @@ export default function VisiePage({ content }: VisieProps) {
                     </div>
 
                     {/* Header (Nav) - Screen Only */}
-                    <div className="mb-8 flex justify-between items-center bg-white p-4 border border-[#8B1A3D] shadow-sm no-print">
-                        <Link href="/" className="font-mono font-bold uppercase tracking-widest transition-colors duration-300">
+                    <div className="mb-8 flex flex-nowrap justify-between items-center bg-white p-4 border border-[#8B1A3D] shadow-sm no-print">
+                        <Link href="/" className="font-mono font-bold uppercase tracking-widest transition-colors duration-300 whitespace-nowrap">
                             <span style={{ color: '#194D25' }}>/</span>
                             <span className="hover:text-[#8B1A3D] transition-colors duration-300" style={{ color: "#194D25" }}> Moral Knight</span>
                         </Link>
-                        <span className="font-mono text-xs text-gray-400">VISIE 2026</span>
+                        <span className="font-mono text-xs text-gray-400 whitespace-nowrap pl-4">VISIE 2026</span>
                     </div>
 
                     {/* Document Title - Screen Only */}
