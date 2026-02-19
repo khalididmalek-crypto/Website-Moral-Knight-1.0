@@ -87,3 +87,45 @@ export async function getPostData(slug: string): Promise<BlogPost | null> {
         return null; // Ensure we return null on error
     }
 }
+// ... existing getPostData ...
+
+export async function getAllPostsWithHtml(): Promise<BlogPost[]> {
+    if (!fs.existsSync(postsDirectory)) {
+        return [];
+    }
+
+    const fileNames = fs.readdirSync(postsDirectory);
+    const allPostsData = await Promise.all(fileNames
+        .filter((fileName) => fileName.endsWith('.md'))
+        .map(async (fileName) => {
+            const id = fileName.replace(/\.md$/, '');
+            const slug = id;
+            const fullPath = path.join(postsDirectory, fileName);
+            const fileContents = fs.readFileSync(fullPath, 'utf8');
+            const matterResult = matter(fileContents);
+
+            const processedContent = await remark()
+                .use(html)
+                .process(matterResult.content);
+            const contentHtml = processedContent.toString();
+
+            return {
+                id,
+                slug,
+                title: matterResult.data.title,
+                date: matterResult.data.date,
+                tag: matterResult.data.tag,
+                excerpt: matterResult.data.excerpt,
+                content: contentHtml,
+                ...matterResult.data,
+            } as BlogPost;
+        }));
+
+    return allPostsData.sort((a, b) => {
+        if (a.date < b.date) {
+            return 1;
+        } else {
+            return -1;
+        }
+    });
+}

@@ -42,6 +42,7 @@ interface AppProps {
   initialDashboardOpen?: boolean;
   initialKennisbankOpen?: boolean;
   initialActiveTileId?: string;
+  initialActiveBlogSlug?: string;
 }
 
 
@@ -55,6 +56,7 @@ const App: React.FC<AppProps> = ({
   initialDashboardOpen = false,
   initialKennisbankOpen = false,
   initialActiveTileId = null,
+  initialActiveBlogSlug = null,
 }) => {
   const [tiles, setTiles] = useState<TileData[]>(() => {
     return INITIAL_TILES.map(tile => {
@@ -81,6 +83,11 @@ const App: React.FC<AppProps> = ({
     if (typeof window !== 'undefined') {
       return sessionStorage.getItem('activeTileId');
     }
+    return null;
+  });
+
+  const [activeBlogSlug, setActiveBlogSlug] = useState<string | null>(() => {
+    if (initialActiveBlogSlug) return initialActiveBlogSlug;
     return null;
   });
   const typingComplete = true;
@@ -157,7 +164,8 @@ const App: React.FC<AppProps> = ({
     const currentPath = router.asPath.split('?')[0]; // Ignore query params for now
     let targetPath = '/';
 
-    if (meldpuntOpen) targetPath = '/meldpunt';
+    if (activeBlogSlug) targetPath = `/blog/${activeBlogSlug}`;
+    else if (meldpuntOpen) targetPath = '/meldpunt';
     else if (dashboardOpen) targetPath = '/dashboard';
     else if (kennisbankOpen) targetPath = '/kennisbank';
     else if (activeTileId === 'tile-1') targetPath = '/probleem';
@@ -172,7 +180,7 @@ const App: React.FC<AppProps> = ({
     if (currentPath !== targetPath) {
       router.push(targetPath, undefined, { shallow: true });
     }
-  }, [activeTileId, meldpuntOpen, dashboardOpen, kennisbankOpen, router.isReady]);
+  }, [activeTileId, meldpuntOpen, dashboardOpen, kennisbankOpen, activeBlogSlug, router]); // Added router to deps
 
   // 2. Sync URL -> State (Handle Back/Forward navigation)
   useEffect(() => {
@@ -186,8 +194,14 @@ const App: React.FC<AppProps> = ({
       let newDashboardOpen = false;
       let newKennisbankOpen = false;
       let newActiveTileId: string | null = null;
+      let newActiveBlogSlug: string | null = null;
 
-      if (path === '/meldpunt') newMeldpuntOpen = true;
+      if (path.startsWith('/blog/') && path.length > 6) {
+        newActiveTileId = 'tile-6';
+        newActiveBlogSlug = path.replace('/blog/', '');
+      } else if (path === '/blog') {
+        newActiveTileId = 'tile-6';
+      } else if (path === '/meldpunt') newMeldpuntOpen = true;
       else if (path === '/dashboard') newDashboardOpen = true;
       else if (path === '/kennisbank') newKennisbankOpen = true;
       else if (path === '/probleem') newActiveTileId = 'tile-1';
@@ -195,12 +209,12 @@ const App: React.FC<AppProps> = ({
       else if (path === '/aanpak') newActiveTileId = 'tile-3';
       else if (path === '/diensten') newActiveTileId = 'tile-4';
       else if (path === '/contact') newActiveTileId = 'tile-5';
-      else if (path === '/blog') newActiveTileId = 'tile-6';
 
       setMeldpuntOpen(newMeldpuntOpen);
       setDashboardOpen(newDashboardOpen);
       setKennisbankOpen(newKennisbankOpen);
       setActiveTileId(newActiveTileId);
+      setActiveBlogSlug(newActiveBlogSlug);
     };
 
     router.events.on('routeChangeComplete', handleRouteChange);
@@ -473,6 +487,8 @@ const App: React.FC<AppProps> = ({
               allTiles={tiles}
               onNavigate={handleTileClick}
               onOpenMeldpunt={() => setMeldpuntOpen(true)}
+              activeBlogSlug={activeBlogSlug}
+              onSelectBlogPost={setActiveBlogSlug}
             />
           </Suspense>
         )}

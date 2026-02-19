@@ -52,8 +52,8 @@ export const getSharedStaticProps: GetStaticProps<SharedPageProps> = async () =>
     }
 
     // Fetch blog posts from local file system
-    const { getSortedPostsData } = await import('./blog');
-    const posts = getSortedPostsData();
+    const { getAllPostsWithHtml } = await import('./blog');
+    const posts = await getAllPostsWithHtml();
 
     return {
         props: {

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favicon Preview & Tuner</title>
+    <link rel="icon" type="image/x-icon" href="/favicon.ico?v=6">
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f0f0f0;
+            color: #333;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            max-width: 800px;
+            width: 100%;
+        }
+
+        h1 {
+            margin-top: 0;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+            justify-items: center;
+        }
+
+        .icon-card {
+            border: 1px solid #eee;
+            padding: 10px;
+            border-radius: 8px;
+            text-align: center;
+            background: #fff;
+        }
+
+        .icon-card img {
+            display: block;
+            margin: 0 auto 10px;
+            transition: filter 0.2s;
+        }
+
+        .controls {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+
+        .control-group {
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        label {
+            min-width: 100px;
+        }
+
+        input[type="range"] {
+            flex-grow: 1;
+        }
+
+        .bg-selector {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .bg-btn {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 2px solid #ccc;
+            cursor: pointer;
+        }
+
+        #bg-white {
+            background: #ffffff;
+        }
+
+        #bg-dark {
+            background: #1a1a1a;
+        }
+
+        #bg-gray {
+            background: #888888;
+        }
+
+        #bg-blue {
+            background: #0070f3;
+        }
+
+        .code-block {
+            background: #222;
+            color: #0f0;
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            margin-top: 10px;
+            white-space: pre-wrap;
+            display: none;
+            /* Hidden until modified */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Favicon Preview</h1>
+        <p>Review the favicons against different backgrounds. Use sliders to propose adjustments.</p>
+
+        <div class="bg-selector">
+            <div class="bg-btn" id="bg-white" onclick="setBg('#ffffff')"></div>
+            <div class="bg-btn" id="bg-gray" onclick="setBg('#888888')"></div>
+            <div class="bg-btn" id="bg-dark" onclick="setBg('#1a1a1a')"></div>
+            <div class="bg-btn" id="bg-blue" onclick="setBg('#0070f3')"></div>
+        </div>
+
+        <div class="grid" id="iconGrid">
+            <div class="icon-card">
+                <img src="/favicon.svg?v=6" width="96" height="96" class="preview-target">
+                <span>SVG (96px)</span>
+            </div>
+            <div class="icon-card">
+                <img src="/favicon-96x96.png?v=6" width="96" height="96" class="preview-target">
+                <span>PNG (96px)</span>
+            </div>
+            <div class="icon-card">
+                <img src="/favicon.ico?v=6" width="48" height="48" class="preview-target">
+                <span>ICO (48px)</span>
+            </div>
+            <div class="icon-card">
+                <img src="/apple-touch-icon.png?v=6" width="180" height="180" style="width:96px;height:96px"
+                    class="preview-target">
+                <span>Apple (180px)</span>
+            </div>
+        </div>
+
+        <div class="controls">
+            <h3>Tuning Controls</h3>
+            <div class="control-group">
+                <label>Hue Rotate</label>
+                <input type="range" id="hue" min="0" max="360" value="0" oninput="updateFilters()">
+                <span id="hue-val">0deg</span>
+            </div>
+            <div class="control-group">
+                <label>Saturation</label>
+                <input type="range" id="sat" min="0" max="200" value="100" oninput="updateFilters()">
+                <span id="sat-val">100%</span>
+            </div>
+            <div class="control-group">
+                <label>Brightness</label>
+                <input type="range" id="bri" min="0" max="200" value="100" oninput="updateFilters()">
+                <span id="bri-val">100%</span>
+            </div>
+            <div class="control-group">
+                <label>Contrast</label>
+                <input type="range" id="con" min="0" max="200" value="100" oninput="updateFilters()">
+                <span id="con-val">100%</span>
+            </div>
+
+            <div id="codeResult" class="code-block">
+                ADJUSTMENTS DETECTED:
+                hue-rotate(<span id="c-hue">0</span>deg) saturate(<span id="c-sat">100</span>%) brightness(<span
+                    id="c-bri">100</span>%) contrast(<span id="c-con">100</span>%)
+
+                Tell Antigravity: "Apply these adjustments: Hue +<span id="t-hue">0</span>, Sat <span
+                    id="t-sat">100</span>%, Bri <span id="t-bri">100</span>%"
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function setBg(color) {
+            document.querySelectorAll('.icon-card').forEach(el => el.style.backgroundColor = color);
+        }
+
+        function updateFilters() {
+            const h = document.getElementById('hue').value;
+            const s = document.getElementById('sat').value;
+            const b = document.getElementById('bri').value;
+            const c = document.getElementById('con').value;
+
+            document.getElementById('hue-val').innerText = h + 'deg';
+            document.getElementById('sat-val').innerText = s + '%';
+            document.getElementById('bri-val').innerText = b + '%';
+            document.getElementById('con-val').innerText = c + '%';
+
+            const filter = `hue-rotate(${h}deg) saturate(${s}%) brightness(${b}%) contrast(${c}%)`;
+
+            document.querySelectorAll('.preview-target').forEach(img => {
+                img.style.filter = filter;
+            });
+
+            if (h != 0 || s != 100 || b != 100 || c != 100) {
+                document.getElementById('codeResult').style.display = 'block';
+                document.getElementById('c-hue').innerText = h;
+                document.getElementById('c-sat').innerText = s;
+                document.getElementById('c-bri').innerText = b;
+                document.getElementById('c-con').innerText = c;
+
+                document.getElementById('t-hue').innerText = h;
+                document.getElementById('t-sat').innerText = s;
+                document.getElementById('t-bri').innerText = b;
+            }
+        }
+    </script>
+</body>
+
+</html>

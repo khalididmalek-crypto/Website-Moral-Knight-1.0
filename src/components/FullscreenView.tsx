@@ -1,5 +1,6 @@
 import React, { useState, useEffect, Suspense, lazy, useCallback, useMemo } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useSwipeable } from 'react-swipeable';
 import { TileData, TextContent, ContentType } from '../types';
 import { X } from 'lucide-react';
@@ -22,9 +23,11 @@ interface FullscreenViewProps {
   allTiles?: TileData[];
   onNavigate?: (tileId: string) => void;
   onOpenMeldpunt?: () => void;
+  activeBlogSlug?: string | null;
+  onSelectBlogPost?: (slug: string | null) => void;
 }
 
-export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, posts = [], allTiles = [], onNavigate, onOpenMeldpunt }) => {
+export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, posts = [], allTiles = [], onNavigate, onOpenMeldpunt, activeBlogSlug, onSelectBlogPost }) => {
   // Focus trap for accessibility
   const modalRef = useFocusTrap(true);
   const closeButtonRef = React.useRef<HTMLButtonElement>(null);
@@ -391,6 +394,8 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
                         Binnenkort begint hier ons blog waarbij we op zoek gaan naar de veelzijdigheid van menselijke projectie en de noodzaak tot onafhankelijke toetsing.
                       </p>
                     }
+                    activeSlug={activeBlogSlug}
+                    onSelectSlug={onSelectBlogPost}
                   />
                 </Suspense>
               </div>
@@ -478,6 +483,27 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
                     </button>
                     .
                   </p>
+                )}
+
+                {/* Vision CTA - Rendered underneath sub-tiles */}
+                {isHowView && (
+                  <div className="mt-12 border-t border-black/10 pt-8 pb-4">
+                    <h3 className="font-mono text-[1.1rem] uppercase tracking-widest font-bold mb-4" style={{ color: COLORS.PRIMARY_GREEN }}>
+                      Onze Visie
+                    </h3>
+                    <p className="font-mono text-[15px] leading-relaxed max-w-2xl text-gray-600">
+                      Meer weten over de filosofie achter onze werkwijze?{' '}
+                      <Link
+                        href="/visie"
+                        className="font-bold underline transition-colors duration-300 cursor-pointer align-baseline hover:opacity-75"
+                        aria-label="Ga naar visie pagina"
+                        style={{ color: COLORS.BORDEAUX_RED }}
+                      >
+                        Lees meer over onze visie
+                      </Link>
+                      .
+                    </p>
+                  </div>
                 )}
               </div>
             ) : (

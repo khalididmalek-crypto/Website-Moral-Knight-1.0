@@ -14,6 +14,7 @@ import { Kennisbank } from './Kennisbank';
 import { Meldpunt } from './Meldpunt';
 import { BlogPostDetail } from './BlogGrid';
 import Image from 'next/image';
+import Link from 'next/link';
 
 type MobileView = 'HOME' | 'DASHBOARD' | 'MELDPUNT' | 'KENNISBANK';
 
@@ -541,6 +542,22 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                                             >
                                                 {approachTileContent}
                                             </ReactMarkdown>
+
+                                            {/* Added Vision CTA */}
+                                            <div className="w-full mt-2">
+                                                <h4 className="font-bold text-base mb-2 text-[#194D25] text-left w-full">
+                                                    Onze Visie
+                                                </h4>
+                                                <p className="mb-4 text-[14px] font-mono leading-relaxed text-gray-700">
+                                                    Meer weten over de filosofie achter onze werkwijze?{' '}
+                                                    <Link
+                                                        href="/visie"
+                                                        className="text-[#8B1A3D] font-bold hover:underline cursor-pointer"
+                                                    >
+                                                        Lees meer over onze visie.
+                                                    </Link>
+                                                </p>
+                                            </div>
                                         </div>
                                     </motion.div>
                                 </motion.div>

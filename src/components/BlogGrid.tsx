@@ -13,11 +13,30 @@ interface BlogGridProps {
   posts: BlogPost[];
   introContent?: React.ReactNode;
   onOpenMeldpunt?: () => void;
+  activeSlug?: string | null;
+  onSelectSlug?: (slug: string | null) => void;
 }
 
-export const BlogGrid: React.FC<BlogGridProps> = ({ posts, introContent, onOpenMeldpunt }) => {
+export const BlogGrid: React.FC<BlogGridProps> = ({ posts, introContent, onOpenMeldpunt, activeSlug, onSelectSlug }) => {
   const [selectedTag, setSelectedTag] = React.useState<string | null>(null);
-  const [selectedPost, setSelectedPost] = React.useState<BlogPost | null>(null);
+
+  // Use prop if available, otherwise local state (though we intend to use prop now)
+  const [internalSelectedPost, setInternalSelectedPost] = React.useState<BlogPost | null>(null);
+
+  const selectedPost = React.useMemo(() => {
+    if (activeSlug !== undefined) {
+      return posts.find(p => p.slug === activeSlug) || null;
+    }
+    return internalSelectedPost;
+  }, [posts, activeSlug, internalSelectedPost]);
+
+  const handleSelectPost = (post: BlogPost | null) => {
+    if (onSelectSlug) {
+      onSelectSlug(post ? post.slug : null);
+    } else {
+      setInternalSelectedPost(post);
+    }
+  };
 
   // Extract unique tags from posts
   const tags = React.useMemo(() => {
@@ -35,7 +54,7 @@ export const BlogGrid: React.FC<BlogGridProps> = ({ posts, introContent, onOpenM
     return (
       <BlogPostDetail
         post={selectedPost}
-        onClose={() => setSelectedPost(null)}
+        onClose={() => handleSelectPost(null)}
         onOpenMeldpunt={onOpenMeldpunt}
       />
     );
@@ -121,7 +140,7 @@ export const BlogGrid: React.FC<BlogGridProps> = ({ posts, introContent, onOpenM
           >
             {filteredPosts.slice(0, 6).map((post) => (
               <div key={post.id} className="block">
-                <BlogTile post={post} onClick={() => setSelectedPost(post)} />
+                <BlogTile post={post} onClick={() => handleSelectPost(post)} />
               </div>
             ))}
           </div>
