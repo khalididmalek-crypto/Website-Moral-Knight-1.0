@@ -167,6 +167,8 @@ async function sendEmail(data: FormData): Promise<{ success: boolean; reportId?:
             {
                 filename: 'Moral-Knight-Logo.png',
                 path: logoPath,
+                contentType: 'image/png',
+                contentDisposition: 'attachment',
             }
         ];
 
