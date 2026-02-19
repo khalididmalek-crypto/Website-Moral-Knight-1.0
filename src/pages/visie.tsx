@@ -188,7 +188,7 @@ export default function VisiePage({ content }: VisieProps) {
 
                     {/* Document Title - Screen Only */}
                     <div className="no-print mb-12 text-left">
-                        <h1 className="font-mono text-xl md:text-2xl font-bold tracking-[0.2em] uppercase" style={{ color: TEXT_COLOR }}>
+                        <h1 className="font-mono text-base md:text-2xl font-bold tracking-[0.2em] uppercase" style={{ color: TEXT_COLOR }}>
                             Visie op Onafhankelijke Toetsing
                         </h1>
                         <p className="font-mono text-[11px] mt-1 uppercase tracking-widest" style={{ color: '#8B1A3D' }}>
@@ -215,7 +215,7 @@ export default function VisiePage({ content }: VisieProps) {
                                         }
                                         return (
                                             <h2
-                                                className={`text-xl md:text-2xl font-bold mt-10 mb-4 font-mono uppercase tracking-wide border-b border-[#8B1A3D] pb-2 print:text-[14px] print:mt-8 print:mb-2 ${isContextH2 ? 'page-break' : ''}`}
+                                                className={`text-sm md:text-2xl font-bold mt-8 mb-3 font-mono uppercase tracking-wide border-b border-[#8B1A3D] pb-2 print:text-[14px] print:mt-8 print:mb-2 ${isContextH2 ? 'page-break' : ''}`}
                                                 style={{ color: "#194D25" }}
                                             >
                                                 {children}
