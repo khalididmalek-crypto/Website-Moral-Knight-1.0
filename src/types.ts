@@ -106,6 +106,7 @@ export interface BlogPost {
   date: string;
   tag: string;
   content: string;
+  coverImage?: string;
 }
 
 
