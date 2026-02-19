@@ -91,24 +91,65 @@ export default function VisiePage({ content }: VisieProps) {
                 <title>Onze Visie - Moral Knight</title>
                 <style>{`
                     @media print {
-                        @page { margin: 2cm; }
-                        body { background-color: #FAFAFA !important; color: #222222 !important; }
+                        @page { 
+                            margin: 2cm 2cm 2cm 2cm; 
+                        }
+                        body { 
+                            background-color: white !important; 
+                            color: #222222 !important;
+                            -webkit-print-color-adjust: exact;
+                        }
+                        .print-white-bg {
+                            background-color: white !important;
+                        }
                         nav, footer, .no-print { display: none !important; }
                         .print-only { display: block !important; }
                         main { width: 100% !important; max-width: none !important; margin: 0 !important; padding: 0 !important; }
                         a { text-decoration: none !important; color: #222222 !important; }
+                        h1, h2, h3, h4 { page-break-after: avoid; }
+                        .page-break { 
+                            break-before: page;
+                        }
                     }
                 `}</style>
             </Head>
 
-            <div className="min-h-screen py-10 px-6 md:px-0 relative" style={{ backgroundColor: BG_COLOR, color: TEXT_COLOR }}>
+            <div className="min-h-screen py-10 px-6 md:px-0 relative print-white-bg" style={{ backgroundColor: BG_COLOR, color: TEXT_COLOR }}>
                 <div className="max-w-3xl mx-auto">
-                    {/* Header */}
-                    <div className="mb-12 flex justify-between items-center bg-white p-4 border border-black shadow-sm no-print">
-                        <Link href="/" className="font-mono font-bold uppercase tracking-widest transition-colors duration-300 hover:text-[#8B1A3D]" style={{ color: "#194D25" }}>
-                            / Moral Knight
+                    {/* Print-only Header (Matches Website Header Style) */}
+                    <div className="hidden print:block mb-8 bg-white p-4 border border-[#8B1A3D] text-left">
+                        <div className="font-mono font-bold uppercase tracking-widest text-[#194D25]">
+                            <span style={{ color: '#194D25' }}>/</span> Moral Knight
+                        </div>
+                    </div>
+
+                    {/* Document Title for Print */}
+                    <div className="hidden print:block mb-12 text-left">
+                        <h1 className="font-mono text-xl font-bold tracking-[0.2em] uppercase text-black">
+                            Visie op Onafhankelijke Toetsing
+                        </h1>
+                        <p className="font-mono text-[10px] mt-1 uppercase tracking-widest" style={{ color: '#8B1A3D' }}>
+                            Theoretisch Kader | 2026
+                        </p>
+                    </div>
+
+                    {/* Header (Nav) - Screen Only */}
+                    <div className="mb-8 flex justify-between items-center bg-white p-4 border border-[#8B1A3D] shadow-sm no-print">
+                        <Link href="/" className="font-mono font-bold uppercase tracking-widest transition-colors duration-300">
+                            <span style={{ color: '#194D25' }}>/</span>
+                            <span className="hover:text-[#8B1A3D] transition-colors duration-300" style={{ color: "#194D25" }}> Moral Knight</span>
                         </Link>
                         <span className="font-mono text-xs text-gray-400">VISIE 2026</span>
+                    </div>
+
+                    {/* Document Title - Screen Only */}
+                    <div className="no-print mb-12 text-left">
+                        <h1 className="font-mono text-xl md:text-2xl font-bold tracking-[0.2em] uppercase" style={{ color: TEXT_COLOR }}>
+                            Visie op Onafhankelijke Toetsing
+                        </h1>
+                        <p className="font-mono text-[11px] mt-1 uppercase tracking-widest" style={{ color: '#8B1A3D' }}>
+                            Theoretisch Kader | 2026
+                        </p>
                     </div>
 
                     {/* Main Content */}
@@ -116,19 +157,58 @@ export default function VisiePage({ content }: VisieProps) {
                         <div style={{ fontFamily: 'system-ui, sans-serif' }}>
                             <ReactMarkdown
                                 components={{
-                                    h1: ({ node, ...props }) => <h1 className="text-3xl md:text-4xl font-bold mb-6 font-mono uppercase tracking-tight" style={{ color: TEXT_COLOR }} {...props} />,
-                                    h2: ({ node, ...props }) => <h2 className="text-xl md:text-2xl font-bold mt-10 mb-4 font-mono uppercase tracking-wide border-b border-black pb-2" style={{ color: "#194D25" }} {...props} />,
-                                    p: ({ node, ...props }) => <p className="text-lg leading-relaxed mb-6" style={{ color: "#333" }} {...props} />,
-                                    strong: ({ node, ...props }) => <strong className="font-bold" style={{ color: ACCENT_COLOR }} {...props} />,
+                                    h1: ({ node, ...props }) => <h1 className="text-3xl md:text-4xl font-bold mb-6 font-mono uppercase tracking-tight print:text-xl print:mb-4" style={{ color: TEXT_COLOR }} {...props} />,
+                                    h2: ({ node, ...props }) => {
+                                        const isContextH2 = props.children && String(props.children).includes("CONTEXT EN MENSENRECHTEN");
+                                        // Shorten the first H2 title: remove subtitle after colon
+                                        let children = props.children;
+                                        if (typeof children === 'string' && children.includes('Een theoretisch kader')) {
+                                            children = 'Van principe naar praktijk';
+                                        } else if (Array.isArray(children)) {
+                                            children = children.map(c =>
+                                                typeof c === 'string' && c.includes('Een theoretisch kader') ? 'Van principe naar praktijk' : c
+                                            );
+                                        }
+                                        return (
+                                            <h2
+                                                className={`text-xl md:text-2xl font-bold mt-10 mb-4 font-mono uppercase tracking-wide border-b border-[#8B1A3D] pb-2 print:text-[14px] print:mt-8 print:mb-2 ${isContextH2 ? 'page-break' : ''}`}
+                                                style={{ color: "#194D25" }}
+                                            >
+                                                {children}
+                                            </h2>
+                                        );
+                                    },
+                                    p: ({ node, ...props }) => <p className="text-lg leading-relaxed mb-6 print:text-base print:mb-4" style={{ color: "#333" }} {...props} />,
+                                    strong: ({ node, ...props }) => <strong className="font-bold print:text-black" style={{ color: ACCENT_COLOR }} {...props} />,
                                 }}
                             >
                                 {content}
                             </ReactMarkdown>
+
+                            {/* Scientific Sources - Print Only */}
+                            <div className="hidden print:block mt-12 pt-8 page-break">
+                                <h2 className="text-[14px] font-bold font-mono uppercase tracking-widest mb-6 border-b border-[#8B1A3D] pb-2 text-[#194D25]">
+                                    Literatuurlijst
+                                </h2>
+                                <ul className="space-y-4 font-mono text-xs text-gray-700">
+                                    {SOURCES.map((source, index) => (
+                                        <li key={index} className="pl-4 border-l-2 border-[#194D25]/20">
+                                            <ReactMarkdown
+                                                components={{
+                                                    p: ({ node, ...props }) => <p {...props} className="m-0" />
+                                                }}
+                                            >
+                                                {source}
+                                            </ReactMarkdown>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
                         </div>
                     </main>
 
-                    {/* Footer / Downloads */}
-                    <footer className="mt-16 pt-8 border-t border-black grid gap-6 no-print">
+                    {/* Footer / Downloads - Screen Only */}
+                    <footer className="mt-16 pt-8 border-t border-[#8B1A3D] grid gap-6 no-print">
                         <div className="flex flex-col md:flex-row gap-4 justify-between items-start md:items-center">
                             <button
                                 onClick={() => window.print()}
@@ -145,9 +225,9 @@ export default function VisiePage({ content }: VisieProps) {
                                 Wetenschappelijke Bronnen
                             </button>
                         </div>
-                        <div className="text-center mt-12">
+                        <div className="text-left mt-4">
                             <Link href="/" className="font-mono text-xs uppercase tracking-widest text-gray-400 hover:text-black transition-colors">
-                                terug naar home
+                                ← Terug naar Home
                             </Link>
                         </div>
                     </footer>
@@ -155,10 +235,14 @@ export default function VisiePage({ content }: VisieProps) {
 
                 {/* Sources Modal */}
                 {showSources && (
-                    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm no-print" onClick={() => setShowSources(false)}>
+                    <div
+                        className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm no-print"
+                        onClick={() => setShowSources(false)}
+                        style={{ touchAction: 'none', overscrollBehavior: 'contain' }}
+                    >
                         <div
                             className="bg-white w-full max-w-[550px] max-h-[90vh] overflow-y-auto p-6 relative shadow-xl border-t-4"
-                            style={{ borderTopColor: MK_BLUE }}
+                            style={{ borderTopColor: MK_BLUE, overscrollBehavior: 'contain' }}
                             onClick={(e) => e.stopPropagation()}
                         >
                             <button

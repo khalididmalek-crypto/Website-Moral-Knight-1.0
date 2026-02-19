@@ -8,6 +8,9 @@ import React from 'react';
 import { BlogPost } from '../types';
 import { BlogTile } from './BlogTile';
 import { A11Y_COLORS } from '../constants';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import rehypeRaw from 'rehype-raw';
 
 interface BlogGridProps {
   posts: BlogPost[];
@@ -281,14 +284,23 @@ export const BlogPostDetail: React.FC<BlogPostDetailProps> = ({ post, onClose, o
           <div
             className="p-4 md:p-8 max-w-5xl mx-auto"
           >
-            <div
-              className="prose prose-sm md:prose-base font-mono max-w-none break-words text-gray-800"
-              style={{
-                fontSize: 'clamp(14px, 4vw, 16px)',
-                lineHeight: '1.7'
+            <ReactMarkdown
+              remarkPlugins={[remarkGfm]}
+              rehypePlugins={[rehypeRaw]}
+              components={{
+                h2: ({ node, ...props }: any) => <h2 className="text-xl md:text-2xl font-bold mt-8 mb-4 font-mono uppercase tracking-wide border-b border-black pb-2" style={{ color: "#194D25" }} {...props} />,
+                h3: ({ node, ...props }: any) => <h3 className="text-lg md:text-xl font-bold mt-6 mb-3 font-mono text-[#194D25]" {...props} />,
+                p: ({ node, ...props }: any) => <p className="mb-4 leading-relaxed" {...props} />,
+                a: ({ node, ...props }: any) => <a className="text-[#8B1A3D] underline hover:opacity-75 transition-opacity" {...props} />,
+                ul: ({ node, ...props }: any) => <ul className="list-disc pl-5 mb-4 space-y-1" {...props} />,
+                ol: ({ node, ...props }: any) => <ol className="list-decimal pl-5 mb-4 space-y-1" {...props} />,
+                li: ({ node, ...props }: any) => <li className="mb-1" {...props} />,
+                strong: ({ node, ...props }: any) => <strong className="font-bold text-[#8B1A3D]" {...props} />,
+                code: ({ node, ...props }: any) => <code className="bg-gray-100 rounded px-1 py-0.5 font-mono text-sm" {...props} />,
               }}
-              dangerouslySetInnerHTML={{ __html: post.content || post.excerpt }}
-            />
+            >
+              {post.content || post.excerpt}
+            </ReactMarkdown>
           </div>
         </div>
       </div>

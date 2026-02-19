@@ -13,7 +13,7 @@ const nextConfig = {
     typescript: {
         ignoreBuildErrors: true,
     },
-    transpilePackages: ['react-markdown'],
+    transpilePackages: ['react-markdown', 'remark-gfm', 'rehype-raw'],
 }
 
 module.exports = nextConfig

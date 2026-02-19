@@ -1,5 +1,3 @@
-import { remark } from 'remark';
-import html from 'remark-html';
 import fs from 'fs';
 import path from 'path';
 import matter from 'gray-matter';
@@ -17,7 +15,7 @@ export function getSortedPostsData(): BlogPost[] {
     const fileNames = fs.readdirSync(postsDirectory);
     const allPostsData = fileNames
         .filter((fileName) => fileName.endsWith('.md'))
-        .map((fileName) => {
+        .map((fileName: string) => {
             // Remove ".md" from file name to get id
             const id = fileName.replace(/\.md$/, '');
             const slug = id; // Use filename as slug
@@ -34,7 +32,7 @@ export function getSortedPostsData(): BlogPost[] {
                 id,
                 slug,
                 title: matterResult.data.title,
-                date: matterResult.data.date,
+                date: matterResult.data.date?.toString() || null,
                 tag: matterResult.data.tag,
                 excerpt: matterResult.data.excerpt,
                 content: matterResult.content,
@@ -44,7 +42,7 @@ export function getSortedPostsData(): BlogPost[] {
         });
 
     // Sort posts by date
-    return allPostsData.sort((a, b) => {
+    return allPostsData.sort((a: BlogPost, b: BlogPost) => {
         if (a.date < b.date) {
             return 1;
         } else {
@@ -66,20 +64,14 @@ export async function getPostData(slug: string): Promise<BlogPost | null> {
         // Use gray-matter to parse the post metadata section
         const matterResult = matter(fileContents);
 
-        // Use remark to convert markdown into HTML string
-        const processedContent = await remark()
-            .use(html)
-            .process(matterResult.content);
-        const contentHtml = processedContent.toString();
-
         return {
             id: slug,
             slug,
             title: matterResult.data.title,
-            date: matterResult.data.date,
+            date: matterResult.data.date?.toString() || null,
             tag: matterResult.data.tag,
             excerpt: matterResult.data.excerpt,
-            content: contentHtml,
+            content: matterResult.content,
             ...matterResult.data,
         } as BlogPost;
     } catch (err) {
@@ -97,31 +89,26 @@ export async function getAllPostsWithHtml(): Promise<BlogPost[]> {
     const fileNames = fs.readdirSync(postsDirectory);
     const allPostsData = await Promise.all(fileNames
         .filter((fileName) => fileName.endsWith('.md'))
-        .map(async (fileName) => {
+        .map(async (fileName: string) => {
             const id = fileName.replace(/\.md$/, '');
             const slug = id;
             const fullPath = path.join(postsDirectory, fileName);
             const fileContents = fs.readFileSync(fullPath, 'utf8');
             const matterResult = matter(fileContents);
 
-            const processedContent = await remark()
-                .use(html)
-                .process(matterResult.content);
-            const contentHtml = processedContent.toString();
-
             return {
                 id,
                 slug,
                 title: matterResult.data.title,
-                date: matterResult.data.date,
+                date: matterResult.data.date?.toString() || null,
                 tag: matterResult.data.tag,
                 excerpt: matterResult.data.excerpt,
-                content: contentHtml,
+                content: matterResult.content,
                 ...matterResult.data,
             } as BlogPost;
         }));
 
-    return allPostsData.sort((a, b) => {
+    return allPostsData.sort((a: BlogPost, b: BlogPost) => {
         if (a.date < b.date) {
             return 1;
         } else {

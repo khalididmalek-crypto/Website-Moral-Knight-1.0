@@ -447,7 +447,7 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
                 </div>
                 <div className={`grid grid-cols-1 ${isServicesView ? 'md:grid-cols-3' : 'md:grid-cols-2'} gap-4 md:gap-6`}>
                   {(isServicesView ? SERVICES_TILES : HOW_TILES).map((tileData) => (
-                    <div key={tileData.id} className="h-60">
+                    <div key={tileData.id} className="min-h-[240px]">
                       <Tile
                         data={tileData}
                         onClick={() => {
@@ -487,7 +487,7 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
 
                 {/* Vision CTA - Rendered underneath sub-tiles */}
                 {isHowView && (
-                  <div className="mt-12 border-t border-black/10 pt-8 pb-4">
+                  <div className="mt-8 border-t border-black/10 pt-8 pb-4">
                     <h3 className="font-mono text-[1.1rem] uppercase tracking-widest font-bold mb-4" style={{ color: COLORS.PRIMARY_GREEN }}>
                       Onze Visie
                     </h3>
@@ -635,8 +635,8 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
                   </div>
                 )}
 
-                {/* CTA for Solution Tiles */}
-                {(isSolutionView || activeSubTile.id.startsWith('sol-')) && (
+                {/* CTA or Vision for Solution Tiles or How Tiles */}
+                {(isSolutionView || activeSubTile?.id.startsWith('sol-')) && (
                   <div className="mt-8 border-t border-black/10 pt-8 pb-4">
                     <h3 className="font-mono text-[1.1rem] uppercase tracking-widest font-bold mb-4" style={{ color: COLORS.PRIMARY_GREEN }}>
                       Heeft u behoefte aan onafhankelijke toetsing?
@@ -650,6 +650,27 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
                       >
                         Benader ons via het contactformulier.
                       </button>
+                    </p>
+                  </div>
+                )}
+
+                {(isHowView || activeSubTile?.id.startsWith('how-')) && (
+                  <div className="mt-8 border-t border-black/10 pt-8 pb-4">
+                    <h3 className="font-mono text-[1.1rem] uppercase tracking-widest font-bold mb-4" style={{ color: COLORS.PRIMARY_GREEN }}>
+                      Onze Visie
+                    </h3>
+                    <p className="font-mono text-[15px] leading-relaxed max-w-2xl text-gray-600">
+                      Meer weten over de filosofie achter onze werkwijze?{' '}
+                      <Link href="/visie" passHref legacyBehavior>
+                        <a
+                          className="font-bold underline transition-colors duration-300 cursor-pointer align-baseline hover:opacity-75"
+                          aria-label="Ga naar visie pagina"
+                          style={{ color: COLORS.BORDEAUX_RED }}
+                        >
+                          Lees meer over onze visie
+                        </a>
+                      </Link>
+                      .
                     </p>
                   </div>
                 )}
