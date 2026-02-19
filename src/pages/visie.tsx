@@ -79,6 +79,23 @@ export default function VisiePage({ content }: VisieProps) {
         };
     }, [showSources]);
 
+    // Force desktop viewport before printing so md: breakpoints activate on mobile
+    const handlePrint = () => {
+        const metaViewport = document.querySelector('meta[name=viewport]') as HTMLMetaElement | null;
+        const originalContent = metaViewport?.getAttribute('content') ?? '';
+        if (metaViewport) {
+            metaViewport.setAttribute('content', 'width=900');
+        }
+        setTimeout(() => {
+            window.print();
+            setTimeout(() => {
+                if (metaViewport) {
+                    metaViewport.setAttribute('content', originalContent || 'width=device-width, initial-scale=1');
+                }
+            }, 1000);
+        }, 100);
+    };
+
     // Colors
     const BG_COLOR = "#FAFAFA";
     const TEXT_COLOR = "#222222";
@@ -100,8 +117,6 @@ export default function VisiePage({ content }: VisieProps) {
                             color: #222222 !important;
                             -webkit-print-color-adjust: exact;
                             print-color-adjust: exact;
-                            /* Force desktop-like width so responsive breakpoints activate */
-                            min-width: 900px !important;
                         }
                         .print-white-bg {
                             background-color: white !important;
@@ -111,13 +126,7 @@ export default function VisiePage({ content }: VisieProps) {
                         main { width: 100% !important; max-width: none !important; margin: 0 !important; padding: 0 !important; }
                         a { text-decoration: none !important; color: #222222 !important; }
                         h1, h2, h3, h4 { page-break-after: avoid; }
-                        .page-break { 
-                            break-before: page;
-                        }
-                        /* Desktop font sizes for all viewports in print */
-                        .print-force-md h1 { font-size: 2.25rem !important; }
-                        .print-force-md h2 { font-size: 1.5rem !important; font-size: 14px !important; }
-                        .print-force-md p { font-size: 1rem !important; }
+                        .page-break { break-before: page; }
                     }
                 `}</style>
             </Head>
@@ -219,7 +228,7 @@ export default function VisiePage({ content }: VisieProps) {
                     <footer className="mt-16 pt-8 border-t border-[#8B1A3D] grid gap-6 no-print">
                         <div className="flex flex-col md:flex-row gap-4 justify-between items-start md:items-center">
                             <button
-                                onClick={() => window.print()}
+                                onClick={handlePrint}
                                 className="group flex items-center gap-2 font-mono font-bold uppercase tracking-wider text-sm transition-colors hover:opacity-75"
                                 style={{ color: ACCENT_COLOR }}
                             >
