@@ -24,11 +24,11 @@ const SOURCES: { citation: string; url: string }[] = [
     },
     {
         citation: "Dignum, V. (2022). *Responsible artificial intelligence – from principles to practice*. Paper based on keynote at the Web Conference 2022. Umeå University.",
-        url: "https://www.umu.se/en/research/groups/human-centered-ai/"
+        url: "https://www.researchgate.net/publication/360804651_Responsible_Artificial_Intelligence_--_from_Principles_to_Practice"
     },
     {
         citation: "Gerards, J., Muis, I., Straatman, J., Vankan, A., & Boiten, M. (2026). *IAMA Versie 2: Impact Assessment Mensenrechten en Algoritmes*. Universiteit Utrecht / Ministerie van BZK.",
-        url: "https://www.government.nl/documents/publications/2021/02/25/impact-assessment-fundamental-rights-and-algorithms"
+        url: "https://open.overheid.nl/documenten/d0947c02-81df-4c00-83df-d88b703025f4/file"
     },
     {
         citation: "Herzog, C., & Blank, S. (2024). A systemic perspective on bridging the principles-to-practice gap in creating ethical AI solutions. *Journal of Responsible Innovation*, 11(1), 2431350.",
@@ -36,7 +36,7 @@ const SOURCES: { citation: string; url: string }[] = [
     },
     {
         citation: "OECD. (2024). *Governing with artificial intelligence: Are governments ready?* OECD Publishing.",
-        url: "https://doi.org/10.1787/e0b636be-en"
+        url: "https://www.oecd.org/en/publications/governing-with-artificial-intelligence_26324bc2-en.html"
     },
     {
         citation: "Ratti, E. (2025). Three Kinds of AI Ethics. [Preprint]. arXiv.",
