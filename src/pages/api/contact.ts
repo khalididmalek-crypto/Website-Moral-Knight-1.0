@@ -159,7 +159,7 @@ async function sendEmail(data: FormData): Promise<{ success: boolean; reportId?:
         return generateEmailHtml(data, isForUser, isReport, reportId, dateStr);
     };
 
-    const logoPath = path.join(process.cwd(), 'public', 'images', 'mail-logo.png');
+    const logoPath = path.join(process.cwd(), 'public', 'MK logo transparent.png');
 
     const getLogoAttachment = () => ({
         filename: 'logo.png',

@@ -45,7 +45,7 @@ const EmailPreview = () => {
     let htmlContent = generateEmailHtml(data, isForUser, isReport, reportId, dateStr);
 
     // REPLACE CID WITH LOCAL URL FOR PREVIEW
-    htmlContent = htmlContent.replace('src="cid:logo"', 'src="/images/mail-logo.png"');
+    htmlContent = htmlContent.replace('src="cid:logo"', 'src="/MK logo transparent.png"');
 
     return (
         <div className="min-h-screen bg-gray-100 flex flex-col font-sans">
