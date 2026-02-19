@@ -149,8 +149,8 @@ export default function VisiePage({ content }: VisieProps) {
                         nav, footer, .no-print { display: none !important; }
                         .print-only { display: block !important; }
                         main { width: 100% !important; max-width: none !important; margin: 0 !important; padding: 0 !important; }
-                        /* Keep source links visible and underlined in PDF */
-                        .source-list a { color: #194D25 !important; text-decoration: underline !important; font-size: 10px !important; }
+                        /* Keep source links visible, red and underlined in PDF */
+                        .source-list a { color: #8B1A3D !important; text-decoration: underline !important; font-size: 10px !important; }
                         a { text-decoration: none !important; color: #222222 !important; }
                         h1, h2, h3, h4 { page-break-after: avoid; }
                         .page-break { break-before: page; }
@@ -278,12 +278,12 @@ export default function VisiePage({ content }: VisieProps) {
                 {/* Sources Modal */}
                 {showSources && (
                     <div
-                        className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm no-print"
+                        className="fixed inset-0 z-50 flex items-center justify-center py-10 px-4 bg-black/50 backdrop-blur-sm no-print"
                         onClick={() => setShowSources(false)}
                         style={{ touchAction: 'none', overscrollBehavior: 'contain' }}
                     >
                         <div
-                            className="bg-white w-full max-w-[550px] max-h-[90vh] overflow-y-auto p-6 relative shadow-xl border-t-4"
+                            className="bg-white w-full max-w-[550px] max-h-[80vh] overflow-y-auto p-6 relative shadow-xl border-t-4 rounded-sm"
                             style={{ borderTopColor: MK_BLUE, overscrollBehavior: 'contain', touchAction: 'pan-y' }}
                             onClick={(e) => e.stopPropagation()}
                         >
