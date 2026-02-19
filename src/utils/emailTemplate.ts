@@ -62,6 +62,20 @@ export const generateEmailHtml = (data: EmailTemplateData, isForUser: boolean, i
     <meta name="supported-color-schemes" content="light">
     <title>${title}</title>
     <style>
+        /* Force light mode in all clients */
+        :root { color-scheme: light; }
+
+        /* Gmail dark mode override - lock all key colors */
+        @media (prefers-color-scheme: dark) {
+            body, table { background-color: #F8FAFC !important; }
+            .email-header td { background-color: #061424 !important; color: #FFFFFF !important; }
+            .header-title, .header-subtitle { color: #FFFFFF !important; }
+            .email-statusbar td { background-color: #FFFFFF !important; }
+            .email-content td { background-color: #FFFFFF !important; color: #1e293b !important; }
+            .email-footer td { background-color: #F8FAFC !important; color: #061424 !important; }
+            h2.main-title { color: #061424 !important; }
+            p.intro-text, td.data-value { color: #1e293b !important; }
+        }
         .privacy-link {
             text-decoration: underline;
             text-decoration-color: ${colors.footerText};
@@ -200,8 +214,8 @@ export const generateEmailHtml = (data: EmailTemplateData, isForUser: boolean, i
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" class="email-container" style="max-width: 600px; background-color: ${colors.surface}; border: 1px solid ${colors.border}; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
                     
                     <!-- Header -->
-                    <tr>
-                        <td bgcolor="${colors.primary}" style="background-color: ${colors.primary} !important; padding: 30px;" data-ogsc="${colors.primary}">
+                    <tr class="email-header">
+                        <td bgcolor="${colors.primary}" style="background-color: ${colors.primary} !important; padding: 30px;" data-ogsc="${colors.primary}" data-ogsb="${colors.primary}">
                             <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                 <tr>
                                     <td align="left" class="header-cell" style="vertical-align: middle;">
@@ -226,8 +240,8 @@ export const generateEmailHtml = (data: EmailTemplateData, isForUser: boolean, i
                     </tr>
 
                     <!-- Status Bar / Badge -->
-                    <tr>
-                        <td bgcolor="#FFFFFF" style="background-color: #FFFFFF !important; padding: 20px 30px; border-bottom: 1px solid #F3F4F6;">
+                    <tr class="email-statusbar">
+                        <td bgcolor="#FFFFFF" style="background-color: #FFFFFF !important; padding: 20px 30px; border-bottom: 1px solid #F3F4F6;" data-ogsb="#FFFFFF">
                             <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                 <tr>
                                     <td align="left" class="status-cell">
@@ -246,8 +260,8 @@ export const generateEmailHtml = (data: EmailTemplateData, isForUser: boolean, i
                     </tr>
 
                     <!-- Main Content -->
-                    <tr>
-                        <td class="content-cell" bgcolor="#FFFFFF" style="background-color: #FFFFFF !important; padding: 40px 30px;">
+                    <tr class="email-content">
+                        <td class="content-cell" bgcolor="#FFFFFF" style="background-color: #FFFFFF !important; padding: 40px 30px;" data-ogsb="#FFFFFF">
                             <!-- Title -->
                             <h2 class="main-title" style="margin: 0 0 20px 0; font-family: 'Courier New', Courier, monospace; font-size: 16px; color: ${colors.primary}; font-weight: 700; letter-spacing: -0.5px; text-transform: uppercase;">
                                 ${title}
@@ -285,8 +299,8 @@ export const generateEmailHtml = (data: EmailTemplateData, isForUser: boolean, i
                     </tr>
 
                     <!-- Footer -->
-                    <tr>
-                        <td class="footer-cell" bgcolor="#F8FAFC" style="background-color: #F8FAFC !important; padding: 30px; border-top: 2px solid ${colors.primary}; text-align: left;">
+                    <tr class="email-footer">
+                        <td class="footer-cell" bgcolor="#F8FAFC" style="background-color: #F8FAFC !important; padding: 30px; border-top: 2px solid ${colors.primary}; text-align: left;" data-ogsb="#F8FAFC">
                             <p class="footer-text" style="margin: 0; font-family: 'Courier New', Courier, monospace; font-size: 12px; color: ${colors.footerText}; letter-spacing: 1px; text-transform: uppercase; margin-left: -2px;">
                                 / Moral Knight since 2025 - Auditing public AI
                             </p>
