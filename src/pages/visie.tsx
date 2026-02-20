@@ -172,16 +172,16 @@ export default function VisiePage({ content }: VisieProps) {
                 <div className="max-w-3xl mx-auto">
                     {/* Print-only Header (Matches Website Header Style) */}
                     <div id="print-header" className="mb-8 flex flex-nowrap justify-between items-center bg-white p-4 border border-[#8B1A3D] shadow-sm">
-                        <div className="font-mono font-bold uppercase tracking-widest text-[#194D25] text-base leading-none flex items-center">
+                        <div className="font-mono font-bold uppercase tracking-widest text-[#194D25] whitespace-nowrap text-sm md:text-base leading-none flex items-center">
                             <span style={{ color: '#194D25' }}>/</span>
                             <span style={{ color: "#194D25" }}> Moral Knight</span>
                         </div>
-                        <span className="font-mono text-gray-400 whitespace-nowrap pl-4 text-xs leading-none flex items-center">VISIE 2026</span>
+                        <span className="font-mono text-gray-400 whitespace-nowrap pl-4 text-sm md:text-xs leading-none flex items-center">VISIE 2026</span>
                     </div>
 
                     {/* Document Title for Print */}
                     <div id="print-title" className="mb-12 text-left">
-                        <h1 className="font-mono text-2xl font-bold tracking-[0.2em] uppercase text-[#222222]">
+                        <h1 className="font-mono text-base md:text-2xl font-bold tracking-[0.2em] uppercase text-[#222222]">
                             Visie op Onafhankelijke Toetsing
                         </h1>
                         <p className="font-mono text-[11px] mt-1 uppercase tracking-widest" style={{ color: '#8B1A3D' }}>
