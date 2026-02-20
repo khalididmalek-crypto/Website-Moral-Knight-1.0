@@ -117,8 +117,64 @@ export default function Page(props: PageProps) {
     return (
         <>
             <Head>
-                <title>Moral Knight: De onafhankelijke waakhond van publieke AI</title>
+                <title>{props.initialActiveBlogSlug ? `${props.posts.find(p => p.slug === props.initialActiveBlogSlug)?.title} - Moral Knight` : 'Moral Knight: De onafhankelijke waakhond van publieke AI'}</title>
+                {props.initialActiveBlogSlug && props.posts.find(p => p.slug === props.initialActiveBlogSlug) && (
+                    <>
+                        {/* Dynamic SEO for Blog Post */}
+                        {(() => {
+                            const post = props.posts.find(p => p.slug === props.initialActiveBlogSlug);
+                            if (!post) return null;
+                            return (
+                                <>
+                                    <meta name="description" content={post.excerpt} />
+                                    <meta property="og:title" content={`${post.title} - Moral Knight`} />
+                                    <meta property="og:description" content={post.excerpt} />
+                                    <meta property="og:type" content="article" />
+                                    <meta property="og:url" content={`https://www.moralknight.nl/blog/${post.slug}`} />
+                                    {/* Using post image if available, fallback to default */}
+                                    <meta property="og:image" content={post.image || 'https://www.moralknight.nl/social-preview-padded-v3.png?v=5'} />
+
+                                    <meta name="twitter:title" content={`${post.title} - Moral Knight`} />
+                                    <meta name="twitter:description" content={post.excerpt} />
+                                    <meta name="twitter:image" content={post.image || 'https://www.moralknight.nl/social-preview-padded-v3.png?v=5'} />
+
+                                    {/* Article Schema */}
+                                    <script
+                                        type="application/ld+json"
+                                        dangerouslySetInnerHTML={{
+                                            __html: JSON.stringify({
+                                                "@context": "https://schema.org",
+                                                "@type": "BlogPosting",
+                                                "headline": post.title,
+                                                "description": post.excerpt,
+                                                "author": {
+                                                    "@type": "Organization",
+                                                    "name": "Moral Knight"
+                                                },
+                                                "datePublished": post.date,
+                                                "image": post.image || 'https://www.moralknight.nl/social-preview-padded-v3.png?v=5',
+                                                "publisher": {
+                                                    "@type": "Organization",
+                                                    "name": "Moral Knight",
+                                                    "logo": {
+                                                        "@type": "ImageObject",
+                                                        "url": "https://www.moralknight.nl/MK logo.png"
+                                                    }
+                                                },
+                                                "mainEntityOfPage": {
+                                                    "@type": "WebPage",
+                                                    "@id": `https://www.moralknight.nl/blog/${post.slug}`
+                                                }
+                                            })
+                                        }}
+                                    />
+                                </>
+                            );
+                        })()}
+                    </>
+                )}
             </Head>
+
 
             {isMobile ? (
                 /* Mobile View */
