@@ -2,126 +2,136 @@ import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import { generateEmailHtml } from '../utils/emailTemplate';
 
-// MOCK DATA
-const MOCK_DATA = {
-    contact: {
-        formType: 'contact',
-        name: 'Jan de Vries',
-        email: 'jan@voorbeeld.nl',
-        organisation: 'Stichting Voorbeeld',
-        message: 'Ik heb een vraag over jullie toetsingskader. Kunnen we een afspraak maken?',
-        privacyConsent: true,
-    } as import('../utils/emailTemplate').EmailTemplateData,
-    report: {
-        formType: 'report',
-        name: 'Anonieme Melder',
-        email: 'melder@voorbeeld.nl',
-        organisation: 'Gemeente X',
-        aiSystem: 'Fraudebestrijding Systeem Y',
-        description: 'Dit systeem lijkt automatisch mensen met een bepaalde postcode te selecteren voor controle.',
-        privacyConsent: true,
-        file: 'bewijs.pdf'
-    } as import('../utils/emailTemplate').EmailTemplateData
-};
+type ViewType = 'admin-contact' | 'user-contact' | 'admin-report' | 'user-report';
 
-const EmailPreview = () => {
-    const [activeTab, setActiveTab] = useState<'visitor' | 'admin'>('visitor');
-    const [activeType, setActiveType] = useState<'contact' | 'report'>('contact');
-    const [mounted, setMounted] = useState(false);
+export default function EmailPreview() {
+    const [html, setHtml] = useState<string>('');
+    const [view, setView] = useState<ViewType>('admin-contact');
+    const [isMobilePreview, setIsMobilePreview] = useState(false);
 
     useEffect(() => {
-        setMounted(true);
-    }, []);
+        const dummyData: any = {
+            name: 'Jane Doe',
+            email: 'jane.doe@example.com',
+            organisation: 'Test Corp',
+            message: 'Dit is een heel belangrijk testbericht. We willen graag de uitlijning van het logo en de datum controleren.',
+            aiSystem: 'Algoritme X',
+            description: 'Dit is een melding over een risicovol AI systeem dat van invloed is op burgers.',
+            fileName: 'bewijs.pdf',
+            newsletter: true,
+            privacyConsent: true
+        };
 
-    if (!mounted) return null;
+        const isReport = view.includes('report');
+        const isForUser = view.includes('user');
+        const reportId = 'MK-2026-TEST';
+        const dateStr = new Date().toLocaleDateString('nl-NL');
 
-    const data = activeType === 'contact' ? MOCK_DATA.contact : MOCK_DATA.report;
-    const isForUser = activeTab === 'visitor';
-    const isReport = activeType === 'report';
-    const reportId = 'MK-2026-TEST';
-    const dateStr = new Date().toLocaleDateString('nl-NL');
+        const generatedHtml = generateEmailHtml(dummyData, isForUser, isReport, reportId, dateStr);
+        setHtml(generatedHtml);
+    }, [view]);
 
-    // Use Shared Utility
-    let htmlContent = generateEmailHtml(data, isForUser, isReport, reportId, dateStr);
+    const buttons: { key: ViewType; label: string }[] = [
+        { key: 'admin-contact', label: 'Contact (Admin)' },
+        { key: 'user-contact', label: 'Contact (Bezoeker)' },
+        { key: 'admin-report', label: 'Meldpunt (Admin)' },
+        { key: 'user-report', label: 'Meldpunt (Bezoeker)' },
+    ];
 
-    // REPLACE CID WITH LOCAL URL FOR PREVIEW
-    htmlContent = htmlContent.replace('src="cid:logo"', 'src="/MK logo transparent.png"');
+    // Desktop email clients render at ~600px. Mobile email clients are ~375px.
+    const iframeWidth = isMobilePreview ? 375 : 750;
+    const iframeHeight = 900;
 
     return (
-        <div className="min-h-screen bg-gray-100 flex flex-col font-sans">
+        <div style={{ padding: '20px', fontFamily: 'system-ui, sans-serif', backgroundColor: '#d1d5db', minHeight: '100vh' }}>
             <Head>
-                <title>Email Preview - Moral Knight</title>
+                <title>Moral Knight – Email Preview</title>
             </Head>
 
-            <div className="bg-white border-b border-gray-200 p-4 shadow-sm z-10">
-                <div className="max-w-6xl mx-auto flex flex-wrap items-center justify-between gap-4">
-                    <h1 className="text-xl font-bold font-mono text-[#194D25]">EMAIL PREVIEW TOOL</h1>
+            <h2 style={{ margin: '0 0 16px 0', color: '#1e293b', fontSize: '18px', fontWeight: 700 }}>
+                📧 Email Template Preview
+            </h2>
 
-                    <div className="flex gap-4">
-                        <div className="flex bg-gray-100 rounded-lg p-1">
-                            <button
-                                onClick={() => setActiveType('contact')}
-                                className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${activeType === 'contact' ? 'bg-white shadow text-[#194D25]' : 'text-gray-500 hover:text-gray-900'
-                                    }`}
-                            >
-                                Contactformulier
-                            </button>
-                            <button
-                                onClick={() => setActiveType('report')}
-                                className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${activeType === 'report' ? 'bg-white shadow text-[#194D25]' : 'text-gray-500 hover:text-gray-900'
-                                    }`}
-                            >
-                                Meldpunt
-                            </button>
-                        </div>
-
-                        <div className="w-px bg-gray-300 h-8 self-center"></div>
-
-                        <div className="flex bg-gray-100 rounded-lg p-1">
-                            <button
-                                onClick={() => setActiveTab('visitor')}
-                                className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${activeTab === 'visitor' ? 'bg-white shadow text-[#194D25]' : 'text-gray-500 hover:text-gray-900'
-                                    }`}
-                            >
-                                Wat de Bezoeker ziet
-                            </button>
-                            <button
-                                onClick={() => setActiveTab('admin')}
-                                className={`px-4 py-2 rounded-md text-sm font-medium transition-all ${activeTab === 'admin' ? 'bg-white shadow text-[#194D25]' : 'text-gray-500 hover:text-gray-900'
-                                    }`}
-                            >
-                                Wat de Beheerder ziet
-                            </button>
-                        </div>
-                    </div>
-                </div>
+            {/* Template selector */}
+            <div style={{ marginBottom: '12px', display: 'flex', gap: '8px', flexWrap: 'wrap' }}>
+                {buttons.map(({ key, label }) => (
+                    <button
+                        key={key}
+                        onClick={() => setView(key)}
+                        style={{
+                            padding: '8px 16px',
+                            backgroundColor: view === key ? '#194D25' : '#e2e8f0',
+                            color: view === key ? 'white' : '#1e293b',
+                            border: 'none',
+                            borderRadius: '6px',
+                            cursor: 'pointer',
+                            fontSize: '14px',
+                            fontWeight: view === key ? 700 : 400,
+                        }}
+                    >
+                        {label}
+                    </button>
+                ))}
             </div>
 
-            <div className="flex-1 flex max-w-6xl w-full mx-auto gap-8 p-8">
-                <div className="flex-1 bg-white shadow-lg rounded-lg overflow-hidden border border-gray-200">
+            {/* Desktop / Mobile toggle */}
+            <div style={{ marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '12px' }}>
+                <button
+                    onClick={() => setIsMobilePreview(false)}
+                    style={{
+                        padding: '6px 14px',
+                        backgroundColor: !isMobilePreview ? '#061424' : '#e2e8f0',
+                        color: !isMobilePreview ? 'white' : '#1e293b',
+                        border: 'none',
+                        borderRadius: '6px',
+                        cursor: 'pointer',
+                        fontSize: '13px',
+                    }}
+                >
+                    🖥️ Desktop (650px)
+                </button>
+                <button
+                    onClick={() => setIsMobilePreview(true)}
+                    style={{
+                        padding: '6px 14px',
+                        backgroundColor: isMobilePreview ? '#061424' : '#e2e8f0',
+                        color: isMobilePreview ? 'white' : '#1e293b',
+                        border: 'none',
+                        borderRadius: '6px',
+                        cursor: 'pointer',
+                        fontSize: '13px',
+                    }}
+                >
+                    📱 Mobiel (375px)
+                </button>
+            </div>
+
+            {/* Email preview */}
+            <div style={{
+                display: 'flex',
+                justifyContent: 'center',
+            }}>
+                <div style={{
+                    backgroundColor: 'white',
+                    border: '1px solid #94a3b8',
+                    borderRadius: '8px',
+                    overflow: 'hidden',
+                    boxShadow: '0 10px 25px rgba(0,0,0,0.2)',
+                    width: `${iframeWidth}px`,
+                    transition: 'width 0.3s ease',
+                }}>
                     <iframe
-                        srcDoc={htmlContent}
-                        className="w-full h-full border-none"
-                        title="Email Preview"
+                        key={`${view}-${iframeWidth}`}
+                        srcDoc={html}
+                        style={{ width: `${iframeWidth}px`, height: `${iframeHeight}px`, border: 'none', display: 'block' }}
+                        title="email-preview"
                     />
                 </div>
-
-                <div className="w-80 space-y-4">
-                    <div className="bg-blue-50 border border-blue-200 p-4 rounded-lg text-sm text-blue-800">
-                        <p className="font-bold mb-2">Instructies:</p>
-                        <p>Dit is een <strong>live preview</strong> van de email templates.</p>
-                        <p className="mt-2">Om de inhoud of stijl aan te passen:</p>
-                        <ol className="list-decimal list-inside mt-1 space-y-1">
-                            <li>Open <code>src/pages/api/contact.ts</code></li>
-                            <li>Bewerk de HTML string in de <code>getHtml</code> functie</li>
-                            <li>Update dan deze preview pagina code (copy-paste) om het resultaat te zien.</li>
-                        </ol>
-                        (We gebruiken nu een gedeelde utility `src/utils/emailTemplate.ts`, dus wijzigingen zijn direct zichtbaar!)
-                    </div>
-                </div>
             </div>
+
+            <p style={{ textAlign: 'center', marginTop: '16px', color: '#475569', fontSize: '12px' }}>
+                Schakel tussen Desktop en Mobiel om te zien hoe e-mails er in elke emailclient uitzien.
+            </p>
         </div>
     );
-};
-
-export default EmailPreview;
+}

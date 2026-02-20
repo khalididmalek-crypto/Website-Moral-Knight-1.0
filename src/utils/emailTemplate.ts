@@ -116,7 +116,7 @@ export const generateEmailHtml = (data: EmailTemplateData, isForUser: boolean, i
             }
             
             img[class="header-logo"] {
-                width: 80px !important;
+                width: 100px !important; /* Larger on mobile as well */
                 margin: 5px 0 0 0 !important;
             }
             
@@ -213,17 +213,32 @@ export const generateEmailHtml = (data: EmailTemplateData, isForUser: boolean, i
                 <!-- Container -->
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" class="email-container" style="max-width: 600px; background-color: ${colors.surface}; border: 1px solid ${colors.border}; box-shadow: 0 4px 6px rgba(0,0,0,0.05);">
                     
-                    <!-- Header (PNG image - Gmail dark mode safe) -->
+                    <!-- Header (Custom HTML layout for better logo control) -->
                     <tr class="email-header">
-                        <td bgcolor="${colors.primary}" style="background-color: ${colors.primary} !important; padding: 0; line-height: 0;" data-ogsc="${colors.primary}" data-ogsb="${colors.primary}">
-                            <a href="https://www.moralknight.nl" style="display: block; line-height: 0;">
-                                <img
-                                    src="https://www.moralknight.nl/images/email-header.png"
-                                    alt="Moral Knight - De onafhankelijke waakhond voor publieke AI"
-                                    width="600"
-                                    style="display: block; width: 100%; max-width: 600px; height: auto; border: 0; outline: 0;"
-                                />
-                            </a>
+                        <td bgcolor="${colors.primary}" style="background-color: ${colors.primary} !important; padding: 30px 30px;" data-ogsc="${colors.primary}" data-ogsb="${colors.primary}">
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%">
+                                <tr>
+                                    <td align="left" valign="middle">
+                                        <div class="header-title" style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 24px; font-weight: 800; color: #FFFFFF; letter-spacing: 1px; text-transform: uppercase;">
+                                            MORAL KNIGHT
+                                        </div>
+                                        <div class="header-subtitle" style="font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 10px; font-weight: 500; color: #FFFFFF; letter-spacing: 0.5px; text-transform: uppercase; margin-top: 6px; opacity: 0.9;">
+                                            De onafhankelijke waakhond voor publieke AI
+                                        </div>
+                                    </td>
+                                    <td align="right" valign="middle" class="header-cell">
+                                        <a href="https://www.moralknight.nl" style="display: block; border: 0; outline: 0;">
+                                            <img
+                                                src="https://www.moralknight.nl/images/logo-email.png"
+                                                alt="Moral Knight Logo"
+                                                width="130"
+                                                class="header-logo"
+                                                style="display: block; width: 130px; height: auto; border: 0; outline: 0; margin-right: 5px;"
+                                            />
+                                        </a>
+                                    </td>
+                                </tr>
+                            </table>
                         </td>
                     </tr>
 
