@@ -40,7 +40,7 @@ export default function PrivacyPage() {
                             {`Privacyverklaring`}
                         </h1>
                         <p className="text-[10px] opacity-60 uppercase tracking-widest">
-                            {`Laatste update: 28 december 2024 — Moral Knight Responsible AI`}
+                            {`Laatste update: 20 februari 2026 — Moral Knight Responsible AI`}
                         </p>
                     </header>
 
@@ -58,19 +58,23 @@ export default function PrivacyPage() {
                             <h2 className="text-lg font-bold uppercase tracking-widest mb-4 border-l-4 border-green-800 pl-4 py-1" style={{ color: COLORS.PRIMARY_GREEN }}>
                                 {`2. Gegevensverzameling & Doeleinden`}
                             </h2>
-                            <p className="mb-4">{`Wij verzamelen gegevens via twee hoofdwegen op deze website:`}</p>
+                            <p className="mb-4">{`Wij verzamelen gegevens op een uiterst beperkte en privacy-vriendelijke manier:`}</p>
                             <ul className="list-disc pl-5 space-y-2">
-                                <li><strong>{`Contactformulier:`}</strong> {` De door u verstrekte naam, e-mailadres en optionele organisatiedetails worden uitsluitend gebruikt om op uw verzoek contact met u op te nemen.`}</li>
-                                <li><strong>{`MK Meldpunt (AI Misstanden):`}</strong> {` Gegevens over AI-systemen en omschrijvingen van misstanden worden gebruikt voor ons onderzoek naar verantwoorde AI. Deze meldingen kunnen geanonimiseerd worden opgenomen in rapportages aan toezichthouders of publieke publicaties.`}</li>
+                                <li><strong>{`Geen Tracking:`}</strong> {` Wij gebruiken geen cookies en geen trackers zoals Google Analytics. Uw bezoek aan deze website is volledig anoniem.`}</li>
+                                <li><strong>{`Meldpunt & Anonimiteit:`}</strong> {` Bij het doen van een melding (MK Meldpunt) kunt u kiezen voor een volledig anonieme optie. In dat geval vragen en bewaren wij géén naam of e-mailadres.`}</li>
+                                <li><strong>{`Contactformulier:`}</strong> {` Alleen als u expliciet contact met ons opneemt, gebruiken wij de verstrekte naam en e-mailadres uitsluitend voor dat doel.`}</li>
                             </ul>
                         </section>
 
                         <section>
                             <h2 className="text-lg font-bold uppercase tracking-widest mb-4 border-l-4 border-green-800 pl-4 py-1" style={{ color: COLORS.PRIMARY_GREEN }}>
-                                {`3. Dataminimalisatie & Opslag`}
+                                {`3. Dataminimalisatie & Veilige Verzending`}
                             </h2>
                             <p>
-                                {`Conform onze Responsible AI-principes verzamelen wij alleen de strikt noodzakelijke gegevens. Bestanden die u lokaal via \`drag & drop\` in de applicatie gebruikt, worden uitsluitend in uw eigen browser verwerkt en nooit naar onze servers verzonden. Gegevens uit formulieren worden veilig verzonden via een versleutelde SMTP-verbinding (SSL/TLS).`}
+                                {`Conform onze Responsible AI-principes verzamelen wij alleen de strikt noodzakelijke gegevens. Meldingen en bestanden worden via een versleutelde verbinding (SSL/TLS) naar onze beveiligde server bij een Nederlandse hostingprovider verzonden. Geüploade documenten worden vertrouwelijk behandeld en niet buiten de EU verwerkt of opgeslagen.`}
+                            </p>
+                            <p className="mt-4">
+                                <strong>{`Klokkenluidersbescherming:`}</strong> {` Om geen sporen achter te laten op uw apparaten, sturen wij géén automatische bevestigingsmails naar melders van misstanden. Na verzending ontvangt u direct op uw scherm een uniek kenmerk.`}
                             </p>
                         </section>
 
@@ -79,16 +83,16 @@ export default function PrivacyPage() {
                                 {`4. Uw Rechten`}
                             </h2>
                             <p>
-                                {`U heeft te allen tijde het recht op inzage, correctie of verwijdering van uw persoonsgegevens. Daarnaast kunt u bezwaar maken tegen de verwerking of verzoeken om gegevensoverdraagbaarheid. Neem hiervoor contact op via het contactformulier.`}
+                                {`U heeft te allen tijde het recht op inzage, correctie of verwijdering van uw persoonsgegevens (indien verstrekt). Voor anonieme meldingen bezitten wij geen gegevens die herleidbaar zijn naar uw persoon. Neem voor verzoeken contact met ons op.`}
                             </p>
                         </section>
 
                         <section>
                             <h2 className="text-lg font-bold uppercase tracking-widest mb-4 border-l-4 border-green-800 pl-4 py-1" style={{ color: COLORS.PRIMARY_GREEN }}>
-                                {`5. Beveiliging`}
+                                {`5. Beveiliging & Hosting`}
                             </h2>
                             <p>
-                                {`Wij nemen passende technische en organisatorische maatregelen om uw gegevens te beschermen. Dit omvat onder meer het gebruik van moderne encryptie en het minimaliseren van menselijke toegang tot verzamelde data. Onze website is beveiligd tegen bots middels honeypot-technologie om spambelastingen te voorkomen.`}
+                                {`Wij nemen passende technische maatregelen, waaronder moderne encryptie en het gebruik van strikte beveiligingsheaders. Onze website en data worden gehost in Nederlandse datacenters onder Nederlandse jurisdictie. Wij minimaliseren menselijke toegang tot verzamelde onderzoeksdata.`}
                             </p>
                         </section>
 

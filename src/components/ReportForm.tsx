@@ -23,6 +23,7 @@ interface FormData {
     newsletter: boolean;
     file: File | null;
     botcheck: string; // Honeypot
+    isAnonymous: boolean;
 }
 
 interface FormErrors {
@@ -58,6 +59,7 @@ export const ReportForm: React.FC<Props> = () => {
         newsletter: false,
         file: null,
         botcheck: '',
+        isAnonymous: false,
     });
     const [errors, setErrors] = useState<FormErrors>({});
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -136,6 +138,10 @@ export const ReportForm: React.FC<Props> = () => {
     }, []);
 
     const validateField = (field: string, value: any): string | undefined => {
+        if (formData.isAnonymous && (field === 'name' || field === 'email')) {
+            return undefined;
+        }
+
         switch (field) {
             case 'name':
                 if (!(value as string).trim()) return 'Naam is verplicht';
@@ -252,6 +258,7 @@ export const ReportForm: React.FC<Props> = () => {
             newsletter: false,
             file: null,
             botcheck: '',
+            isAnonymous: false,
         });
         setErrors({});
         setTouched({});
@@ -272,8 +279,9 @@ export const ReportForm: React.FC<Props> = () => {
                     <p className="text-xl font-bold tracking-widest" style={{ color: '#8B1A3D' }}>{reportId || 'MK-2025-XXXX'}</p>
                 </div>
                 <p className="font-mono text-sm leading-relaxed max-w-md mb-12" style={{ color: FORM_COLORS.TEXT_SECONDARY }}>
-                    Bedankt voor uw melding. Wij hebben een bevestiging gestuurd naar <strong>{formData.email}</strong>.<br /><br />
-                    Wij zullen deze misstand onderzoeken en indien nodig actie ondernemen.
+                    Bedankt voor uw melding. {formData.isAnonymous ? 'Omdat u anoniem meldt, slaan wij geen contactgegevens op en ontvangt u géén e-mailbevestiging.' : `Wij hebben een bevestiging gestuurd naar ${formData.email}.`}
+                    <br /><br />
+                    Sla uw kenmerk goed op, dit is uw enige referentie voor deze melding. Wij zullen deze misstand onafhankelijk onderzoeken.
                 </p>
                 <button
                     onClick={handleReset}
@@ -306,7 +314,23 @@ export const ReportForm: React.FC<Props> = () => {
                 />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Anonymous Toggle */}
+            <div className="flex items-center justify-between p-4 border border-black bg-white mb-2">
+                <div className="flex flex-col gap-1">
+                    <span className="font-mono text-xs font-bold uppercase tracking-wider" style={{ color: COLORS.PRIMARY_GREEN }}>Anoniem Melden</span>
+                    <span className="font-mono text-[10px] opacity-60">Geen naam of e-mail vereist / Geen e-mailbevestiging</span>
+                </div>
+                <button
+                    type="button"
+                    onClick={() => setFormData(prev => ({ ...prev, isAnonymous: !prev.isAnonymous }))}
+                    className={`w-12 h-6 flex items-center p-1 transition-colors duration-300 ${formData.isAnonymous ? 'bg-[#8B1A3D]' : 'bg-gray-200'}`}
+                    style={{ borderRadius: '0' }}
+                >
+                    <div className={`w-4 h-4 bg-white transition-transform duration-300 ${formData.isAnonymous ? 'translate-x-6' : 'translate-x-0'}`} />
+                </button>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 transition-all duration-300 overflow-hidden" style={{ maxHeight: formData.isAnonymous ? '0' : '200px', opacity: formData.isAnonymous ? 0 : 1, pointerEvents: formData.isAnonymous ? 'none' : 'auto' }}>
                 <div className="flex flex-col gap-1.5">
                     <label htmlFor="name" className="font-mono text-[10px] md:text-xs uppercase tracking-widest" style={{ color: COLORS.PRIMARY_GREEN }}>
                         Naam <span style={{ color: FORM_COLORS.ERROR }}>*</span>

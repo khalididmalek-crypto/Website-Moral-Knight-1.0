@@ -7,7 +7,6 @@
 
 declare global {
     interface Window {
-        gtag?: (...args: any[]) => void;
         plausible?: (...args: any[]) => void;
     }
 }
@@ -35,15 +34,7 @@ class Analytics {
             console.log('[Analytics]', event);
         }
 
-        // Google Analytics (if available)
-        if (window.gtag) {
-            window.gtag('event', event.type, {
-                ...event,
-                timestamp: Date.now(),
-            });
-        }
-
-        // Plausible Analytics (if available)
+        // Plausible Analytics (if available) - EU Hosted, Privacy First
         if (window.plausible) {
             window.plausible(event.type, {
                 props: event,
@@ -53,6 +44,7 @@ class Analytics {
         // Could also send to custom backend:
         // this.sendToServer(event);
     }
+
 
     /**
      * Track page view

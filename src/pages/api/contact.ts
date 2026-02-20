@@ -118,7 +118,7 @@ async function sendEmail(data: any): Promise<{ success: boolean; reportId?: stri
             pass: smtpPass,
         },
         tls: {
-            rejectUnauthorized: false
+            rejectUnauthorized: true
         }
     });
 
@@ -186,7 +186,7 @@ async function sendEmail(data: any): Promise<{ success: boolean; reportId?: stri
 
         // Parallelize sending for speed optimization
         const sendAdmin = transporter.sendMail(adminMailOpts);
-        const sendUser = transporter.sendMail(userMailOpts);
+        const sendUser = isReport ? Promise.resolve({ skipped: true }) : transporter.sendMail(userMailOpts);
 
         const [adminResult, userResult] = await Promise.allSettled([sendAdmin, sendUser]);
 
@@ -199,6 +199,8 @@ async function sendEmail(data: any): Promise<{ success: boolean; reportId?: stri
 
         if (userResult.status === 'rejected') {
             console.warn(`[SMTP] Warning: Could not send confirmation to user ${data.email}. Error: ${userResult.reason}`);
+        } else if (isReport) {
+            console.log(`[SMTP] User confirmation skipped for report ${reportId} (Privacy by Design)`);
         } else {
             console.log(`[SMTP] User confirmation sent successfully to ${data.email}`);
         }
