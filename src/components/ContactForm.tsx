@@ -29,7 +29,7 @@ interface FormData {
   message: string;
   newsletter: boolean;
   privacyConsent: boolean;
-  _website: string; // Honeypot
+  botcheck: string; // Honeypot
 }
 
 interface FormErrors {
@@ -55,7 +55,7 @@ export const ContactForm: React.FC<Props> = ({ className = '', mode = 'preview',
     message: '',
     newsletter: false,
     privacyConsent: false,
-    _website: '',
+    botcheck: '',
   });
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -79,7 +79,7 @@ export const ContactForm: React.FC<Props> = ({ className = '', mode = 'preview',
   // Persistence: Save form data to session storage on change
   useEffect(() => {
     // Only save essential data, exclude transient state
-    const { _website, ...saveData } = formData;
+    const { botcheck, ...saveData } = formData;
     sessionStorage.setItem('contact_form_data', JSON.stringify(saveData));
   }, [formData]);
 
@@ -140,12 +140,8 @@ export const ContactForm: React.FC<Props> = ({ className = '', mode = 'preview',
         }
         break;
       case 'message':
-        if (!(value as string).trim()) {
-          return 'Bericht is verplicht';
-        }
-        if ((value as string).trim().length < 10) {
-          return 'Bericht moet minimaal 10 tekens bevatten';
-        }
+        if (!value) return 'Bericht is verplicht';
+        if ((value as string).length < 2) return 'Bericht is te kort';
         break;
       case 'privacyConsent':
         if (!(value as boolean)) {
@@ -194,20 +190,14 @@ export const ContactForm: React.FC<Props> = ({ className = '', mode = 'preview',
     setSubmitError(null);
 
     try {
-      const payload = new FormData();
-      payload.append('formType', 'contact');
-      payload.append('name', formData.name);
-      payload.append('email', formData.email);
-      payload.append('organisation', formData.organisation);
-      payload.append('message', formData.message);
-      payload.append('newsletter', formData.newsletter.toString());
-      payload.append('privacyConsent', formData.privacyConsent.toString());
-      if (formData._website) payload.append('_website', formData._website);
-
+      console.log('[ContactForm] Submitting form...');
       // Call API endpoint
       const response = await fetch('/api/contact', {
         method: 'POST',
-        body: payload,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ ...formData, formType: 'contact' }),
       });
 
       const data = await response.json();
@@ -242,7 +232,7 @@ export const ContactForm: React.FC<Props> = ({ className = '', mode = 'preview',
       message: '',
       newsletter: false,
       privacyConsent: false,
-      _website: '',
+      botcheck: '',
     });
     setErrors({});
     setTouched({});
@@ -415,11 +405,11 @@ export const ContactForm: React.FC<Props> = ({ className = '', mode = 'preview',
           <div style={{ position: 'absolute', left: '-9999px', opacity: 0 }} aria-hidden="true">
             <input
               type="text"
-              name="_website"
-              value={formData._website}
+              name="botcheck"
+              value={formData.botcheck}
               onChange={handleChange}
               tabIndex={-1}
-              autoComplete="off"
+              autoComplete="none"
             />
           </div>
 

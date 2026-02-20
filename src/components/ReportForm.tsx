@@ -22,7 +22,7 @@ interface FormData {
     privacyConsent: boolean;
     newsletter: boolean;
     file: File | null;
-    _website: string; // Honeypot
+    botcheck: string; // Honeypot
 }
 
 interface FormErrors {
@@ -39,8 +39,14 @@ const validateEmail = (email: string): boolean => {
     return EMAIL_REGEX.test(email.trim());
 };
 
-// fileToBase64 removed, using native FormData
-
+const fileToBase64 = (file: File): Promise<string> => {
+    return new Promise((resolve, reject) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => resolve(reader.result as string);
+        reader.onerror = (error) => reject(error);
+    });
+};
 export const ReportForm: React.FC<Props> = () => {
     const [formData, setFormData] = useState<FormData>({
         name: '',
@@ -51,7 +57,7 @@ export const ReportForm: React.FC<Props> = () => {
         privacyConsent: false,
         newsletter: false,
         file: null,
-        _website: '',
+        botcheck: '',
     });
     const [errors, setErrors] = useState<FormErrors>({});
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -76,7 +82,7 @@ export const ReportForm: React.FC<Props> = () => {
     // Persistence: Save form data to session storage on change
     useEffect(() => {
         // Only save essential data, exclude transient state and non-serializable file object
-        const { _website, file, ...saveData } = formData;
+        const { botcheck, file, ...saveData } = formData;
         sessionStorage.setItem('report_form_data', JSON.stringify(saveData));
     }, [formData]);
 
@@ -143,7 +149,7 @@ export const ReportForm: React.FC<Props> = () => {
                 break;
             case 'description':
                 if (!(value as string).trim()) return 'Omschrijving is verplicht';
-                if ((value as string).trim().length < 10) return 'Omschrijving moet minimaal 10 tekens bevatten';
+                if ((value as string).trim().length < 2) return 'Omschrijving is te kort';
                 break;
             case 'privacyConsent':
                 if (!(value as boolean)) return 'U moet akkoord gaan met de privacyverklaring';
@@ -188,24 +194,27 @@ export const ReportForm: React.FC<Props> = () => {
         try {
             console.log('[ReportForm] Submitting report...');
 
-            const payload = new FormData();
-            payload.append('formType', 'report');
-            payload.append('name', formData.name);
-            payload.append('email', formData.email);
-            payload.append('organisation', formData.organisation);
-            payload.append('aiSystem', formData.aiSystem);
-            payload.append('description', formData.description);
-            payload.append('privacyConsent', formData.privacyConsent.toString());
-            payload.append('newsletter', formData.newsletter.toString());
-            if (formData._website) payload.append('_website', formData._website);
-
+            let fileData = null;
             if (formData.file) {
-                payload.append('file', formData.file);
+                try {
+                    fileData = await fileToBase64(formData.file);
+                } catch (e) {
+                    console.error('Error converting file to base64', e);
+                    throw new Error('Fout bij het verwerken van het bestand');
+                }
             }
 
             const response = await fetch('/api/contact', {
                 method: 'POST',
-                body: payload,
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    ...formData,
+                    file: fileData,
+                    fileName: formData.file?.name,
+                    formType: 'report'
+                }),
             });
 
             const data = await response.json();
@@ -242,7 +251,7 @@ export const ReportForm: React.FC<Props> = () => {
             privacyConsent: false,
             newsletter: false,
             file: null,
-            _website: '',
+            botcheck: '',
         });
         setErrors({});
         setTouched({});
@@ -289,11 +298,11 @@ export const ReportForm: React.FC<Props> = () => {
             <div style={{ position: 'absolute', left: '-9999px', opacity: 0 }} aria-hidden="true">
                 <input
                     type="text"
-                    name="_website"
-                    value={formData._website}
+                    name="botcheck"
+                    value={formData.botcheck}
                     onChange={handleChange}
+                    autoComplete="none"
                     tabIndex={-1}
-                    autoComplete="off"
                 />
             </div>
 
