@@ -154,7 +154,6 @@ export default function VisiePage({ content }: VisieProps) {
                             visibility: visible !important;
                             margin-top: 2rem;
                             padding-top: 2rem;
-                            border-top: 2px solid #8B1A3D;
                             page-break-inside: avoid;
                         }
                         #print-header { display: flex !important; margin-bottom: 2rem; }
