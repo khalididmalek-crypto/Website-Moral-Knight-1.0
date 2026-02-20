@@ -157,7 +157,7 @@ export default function VisiePage({ content }: VisieProps) {
                             border-top: 2px solid #8B1A3D;
                             page-break-inside: avoid;
                         }
-                        #print-header { display: block !important; margin-bottom: 2rem; }
+                        #print-header { display: flex !important; margin-bottom: 2rem; }
                         #print-title { display: block !important; margin-bottom: 2rem; }
 
                         .source-list a { color: #8B1A3D !important; text-decoration: underline !important; font-size: 10px !important; }
@@ -171,29 +171,31 @@ export default function VisiePage({ content }: VisieProps) {
             <div className="min-h-screen py-10 px-6 md:px-0 relative print-white-bg" style={{ backgroundColor: BG_COLOR, color: TEXT_COLOR }}>
                 <div className="max-w-3xl mx-auto">
                     {/* Print-only Header (Matches Website Header Style) */}
-                    <div id="print-header">
-                        <div className="font-mono font-bold uppercase tracking-widest text-[#194D25] p-4 border border-[#8B1A3D] inline-block mb-4">
-                            <span style={{ color: '#194D25' }}>/</span> Moral Knight
+                    <div id="print-header" className="mb-8 flex flex-nowrap justify-between items-center bg-white p-4 border border-[#8B1A3D] shadow-sm">
+                        <div className="font-mono font-bold uppercase tracking-widest text-[#194D25] text-base leading-none flex items-center">
+                            <span style={{ color: '#194D25' }}>/</span>
+                            <span style={{ color: "#194D25" }}> Moral Knight</span>
                         </div>
+                        <span className="font-mono text-gray-400 whitespace-nowrap pl-4 text-xs leading-none flex items-center">VISIE 2026</span>
                     </div>
 
                     {/* Document Title for Print */}
                     <div id="print-title" className="mb-12 text-left">
-                        <h1 className="font-mono text-xl font-bold tracking-[0.2em] uppercase text-black">
+                        <h1 className="font-mono text-2xl font-bold tracking-[0.2em] uppercase text-[#222222]">
                             Visie op Onafhankelijke Toetsing
                         </h1>
-                        <p className="font-mono text-[10px] mt-1 uppercase tracking-widest" style={{ color: '#8B1A3D' }}>
+                        <p className="font-mono text-[11px] mt-1 uppercase tracking-widest" style={{ color: '#8B1A3D' }}>
                             Theoretisch Kader | 2026
                         </p>
                     </div>
 
                     {/* Header (Nav) - Screen Only */}
                     <div className="mb-8 flex flex-nowrap justify-between items-center bg-white p-4 border border-[#8B1A3D] shadow-sm no-print">
-                        <Link href="/" className="font-mono font-bold uppercase tracking-widest transition-colors duration-300 whitespace-nowrap">
+                        <Link href="/" className="font-mono font-bold uppercase tracking-widest transition-colors duration-300 whitespace-nowrap text-sm md:text-base leading-none flex items-center">
                             <span style={{ color: '#194D25' }}>/</span>
                             <span className="hover:text-[#8B1A3D] transition-colors duration-300" style={{ color: "#194D25" }}> Moral Knight</span>
                         </Link>
-                        <span className="font-mono text-xs text-gray-400 whitespace-nowrap pl-4">VISIE 2026</span>
+                        <span className="font-mono text-gray-400 whitespace-nowrap pl-4 text-sm md:text-xs leading-none flex items-center">VISIE 2026</span>
                     </div>
 
                     {/* Document Title - Screen Only */}
