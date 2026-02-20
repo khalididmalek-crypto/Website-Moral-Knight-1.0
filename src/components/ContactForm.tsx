@@ -194,14 +194,20 @@ export const ContactForm: React.FC<Props> = ({ className = '', mode = 'preview',
     setSubmitError(null);
 
     try {
-      console.log('[ContactForm] Submitting form...');
+      const payload = new FormData();
+      payload.append('formType', 'contact');
+      payload.append('name', formData.name);
+      payload.append('email', formData.email);
+      payload.append('organisation', formData.organisation);
+      payload.append('message', formData.message);
+      payload.append('newsletter', formData.newsletter.toString());
+      payload.append('privacyConsent', formData.privacyConsent.toString());
+      if (formData._website) payload.append('_website', formData._website);
+
       // Call API endpoint
       const response = await fetch('/api/contact', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ ...formData, formType: 'contact' }),
+        body: payload,
       });
 
       const data = await response.json();
@@ -212,6 +218,9 @@ export const ContactForm: React.FC<Props> = ({ className = '', mode = 'preview',
 
       // Success!
       console.log('[ContactForm] Submission success:', data);
+
+      sessionStorage.removeItem('contact_form_data');
+
       setIsSubmitting(false);
       setSubmitted(true);
       if (onSuccess) onSuccess();
@@ -403,7 +412,7 @@ export const ContactForm: React.FC<Props> = ({ className = '', mode = 'preview',
           )}
 
           {/* Honeypot field - Hidden from users */}
-          <div style={{ display: 'none' }} aria-hidden="true">
+          <div style={{ position: 'absolute', left: '-9999px', opacity: 0 }} aria-hidden="true">
             <input
               type="text"
               name="_website"

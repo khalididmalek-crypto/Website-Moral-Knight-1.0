@@ -39,14 +39,7 @@ const validateEmail = (email: string): boolean => {
     return EMAIL_REGEX.test(email.trim());
 };
 
-const fileToBase64 = (file: File): Promise<string> => {
-    return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result as string);
-        reader.onerror = (error) => reject(error);
-    });
-};
+// fileToBase64 removed, using native FormData
 
 export const ReportForm: React.FC<Props> = () => {
     const [formData, setFormData] = useState<FormData>({
@@ -195,27 +188,24 @@ export const ReportForm: React.FC<Props> = () => {
         try {
             console.log('[ReportForm] Submitting report...');
 
-            let fileData = null;
+            const payload = new FormData();
+            payload.append('formType', 'report');
+            payload.append('name', formData.name);
+            payload.append('email', formData.email);
+            payload.append('organisation', formData.organisation);
+            payload.append('aiSystem', formData.aiSystem);
+            payload.append('description', formData.description);
+            payload.append('privacyConsent', formData.privacyConsent.toString());
+            payload.append('newsletter', formData.newsletter.toString());
+            if (formData._website) payload.append('_website', formData._website);
+
             if (formData.file) {
-                try {
-                    fileData = await fileToBase64(formData.file);
-                } catch (e) {
-                    console.error('Error converting file to base64', e);
-                    throw new Error('Fout bij het verwerken van het bestand');
-                }
+                payload.append('file', formData.file);
             }
 
             const response = await fetch('/api/contact', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    ...formData,
-                    file: fileData,
-                    fileName: formData.file?.name,
-                    formType: 'report'
-                }),
+                body: payload,
             });
 
             const data = await response.json();
@@ -225,6 +215,9 @@ export const ReportForm: React.FC<Props> = () => {
             }
 
             console.log('[ReportForm] Report success:', data);
+
+            sessionStorage.removeItem('report_form_data');
+
             if (data.reportId) setReportId(data.reportId);
             setSubmitted(true);
             setIsSubmitting(false);
@@ -293,7 +286,7 @@ export const ReportForm: React.FC<Props> = () => {
             )}
 
             {/* Honeypot field - Hidden from users */}
-            <div style={{ display: 'none' }} aria-hidden="true">
+            <div style={{ position: 'absolute', left: '-9999px', opacity: 0 }} aria-hidden="true">
                 <input
                     type="text"
                     name="_website"
