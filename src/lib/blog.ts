@@ -5,6 +5,18 @@ import { BlogPost } from '../types';
 
 const postsDirectory = path.join(process.cwd(), 'src/content/blog');
 
+function slugify(text: string): string {
+    return text
+        .toString()
+        .normalize('NFD')                   // split an accented letter into the base letter and the accent
+        .replace(/[\u0300-\u036f]/g, '')   // remove all accents
+        .toLowerCase()
+        .trim()
+        .replace(/\s+/g, '-')               // replace spaces with -
+        .replace(/[^\w-]+/g, '')            // remove all non-word chars
+        .replace(/--+/g, '-');              // replace multiple - with single -
+}
+
 export function getSortedPostsData(): BlogPost[] {
     // Check if directory exists
     if (!fs.existsSync(postsDirectory)) {
@@ -18,7 +30,6 @@ export function getSortedPostsData(): BlogPost[] {
         .map((fileName: string) => {
             // Remove ".md" from file name to get id
             const id = fileName.replace(/\.md$/, '');
-            const slug = id; // Use filename as slug
 
             // Read markdown file as string
             const fullPath = path.join(postsDirectory, fileName);
@@ -26,6 +37,7 @@ export function getSortedPostsData(): BlogPost[] {
 
             // Use gray-matter to parse the post metadata section
             const matterResult = matter(fileContents);
+            const slug = slugify(matterResult.data.title || id);
 
             // Combine the data with the id
             return {
@@ -53,33 +65,21 @@ export function getSortedPostsData(): BlogPost[] {
 
 export async function getPostData(slug: string): Promise<BlogPost | null> {
     try {
-        const fullPath = path.join(postsDirectory, `${slug}.md`);
+        // We need to find the file that matches the slug
+        // Since slug is generated from title, we can't just join directory with slug
+        const posts = getSortedPostsData();
+        const post = posts.find(p => p.slug === slug);
 
-        if (!fs.existsSync(fullPath)) {
+        if (!post) {
             return null;
         }
 
-        const fileContents = fs.readFileSync(fullPath, 'utf8');
-
-        // Use gray-matter to parse the post metadata section
-        const matterResult = matter(fileContents);
-
-        return {
-            id: slug,
-            slug,
-            title: matterResult.data.title,
-            date: matterResult.data.date?.toString() || null,
-            tag: matterResult.data.tag,
-            excerpt: matterResult.data.excerpt,
-            content: matterResult.content,
-            ...matterResult.data,
-        } as BlogPost;
+        return post;
     } catch (err) {
         console.error(`Error getting post data for ${slug}:`, err);
         return null; // Ensure we return null on error
     }
 }
-// ... existing getPostData ...
 
 export async function getAllPostsWithHtml(): Promise<BlogPost[]> {
     if (!fs.existsSync(postsDirectory)) {
@@ -91,10 +91,10 @@ export async function getAllPostsWithHtml(): Promise<BlogPost[]> {
         .filter((fileName) => fileName.endsWith('.md'))
         .map(async (fileName: string) => {
             const id = fileName.replace(/\.md$/, '');
-            const slug = id;
             const fullPath = path.join(postsDirectory, fileName);
             const fileContents = fs.readFileSync(fullPath, 'utf8');
             const matterResult = matter(fileContents);
+            const slug = slugify(matterResult.data.title || id);
 
             return {
                 id,
