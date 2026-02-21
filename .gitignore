@@ -31,3 +31,4 @@ build/
 # AI Agent skills
 .agent/
 
+src/pages/architectuur.tsx
