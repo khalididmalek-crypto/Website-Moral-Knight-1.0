@@ -6,6 +6,10 @@ export default function Document() {
       <Head>
         {/* Favicon / Icons */}
         <link rel="icon" type="image/x-icon" href="/favicon.ico?v=2" />
+        <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png?v=2" />
+        <link rel="icon" type="image/svg+xml" href="/favicon.svg?v=2" />
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png?v=2" />
+        <link rel="manifest" href="/site.webmanifest" />
 
         {/* Tailwind CDN and Config */}
         <script src="https://cdn.tailwindcss.com" defer></script>
