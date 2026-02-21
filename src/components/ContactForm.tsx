@@ -694,24 +694,20 @@ export const ContactForm: React.FC<Props> = ({ className = '', mode = 'preview',
             <button
               type="submit"
               disabled={isSubmitting || !formData.privacyConsent}
-              className={`group relative w-full md:w-auto md:min-w-[240px] px-8 ${isPreview ? 'py-2' : 'py-3'} border-2 font-mono text-xs uppercase tracking-widest transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-2 focus-visible:outline-offset-2 ${isPreview ? 'min-h-[36px]' : 'min-h-[48px]'} hover:bg-accent-light flex items-center justify-center rounded-none appearance-none`}
+              className={`group relative w-full md:w-auto md:min-w-[240px] px-8 py-1 md:py-3 border-2 font-mono text-xs uppercase tracking-widest transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-2 focus-visible:outline-offset-2 min-h-[36px] md:min-h-[48px] flex items-center justify-center rounded-none appearance-none hover:bg-accent-light bg-[#D6E3D1] border-[#194D25] text-[#194D25] active:!bg-[#8B1A3D] active:!border-[#8B1A3D] active:!text-white disabled:bg-gray-200 disabled:border-gray-300 disabled:text-gray-500`}
               style={{
-                backgroundColor: isSubmitting ? FORM_COLORS.INPUT_BG : COLORS.HIGHLIGHT_GREEN,
-                borderColor: COLORS.PRIMARY_GREEN,
-                color: isSubmitting ? FORM_COLORS.TEXT_PRIMARY : COLORS.PRIMARY_GREEN,
-                '--tw-outline-color': COLORS.PRIMARY_GREEN,
                 WebkitTapHighlightColor: 'transparent',
                 touchAction: 'manipulation'
-              } as React.CSSProperties & { '--tw-outline-color': string }}
+              }}
               aria-label={isSubmitting ? 'Bericht wordt verzonden...' : 'Verstuur contactformulier'}
             >
-              <span className="relative z-10 flex items-center justify-center gap-3 w-full whitespace-nowrap pointer-events-none">
-                <span className="flex items-center gap-3">
+              <span className="relative z-10 flex items-center justify-center gap-3 w-full whitespace-nowrap pointer-events-none" style={{ color: 'inherit' }}>
+                <span className="flex items-center gap-3" style={{ color: 'inherit' }}>
                   {isSubmitting ? 'Verzenden...' : 'Versturen'}
                   <Send
                     size={14}
                     className={`transition-all duration-300 ${isSubmitting ? 'opacity-0 scale-0 w-0' : 'opacity-100 scale-100'}`}
-                    style={{ color: COLORS.PRIMARY_GREEN }}
+                    style={{ color: 'inherit' }}
                     aria-hidden="true"
                   />
                 </span>
