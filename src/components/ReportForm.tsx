@@ -328,24 +328,29 @@ export const ReportForm: React.FC<Props> = () => {
                         Geen mail of naam. U ontvangt direct een meldcode.
                     </span>
                 </div>
-                <button
-                    type="button"
+                <div
+                    role="switch"
+                    aria-checked={formData.isAnonymous}
                     onClick={() => setFormData(prev => ({ ...prev, isAnonymous: !prev.isAnonymous }))}
-                    className="w-10 h-5 flex items-center p-[2px] transition-all duration-300"
+                    className="shrink-0 cursor-pointer transition-colors duration-300 flex items-center"
                     style={{
+                        width: '38px',
+                        height: '20px',
                         backgroundColor: formData.isAnonymous ? '#8B1A3D' : '#E5E5E5',
-                        borderRadius: 0,
-                        border: `1px solid ${formData.isAnonymous ? '#8B1A3D' : '#CCC'}`
+                        border: `1px solid ${formData.isAnonymous ? '#8B1A3D' : '#CCC'}`,
+                        padding: '2px'
                     }}
                 >
-                    <div className={`w-3.5 h-3.5 transition-transform duration-300`}
+                    <div className="transition-transform duration-300 bg-white"
                         style={{
-                            backgroundColor: 'white',
+                            width: '14px',
+                            height: '14px',
                             transform: formData.isAnonymous ? 'translateX(18px)' : 'translateX(0)',
-                            border: `1px solid ${formData.isAnonymous ? '#8B1A3D' : '#CCC'}`
+                            border: `1px solid ${formData.isAnonymous ? '#8B1A3D' : '#CCC'}`,
+                            boxShadow: '0 1px 2px rgba(0,0,0,0.1)'
                         }}
                     />
-                </button>
+                </div>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 transition-all duration-300 overflow-hidden" style={{ maxHeight: formData.isAnonymous ? '0' : '200px', opacity: formData.isAnonymous ? 0 : 1, pointerEvents: formData.isAnonymous ? 'none' : 'auto' }}>
