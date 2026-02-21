@@ -315,18 +315,36 @@ export const ReportForm: React.FC<Props> = () => {
             </div>
 
             {/* Anonymous Toggle */}
-            <div className="flex items-center justify-between p-4 border border-black bg-white mb-2">
-                <div className="flex flex-col gap-1">
-                    <span className="font-mono text-xs font-bold uppercase tracking-wider" style={{ color: COLORS.PRIMARY_GREEN }}>Anoniem Melden</span>
-                    <span className="font-mono text-[10px] opacity-60">Geen naam of e-mail vereist / Geen e-mailbevestiging</span>
+            <div className="flex items-center justify-between p-3.5 border border-dashed transition-all duration-300 mb-2"
+                style={{
+                    backgroundColor: formData.isAnonymous ? 'white' : '#F7F7F7',
+                    borderColor: formData.isAnonymous ? COLORS.PRIMARY_GREEN : FORM_COLORS.INPUT_BORDER
+                }}>
+                <div className="flex flex-col gap-0.5">
+                    <span className="font-mono text-[10px] md:text-xs font-semibold uppercase tracking-widest transition-colors duration-300" style={{ color: formData.isAnonymous ? COLORS.PRIMARY_GREEN : FORM_COLORS.TEXT_SECONDARY }}>
+                        Anoniem Melden
+                    </span>
+                    <span className="font-mono text-[9px] md:text-[10px] opacity-60">
+                        Geen persoonsgegevens / Geen e-mailbevestiging
+                    </span>
                 </div>
                 <button
                     type="button"
                     onClick={() => setFormData(prev => ({ ...prev, isAnonymous: !prev.isAnonymous }))}
-                    className={`w-12 h-6 flex items-center p-1 transition-colors duration-300 ${formData.isAnonymous ? 'bg-[#8B1A3D]' : 'bg-gray-200'}`}
-                    style={{ borderRadius: '0' }}
+                    className="w-10 h-5 flex items-center p-[2px] transition-all duration-300"
+                    style={{
+                        backgroundColor: formData.isAnonymous ? COLORS.HIGHLIGHT_GREEN : '#E5E5E5',
+                        borderRadius: 0,
+                        border: `1px solid ${formData.isAnonymous ? COLORS.PRIMARY_GREEN : '#CCC'}`
+                    }}
                 >
-                    <div className={`w-4 h-4 bg-white transition-transform duration-300 ${formData.isAnonymous ? 'translate-x-6' : 'translate-x-0'}`} />
+                    <div className={`w-3.5 h-3.5 transition-transform duration-300`}
+                        style={{
+                            backgroundColor: formData.isAnonymous ? COLORS.PRIMARY_GREEN : 'white',
+                            transform: formData.isAnonymous ? 'translateX(18px)' : 'translateX(0)',
+                            border: `1px solid ${formData.isAnonymous ? COLORS.PRIMARY_GREEN : '#CCC'}`
+                        }}
+                    />
                 </button>
             </div>
 

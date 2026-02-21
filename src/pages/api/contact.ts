@@ -9,6 +9,11 @@ type ApiResponse = {
     error?: string;
 };
 
+// In-memory store for rate limiting
+const rateLimitMap = new Map<string, { count: number; lastTime: number }>();
+const RATE_LIMIT_MAX = 5; // 5 requests
+const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000; // 15 minutes
+
 // Next.js body parser is explicitly re-enabled, bypassing formidable limits
 export const config = {
     api: {
@@ -27,6 +32,29 @@ export default async function handler(
             success: false,
             message: 'Method not allowed',
         });
+    }
+
+    // Rate Limiting (In-Memory for Lambda container lifetime)
+    const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress || 'unknown';
+    const ipStr = Array.isArray(ip) ? ip[0] : ip;
+    const now = Date.now();
+    const clientData = rateLimitMap.get(ipStr);
+
+    if (clientData) {
+        if (now - clientData.lastTime < RATE_LIMIT_WINDOW_MS) {
+            if (clientData.count >= RATE_LIMIT_MAX) {
+                console.warn(`[API] Rate limit exceeded for IP: ${ipStr}`);
+                return res.status(429).json({
+                    success: false,
+                    message: 'Te veel meldingen in korte tijd. Probeer het over 15 minuten opnieuw.',
+                });
+            }
+            clientData.count++;
+        } else {
+            rateLimitMap.set(ipStr, { count: 1, lastTime: now });
+        }
+    } else {
+        rateLimitMap.set(ipStr, { count: 1, lastTime: now });
     }
 
     try {

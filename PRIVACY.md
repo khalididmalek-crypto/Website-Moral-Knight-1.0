@@ -3,12 +3,12 @@
 Dit document beschrijft de huidige technische status van de privacy en gegevensbescherming op de Moral Knight website. Dit bestand wordt bijgewerkt bij elke relevante codewijziging.
 
 ## Huidige Status: **PRIVACY-EERST (Actief)**
-*Laatste Update: 20 februari 2026*
+*Laatste Update: 21 februari 2026*
 
 ### 1. Tracking & Analytics
-- **Status:** Geen trackers actief.
+- **Status:** Alleen cookieloze, privacy-vriendelijke analytics (Simple Analytics).
 - **Historie:** Google Analytics is verwijderd op 20 februari 2026.
-- **Toekomst:** Voorbereid op Plausible (cookieloos, EU-gebaseerd).
+- **Implementatie:** Gegevens worden geanonimiseerd en op Europese bodem verwerkt zonder de bezoeker te tracken of profilering toe te passen. Geen cookiemelding nodig.
 
 ### 2. Meldpunt (Whistleblower Protection)
 - **Status:** Veilig / Anoniem.
