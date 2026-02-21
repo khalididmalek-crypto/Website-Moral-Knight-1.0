@@ -11,6 +11,8 @@ interface PageProps extends SharedPageProps {
     initialKennisbankOpen?: boolean;
     initialActiveTileId?: string | null;
     initialActiveBlogSlug?: string | null;
+    seoTitle?: string;
+    seoDescription?: string;
 }
 
 export const getStaticPaths: GetStaticPaths = async () => {
@@ -53,6 +55,8 @@ export const getStaticProps: GetStaticProps<PageProps> = async (context) => {
             initialKennisbankOpen: false,
             initialActiveTileId: null,
             initialActiveBlogSlug: null,
+            seoTitle: 'Moral Knight: De onafhankelijke waakhond van publieke AI',
+            seoDescription: 'Onafhankelijke toetsing van AI-toepassingen in het publieke domein op begrijpelijkheid en rechtvaardigheid.',
         };
 
         if (slug) {
@@ -76,14 +80,46 @@ export const getStaticProps: GetStaticProps<PageProps> = async (context) => {
                 props.initialActiveTileId = 'tile-6';
             }
             // Handle Top Level Routes
-            else if (firstSegment === 'meldpunt') props.initialMeldpuntOpen = true;
-            else if (firstSegment === 'dashboard') props.initialDashboardOpen = true;
-            else if (firstSegment === 'kennisbank') props.initialKennisbankOpen = true;
-            else if (firstSegment === 'probleem') props.initialActiveTileId = 'tile-1';
-            else if (firstSegment === 'oplossing') props.initialActiveTileId = 'tile-2';
-            else if (firstSegment === 'aanpak') props.initialActiveTileId = 'tile-3';
-            else if (firstSegment === 'diensten') props.initialActiveTileId = 'tile-4';
-            else if (firstSegment === 'contact') props.initialActiveTileId = 'tile-5';
+            else if (firstSegment === 'meldpunt') {
+                props.initialMeldpuntOpen = true;
+                props.seoTitle = 'Meldpunt AI-incidenten - Moral Knight';
+                props.seoDescription = 'Meld anoniem en veilig incidenten of misstanden met betrekking tot algoritmes en AI-systemen in Nederland.';
+            }
+            else if (firstSegment === 'dashboard') {
+                props.initialDashboardOpen = true;
+                props.seoTitle = 'AI Dashboard & Audits - Moral Knight';
+                props.seoDescription = 'Bekijk de resultaten van onze onafhankelijke AI audits van Nederlandse overheidsinstanties.';
+            }
+            else if (firstSegment === 'kennisbank') {
+                props.initialKennisbankOpen = true;
+                props.seoTitle = 'Kennisbank Verantwoorde AI - Moral Knight';
+                props.seoDescription = 'Verdiep je in onze inzichten, methodieken en kaders voor onafhankelijke toetsing en ethische AI.';
+            }
+            else if (firstSegment === 'probleem') {
+                props.initialActiveTileId = 'tile-1';
+                props.seoTitle = 'Wat is het probleem met publieke AI? - Moral Knight';
+                props.seoDescription = 'Commerciële belangen en de "digitale muur" dreigen de menselijke maat en controle te vervangen. Ontdek de risico\'s van algoritmen.';
+            }
+            else if (firstSegment === 'oplossing') {
+                props.initialActiveTileId = 'tile-2';
+                props.seoTitle = 'Wat is de oplossing? - Moral Knight';
+                props.seoDescription = 'Onafhankelijke toetsing levert de harde feiten voor toezichthouders om werknemers en burgers in bescherming te nemen.';
+            }
+            else if (firstSegment === 'aanpak') {
+                props.initialActiveTileId = 'tile-3';
+                props.seoTitle = 'Onze aanpak: Van ethiek naar feiten - Moral Knight';
+                props.seoDescription = 'Ontdek The Moral Knight Methode: hoe we AI diepgaand auditeren en permanent toezicht houden op de levenscyclus.';
+            }
+            else if (firstSegment === 'diensten') {
+                props.initialActiveTileId = 'tile-4';
+                props.seoTitle = 'Diensten: AI Audits & Toetsing - Moral Knight';
+                props.seoDescription = 'Wij testen de impact van algoritmes en AI systemen via Justice Audits en uitgebreide stress-tests. Onafhankelijk en feitelijk.';
+            }
+            else if (firstSegment === 'contact') {
+                props.initialActiveTileId = 'tile-5';
+                props.seoTitle = 'Contact - Moral Knight';
+                props.seoDescription = 'Neem contact op met Moral Knight voor onafhankelijke AI audits en vraag om toetsing van systemen.';
+            }
         }
 
         return {
@@ -117,7 +153,16 @@ export default function Page(props: PageProps) {
     return (
         <>
             <Head>
-                <title>{props.initialActiveBlogSlug ? `${props.posts.find(p => p.slug === props.initialActiveBlogSlug)?.title} - Moral Knight` : 'Moral Knight: De onafhankelijke waakhond van publieke AI'}</title>
+                <title>{props.initialActiveBlogSlug && props.posts.find(p => p.slug === props.initialActiveBlogSlug) ? `${props.posts.find(p => p.slug === props.initialActiveBlogSlug)?.title} - Moral Knight` : props.seoTitle}</title>
+                {!props.initialActiveBlogSlug && (
+                    <>
+                        <meta name="description" content={props.seoDescription} />
+                        <meta property="og:title" content={props.seoTitle} />
+                        <meta property="og:description" content={props.seoDescription} />
+                        <meta name="twitter:title" content={props.seoTitle} />
+                        <meta name="twitter:description" content={props.seoDescription} />
+                    </>
+                )}
                 {props.initialActiveBlogSlug && props.posts.find(p => p.slug === props.initialActiveBlogSlug) && (
                     <>
                         {/* Dynamic SEO for Blog Post */}

@@ -10,7 +10,7 @@
  * 
  * All spacing values come from SPACING constants in constants.ts
  */
-import React, { useEffect, useState, useCallback, useRef, useMemo, Suspense, lazy } from 'react';
+import React, { useEffect, useState, useCallback, useRef, useMemo } from 'react';
 import { useRouter } from 'next/router';
 import { TileData, TextContent } from './types';
 
@@ -29,8 +29,7 @@ import { FlowingText } from './components/FlowingText';
 
 import { TileStateProvider } from './contexts/TileStateContext';
 
-// Lazy load FullscreenView for better performance
-const FullscreenView = lazy(() => import('./components/FullscreenView').then(module => ({ default: module.FullscreenView })));
+import { FullscreenView } from './components/FullscreenView';
 
 interface AppProps {
   posts?: import('./types').BlogPost[];
@@ -470,26 +469,20 @@ const App: React.FC<AppProps> = ({
           </footer>
         </div>
 
-        {/* Fullscreen Modal with Lazy Loading */}
+        {/* Fullscreen Modal */}
         {activeTile && (
-          <Suspense fallback={
-            <div className="fixed inset-0 z-[200] bg-white flex items-center justify-center">
-              <LoadingSpinner size="lg" aria-label="Laden..." />
-            </div>
-          }>
-            <FullscreenView
-              tile={activeTile}
-              onClose={() => {
-                setActiveTileId(null);
-              }}
-              posts={posts}
-              allTiles={tiles}
-              onNavigate={handleTileClick}
-              onOpenMeldpunt={() => setMeldpuntOpen(true)}
-              activeBlogSlug={activeBlogSlug}
-              onSelectBlogPost={setActiveBlogSlug}
-            />
-          </Suspense>
+          <FullscreenView
+            tile={activeTile}
+            onClose={() => {
+              setActiveTileId(null);
+            }}
+            posts={posts}
+            allTiles={tiles}
+            onNavigate={handleTileClick}
+            onOpenMeldpunt={() => setMeldpuntOpen(true)}
+            activeBlogSlug={activeBlogSlug}
+            onSelectBlogPost={setActiveBlogSlug}
+          />
         )}
 
         {/* Dashboard Modal */}
