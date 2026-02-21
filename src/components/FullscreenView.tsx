@@ -578,6 +578,29 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
                     }, 2500);
                   }}
                 />
+
+                {/* Direct Email CTA */}
+                {tile.type === ContentType.CONTACT && (
+                  <div className="w-full relative mt-4">
+                    <div className="w-full border-t border-black/10 pt-8 pb-4 text-left">
+                      <h3 className="font-mono text-[1.1rem] uppercase tracking-widest font-bold mb-4" style={{ color: COLORS.PRIMARY_GREEN }}>
+                        Liever direct mailen?
+                      </h3>
+                      <p className="font-mono text-[15px] leading-relaxed max-w-2xl text-gray-600">
+                        Stuur dan een bericht naar{' '}
+                        <a
+                          href="mailto:info@moralknight.nl"
+                          className="font-bold underline transition-colors duration-300 cursor-pointer align-baseline hover:opacity-75"
+                          aria-label="Stuur een email naar info@moralknight.nl"
+                          style={{ color: COLORS.BORDEAUX_RED }}
+                        >
+                          info@moralknight.nl
+                        </a>
+                        . We reageren zo snel mogelijk.
+                      </p>
+                    </div>
+                  </div>
+                )}
               </div>
             )}
           </div>

@@ -703,9 +703,9 @@ export const ContactForm: React.FC<Props> = ({ className = '', mode = 'preview',
               onTouchCancel={() => setIsActive(false)}
               className="group relative w-full md:w-auto md:min-w-[240px] px-8 py-1 md:py-3 border-2 font-mono text-xs uppercase tracking-widest transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-2 focus-visible:outline-offset-2 min-h-[36px] md:min-h-[48px] flex items-center justify-center rounded-none appearance-none disabled:bg-gray-200 disabled:border-gray-300 disabled:text-gray-500"
               style={{
-                backgroundColor: isActive && !isSubmitting && formData.privacyConsent ? '#8B1A3D' : COLORS.HIGHLIGHT_GREEN,
-                borderColor: isActive && !isSubmitting && formData.privacyConsent ? '#8B1A3D' : COLORS.PRIMARY_GREEN,
-                color: isActive && !isSubmitting && formData.privacyConsent ? 'white' : COLORS.PRIMARY_GREEN,
+                backgroundColor: (isActive || isSubmitting) && formData.privacyConsent ? '#8B1A3D' : COLORS.HIGHLIGHT_GREEN,
+                borderColor: (isActive || isSubmitting) && formData.privacyConsent ? '#8B1A3D' : COLORS.PRIMARY_GREEN,
+                color: (isActive || isSubmitting) && formData.privacyConsent ? 'white' : COLORS.PRIMARY_GREEN,
                 WebkitTapHighlightColor: 'transparent',
                 touchAction: 'manipulation'
               }}
@@ -723,25 +723,6 @@ export const ContactForm: React.FC<Props> = ({ className = '', mode = 'preview',
                 </span>
               </span>
             </button>
-          </div>
-
-          {/* Direct Email CTA */}
-          <div className="mt-2 border-t border-black/10 pt-8 pb-4">
-            <h3 className="font-mono text-[1.1rem] uppercase tracking-widest font-bold mb-4" style={{ color: COLORS.PRIMARY_GREEN }}>
-              Liever direct mailen?
-            </h3>
-            <p className="font-mono text-[15px] leading-relaxed max-w-2xl text-gray-600">
-              Gebruikt u liever uw eigen mailprogramma? Stuur dan een bericht naar{' '}
-              <a
-                href="mailto:welkom@moralknight.nl"
-                className="font-bold underline transition-colors duration-300 cursor-pointer align-baseline hover:opacity-75"
-                aria-label="Stuur een email naar welkom@moralknight.nl"
-                style={{ color: COLORS.BORDEAUX_RED }}
-              >
-                welkom@moralknight.nl
-              </a>
-              . We reageren zo snel mogelijk.
-            </p>
           </div>
         </form>
       </div>
