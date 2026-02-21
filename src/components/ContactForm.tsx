@@ -62,7 +62,6 @@ export const ContactForm: React.FC<Props> = ({ className = '', mode = 'preview',
   const [submitted, setSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [touched, setTouched] = useState<Record<string, boolean>>({});
-  const [isActive, setIsActive] = useState(false);
 
   // Persistence: Restore form data from session storage on mount
   useEffect(() => {
@@ -695,16 +694,8 @@ export const ContactForm: React.FC<Props> = ({ className = '', mode = 'preview',
             <button
               type="submit"
               disabled={isSubmitting || !formData.privacyConsent}
-              onMouseDown={() => setIsActive(true)}
-              onMouseUp={() => setIsActive(false)}
-              onMouseLeave={() => setIsActive(false)}
-              onTouchStart={() => setIsActive(true)}
-              onTouchEnd={() => setIsActive(false)}
-              className={`group relative w-full md:w-auto md:min-w-[240px] px-8 py-1 md:py-3 border-2 font-mono text-xs uppercase tracking-widest transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-2 focus-visible:outline-offset-2 min-h-[36px] md:min-h-[48px] flex items-center justify-center rounded-none appearance-none disabled:bg-gray-200 disabled:border-gray-300 disabled:text-gray-500`}
+              className={`group relative w-full md:w-auto md:min-w-[240px] px-8 py-1 md:py-3 border-2 font-mono text-xs uppercase tracking-widest transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed focus-visible:outline-2 focus-visible:outline-offset-2 min-h-[36px] md:min-h-[48px] flex items-center justify-center rounded-none appearance-none hover:bg-accent-light bg-[#D6E3D1] border-[#194D25] text-[#194D25] active:!bg-[#8B1A3D] active:!border-[#8B1A3D] active:!text-white disabled:bg-gray-200 disabled:border-gray-300 disabled:text-gray-500`}
               style={{
-                backgroundColor: isActive ? '#8B1A3D' : COLORS.HIGHLIGHT_GREEN,
-                borderColor: isActive ? '#8B1A3D' : COLORS.PRIMARY_GREEN,
-                color: isActive ? 'white' : COLORS.PRIMARY_GREEN,
                 WebkitTapHighlightColor: 'transparent',
                 touchAction: 'manipulation'
               }}
