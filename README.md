@@ -7,7 +7,8 @@
 - **Framework**: [Next.js](https://nextjs.org/) (Pages Router)
 - **Styling**: [Tailwind CSS](https://tailwindcss.com/)
 - **Deployment**: [Vercel](https://vercel.com/)
-- **Content**: Markdown (Local) & WordPress API (Remote Fallback)
+- **Content**: Markdown (Lokaal, in `src/content/blog/`) — aangemaakt via de NotebookLM-workflow
+- **Analytics**: [Simple Analytics](https://simpleanalyticscdn.com/) (cookieloos, privacy-vriendelijk)
 
 ## Project Structure
 
@@ -16,25 +17,31 @@ The project follows a standard Next.js structure with a few key conventions:
 ```
 src/
 ├── components/   # React components (strictly typed)
-├── data/         # STATIC CONTENT (Markdown files for tiles, moved from root)
-├── lib/          # Utilities, configuration, and API handlers (WordPress)
+├── content/
+│   └── blog/     # Blogposts als Markdown (.md) — beheerd via NotebookLM
+├── contexts/     # React Contexts (o.a. DarkModeContext)
+├── data/         # Statische content (Markdown voor tiles)
+├── hooks/        # Custom React hooks
+├── lib/          # Utilities en configuratie
 ├── pages/        # Next.js Pages (Routing)
-│   ├── index.tsx # Main entry point (uses src/data + WordPress fallbacks)
-│   └── blog/     # Blog routing
-└── styles/       # Global styles and Tailwind imports
+│   ├── index.tsx # Hoofdpagina (laadt tiles uit src/data)
+│   ├── privacy.tsx
+│   ├── visie.tsx
+│   └── [[...slug]].tsx  # Dynamische blog-routes
+├── types.ts      # Gedeelde TypeScript types
+└── utils/        # Hulpfuncties
 ```
 
 > **Note on Data**: Static content files (like `probleem_tekst.md`) reside in `src/data`. Do **not** move these files back to root or modify their internal structure without updating `index.tsx` logic.
 
-## Data Fetching & Fallbacks
+## Content & Data
 
-This project employs a robust **Hybrid Data Strategy**:
+1.  **Landingspagina content**: Core teksten ("Probleem", "Oplossing") worden geladen uit `src/data/*.md` bij build time (`getStaticProps`).
+    *   Als bestanden ontbreken, faalt de build **niet** — er worden lege strings teruggegeven.
 
-1.  **Local Static Content**: Core landing page content ("Probleem", "Oplossing") is read from `src/data/*.md` at build time (`getStaticProps`).
-    *   **Fallback**: If these files are missing, the build will **not fail**. instead, it returns empty strings to ensure Vercel availability.
-    
-2.  **WordPress API**: Blog posts are fetched from an external WordPress instance defined in `.env.local` (`WORDPRESS_API_URL`).
-    *   **Resiliency**: If the WordPress API is unreachable, `src/lib/wordpress.ts` catches errors to prevent build crashes, returning empty lists or null objects.
+2.  **Blog**: Blogposts zijn lokale Markdown-bestanden in `src/content/blog/`. Publiceren gaat via de NotebookLM-workflow (zie `docs/BLOG_WORKFLOW.md`).
+
+> **Note**: WordPress-integratie is gearchiveerd. `src/lib/wordpress.ts` is aanwezig als legacy-bestand maar wordt niet meer actief gebruikt.
 
 ## Local Development
 
@@ -56,5 +63,6 @@ This project employs a robust **Hybrid Data Strategy**:
 
 ## Maintenance & Guidelines
 
-- **Visual Consistency**: Global styles and Tailwind configuration are **frozen** to maintain visual parity. Do not modify `index.css` or `tailwind.config.js` unless explicitly authorized.
-- **Dependency Management**: The dependency tree has been pruned. Run `npm prune` after removing packages to keep `package-lock.json` clean.
+- **Styling**: Globale stijlen staan zowel in `src/index.css` als als inline Tailwind-config in `src/pages/_document.tsx`. Wijzig alleen als dit expliciet nodig is.
+- **Dependency Management**: Run `npm prune` na het verwijderen van packages om `package-lock.json` schoon te houden.
+- **Blog publiceren**: Gebruik de NotebookLM-workflow zoals beschreven in `docs/BLOG_WORKFLOW.md`.

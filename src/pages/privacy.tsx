@@ -40,7 +40,7 @@ export default function PrivacyPage() {
                             {`Privacyverklaring`}
                         </h1>
                         <p className="text-[10px] opacity-60 uppercase tracking-widest">
-                            {`Laatste update: 20 februari 2026 — Moral Knight Responsible AI`}
+                            {`Laatste update: 21 februari 2026 — Moral Knight Responsible AI`}
                         </p>
                     </header>
 
@@ -60,7 +60,7 @@ export default function PrivacyPage() {
                             </h2>
                             <p className="mb-4">{`Wij verzamelen gegevens op een uiterst beperkte en privacy-vriendelijke manier:`}</p>
                             <ul className="list-disc pl-5 space-y-2">
-                                <li><strong>{`Geen Tracking:`}</strong> {` Wij gebruiken geen cookies en geen trackers zoals Google Analytics. Uw bezoek aan deze website is volledig anoniem.`}</li>
+                                <li><strong>{`Privacy-vriendelijke Analytics:`}</strong> {` Wij gebruiken Simple Analytics — een cookieloze analyticsoplossing zonder persoonsgegevens. Er worden geen cookies geplaatst en er is geen toestemming vereist. Simple Analytics verwerkt gegevens op Europese servers en voldoet volledig aan de AVG.`}</li>
                                 <li><strong>{`Meldpunt & Anonimiteit:`}</strong> {` Bij het doen van een melding (MK Meldpunt) kunt u kiezen voor een volledig anonieme optie. In dat geval vragen en bewaren wij géén naam of e-mailadres.`}</li>
                                 <li><strong>{`Contactformulier:`}</strong> {` Alleen als u expliciet contact met ons opneemt, gebruiken wij de verstrekte naam en e-mailadres uitsluitend voor dat doel.`}</li>
                             </ul>
@@ -106,7 +106,7 @@ export default function PrivacyPage() {
 
                 {/* Footer Copy */}
                 <footer className="flex justify-between items-center text-[10px] font-mono uppercase tracking-widest opacity-40 pb-10">
-                    <span>Moral Knight / 2025</span>
+                    <span>Moral Knight / 2026</span>
                     <span>AVG COMPLIANT</span>
                 </footer>
             </div>

@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 /* ==== DARK MODE CSS VARIABLES ==== */
 :root {
   --bg-primary: #F0F4F7;

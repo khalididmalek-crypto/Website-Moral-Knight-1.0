@@ -67,7 +67,6 @@ export const ReportForm: React.FC<Props> = () => {
     const [reportId, setReportId] = useState<string | null>(null);
     const [submitError, setSubmitError] = useState<string | null>(null);
     const [touched, setTouched] = useState<Record<string, boolean>>({});
-    const [isActive, setIsActive] = useState(false);
 
     // Persistence: Restore form data from session storage on mount
     useEffect(() => {
@@ -318,11 +317,11 @@ export const ReportForm: React.FC<Props> = () => {
             {/* Anonymous Toggle */}
             <div className="flex items-center justify-between p-3.5 border border-dashed transition-all duration-300 mb-2"
                 style={{
-                    backgroundColor: formData.isAnonymous ? 'white' : '#F7F7F7',
-                    borderColor: formData.isAnonymous ? COLORS.PRIMARY_GREEN : FORM_COLORS.INPUT_BORDER
+                    backgroundColor: formData.isAnonymous ? '#FDF5F7' : '#F7F7F7',
+                    borderColor: formData.isAnonymous ? '#8B1A3D' : FORM_COLORS.INPUT_BORDER
                 }}>
                 <div className="flex flex-col gap-0.5">
-                    <span className="font-mono text-[10px] md:text-xs font-semibold uppercase tracking-widest transition-colors duration-300" style={{ color: formData.isAnonymous ? COLORS.PRIMARY_GREEN : FORM_COLORS.TEXT_SECONDARY }}>
+                    <span className="font-mono text-[10px] md:text-xs font-semibold uppercase tracking-widest transition-colors duration-300" style={{ color: formData.isAnonymous ? '#8B1A3D' : FORM_COLORS.TEXT_SECONDARY }}>
                         Anoniem Melden
                     </span>
                     <span className="font-mono text-[9px] md:text-[10px] opacity-60">
@@ -334,16 +333,16 @@ export const ReportForm: React.FC<Props> = () => {
                     onClick={() => setFormData(prev => ({ ...prev, isAnonymous: !prev.isAnonymous }))}
                     className="w-10 h-5 flex items-center p-[2px] transition-all duration-300"
                     style={{
-                        backgroundColor: formData.isAnonymous ? COLORS.HIGHLIGHT_GREEN : '#E5E5E5',
+                        backgroundColor: formData.isAnonymous ? '#8B1A3D' : '#E5E5E5',
                         borderRadius: 0,
-                        border: `1px solid ${formData.isAnonymous ? COLORS.PRIMARY_GREEN : '#CCC'}`
+                        border: `1px solid ${formData.isAnonymous ? '#8B1A3D' : '#CCC'}`
                     }}
                 >
                     <div className={`w-3.5 h-3.5 transition-transform duration-300`}
                         style={{
-                            backgroundColor: formData.isAnonymous ? COLORS.PRIMARY_GREEN : 'white',
+                            backgroundColor: 'white',
                             transform: formData.isAnonymous ? 'translateX(18px)' : 'translateX(0)',
-                            border: `1px solid ${formData.isAnonymous ? COLORS.PRIMARY_GREEN : '#CCC'}`
+                            border: `1px solid ${formData.isAnonymous ? '#8B1A3D' : '#CCC'}`
                         }}
                     />
                 </button>
@@ -488,34 +487,41 @@ export const ReportForm: React.FC<Props> = () => {
                     <button
                         type="submit"
                         disabled={isSubmitting || !formData.privacyConsent}
-                        onMouseDown={() => setIsActive(true)}
-                        onMouseUp={() => setIsActive(false)}
-                        onMouseLeave={() => setIsActive(false)}
-                        onTouchStart={() => setIsActive(true)}
-                        onTouchEnd={() => setIsActive(false)}
-                        className={`group relative w-full md:w-auto md:min-w-[240px] px-8 py-1 md:py-3 border-2 font-mono text-xs uppercase tracking-widest transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed min-h-[36px] md:min-h-[48px] flex items-center justify-center rounded-none appearance-none disabled:bg-gray-200 disabled:border-gray-300 disabled:text-gray-500`}
+                        className={`
+                            w-full md:w-auto md:min-w-[240px]
+                            px-5 md:px-8
+                            py-1 md:py-3
+                            min-h-[32px] md:min-h-[48px]
+                            border-2 font-mono text-[10px] md:text-xs uppercase tracking-widest
+                            flex items-center justify-center
+                            rounded-none appearance-none
+                            disabled:opacity-50 disabled:cursor-not-allowed
+                            transition-colors duration-300
+                        `}
                         style={{
-                            backgroundColor: isActive ? '#8B1A3D' : COLORS.HIGHLIGHT_GREEN,
-                            borderColor: isActive ? '#8B1A3D' : COLORS.PRIMARY_GREEN,
-                            color: isActive ? 'white' : COLORS.PRIMARY_GREEN,
-                            WebkitTapHighlightColor: 'transparent',
-                            touchAction: 'manipulation'
+                            backgroundColor: !formData.privacyConsent
+                                ? '#E5E7EB'
+                                : COLORS.HIGHLIGHT_GREEN,
+                            borderColor: !formData.privacyConsent
+                                ? '#D1D5DB'
+                                : formData.isAnonymous
+                                    ? '#8B1A3D'
+                                    : COLORS.PRIMARY_GREEN,
+                            color: !formData.privacyConsent
+                                ? '#9CA3AF'
+                                : COLORS.PRIMARY_GREEN,
                         }}
                     >
-                        <span className="relative z-10 flex items-center justify-center gap-3 w-full whitespace-nowrap pointer-events-none" style={{ color: 'inherit' }}>
-                            <span className="flex items-center gap-3" style={{ color: 'inherit' }}>
-                                {isSubmitting ? 'Verzenden...' : 'Melding Versturen'}
-                                <Send
-                                    size={14}
-                                    className={`transition-all duration-300 ${isSubmitting ? 'opacity-0 scale-0 w-0' : 'opacity-100 scale-100'}`}
-                                    style={{ color: 'inherit' }}
-                                />
-                            </span>
+                        <span className="flex items-center gap-3">
+                            {isSubmitting ? 'Verzenden...' : 'Melding Versturen'}
+                            <Send
+                                size={14}
+                                className={isSubmitting ? 'opacity-0 w-0' : 'opacity-100'}
+                                style={{ color: 'inherit' }}
+                            />
                         </span>
                     </button>
                 </div>
-
-
             </div>
         </form>
     );
