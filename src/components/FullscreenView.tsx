@@ -469,20 +469,23 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
                 </div>
 
                 {isServicesView && (
-                  <p
-                    className="font-mono text-sm md:text-base text-left"
-                    style={{ color: COLORS.PRIMARY_GREEN }}
-                  >
-                    Wilt u een geheel vrijblijvend en inhoudelijk gesprek over onze manier van toetsing? Weet ons te vinden en stuur een{' '}
-                    <button
-                      onClick={() => onNavigate?.('tile-5')}
-                      className="font-bold transition-colors duration-300 cursor-pointer align-baseline hover:text-[#6D1430]"
-                      aria-label="Ga naar contact pagina"
-                    >
-                      bericht
-                    </button>
-                    .
-                  </p>
+                  <div className="mt-8 border-t border-black/10 pt-8 pb-4">
+                    <h3 className="font-mono text-[1.1rem] uppercase tracking-widest font-bold mb-4" style={{ color: COLORS.PRIMARY_GREEN }}>
+                      HEEFT U BEHOEFTE AAN ONAFHANKELIJKE TOETSING?
+                    </h3>
+                    <p className="font-mono text-[15px] leading-relaxed max-w-2xl text-gray-600">
+                      Wilt u een geheel vrijblijvend en inhoudelijk gesprek over onze manier van toetsing? Weet ons te vinden en stuur een{' '}
+                      <button
+                        onClick={() => onNavigate?.('tile-5')}
+                        className="font-bold underline transition-colors duration-300 cursor-pointer align-baseline hover:opacity-75"
+                        aria-label="Ga naar contact pagina"
+                        style={{ color: COLORS.BORDEAUX_RED }}
+                      >
+                        bericht
+                      </button>
+                      .
+                    </p>
+                  </div>
                 )}
 
                 {/* Vision CTA - Rendered underneath sub-tiles */}
