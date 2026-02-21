@@ -304,7 +304,10 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
                 `}</style>
                 <div className="pt-12 mx-4 pb-2 flex justify-between items-start relative">
                     <div className="relative flex-1">
-                        <h1 className="text-4xl font-medium tracking-tight text-[#111111] mb-1">Moral Knight</h1>
+                        <div className="flex items-center">
+                            <img src="/favicon.svg" alt="Moral Knight Logo" className="h-9 w-auto mr-3" />
+                            <h1 className="text-4xl font-medium tracking-tight text-[#111111]">Moral Knight</h1>
+                        </div>
                         <div className="text-xs font-bold uppercase tracking-widest text-[#194D25] pt-1.5 opacity-90 leading-relaxed">
                             De onafhankelijke waakhond<br />
                             van publieke AI

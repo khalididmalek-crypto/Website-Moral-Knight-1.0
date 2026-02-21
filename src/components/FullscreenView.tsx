@@ -590,11 +590,11 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
                         Stuur dan een bericht naar{' '}
                         <a
                           href="mailto:info@moralknight.nl"
-                          className="font-bold underline transition-colors duration-300 cursor-pointer align-baseline hover:opacity-75"
+                          className="font-bold transition-colors duration-300 cursor-pointer align-baseline inline-flex items-baseline border-b border-[#8B1A3D] hover:opacity-75 leading-tight"
                           aria-label="Stuur een email naar info@moralknight.nl"
-                          style={{ color: COLORS.BORDEAUX_RED }}
+                          style={{ color: COLORS.BORDEAUX_RED, textDecoration: 'none' }}
                         >
-                          info@moralknight.nl
+                          <span>info</span><span className="mx-1">@</span><span>moralknight.nl</span>
                         </a>
                         . We reageren zo snel mogelijk.
                       </p>
