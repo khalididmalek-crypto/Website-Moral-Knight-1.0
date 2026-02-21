@@ -315,7 +315,7 @@ export const ReportForm: React.FC<Props> = () => {
             </div>
 
             {/* Anonymous Toggle */}
-            <div className="flex items-center justify-between p-3.5 border border-dashed transition-all duration-300 mb-2"
+            <div className="flex items-center justify-between p-2.5 md:p-3.5 border border-dashed transition-all duration-300 mb-2"
                 style={{
                     backgroundColor: formData.isAnonymous ? '#FDF5F7' : '#F7F7F7',
                     borderColor: formData.isAnonymous ? '#8B1A3D' : FORM_COLORS.INPUT_BORDER
@@ -325,7 +325,7 @@ export const ReportForm: React.FC<Props> = () => {
                         Anoniem Melden
                     </span>
                     <span className="font-mono text-[9px] md:text-[10px] opacity-60">
-                        Geen persoonsgegevens / Geen e-mailbevestiging
+                        Geen mail of naam. U ontvangt direct een meldcode.
                     </span>
                 </div>
                 <button
