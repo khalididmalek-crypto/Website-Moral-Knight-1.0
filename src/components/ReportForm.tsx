@@ -493,21 +493,13 @@ export const ReportForm: React.FC<Props> = () => {
                         onMouseLeave={() => setIsActive(false)}
                         onTouchStart={() => setIsActive(true)}
                         onTouchEnd={() => setIsActive(false)}
-                        onTouchCancel={() => setIsActive(false)}
-                        className={`group relative w-fit md:w-auto md:min-w-[240px] px-6 md:px-8 py-1 md:py-3 border-2 font-mono text-[10px] md:text-xs uppercase tracking-widest disabled:opacity-50 disabled:cursor-not-allowed min-h-[32px] md:min-h-[48px] flex items-center justify-center rounded-none appearance-none`}
+                        className={`group relative w-full md:w-auto md:min-w-[240px] px-8 py-1 md:py-3 border-2 font-mono text-xs uppercase tracking-widest transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed min-h-[36px] md:min-h-[48px] flex items-center justify-center rounded-none appearance-none disabled:bg-gray-200 disabled:border-gray-300 disabled:text-gray-500`}
                         style={{
-                            backgroundColor: !formData.privacyConsent
-                                ? '#E5E7EB'
-                                : (isActive || isSubmitting ? '#8B1A3D' : COLORS.HIGHLIGHT_GREEN),
-                            borderColor: !formData.privacyConsent
-                                ? '#D1D5DB'
-                                : (isActive || isSubmitting ? '#8B1A3D' : COLORS.PRIMARY_GREEN),
-                            color: !formData.privacyConsent
-                                ? '#9CA3AF'
-                                : (isActive || isSubmitting ? 'white' : COLORS.PRIMARY_GREEN),
+                            backgroundColor: isActive ? '#8B1A3D' : COLORS.HIGHLIGHT_GREEN,
+                            borderColor: isActive ? '#8B1A3D' : COLORS.PRIMARY_GREEN,
+                            color: isActive ? 'white' : COLORS.PRIMARY_GREEN,
                             WebkitTapHighlightColor: 'transparent',
-                            touchAction: 'manipulation',
-                            transition: 'none'
+                            touchAction: 'manipulation'
                         }}
                     >
                         <span className="relative z-10 flex items-center justify-center gap-3 w-full whitespace-nowrap pointer-events-none" style={{ color: 'inherit' }}>
