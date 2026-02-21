@@ -356,51 +356,65 @@ const App: React.FC<AppProps> = ({
 
         {/* Layout Container */}
         <div className={`w-full max-w-7xl ${SPACING.CONTAINER_X} ${SPACING.CONTAINER_Y} flex flex-col ${SPACING.SECTION_GAP} z-10`}>
-          {/* Header */}
-          <header className="flex justify-between items-end pb-2 relative">
-            {/* Animated Pen Stroke */}
-            {/* Animated Pen Stroke with Flick */}
-            <div className="absolute bottom-0 left-0 w-full overflow-visible pointer-events-none" style={{ height: '2px' }}>
-              <svg
-                width="100%"
-                height="30"
-                viewBox="0 0 1000 30"
-                preserveAspectRatio="none"
-                style={{ position: 'absolute', bottom: '-2px', left: 0, overflow: 'visible' }}
-              >
-                <path
-                  d="M 0,25 L 992,25 L 1000,5"
-                  fill="none"
-                  stroke="#A31F47"
-                  strokeWidth="1.5"
-                  vectorEffect="non-scaling-stroke"
-                  style={{
-                    strokeDasharray: 2000,
-                    strokeDashoffset: 2000,
-                    animation: 'drawPath 1.8s ease-out forwards'
-                  }}
-                />
-              </svg>
-              <style jsx>{`
-                @keyframes drawPath {
-                  to { stroke-dashoffset: 0; }
-                }
-              `}</style>
-            </div>
-            <div className="flex items-end gap-4 overflow-visible">
-              <h1
-                className="hero-title font-medium tracking-tight font-mono"
-                style={{ color: THEME.colors.text }}
-              >
-                {CONFIG.organisation}
-              </h1>
+          {/* Top Section: Logo and Title */}
+          <div className="flex items-end gap-[2.9rem] overflow-visible">
+            {/* Logo - Aligned with Grid edge */}
+            <div className="flex-shrink-0 mb-1" style={{ transform: 'translate(4px, 57px)' }}>
+              <img
+                src="/favicon.svg"
+                alt="Moral Knight Logo"
+                className="h-[5.9rem] w-auto"
+                style={{ display: 'block' }}
+              />
             </div>
 
-          </header>
+            {/* Title Column - Shifted to the right */}
+            <div className="flex-1 min-w-0" style={{ transform: 'translate(-2px, 7px)' }}>
+              <header className="flex justify-between items-end pb-[11px] relative w-full overflow-visible">
+                {/* Animated Pen Stroke */}
+                <div className="absolute bottom-0 left-0 w-full overflow-visible pointer-events-none" style={{ height: '2px', transform: 'translate(-13px, 5px)' }}>
+                  <svg
+                    width="100%"
+                    height="30"
+                    viewBox="0 0 1000 30"
+                    preserveAspectRatio="none"
+                    style={{ position: 'absolute', bottom: '-2px', left: 0, overflow: 'visible' }}
+                  >
+                    <path
+                      d="M 0,25 L 992,25 L 1000,5"
+                      fill="none"
+                      stroke="#A31F47"
+                      strokeWidth="1.5"
+                      vectorEffect="non-scaling-stroke"
+                      style={{
+                        strokeDasharray: 2000,
+                        strokeDashoffset: 2000,
+                        animation: 'drawPath 1.8s ease-out forwards'
+                      }}
+                    />
+                  </svg>
+                  <style jsx>{`
+                    @keyframes drawPath {
+                      to { stroke-dashoffset: 0; }
+                    }
+                  `}</style>
+                </div>
+                <div className="flex items-end gap-3 overflow-visible">
+                  <h1
+                    className="hero-title font-medium tracking-tight font-mono leading-none"
+                    style={{ color: THEME.colors.text }}
+                  >
+                    {CONFIG.organisation}
+                  </h1>
+                </div>
+              </header>
+            </div>
+          </div>
 
           {/* Grid Area */}
-          <main id="main-content" className="relative" role="main">
-            <div className="w-full max-w-[1400px] mb-10">
+          <main id="main-content" className="relative" role="main" style={{ transform: 'translate(-4px, 14px)' }}>
+            {/* Subtitle area - Shifted to match Title start (Logo 5rem + Gap 3rem) */}
+            <div className="w-full max-w-[1400px] mb-10 pl-[calc(5.9rem+2.9rem)] -mt-10" style={{ transform: 'translate(-42px, 20px)' }}>
               <div>
                 <h2 className="sr-only">Onze aanpak</h2>
                 <p
@@ -422,6 +436,7 @@ const App: React.FC<AppProps> = ({
               </div>
             </div>
 
+            {/* Grid - Naturally aligns with Logo at container boundary */}
             <div ref={gridRef} className="mb-6">
               <Grid
                 tiles={tiles}
@@ -436,7 +451,7 @@ const App: React.FC<AppProps> = ({
           </main>
 
           {/* Footer */}
-          <footer className={`-mt-8 flex justify-between items-center text-[12px] text-gray-400`}>
+          <footer className={`-mt-8 flex justify-between items-center text-[12px] text-gray-400`} style={{ transform: 'translate(0px, 6px)' }}>
             <span className="font-mono uppercase tracking-widest" style={{ fontSize: 'clamp(10px, 1.1vw, 14.4px)' }}>
               <FlowingText
                 text={`/ ${CONFIG.organisation} since 2025 - Auditing public AI`}
