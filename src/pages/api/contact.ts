@@ -12,7 +12,7 @@ type ApiResponse = {
 
 // In-memory store for rate limiting (Note: Limited effectiveness on Vercel/Serverless)
 const rateLimitMap = new Map<string, { count: number; lastTime: number }>();
-const RATE_LIMIT_MAX = 3; 
+const RATE_LIMIT_MAX = 3;
 const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000; // 15 minutes
 
 const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -20,7 +20,7 @@ const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 export const config = {
     api: {
         bodyParser: {
-            sizeLimit: '10mb',
+            sizeLimit: '15mb', // Increased to handle Base64 overhead of large images
         },
     },
 };
@@ -69,7 +69,7 @@ export default async function handler(
     // Rate Limiting - For whistleblowers we use a dummy IP to prevent tracking
     const realIp = req.headers['x-forwarded-for'] || req.socket.remoteAddress || 'unknown';
     const ipStr = isWhistleblower ? '0.0.0.0' : (Array.isArray(realIp) ? realIp[0] : realIp);
-    
+
     const now = Date.now();
     const clientData = rateLimitMap.get(ipStr);
 
@@ -78,7 +78,7 @@ export default async function handler(
             if (clientData.count >= RATE_LIMIT_MAX) {
                 return res.status(429).json({
                     success: false,
-                    message: 'Te veel meldingen. Probeer het over 15 minuten opnieuw.',
+                    message: 'Te veel berichten. Probeer het over 15 minuten opnieuw.',
                 });
             }
             clientData.count++;
@@ -92,6 +92,7 @@ export default async function handler(
     try {
         // 1. Honeypot check
         if (rawData.botcheck && rawData.botcheck.trim() !== '') {
+            console.log('[API] Bot detected via honeypot');
             return res.status(200).json({ success: true, message: 'Bedankt voor uw bericht!' });
         }
 
@@ -108,7 +109,7 @@ export default async function handler(
             message: sanitize(rawData.message?.trim()?.substring(0, 5000)),
         };
 
-        // Data Stripping for Whistleblowers (Early enforcement)
+        // Data Stripping for Whistleblowers
         if (isWhistleblower) {
             formData.name = 'ANONIEM';
             formData.email = 'noreply@moralknight.nl';
@@ -122,17 +123,17 @@ export default async function handler(
         // Validate Contact Info if required
         if (needsContactInfo) {
             if (!formData.name || formData.name.length < 2) {
-                return res.status(400).json({ success: false, message: 'Ongeldige naam.' });
+                return res.status(400).json({ success: false, message: 'Voer een geldige naam in.' });
             }
             if (!formData.email || !EMAIL_REGEX.test(formData.email)) {
-                return res.status(400).json({ success: false, message: 'Ongeldig e-mailadres.' });
+                return res.status(400).json({ success: false, message: 'Voer een geldig e-mailadres in.' });
             }
         }
 
         // Validate Content
         const content = isReport ? formData.description : formData.message;
-        if (!content || content.length < 5) {
-            return res.status(400).json({ success: false, message: 'Bericht is te kort.' });
+        if (!content || content.trim().length < 5) {
+            return res.status(400).json({ success: false, message: 'Het bericht is te kort.' });
         }
 
         // Send Email
@@ -141,56 +142,49 @@ export default async function handler(
         if (!result.success) {
             return res.status(500).json({
                 success: false,
-                message: 'E-mail verzenden mislukt. Probeer het later opnieuw.',
-                error: process.env.NODE_ENV === 'development' ? result.error : undefined,
+                message: result.error || 'E-mail verzenden mislukt.',
             });
         }
 
-        // Security headers to prevent browser caching of this interaction
+        // Security headers
         res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
         res.setHeader('Pragma', 'no-cache');
         res.setHeader('Expires', '0');
 
         return res.status(200).json({
             success: true,
-            message: 'Bedankt!',
+            message: 'Uw bericht is succesvol verzonden.',
             reportId: result.reportId,
         });
 
     } catch (error) {
         console.error('[API] Global Error:', error);
-        return res.status(500).json({ success: false, message: 'Interne serverfout.' });
+        return res.status(500).json({ success: false, message: 'Interne serverfout. Probeer het later opnieuw.' });
     }
 }
 
 async function sendEmail(data: any, isWhistleblower: boolean): Promise<{ success: boolean; reportId?: string; error?: string }> {
-    // Explicit SMTP configuration from environment variables
-    const smtpUser = process.env.SMTP_USER;
-    const smtpPass = process.env.SMTP_PASS;
-    const smtpHost = process.env.SMTP_HOST;
-    const smtpPortStr = process.env.SMTP_PORT;
+    const { SMTP_USER, SMTP_PASS, SMTP_HOST, SMTP_PORT, ADMIN_EMAIL } = process.env;
+    const adminEmail = ADMIN_EMAIL || 'info@moralknight.nl';
 
-    const adminEmail = 'info@moralknight.nl';
-
-    // Verify all required environment variables are present
-    if (!smtpUser || !smtpPass || !smtpHost || !smtpPortStr) {
-        return {
-            success: false,
-            error: 'Configuratiefout: Onvoldoende SMTP instellingen gevonden.'
-        };
+    if (!SMTP_USER || !SMTP_PASS || !SMTP_HOST || !SMTP_PORT) {
+        console.error('[SMTP] Missing environment variables');
+        return { success: false, error: 'Serverconfiguratiefout (SMTP variabelen ontbreken).' };
     }
 
-    const smtpPort = parseInt(smtpPortStr, 10);
+    const port = parseInt(SMTP_PORT, 10);
     const transporter = nodemailer.createTransport({
-        host: smtpHost,
-        port: smtpPort,
-        secure: smtpPort === 465,
+        host: SMTP_HOST,
+        port: port,
+        secure: port === 465, // Use SSL for 465, STARTTLS for others
         auth: {
-            user: smtpUser,
-            pass: smtpPass,
+            user: SMTP_USER,
+            pass: SMTP_PASS,
         },
+        // Support for older or self-signed certs if necessary
         tls: {
-            rejectUnauthorized: true
+            rejectUnauthorized: false, // Changed from true to allow unverified certificates
+            minVersion: 'TLSv1.2'
         }
     });
 
@@ -225,7 +219,6 @@ async function sendEmail(data: any, isWhistleblower: boolean): Promise<{ success
 
                 let buffer = Buffer.from(contentStr, 'base64');
 
-                // EXTRA SECURITY: If whistleblower sends an image, scrub metadata locally
                 if (isWhistleblower && contentType.startsWith('image/')) {
                     buffer = await scrubImageMetadata(buffer);
                 }
@@ -236,7 +229,7 @@ async function sendEmail(data: any, isWhistleblower: boolean): Promise<{ success
                     contentType: contentType
                 });
             } catch (e) {
-                console.error('[SMTP] Attachment error:', e);
+                console.error('[SMTP] Attachment processing failed:', e);
             }
         }
         return list;
@@ -244,9 +237,9 @@ async function sendEmail(data: any, isWhistleblower: boolean): Promise<{ success
 
     try {
         const attachments = await getAttachments();
-        
+
         const adminMailOpts = {
-            from: `"Moral Knight" <${adminEmail}>`,
+            from: `"Moral Knight Website" <${SMTP_USER}>`, // Recommended to use the authenticated user as sender
             to: adminEmail,
             replyTo: isWhistleblower ? undefined : data.email,
             subject: subject,
@@ -254,34 +247,31 @@ async function sendEmail(data: any, isWhistleblower: boolean): Promise<{ success
             attachments: attachments
         };
 
-        const userMailOpts = {
-            from: `"Moral Knight" <${adminEmail}>`,
-            to: data.email,
-            subject: isReport
-                ? `Bevestiging Melding: ${reportId} - Moral Knight`
-                : `Ontvangstbevestiging contactformulier - Moral Knight`,
-            html: getHtml(true),
-            attachments: attachments
-        };
+        // Send to Admin
+        await transporter.sendMail(adminMailOpts);
 
-        // Send emails
-        const sendAdmin = transporter.sendMail(adminMailOpts);
-        // Never send automated confirmation email to whistleblowers to prevent leaving trails in their inbox
-        const sendUser = isWhistleblower ? Promise.resolve({ skipped: true }) : transporter.sendMail(userMailOpts);
-
-        const [adminResult] = await Promise.allSettled([sendAdmin, sendUser]);
-
-        if (adminResult.status === 'rejected') {
-            throw new Error(adminResult.reason instanceof Error ? adminResult.reason.message : 'SMTP_ERROR');
+        // Optional User Confirmation (Not for whistleblowers)
+        if (!isWhistleblower) {
+            const userMailOpts = {
+                from: `"Moral Knight" <${SMTP_USER}>`,
+                to: data.email,
+                subject: isReport
+                    ? `Bevestiging Melding: ${reportId}`
+                    : `Ontvangstbevestiging contactformulier - Moral Knight`,
+                html: getHtml(true),
+                attachments: attachments
+            };
+            await transporter.sendMail(userMailOpts);
         }
 
         return { success: true, reportId };
-    } catch (error) {
-        console.error('[SMTP] Transport Error:', error);
-        return {
-            success: false,
-            error: error instanceof Error ? error.message : 'SMTP_ERROR'
-        };
+    } catch (error: any) {
+        console.error('[SMTP] Connection Error:', error);
+        let errorMsg = 'SMTP verbinding mislukt.';
+        if (error.code === 'EAUTH') errorMsg = 'E-mail authenticatie mislukt (wachtwoord/gebruiker).';
+        if (error.code === 'ETIMEDOUT') errorMsg = 'SMTP verbinding time-out.';
+
+        return { success: false, error: errorMsg };
     }
 }
 

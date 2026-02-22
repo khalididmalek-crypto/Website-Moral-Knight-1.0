@@ -54,29 +54,22 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
   // Auto-scroll for Contact tile
   useEffect(() => {
     if (tile.type === ContentType.CONTACT) {
-      console.log('[DEBUG] Contact Tile Opened - Starting Scroll Logic');
-      
       const animationTimer = setTimeout(() => {
         const modal = modalRef.current;
-        if (!modal) {
-          console.warn('[DEBUG] Modal ref not found');
-          return;
-        }
+        if (!modal) return;
 
         try {
           const formElement = modal.querySelector('form') || modal.querySelector('.contact-form-container');
-          if (!formElement) {
-            console.warn('[DEBUG] Form element not found in modal');
-            return;
-          }
+          if (!formElement) return;
 
           const containerRect = modal.getBoundingClientRect();
           const formRect = formElement.getBoundingClientRect();
+
           const targetScroll = modal.scrollTop + formRect.top - containerRect.top - 40;
           const startScroll = modal.scrollTop;
           const distance = targetScroll - startScroll;
 
-          console.log(`[DEBUG] Scrolling distance: ${distance}px`);
+          if (Math.abs(distance) < 20) return;
 
           const duration = 1800;
           const startTime = performance.now();
@@ -90,11 +83,16 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
               modalRef.current.scrollTo(0, startScroll + (distance * ease(progress)));
             }
 
-            // TRIGGER GLITCH: Logic should not trigger a re-run of this entire Effect
-            if (!glitchPlayed && progress > 0.30 && progress < 0.65) {
-              setContactGlitchActive(true);
+            if (!glitchPlayed && progress > 0.15 && progress < 0.85) {
+              if (!contactGlitchActive) {
+                console.log('[DEBUG] Glitch Active: YES');
+                setContactGlitchActive(true);
+              }
             } else {
-              setContactGlitchActive(false);
+              if (contactGlitchActive) {
+                console.log('[DEBUG] Glitch Active: NO');
+                setContactGlitchActive(false);
+              }
             }
 
             if (progress < 1) {
@@ -102,7 +100,6 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
                 requestAnimationFrame(animate);
               }
             } else {
-              console.log('[DEBUG] Scroll & Glitch Animation Finished');
               setContactGlitchActive(false);
               setGlitchPlayed(true);
             }
@@ -119,14 +116,9 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
         setContactGlitchActive(false);
       };
     } else {
-      // Reset for next time
-      if (glitchPlayed) {
-        console.log('[DEBUG] Switching away from Contact - resetting glitch state');
-        setGlitchPlayed(false);
-      }
+      if (glitchPlayed) setGlitchPlayed(false);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [tile.id, tile.type]); // Only re-run when the tile itself changes
+  }, [tile.type, modalRef, glitchPlayed, contactGlitchActive]);
 
   // Safety reset for glitch state
   useEffect(() => {
@@ -345,12 +337,19 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
     <>
       <style jsx global>{`
         @keyframes border-noise {
-          0% { border-color: rgba(139, 26, 61, 0.4); box-shadow: inset 0 0 0 2px rgba(139, 26, 61, 0.4), 0 0 10px rgba(139, 26, 61, 0.2); }
-          20% { border-color: rgba(139, 26, 61, 0.6); box-shadow: inset 0 0 0 4px rgba(139, 26, 61, 0.5), 0 0 20px rgba(139, 26, 61, 0.3); }
-          40% { border-color: rgba(139, 26, 61, 0.3); box-shadow: inset 0 0 0 1px rgba(139, 26, 61, 0.3), 0 0 5px rgba(139, 26, 61, 0.1); }
-          60% { border-color: rgba(139, 26, 61, 0.7); box-shadow: inset 0 0 0 5px rgba(139, 26, 61, 0.6), 0 0 25px rgba(139, 26, 61, 0.4); }
-          80% { border-color: rgba(139, 26, 61, 0.5); box-shadow: inset 0 0 0 3px rgba(139, 26, 61, 0.4), 0 0 15px rgba(139, 26, 61, 0.2); }
-          100% { border-color: rgba(139, 26, 61, 0.4); box-shadow: inset 0 0 0 2px rgba(139, 26, 61, 0.4), 0 0 10px rgba(139, 26, 61, 0.2); }
+          0% { border-color: rgba(255, 0, 0, 0.4); box-shadow: inset 0 0 0 2px rgba(255, 0, 0, 0.4), 0 0 10px rgba(255, 0, 0, 0.2); }
+          20% { border-color: rgba(255, 0, 0, 0.6); box-shadow: inset 0 0 0 4px rgba(255, 0, 0, 0.5), 0 0 20px rgba(255, 0, 0, 0.3); }
+          40% { border-color: rgba(255, 0, 0, 0.3); box-shadow: inset 0 0 0 1px rgba(255, 0, 0, 0.3), 0 0 5px rgba(255, 0, 0, 0.1); }
+          60% { border-color: rgba(255, 0, 0, 0.7); box-shadow: inset 0 0 0 5px rgba(255, 0, 0, 0.6), 0 0 25px rgba(255, 0, 0, 0.4); }
+          80% { border-color: rgba(255, 0, 0, 0.5); box-shadow: inset 0 0 0 3px rgba(255, 0, 0, 0.4), 0 0 15px rgba(255, 0, 0, 0.2); }
+          100% { border-color: rgba(255, 0, 0, 0.4); box-shadow: inset 0 0 0 2px rgba(255, 0, 0, 0.4), 0 0 10px rgba(255, 0, 0, 0.2); }
+        }
+        @keyframes vibrate-slash {
+          0% { transform: translate(0, 0) rotate(12deg) scale(1); opacity: 0.9; }
+          25% { transform: translate(-8px, 8px) rotate(10deg) scale(1.15); opacity: 1; }
+          50% { transform: translate(8px, -8px) rotate(15deg) scale(0.85); opacity: 0.8; }
+          75% { transform: translate(-5px, -5px) rotate(8deg) scale(1.1); opacity: 1; }
+          100% { transform: translate(0, 0) rotate(12deg) scale(1); opacity: 0.9; }
         }
       `}</style>
       <div
@@ -366,21 +365,31 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
         aria-labelledby="modal-title"
         aria-describedby="modal-description"
       >
-        {/* Extreme Security/Glitch Overlay - Robust implementation */}
+        {/* Extreme Security/Glitch Overlay - Corrected with Top/Left borders & vibrating slash */}
         {contactGlitchActive && (
-          <div className="fixed inset-0 z-[999] pointer-events-none" 
-               style={{ 
-                 borderLeft: '12px solid rgba(139, 26, 61, 0.9)',
-                 borderRight: '12px solid rgba(139, 26, 61, 0.9)',
-                 animation: 'border-noise 0.1s infinite',
-                 transform: 'skewX(-4deg)',
-                 background: 'rgba(139, 26, 61, 0.05)',
-                 boxShadow: 'inset 0 0 150px rgba(139, 26, 61, 0.2)',
-                 filter: 'contrast(1.6) brightness(1.2)'
-               }} 
+          <div className="fixed inset-0 z-[999] pointer-events-none flex items-center justify-center overflow-hidden"
+            style={{
+              borderTop: '16px solid rgba(139, 26, 61, 1)',
+              borderLeft: '16px solid rgba(139, 26, 61, 1)',
+              animation: 'border-noise 0.1s infinite',
+              background: 'rgba(139, 26, 61, 0.08)',
+              boxShadow: 'inset 30px 30px 100px rgba(139, 26, 61, 0.3)',
+              filter: 'contrast(1.8) brightness(1.2)'
+            }}
           >
+            {/* The Vibrating Slash */}
+            <div className="text-[50vh] font-bold text-[#FF0000] opacity-60 select-none pointer-events-none"
+              style={{
+                fontFamily: 'serif',
+                animation: 'vibrate-slash 0.04s infinite',
+                textShadow: '15px 0 #FF0000, -15px 0 #00FFFF',
+                willChange: 'transform, opacity'
+              }}>
+              /
+            </div>
+
             {/* Digital Noise grain */}
-            <div className="absolute inset-0 opacity-30 bg-[url('data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.85\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E')]" />
+            <div className="absolute inset-0 opacity-40 bg-[url('data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.85\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E')]" />
           </div>
         )}
 

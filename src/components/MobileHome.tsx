@@ -280,7 +280,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({
     // This function handles the scroll after the animation finishes
     const handleLayoutComplete = (tileKey: string) => {
         if (!activeTiles.includes(tileKey)) return;
-        
+
         const container = containerRef.current;
         if (!container) return;
 
@@ -312,7 +312,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({
                             setContactGlitchActive(false);
                             setGlitchPlayed(true);
                             console.log('[DEBUG] Glitch Burst Finished - Mobile');
-                        }, 800); 
+                        }, 1500);
                     }, 200);
                 }
             }, 550);
@@ -379,19 +379,30 @@ export const MobileHome: React.FC<MobileHomeProps> = ({
                     backgroundImage: activeTiles.length > 0 ? getActiveGradient(lastActiveTile) : 'none',
                 }}
             >
-                {/* Extreme Security/Glitch Overlay - Mobile prioritized with Top/Left borders */}
+                {/* Extreme Security/Glitch Overlay - Mobile prioritized with Top/Left borders & vibrating slash */}
                 {contactGlitchActive && (
-                    <div className="fixed inset-0 z-[9999] pointer-events-none" 
-                         style={{ 
-                           borderTop: '12px solid rgba(139, 26, 61, 1)',
-                           borderLeft: '12px solid rgba(139, 26, 61, 1)',
-                           animation: 'border-noise 0.1s infinite',
-                           transform: 'skewX(-2deg)',
-                           backgroundColor: 'rgba(139, 26, 61, 0.12)',
-                           filter: 'contrast(1.8) brightness(1.3)',
-                           boxShadow: 'inset 20px 20px 60px rgba(139, 26, 61, 0.4)'
-                         }} 
+                    <div className="fixed inset-0 z-[9999] pointer-events-none flex items-center justify-center overflow-hidden"
+                        style={{
+                            borderTop: '16px solid rgba(255, 0, 0, 1)',
+                            borderLeft: '16px solid rgba(255, 0, 0, 1)',
+                            animation: 'border-noise 0.1s infinite',
+                            backgroundColor: 'rgba(255, 0, 0, 0.12)',
+                            filter: 'contrast(1.8) brightness(1.3)',
+                            boxShadow: 'inset 25px 25px 80px rgba(255, 0, 0, 0.4)'
+                        }}
                     >
+                        {/* The Vibrating Slash for Mobile */}
+                        <div className="text-[50vh] font-bold text-[#FF0000] opacity-60"
+                            style={{
+                                fontFamily: 'serif',
+                                animation: 'vibrate-slash 0.04s infinite',
+                                textShadow: '12px 0 #FF0000, -12px 0 #00FFFF',
+                                transform: 'rotate(12deg)',
+                                willChange: 'transform, opacity'
+                            }}>
+                            /
+                        </div>
+
                         <div className="absolute inset-0 opacity-40 bg-[url('data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.95\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E')]" />
                     </div>
                 )}
