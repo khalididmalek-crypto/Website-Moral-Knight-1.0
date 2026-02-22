@@ -54,26 +54,31 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
   // Auto-scroll for Contact tile
   useEffect(() => {
     if (tile.type === ContentType.CONTACT) {
-      // Dynamic calculation after a short delay to allow the form to mount
+      console.log('[DEBUG] Contact Tile Opened - Starting Scroll Logic');
+      
       const animationTimer = setTimeout(() => {
         const modal = modalRef.current;
-        if (!modal) return;
+        if (!modal) {
+          console.warn('[DEBUG] Modal ref not found');
+          return;
+        }
 
         try {
           const formElement = modal.querySelector('form') || modal.querySelector('.contact-form-container');
-          if (!formElement) return;
+          if (!formElement) {
+            console.warn('[DEBUG] Form element not found in modal');
+            return;
+          }
 
           const containerRect = modal.getBoundingClientRect();
           const formRect = formElement.getBoundingClientRect();
-          
-          // Calculate target: current scroll + relative top - small offset
           const targetScroll = modal.scrollTop + formRect.top - containerRect.top - 40;
           const startScroll = modal.scrollTop;
           const distance = targetScroll - startScroll;
 
-          if (Math.abs(distance) < 20) return;
+          console.log(`[DEBUG] Scrolling distance: ${distance}px`);
 
-          const duration = 1500; 
+          const duration = 1800;
           const startTime = performance.now();
 
           const animate = (currentTime: number) => {
@@ -85,8 +90,8 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
               modalRef.current.scrollTo(0, startScroll + (distance * ease(progress)));
             }
 
-            // Trigger glitch "mid-way"
-            if (!glitchPlayed && progress > 0.42 && progress < 0.50) {
+            // TRIGGER GLITCH: Logic should not trigger a re-run of this entire Effect
+            if (!glitchPlayed && progress > 0.30 && progress < 0.65) {
               setContactGlitchActive(true);
             } else {
               setContactGlitchActive(false);
@@ -95,10 +100,9 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
             if (progress < 1) {
               if (tile.type === ContentType.CONTACT && modalRef.current) {
                 requestAnimationFrame(animate);
-              } else {
-                setContactGlitchActive(false);
               }
             } else {
+              console.log('[DEBUG] Scroll & Glitch Animation Finished');
               setContactGlitchActive(false);
               setGlitchPlayed(true);
             }
@@ -108,16 +112,21 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
         } catch (err) {
           console.error('[FullscreenView] Scroll error:', err);
         }
-      }, 600);
+      }, 700);
 
       return () => {
         clearTimeout(animationTimer);
         setContactGlitchActive(false);
       };
     } else {
-      setGlitchPlayed(false);
+      // Reset for next time
+      if (glitchPlayed) {
+        console.log('[DEBUG] Switching away from Contact - resetting glitch state');
+        setGlitchPlayed(false);
+      }
     }
-  }, [tile.type, modalRef, glitchPlayed]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [tile.id, tile.type]); // Only re-run when the tile itself changes
 
   // Safety reset for glitch state
   useEffect(() => {
@@ -347,24 +356,34 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
       <div
         {...swipeHandlers}
         ref={modalRef}
-        className={`fixed inset-0 z-[200] flex flex-col items-center ${activeSubTile ? 'overflow-hidden' : 'overflow-y-auto'} touch-pan-y backdrop-blur-xl supports-[backdrop-filter]:bg-opacity-10 ${contactGlitchActive ? 'glitch-effect' : ''}`}
+        className={`fixed inset-0 z-[200] flex flex-col items-center ${activeSubTile ? 'overflow-hidden' : 'overflow-y-auto'} touch-pan-y backdrop-blur-xl supports-[backdrop-filter]:bg-opacity-10`}
         style={{
           backgroundColor,
           color: THEME.colors.text,
-          ...(contactGlitchActive ? {
-            textShadow: '3px 0 #ff0000, -3px 0 #00ff00',
-            transform: 'skewX(-5deg) translateX(5px)',
-            filter: 'contrast(1.5) brightness(1.2)',
-            animation: 'border-noise 0.2s infinite',
-            borderLeft: '4px solid rgba(139, 26, 61, 0.5)',
-            borderRight: '4px solid rgba(139, 26, 61, 0.5)'
-          } : {})
         }}
         role="dialog"
         aria-modal="true"
         aria-labelledby="modal-title"
         aria-describedby="modal-description"
       >
+        {/* Extreme Security/Glitch Overlay - Robust implementation */}
+        {contactGlitchActive && (
+          <div className="fixed inset-0 z-[999] pointer-events-none" 
+               style={{ 
+                 borderLeft: '12px solid rgba(139, 26, 61, 0.9)',
+                 borderRight: '12px solid rgba(139, 26, 61, 0.9)',
+                 animation: 'border-noise 0.1s infinite',
+                 transform: 'skewX(-4deg)',
+                 background: 'rgba(139, 26, 61, 0.05)',
+                 boxShadow: 'inset 0 0 150px rgba(139, 26, 61, 0.2)',
+                 filter: 'contrast(1.6) brightness(1.2)'
+               }} 
+          >
+            {/* Digital Noise grain */}
+            <div className="absolute inset-0 opacity-30 bg-[url('data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.85\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E')]" />
+          </div>
+        )}
+
         {/* Hidden description for screen readers */}
         <span id="modal-description" className="sr-only">
           Volledig scherm weergave. Druk op Escape of klik op de sluitknop om terug te gaan.

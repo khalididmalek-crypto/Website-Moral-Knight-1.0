@@ -285,26 +285,37 @@ export const MobileHome: React.FC<MobileHomeProps> = ({
         if (!container) return;
 
         if (tileKey === 'CONTACT') {
+            console.log('[DEBUG] Contact Tile layout complete - preparing scroll');
             // Wait for expansion to fully settle
             setTimeout(() => {
                 const contactForm = contactFormRef.current;
-                if (!contactForm) return;
+                if (!contactForm) {
+                    console.warn('[DEBUG] Contact form ref not found on mobile');
+                    return;
+                }
 
+                console.log('[DEBUG] Triggering mobile scroll');
                 // Native smooth scroll is more reliable on mobile hardware
                 contactForm.scrollIntoView({
                     behavior: 'smooth',
                     block: 'start'
                 });
 
-                // Play glitch once as a visual confirmation
+                // Play glitch burst as visual confirmation
                 if (!glitchPlayed) {
-                    setContactGlitchActive(true);
+                    console.log('[DEBUG] Triggering Glitch Burst - Mobile');
+                    // Start glitch slightly after scroll starts
                     setTimeout(() => {
-                        setContactGlitchActive(false);
-                        setGlitchPlayed(true);
-                    }, 350); // Quick burst
+                        setContactGlitchActive(true);
+                        // Significant burst for visibility
+                        setTimeout(() => {
+                            setContactGlitchActive(false);
+                            setGlitchPlayed(true);
+                            console.log('[DEBUG] Glitch Burst Finished - Mobile');
+                        }, 800); 
+                    }, 200);
                 }
-            }, 500);
+            }, 550);
         } else {
             const tileElement = tileRefs[tileKey as keyof typeof tileRefs].current;
             if (!tileElement) return;
@@ -362,20 +373,28 @@ export const MobileHome: React.FC<MobileHomeProps> = ({
 
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.5 }}
-                className={`flex flex-col min-h-[100dvh] w-full font-mono transition-colors duration-500 ease-in-out md:hidden overflow-y-auto ${contactGlitchActive ? 'glitch-effect' : ''}`}
+                className={`flex flex-col min-h-[100dvh] w-full font-mono transition-colors duration-500 ease-in-out md:hidden overflow-y-auto`}
                 style={{
                     backgroundColor: BG_COLORS[lastActiveTile as keyof typeof BG_COLORS],
                     backgroundImage: activeTiles.length > 0 ? getActiveGradient(lastActiveTile) : 'none',
-                    ...(contactGlitchActive ? {
-                        textShadow: '3px 0 #ff0000, -3px 0 #00ff00',
-                        transform: 'skewX(-2deg) translateX(3px)',
-                        filter: 'contrast(1.3) brightness(1.1)',
-                        animation: 'border-noise 0.2s infinite',
-                        borderLeft: '4px solid rgba(139, 26, 61, 0.5)',
-                        borderRight: '4px solid rgba(139, 26, 61, 0.5)'
-                    } : {})
                 }}
             >
+                {/* Extreme Security/Glitch Overlay - Mobile prioritized with Top/Left borders */}
+                {contactGlitchActive && (
+                    <div className="fixed inset-0 z-[9999] pointer-events-none" 
+                         style={{ 
+                           borderTop: '12px solid rgba(139, 26, 61, 1)',
+                           borderLeft: '12px solid rgba(139, 26, 61, 1)',
+                           animation: 'border-noise 0.1s infinite',
+                           transform: 'skewX(-2deg)',
+                           backgroundColor: 'rgba(139, 26, 61, 0.12)',
+                           filter: 'contrast(1.8) brightness(1.3)',
+                           boxShadow: 'inset 20px 20px 60px rgba(139, 26, 61, 0.4)'
+                         }} 
+                    >
+                        <div className="absolute inset-0 opacity-40 bg-[url('data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.95\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E')]" />
+                    </div>
+                )}
                 {/* Projector Noise Layer for the background when active */}
                 {activeTiles.length > 0 && (
                     <div className="fixed inset-0 pointer-events-none opacity-[0.10] mix-blend-multiply bg-[url('data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.65\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E')] z-0" />
