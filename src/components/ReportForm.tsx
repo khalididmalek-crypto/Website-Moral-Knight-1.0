@@ -217,6 +217,9 @@ export const ReportForm: React.FC<Props> = () => {
                 },
                 body: JSON.stringify({
                     ...formData,
+                    // Force-clear personal data if anonymous to ensure it never leaves the client
+                    name: formData.isAnonymous ? 'Anoniem' : formData.name,
+                    email: formData.isAnonymous ? 'noreply@moralknight.nl' : formData.email,
                     file: fileData,
                     fileName: formData.file?.name,
                     formType: 'report'

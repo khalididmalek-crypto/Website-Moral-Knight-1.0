@@ -15,10 +15,9 @@ import { Meldpunt } from './Meldpunt';
 import { BlogPostDetail } from './BlogGrid';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 type MobileView = 'HOME' | 'DASHBOARD' | 'MELDPUNT' | 'KENNISBANK';
-
-
 
 interface MobileHomeProps {
     problemTileContent: string;
@@ -26,13 +25,57 @@ interface MobileHomeProps {
     approachTileContent: string;
     servicesTileContent: string;
     posts: BlogPost[];
+    initialMeldpuntOpen?: boolean;
+    initialDashboardOpen?: boolean;
+    initialKennisbankOpen?: boolean;
+    initialActiveTileId?: string | null;
+    initialActiveBlogSlug?: string | null;
 }
 
-export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solutionTileContent, approachTileContent, servicesTileContent, posts = [] }) => {
-    const [view, setView] = useState<MobileView>('HOME');
-    const [meldpuntOpen, setMeldpuntOpen] = useState(false);
-    const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
-    const [activeTiles, setActiveTiles] = useState<string[]>([]);
+export const MobileHome: React.FC<MobileHomeProps> = ({
+    problemTileContent,
+    solutionTileContent,
+    approachTileContent,
+    servicesTileContent,
+    posts = [],
+    initialMeldpuntOpen = false,
+    initialDashboardOpen = false,
+    initialKennisbankOpen = false,
+    initialActiveTileId = null,
+    initialActiveBlogSlug = null
+}) => {
+    const router = useRouter();
+
+    const [view, setView] = useState<MobileView>(() => {
+        if (initialDashboardOpen) return 'DASHBOARD';
+        if (initialKennisbankOpen) return 'KENNISBANK';
+        return 'HOME';
+    });
+
+    const [meldpuntOpen, setMeldpuntOpen] = useState(initialMeldpuntOpen);
+
+    const [selectedPost, setSelectedPost] = useState<BlogPost | null>(() => {
+        if (initialActiveBlogSlug) {
+            return posts.find(p => p.slug === initialActiveBlogSlug) || null;
+        }
+        return null;
+    });
+
+    const [activeTiles, setActiveTiles] = useState<string[]>(() => {
+        if (initialActiveTileId) {
+            const mapping: Record<string, string> = {
+                'tile-1': 'PROBLEM',
+                'tile-2': 'SOLUTION',
+                'tile-3': 'APPROACH',
+                'tile-4': 'SERVICES',
+                'tile-5': 'CONTACT',
+                'tile-6': 'BLOG'
+            };
+            const mapped = mapping[initialActiveTileId];
+            return mapped ? [mapped] : [];
+        }
+        return [];
+    });
     const [hasMounted, setHasMounted] = useState(false);
     const [contactGlitchActive, setContactGlitchActive] = useState(false);
     // Animation state - reserved for future scroll lock implementation during animation window
@@ -127,6 +170,79 @@ export const MobileHome: React.FC<MobileHomeProps> = ({ problemTileContent, solu
             }
         });
     };
+
+    // URL Synchronization: State -> URL
+    useEffect(() => {
+        if (!router.isReady) return;
+
+        const currentPath = router.asPath.split('?')[0];
+        let targetPath = '/';
+
+        const lastActiveTile = activeTiles.length > 0 ? activeTiles[activeTiles.length - 1] : null;
+
+        if (selectedPost) targetPath = `/blog/${selectedPost.slug}`;
+        else if (meldpuntOpen) targetPath = '/meldpunt';
+        else if (view === 'DASHBOARD') targetPath = '/dashboard';
+        else if (view === 'KENNISBANK') targetPath = '/kennisbank';
+        else if (lastActiveTile === 'PROBLEM') targetPath = '/probleem';
+        else if (lastActiveTile === 'SOLUTION') targetPath = '/oplossing';
+        else if (lastActiveTile === 'APPROACH') targetPath = '/aanpak';
+        else if (lastActiveTile === 'SERVICES') targetPath = '/diensten';
+        else if (lastActiveTile === 'CONTACT') targetPath = '/contact';
+        else if (lastActiveTile === 'BLOG') targetPath = '/blog';
+
+        if (currentPath !== targetPath) {
+            router.push(targetPath, undefined, { shallow: true });
+        }
+    }, [view, meldpuntOpen, selectedPost, activeTiles, router]);
+
+    // URL Synchronization: URL -> State (Back/Forward)
+    useEffect(() => {
+        if (!router.isReady) return;
+
+        const handleRouteChange = (url: string) => {
+            const path = url.split('?')[0];
+
+            // Map paths to state
+            const isMeldpunt = path === '/meldpunt';
+            const isDashboard = path === '/dashboard';
+            const isKennisbank = path === '/kennisbank';
+
+            if (isMeldpunt || isDashboard || isKennisbank) {
+                setMeldpuntOpen(isMeldpunt);
+                if (isDashboard) setView('DASHBOARD');
+                if (isKennisbank) setView('KENNISBANK');
+                // Keep other states (activeTiles) preserved
+                return;
+            }
+
+            // For non-modal paths, update tile/blog state
+            let newView: MobileView = 'HOME';
+            let newMeldpuntOpen = false;
+            let newActiveTiles: string[] = [];
+            let newSelectedPost: BlogPost | null = null;
+
+            if (path.startsWith('/blog/') && path.length > 6) {
+                const slug = path.replace('/blog/', '');
+                newActiveTiles = ['BLOG'];
+                newSelectedPost = posts.find(p => p.slug === slug) || null;
+            } else if (path === '/blog') {
+                newActiveTiles = ['BLOG'];
+            } else if (path === '/probleem') newActiveTiles = ['PROBLEM'];
+            else if (path === '/oplossing') newActiveTiles = ['SOLUTION'];
+            else if (path === '/aanpak') newActiveTiles = ['APPROACH'];
+            else if (path === '/diensten') newActiveTiles = ['SERVICES'];
+            else if (path === '/contact') newActiveTiles = ['CONTACT'];
+
+            setView(newView);
+            setMeldpuntOpen(newMeldpuntOpen);
+            setActiveTiles(newActiveTiles);
+            setSelectedPost(newSelectedPost);
+        };
+
+        router.events.on('routeChangeComplete', handleRouteChange);
+        return () => router.events.off('routeChangeComplete', handleRouteChange);
+    }, [router.isReady, router.events, posts]);
 
 
     const handleBack = () => {

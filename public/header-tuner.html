@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="nl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Moral Knight - Header Layout Tuner</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: 'JetBrains+Mono', monospace;
+            color: #1a1a1a;
+        }
+
+        .premium-card {
+            background: white;
+            border: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+            border-radius: 12px;
+        }
+
+        .hero-title {
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            line-height: 1;
+        }
+
+        @keyframes drawPath {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+
+        input[type="range"] {
+            accent-color: #A31F47;
+        }
+    </style>
+</head>
+
+<body class="p-8">
+
+    <div class="max-w-6xl mx-auto space-y-12">
+        <!-- Header Section -->
+        <header class="flex justify-between items-center mb-8">
+            <div>
+                <h1 class="text-2xl font-bold tracking-tight text-[#A31F47]">Header Layout Tuner</h1>
+                <p class="text-sm text-gray-500">Fine-tune the horizontal and vertical rhythm of the Moral Knight
+                    header.</p>
+            </div>
+            <a href="/"
+                class="text-sm font-bold border-b-2 border-transparent hover:border-[#A31F47] transition-all">Terug naar
+                site</a>
+        </header>
+
+        <!-- Preview Area -->
+        <div class="premium-card p-12 min-h-[400px] flex items-center justify-center bg-white relative overflow-hidden">
+            <!-- Grid Lines Background (Mental model for alignment) -->
+            <div class="absolute inset-0 pointer-events-none opacity-[0.03]"
+                style="background-image: linear-gradient(#000 1px, transparent 1px), linear-gradient(90deg, #000 1px, transparent 1px); background-size: 20px 20px;">
+            </div>
+
+            <div id="layout-container" class="w-full max-w-4xl flex flex-col z-10">
+                <!-- Top Section -->
+                <div id="top-row" class="flex items-end overflow-visible" style="gap: 3rem;">
+                    <!-- Logo -->
+                    <div class="flex-shrink-0 mb-1">
+                        <img id="logo-img" src="/favicon.svg" alt="Logo" class="w-auto"
+                            style="height: 5rem; display: block;">
+                    </div>
+
+                    <!-- Title Block -->
+                    <div class="flex-1 min-w-0">
+                        <div id="header-el" class="flex justify-between items-end relative w-full overflow-visible"
+                            style="padding-bottom: 20px;">
+                            <!-- SVG Link -->
+                            <div class="absolute bottom-0 left-0 w-full overflow-visible pointer-events-none"
+                                style="height: 2px;">
+                                <svg width="100%" height="30" viewBox="0 0 1000 30" preserveAspectRatio="none"
+                                    style="position: absolute; bottom: -2px; left: 0; overflow: visible;">
+                                    <path d="M 0,25 L 992,25 L 1000,5" fill="none" stroke="#A31F47" strokeWidth="1.5"
+                                        vectorEffect="non-scaling-stroke"
+                                        style="stroke-dasharray: 2000; stroke-dashoffset: 0;"></path>
+                                </svg>
+                            </div>
+                            <h1 class="hero-title font-medium tracking-tight font-mono leading-none">Moral Knight</h1>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Subtitle Area -->
+                <div id="subtitle-container" class="w-full pl-[calc(5rem+3rem)]" style="margin-top: -10px;">
+                    <p class="text-[1.1rem] uppercase tracking-widest font-normal text-[#1B4332]">
+                        De onafhankelijke waakhond van publieke AI
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div class="premium-card p-6 space-y-6">
+                <h3 class="font-bold text-sm uppercase tracking-wider text-gray-400">Horizontal Alignment</h3>
+
+                <div class="space-y-2">
+                    <div class="flex justify-between">
+                        <label class="text-sm font-medium">Gap tussen Logo & Tekst</label>
+                        <span id="gap-val" class="text-xs font-bold text-[#A31F47]">3rem</span>
+                    </div>
+                    <input type="range" id="gap-slider" min="0" max="10" step="0.1" value="3" class="w-full">
+                </div>
+            </div>
+
+            <div class="premium-card p-6 space-y-6">
+                <h3 class="font-bold text-sm uppercase tracking-wider text-gray-400">Vertical Rhythm</h3>
+
+                <div class="space-y-2">
+                    <div class="flex justify-between">
+                        <label class="text-sm font-medium">Logo Hoogte</label>
+                        <span id="logo-h-val" class="text-xs font-bold text-[#A31F47]">5rem</span>
+                    </div>
+                    <input type="range" id="logo-h-slider" min="1" max="10" step="0.1" value="5" class="w-full">
+                </div>
+
+                <div class="space-y-2">
+                    <div class="flex justify-between">
+                        <label class="text-sm font-medium">Titel Padding (Afstand tot lijn)</label>
+                        <span id="pad-val" class="text-xs font-bold text-[#A31F47]">20px</span>
+                    </div>
+                    <input type="range" id="pad-slider" min="0" max="60" step="1" value="20" class="w-full">
+                </div>
+
+                <div class="space-y-2">
+                    <div class="flex justify-between">
+                        <label class="text-sm font-medium">Subtitle Offset (Margin Top)</label>
+                        <span id="offset-val" class="text-xs font-bold text-[#A31F47]">-10px</span>
+                    </div>
+                    <input type="range" id="offset-slider" min="-60" max="40" step="1" value="-10" class="w-full">
+                </div>
+            </div>
+        </div>
+
+        <!-- Export -->
+        <div class="premium-card p-8 bg-[#1a1a1a] text-white">
+            <h3 class="font-bold text-xs uppercase tracking-widest text-gray-500 mb-4">Export Result</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div>
+                    <p class="text-xs text-gray-400 mb-2">Tailwind Classes / Values</p>
+                    <pre id="tailwind-output" class="text-sm font-mono text-green-400 whitespace-pre-wrap"></pre>
+                </div>
+                <div class="flex items-end justify-end">
+                    <button id="copy-btn"
+                        class="bg-[#A31F47] hover:bg-[#8B1A3D] text-white px-6 py-2 rounded-lg text-sm font-bold transition-colors">
+                        Kopieer Instellingen
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const sliders = {
+            gap: document.getElementById('gap-slider'),
+            logoH: document.getElementById('logo-h-slider'),
+            pad: document.getElementById('pad-slider'),
+            offset: document.getElementById('offset-slider')
+        };
+
+        const elements = {
+            topRow: document.getElementById('top-row'),
+            logoImg: document.getElementById('logo-img'),
+            headerEl: document.getElementById('header-el'),
+            subtitleContainer: document.getElementById('subtitle-container'),
+            output: document.getElementById('tailwind-output')
+        };
+
+        const values = {
+            gap: document.getElementById('gap-val'),
+            logoH: document.getElementById('logo-h-val'),
+            pad: document.getElementById('pad-val'),
+            offset: document.getElementById('offset-val')
+        };
+
+        function update() {
+            const gap = sliders.gap.value;
+            const logoH = sliders.logoH.value;
+            const pad = sliders.pad.value;
+            const offset = sliders.offset.value;
+
+            // Update UI Labels
+            values.gap.innerText = `${gap}rem`;
+            values.logoH.innerText = `${logoH}rem`;
+            values.pad.innerText = `${pad}px`;
+            values.offset.innerText = `${offset}px`;
+
+            // Apply Styles
+            elements.topRow.style.gap = `${gap}rem`;
+            elements.logoImg.style.height = `${logoH}rem`;
+            elements.headerEl.style.paddingBottom = `${pad}px`;
+            elements.subtitleContainer.style.paddingLeft = `calc(${logoH}rem + ${gap}rem)`;
+            elements.subtitleContainer.style.marginTop = `${offset}px`;
+
+            // Export Output
+            const outputText =
+                `Logo: h-[${logoH}rem]
+Gap: gap-[${gap}rem]
+Title Padding: pb-[${pad}px]
+Subtitle Left: pl-[calc(${logoH}rem+${gap}rem)]
+Subtitle Top: -mt-[${Math.abs(offset)}px] (of mt-[${offset}px])`;
+
+            elements.output.innerText = outputText;
+        }
+
+        Object.values(sliders).forEach(s => s.addEventListener('input', update));
+
+        document.getElementById('copy-btn').onclick = () => {
+            navigator.clipboard.writeText(elements.output.innerText);
+            alert('Instellingen gekopieerd!');
+        };
+
+        update();
+    </script>
+</body>
+
+</html>

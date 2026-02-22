@@ -9,12 +9,13 @@ type ApiResponse = {
     error?: string;
 };
 
-// In-memory store for rate limiting
+// In-memory store for rate limiting (Note: Limited effectiveness on Vercel/Serverless)
 const rateLimitMap = new Map<string, { count: number; lastTime: number }>();
-const RATE_LIMIT_MAX = 5; // 5 requests
+const RATE_LIMIT_MAX = 3; // Reduced to 3 for higher security
 const RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000; // 15 minutes
 
-// Next.js body parser is explicitly re-enabled, bypassing formidable limits
+const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
 export const config = {
     api: {
         bodyParser: {
@@ -23,18 +24,28 @@ export const config = {
     },
 };
 
+/**
+ * Sanitizes input to prevent basic HTML injection
+ */
+function sanitize(text: string): string {
+    if (!text) return '';
+    return text
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#039;');
+}
+
 export default async function handler(
     req: NextApiRequest,
     res: NextApiResponse<ApiResponse>
 ) {
     if (req.method !== 'POST') {
-        return res.status(405).json({
-            success: false,
-            message: 'Method not allowed',
-        });
+        return res.status(405).json({ success: false, message: 'Method not allowed' });
     }
 
-    // Rate Limiting (In-Memory for Lambda container lifetime)
+    // Rate Limiting
     const ip = req.headers['x-forwarded-for'] || req.socket.remoteAddress || 'unknown';
     const ipStr = Array.isArray(ip) ? ip[0] : ip;
     const now = Date.now();
@@ -43,10 +54,9 @@ export default async function handler(
     if (clientData) {
         if (now - clientData.lastTime < RATE_LIMIT_WINDOW_MS) {
             if (clientData.count >= RATE_LIMIT_MAX) {
-                console.warn(`[API] Rate limit exceeded for IP: ${ipStr}`);
                 return res.status(429).json({
                     success: false,
-                    message: 'Te veel meldingen in korte tijd. Probeer het over 15 minuten opnieuw.',
+                    message: 'Te veel meldingen. Probeer het over 15 minuten opnieuw.',
                 });
             }
             clientData.count++;
@@ -62,85 +72,106 @@ export default async function handler(
 
         // 1. Honeypot check
         if (rawData.botcheck && rawData.botcheck.trim() !== '') {
-            console.warn('[API] Honeypot triggered.');
-            return res.status(200).json({
-                success: true,
-                message: 'Bedankt voor uw bericht!',
-            });
+            return res.status(200).json({ success: true, message: 'Bedankt voor uw bericht!' });
         }
 
-        // 2. Data Sanitization
+        // 2. Strict Validation & Sanitization
+        const isAnonymous = rawData.isAnonymous === true;
+        const isReport = rawData.formType === 'report';
+        const needsContactInfo = !isAnonymous || !isReport;
+
         const formData: any = {
             ...rawData,
-            name: rawData.name?.trim(),
+            name: sanitize(rawData.name?.trim()),
             email: rawData.email?.trim()?.toLowerCase(),
-            organisation: rawData.organisation?.trim(),
-            message: rawData.message?.trim(),
-            aiSystem: rawData.aiSystem?.trim(),
-            description: rawData.description?.trim(),
+            organisation: sanitize(rawData.organisation?.trim()?.substring(0, 100)),
+            aiSystem: sanitize(rawData.aiSystem?.trim()?.substring(0, 100)),
+            description: sanitize(rawData.description?.trim()?.substring(0, 5000)),
+            message: sanitize(rawData.message?.trim()?.substring(0, 5000)),
         };
 
-        // Basic validation
-        if (!formData.name || !formData.email || !formData.privacyConsent) {
-            return res.status(400).json({
-                success: false,
-                message: 'Ontbrekende verplichte velden',
-            });
+        // Validate Privacy Consent
+        if (!formData.privacyConsent) {
+            return res.status(400).json({ success: false, message: 'U moet akkoord gaan met de privacyverklaring.' });
+        }
+
+        // Validate Contact Info if required
+        if (needsContactInfo) {
+            if (!formData.name || formData.name.length < 2) {
+                return res.status(400).json({ success: false, message: 'Ongeldige naam.' });
+            }
+            if (!formData.email || !EMAIL_REGEX.test(formData.email)) {
+                return res.status(400).json({ success: false, message: 'Ongeldig e-mailadres.' });
+            }
+        }
+
+        // Validate Content
+        const content = isReport ? formData.description : formData.message;
+        if (!content || content.length < 5) {
+            return res.status(400).json({ success: false, message: 'Bericht is te kort.' });
+        }
+
+        // Data Stripping for Anonymity (Double check)
+        if (isAnonymous && isReport) {
+            formData.name = 'ANONIEM';
+            formData.email = 'noreply@moralknight.nl';
         }
 
         // Send Email
         const result = await sendEmail(formData);
 
         if (!result.success) {
-            console.error(`[API] Email send failed: ${result.error}`);
             return res.status(500).json({
                 success: false,
                 message: 'E-mail verzenden mislukt. Probeer het later opnieuw.',
-                error: result.error,
+                error: process.env.NODE_ENV === 'development' ? result.error : undefined,
             });
         }
 
         return res.status(200).json({
             success: true,
-            message: 'Bedankt voor uw bericht!',
+            message: 'Bedankt!',
             reportId: result.reportId,
         });
 
     } catch (error) {
         console.error('[API] Global Error:', error);
-        return res.status(500).json({
-            success: false,
-            message: 'Er is een interne serverfout opgetreden. Probeer het later opnieuw.',
-        });
+        return res.status(500).json({ success: false, message: 'Interne serverfout.' });
     }
 }
 
 async function sendEmail(data: any): Promise<{ success: boolean; reportId?: string; error?: string }> {
-    // Aggressive fallback to prevent misconfiguration
-    const allKeys = Object.keys(process.env);
-    const passKey = allKeys.find(k => k.includes('SMTP_PASS') || k.includes('MAIL_SERVER_PASSWORD') || k.includes('PASS'));
-    const userKey = allKeys.find(k => k.includes('SMTP_USER') || k.includes('EMAIL_SERVER_USER') || k.includes('USER'));
+    // Explicit SMTP configuration from environment variables
+    const smtpUser = process.env.SMTP_USER;
+    const smtpPass = process.env.SMTP_PASS;
+    const smtpHost = process.env.SMTP_HOST;
+    const smtpPortStr = process.env.SMTP_PORT;
 
-    const smtpUser = process.env.SMTP_USER || (userKey ? process.env[userKey] : null) || 'info@moralknight.nl';
-    const smtpPass = process.env.SMTP_PASS || (passKey ? process.env[passKey] : null);
-
-    const smtpHost = 'web0170.zxcs.nl';
-    const smtpPort = 465;
     const adminEmail = 'info@moralknight.nl';
 
-    console.log(`[SMTP] Attempting SSL connection to ${smtpHost}:${smtpPort} as ${smtpUser}`);
-
-    if (!smtpPass) {
+    // Verify all required environment variables are present
+    if (!smtpUser || !smtpPass || !smtpHost || !smtpPortStr) {
+        console.error('[SMTP] Missing environment variables:', {
+            user: !!smtpUser,
+            pass: !!smtpPass,
+            host: !!smtpHost,
+            port: !!smtpPortStr
+        });
         return {
             success: false,
-            error: `Configuratiefout: Wachtwoord (SMTP_PASS) ontbreekt in Vercel settings.`
+            error: 'Configuratiefout: Onvoldoende SMTP instellingen gevonden.'
         };
+    }
+
+    const smtpPort = parseInt(smtpPortStr, 10);
+    if (isNaN(smtpPort)) {
+        return { success: false, error: 'SMTP_PORT is geen geldig nummer.' };
     }
 
     const transporter = nodemailer.createTransport({
         host: smtpHost,
         port: smtpPort,
-        secure: true, // Use SSL for port 465
+        secure: smtpPort === 465, // True for 465, false for others
         auth: {
             user: smtpUser,
             pass: smtpPass,
@@ -162,7 +193,6 @@ async function sendEmail(data: any): Promise<{ success: boolean; reportId?: stri
 
     const getAttachments = () => {
         const list: any[] = [];
-        // Handle Base64 file if present from ReportForm
         if (data.file && data.fileName) {
             try {
                 let content = data.file;
@@ -186,7 +216,7 @@ async function sendEmail(data: any): Promise<{ success: boolean; reportId?: stri
                     contentType: contentType
                 });
             } catch (e) {
-                console.error('[SMTP] Error processing attachment:', e);
+                console.error('[SMTP] Attachment error:', e);
             }
         }
         return list;
@@ -212,33 +242,23 @@ async function sendEmail(data: any): Promise<{ success: boolean; reportId?: stri
             attachments: getAttachments()
         };
 
-        // Parallelize sending for speed optimization
+        // Send emails
         const sendAdmin = transporter.sendMail(adminMailOpts);
         const sendUser = isReport ? Promise.resolve({ skipped: true }) : transporter.sendMail(userMailOpts);
 
-        const [adminResult, userResult] = await Promise.allSettled([sendAdmin, sendUser]);
+        const [adminResult] = await Promise.allSettled([sendAdmin, sendUser]);
 
         if (adminResult.status === 'rejected') {
-            console.error('[SMTP] Critical Transport Error (Admin email failed):', adminResult.reason);
-            throw new Error(adminResult.reason instanceof Error ? adminResult.reason.message : 'CRITICAL_SMTP_ERROR');
-        }
-
-        console.log(`[SMTP] Admin email sent successfully for ${reportId}`);
-
-        if (userResult.status === 'rejected') {
-            console.warn(`[SMTP] Warning: Could not send confirmation to user ${data.email}. Error: ${userResult.reason}`);
-        } else if (isReport) {
-            console.log(`[SMTP] User confirmation skipped for report ${reportId} (Privacy by Design)`);
-        } else {
-            console.log(`[SMTP] User confirmation sent successfully to ${data.email}`);
+            throw new Error(adminResult.reason instanceof Error ? adminResult.reason.message : 'SMTP_ERROR');
         }
 
         return { success: true, reportId };
     } catch (error) {
-        console.error('[SMTP] Critical Transport Error (Admin email failed):', error);
+        console.error('[SMTP] Transport Error:', error);
         return {
             success: false,
-            error: error instanceof Error ? error.message : 'CRITICAL_SMTP_ERROR'
+            error: error instanceof Error ? error.message : 'SMTP_ERROR'
         };
     }
 }
+

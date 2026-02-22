@@ -3,7 +3,7 @@
 Dit document beschrijft de huidige technische status van de privacy en gegevensbescherming op de Moral Knight website. Dit bestand wordt bijgewerkt bij elke relevante codewijziging.
 
 ## Huidige Status: **PRIVACY-EERST (Actief)**
-*Laatste Update: 21 februari 2026*
+*Laatste Update: 22 februari 2026*
 
 ### 1. Tracking & Analytics
 - **Status:** Alleen cookieloze, privacy-vriendelijke analytics (Simple Analytics).
@@ -13,7 +13,9 @@ Dit document beschrijft de huidige technische status van de privacy en gegevensb
 ### 2. Meldpunt (Whistleblower Protection)
 - **Status:** Veilig / Anoniem.
 - **Anonimiteit:** Gebruikers kunnen "Anoniem Melden" kiezen. In dit geval worden er géén persoonsgegevens (naam/e-mail) verplicht gesteld of opgeslagen.
+- **Privacy by Design:** De applicatie stript technisch alle ingevulde persoonsgegevens op de browser voordat de melding naar de server wordt verstuurd als "Anoniem Melden" actief is.
 - **Geen "Inbox Trace":** Er worden géén bevestigingsmails naar melders gestuurd voor meldingen. Dit voorkomt dat er sporen achterblijven in de mailbox van de melder op hun apparaat.
+
 - **Referentie:** Melder krijgt een uniek kenmerk (ID) direct op het scherm te zien voor eigen administratie.
 
 ### 3. Gegevensverwerking & Hosting

@@ -61,8 +61,22 @@ src/
     npm run build
     ```
 
+## Configuration (Environment Variables)
+
+The application requires the following environment variables for email functionality:
+
+- `SMTP_USER`: SMTP server username (e.g., info@moralknight.nl)
+- `SMTP_PASS`: SMTP server password
+- `SMTP_HOST`: SMTP server hostname (e.g., web0170.zxcs.nl)
+- `SMTP_PORT`: SMTP server port (e.g., 465)
+
+See `.env.local.example` for a template.
+
 ## Maintenance & Guidelines
 
 - **Styling**: Globale stijlen staan zowel in `src/index.css` als als inline Tailwind-config in `src/pages/_document.tsx`. Wijzig alleen als dit expliciet nodig is.
-- **Dependency Management**: Run `npm prune` na het verwijderen van packages om `package-lock.json` schoon te houden.
+- **Privacy**: Alle functies volgen het "Privacy by Design" principe. Wijzigingen aan formulieren (zoals `ReportForm.tsx`) moeten de technische anonimiteit van het meldpunt waarborgen (data stripping op client-side).
+- **Security**: De `contact.ts` API route bevat strikte input validatie en rate limiting. Gebruik altijd `sanitize()` voor nieuwe input velden.
+
+
 - **Blog publiceren**: Gebruik de NotebookLM-workflow zoals beschreven in `docs/BLOG_WORKFLOW.md`.

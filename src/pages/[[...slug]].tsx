@@ -230,6 +230,11 @@ export default function Page(props: PageProps) {
                         approachTileContent={props.approachTileContent}
                         servicesTileContent={props.servicesTileContent}
                         posts={props.posts}
+                        initialMeldpuntOpen={props.initialMeldpuntOpen}
+                        initialDashboardOpen={props.initialDashboardOpen}
+                        initialKennisbankOpen={props.initialKennisbankOpen}
+                        initialActiveTileId={props.initialActiveTileId}
+                        initialActiveBlogSlug={props.initialActiveBlogSlug}
                     />
                 </div>
             ) : (

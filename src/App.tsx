@@ -17,7 +17,6 @@ import { TileData, TextContent } from './types';
 import { INITIAL_TILES, THEME, COLORS, SPACING } from './constants';
 import { Grid } from './components/Grid';
 import { ProjectorOverlay } from './components/ProjectorOverlay';
-import { LoadingSpinner } from './components/LoadingSpinner';
 import { Dashboard } from './components/Dashboard';
 import { Meldpunt } from './components/Meldpunt';
 import { Kennisbank } from './components/Kennisbank';
@@ -185,9 +184,22 @@ const App: React.FC<AppProps> = ({
     if (!router.isReady) return;
 
     const handleRouteChange = (url: string) => {
-      // We only care about the path, not query params for this mapping
       const path = url.split('?')[0];
 
+      // If we navigate to a modal, only update the modal state and keep the background (tile) state
+      const isMeldpunt = path === '/meldpunt';
+      const isDashboard = path === '/dashboard';
+      const isKennisbank = path === '/kennisbank';
+
+      if (isMeldpunt || isDashboard || isKennisbank) {
+        setMeldpuntOpen(isMeldpunt);
+        setDashboardOpen(isDashboard);
+        setKennisbankOpen(isKennisbank);
+        // Specifically DO NOT reset activeTileId or activeBlogSlug here
+        return;
+      }
+
+      // For non-modal paths, reset modals and update the tile/blog state
       let newMeldpuntOpen = false;
       let newDashboardOpen = false;
       let newKennisbankOpen = false;
