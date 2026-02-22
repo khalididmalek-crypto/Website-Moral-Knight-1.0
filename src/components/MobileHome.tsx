@@ -78,6 +78,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({
     });
     const [hasMounted, setHasMounted] = useState(false);
     const [contactGlitchActive, setContactGlitchActive] = useState(false);
+    const [glitchPlayed, setGlitchPlayed] = useState(false);
     // Animation state - reserved for future scroll lock implementation during animation window
 
 
@@ -161,9 +162,21 @@ export const MobileHome: React.FC<MobileHomeProps> = ({
         }
     }, [view, meldpuntOpen, selectedPost]);
 
+    // Safety cleanup for glitch effect
+    useEffect(() => {
+        if (!activeTiles.includes('CONTACT')) {
+            setContactGlitchActive(false);
+        }
+    }, [activeTiles]);
+
     const handleTileClick = (tile: string) => {
         setActiveTiles(prev => {
             if (prev.includes(tile)) {
+                // Reset glitch state when closing the tile manually
+                if (tile === 'CONTACT') {
+                    setGlitchPlayed(false);
+                    setContactGlitchActive(false);
+                }
                 return prev.filter(t => t !== tile);
             } else {
                 return [...prev, tile];
@@ -297,17 +310,23 @@ export const MobileHome: React.FC<MobileHomeProps> = ({
 
                         container.scrollTop = startPos + (distance * ease(progress));
 
-                        // Glitch timing
-                        if (progress > 0.4 && progress < 0.6) {
+                        // Glitch timing - only if not played yet
+                        if (!glitchPlayed && progress > 0.4 && progress < 0.6) {
                             setContactGlitchActive(true);
                         } else {
                             setContactGlitchActive(false);
                         }
 
                         if (progress < 1) {
-                            requestAnimationFrame(animateScroll);
+                            // Check if tile is still active before continuing animation
+                            if (activeTiles.includes('CONTACT')) {
+                                requestAnimationFrame(animateScroll);
+                            } else {
+                                setContactGlitchActive(false);
+                            }
                         } else {
                             setContactGlitchActive(false);
+                            setGlitchPlayed(true); // Mark as played after animation finish
                         }
                     };
 

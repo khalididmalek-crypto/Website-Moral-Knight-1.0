@@ -49,6 +49,7 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
 
   // State for glitch effect on Contact tile scroll
   const [contactGlitchActive, setContactGlitchActive] = useState(false);
+  const [glitchPlayed, setGlitchPlayed] = useState(false);
 
   // Auto-scroll for Contact tile
   useEffect(() => {
@@ -70,24 +71,44 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
           modal.scrollTo(0, startScroll + (targetScroll * ease(progress)));
         }
 
-        // Trigger glitch "mid-way" (approx 1s in)
-        if (progress > 0.45 && progress < 0.55) {
+        // Trigger glitch "mid-way" (approx 1s in) - only if not played yet
+        if (!glitchPlayed && progress > 0.45 && progress < 0.55) {
           setContactGlitchActive(true);
         } else {
           setContactGlitchActive(false);
         }
 
         if (progress < 1) {
-          requestAnimationFrame(animate);
+          // Check if still in contact view
+          if (tile.type === ContentType.CONTACT) {
+            requestAnimationFrame(animate);
+          } else {
+            setContactGlitchActive(false);
+          }
         } else {
           setContactGlitchActive(false);
+          setGlitchPlayed(true); // Mark as played
         }
       };
 
       // Slight delay to allow render
-      setTimeout(() => requestAnimationFrame(animate), 500);
+      const animationTimer = setTimeout(() => requestAnimationFrame(animate), 500);
+
+      return () => {
+        clearTimeout(animationTimer);
+        setContactGlitchActive(false);
+      };
+    } else {
+      setGlitchPlayed(false); // Reset when switching away from contact
     }
-  }, [tile.type, modalRef]);
+  }, [tile.type, modalRef, glitchPlayed]);
+
+  // Safety reset for glitch state
+  useEffect(() => {
+    if (tile.type !== ContentType.CONTACT) {
+      setContactGlitchActive(false);
+    }
+  }, [tile.type]);
 
   // Main tile navigation
   const currentIndex = allTiles.findIndex(t => t.id === tile.id);
