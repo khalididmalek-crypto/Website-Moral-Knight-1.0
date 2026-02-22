@@ -87,6 +87,7 @@ export const ContentRenderer = React.memo<Props>(
                 className={`${iframeStyles} ${previewPointerEvents} ${isLoading ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}
                 title={data.title}
                 onLoad={() => setIsLoading(false)}
+                sandbox="allow-scripts allow-same-origin"
               />
               {isPreview && <div className="absolute inset-0 z-10 bg-transparent" />}
             </div>
@@ -158,6 +159,7 @@ export const ContentRenderer = React.memo<Props>(
                 title={data.title}
                 allowFullScreen
                 onLoad={() => setIsLoading(false)}
+                sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
               />
               {isPreview && <div className="absolute inset-0 z-10 bg-transparent" />}
             </div>
@@ -301,6 +303,7 @@ export const ContentRenderer = React.memo<Props>(
                 className={`${iframeStyles} ${previewPointerEvents}`}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
+                sandbox="allow-scripts allow-same-origin allow-presentation"
               />
               <div className="absolute inset-0 bg-white opacity-80 pointer-events-none z-20 mix-blend-hard-light" />
               {isPreview && <div className="absolute inset-0 z-10 bg-transparent" />}

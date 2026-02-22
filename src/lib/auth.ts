@@ -1,9 +1,14 @@
 /**
  * Auth utilities (placeholder for toekomstige integraties).
+ * 
+ * EXTREME SECURITY STANDARDS (Mandatory for Admin):
+ * 1. Multi-Factor Authentication (MFA): Alleen toegang tot admin-functies na 2FA verificatie.
+ * 2. Wachtwoordbeleid: Minimaal 16 tekens, inclusief symbolen, hoofdletters en cijfers.
+ * 3. Session Hardening: Sessies verlopen na 30 minuten inactiviteit.
+ * 4. Audit Log: Elke inlogpoging en administratieve actie wordt gelogd (zonder PII).
  *
  * Idee:
  * - Hier koppel je later bijv. je identity provider (Azure AD, Keycloak, etc.)
- * - Je bewaart hier GEEN secrets in de code, maar leest ze uit environment vars.
  */
 
 export type UserRole = 'viewer' | 'presenter' | 'admin';
@@ -13,6 +18,7 @@ export interface AuthUser {
   name: string;
   email?: string;
   role: UserRole;
+  mfaVerified?: boolean; // Verplicht voor admin acties
 }
 
 export interface AuthSession {

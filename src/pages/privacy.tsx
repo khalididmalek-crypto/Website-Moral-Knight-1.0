@@ -40,7 +40,7 @@ export default function PrivacyPage() {
                             {`Privacyverklaring`}
                         </h1>
                         <p className="text-[10px] opacity-60 uppercase tracking-widest">
-                            {`Laatste update: 21 februari 2026 — Moral Knight Responsible AI`}
+                            {`Laatste update: 22 februari 2026 — Moral Knight Responsible AI`}
                         </p>
                     </header>
 
@@ -61,7 +61,7 @@ export default function PrivacyPage() {
                             <p className="mb-4">{`Wij verzamelen gegevens op een uiterst beperkte en privacy-vriendelijke manier:`}</p>
                             <ul className="list-disc pl-5 space-y-2">
                                 <li><strong>{`Privacy-vriendelijke Analytics:`}</strong> {` Wij gebruiken Simple Analytics — een cookieloze analyticsoplossing zonder persoonsgegevens. Er worden geen cookies geplaatst en er is geen toestemming vereist. Simple Analytics verwerkt gegevens op Europese servers en voldoet volledig aan de AVG.`}</li>
-                                <li><strong>{`Meldpunt & Anonimiteit:`}</strong> {` Bij het doen van een melding (MK Meldpunt) kunt u kiezen voor een volledig anonieme optie. In dat geval vragen en bewaren wij géén naam of e-mailadres.`}</li>
+                                <li><strong>{`Meldpunt & Extreme Anonimiteit:`}</strong> {` Bij het doen van een melding (MK Meldpunt) kunt u kiezen voor een volledig anonieme optie. In dat geval worden uw IP-adres en eventuele metadata in afbeeldingen (zoals GPS-locaties) direct en automatisch door onze server gewist. Wij bewaren géén herleidbare gegevens.`}</li>
                                 <li><strong>{`Contactformulier:`}</strong> {` Alleen als u expliciet contact met ons opneemt, gebruiken wij de verstrekte naam en e-mailadres uitsluitend voor dat doel.`}</li>
                             </ul>
                         </section>
@@ -71,10 +71,10 @@ export default function PrivacyPage() {
                                 {`3. Dataminimalisatie & Veilige Verzending`}
                             </h2>
                             <p>
-                                {`Conform onze Responsible AI-principes verzamelen wij alleen de strikt noodzakelijke gegevens. Meldingen en bestanden worden via een versleutelde verbinding (SSL/TLS) naar onze beveiligde server bij een Nederlandse hostingprovider verzonden. Geüploade documenten worden vertrouwelijk behandeld en niet buiten de EU verwerkt of opgeslagen.`}
+                                {`Conform onze Responsible AI-principes verzamelen wij alleen de strikt noodzakelijke gegevens. Meldingen en bestanden worden via een versleutelde verbinding (SSL/TLS) naar onze beveiligde server verzonden.`}
                             </p>
                             <p className="mt-4">
-                                <strong>{`Klokkenluidersbescherming:`}</strong> {` Om geen sporen achter te laten op uw apparaten, sturen wij géén automatische bevestigingsmails naar melders van misstanden. Na verzending ontvangt u direct op uw scherm een uniek kenmerk.`}
+                                <strong>{`Klokkenluidersbescherming:`}</strong> {` Om geen sporen achter te laten op uw apparaten, sturen wij géén automatische bevestigingsmails naar melders van misstanden. Na verzending ontvangt u direct op uw scherm een uniek kenmerk. Geüploade foto's worden ontdaan van alle technische sporen (EXIF-data).`}
                             </p>
                         </section>
 
@@ -83,7 +83,7 @@ export default function PrivacyPage() {
                                 {`4. Uw Rechten`}
                             </h2>
                             <p>
-                                {`U heeft te allen tijde het recht op inzage, correctie of verwijdering van uw persoonsgegevens (indien verstrekt). Voor anonieme meldingen bezitten wij geen gegevens die herleidbaar zijn naar uw persoon. Neem voor verzoeken contact met ons op.`}
+                                {`U heeft te allen tijde het recht op inzage, correctie of verwijdering van uw persoonsgegevens. Voor anonieme meldingen bezitten wij technisch geen gegevens die herleidbaar zijn naar uw persoon. Wij hanteren een zero-trace policy voor klokkenluiders.`}
                             </p>
                         </section>
 
@@ -92,7 +92,7 @@ export default function PrivacyPage() {
                                 {`5. Beveiliging & Hosting`}
                             </h2>
                             <p>
-                                {`Wij nemen passende technische maatregelen, waaronder moderne encryptie en het gebruik van strikte beveiligingsheaders. Onze website en data worden gehost in Nederlandse datacenters onder Nederlandse jurisdictie. Wij minimaliseren menselijke toegang tot verzamelde onderzoeksdata.`}
+                                {`Wij nemen passende technische maatregelen, waaronder moderne encryptie, strikte CSP-security headers en sandboxing van externe bronnen. Onze website wordt gehost op Nederlandse servers onder Nederlandse jurisdictie.`}
                             </p>
                         </section>
 

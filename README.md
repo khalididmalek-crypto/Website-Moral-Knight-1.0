@@ -41,6 +41,19 @@ src/
 
 2.  **Blog**: Blogposts zijn lokale Markdown-bestanden in `src/content/blog/`. Publiceren gaat via de NotebookLM-workflow (zie `docs/BLOG_WORKFLOW.md`).
 
+## Security & Privacy (Extreme Standards)
+
+Moral Knight hanteert een "Zero-Trace" beleid voor klokkenluiders en strikte technische beveiliging:
+
+- **Whistleblower Protection**: 
+    - **IP Anonymization**: IP-adressen worden voor anonieme meldingen direct in de code gemaskeerd naar `0.0.0.0`.
+    - **Metadata Scrubbing**: Bijgevoegde afbeeldingen worden server-side verwerkt via `sharp` om alle EXIF/GPS-data te verwijderen.
+    - **No-Trail Email**: Geen automatische reply-mails voor anonieme meldingen om sporen in de inbox van de melder te voorkomen.
+- **Frontend Security**:
+    - **Iframe Sandboxing**: Alle externe media (PDF, Video, Slides) draaien in een beperkte `sandbox`.
+    - **XSS Protection**: Robuuste server-side en client-side HTML sanitisatie voor dynamische content.
+- **Headers**: Strikte `Content-Security-Policy` (CSP) en andere beveiligingsheaders (HSTS, No-Cache voor meldingen).
+
 > **Note**: WordPress-integratie is gearchiveerd. `src/lib/wordpress.ts` is aanwezig als legacy-bestand maar wordt niet meer actief gebruikt.
 
 ## Local Development
