@@ -249,7 +249,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({
         setView('HOME');
         setMeldpuntOpen(false);
         setSelectedPost(null);
-        setActiveTiles([]);
+        // Keep activeTiles for better scroll experience
     };
 
     const handleFormSuccess = () => {
@@ -508,6 +508,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({
                                                                 <button
                                                                     onClick={(e) => {
                                                                         e.preventDefault();
+                                                                        e.stopPropagation();
                                                                         setMeldpuntOpen(true);
                                                                     }}
                                                                     className="text-[#8B1A3D] font-bold hover:underline cursor-pointer"
@@ -574,6 +575,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({
                                                                 <button
                                                                     onClick={(e) => {
                                                                         e.preventDefault();
+                                                                        e.stopPropagation();
                                                                         setMeldpuntOpen(true);
                                                                     }}
                                                                     className="text-[#8B1A3D] font-bold hover:underline cursor-pointer"
@@ -600,6 +602,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({
                                                     <button
                                                         onClick={(e) => {
                                                             e.preventDefault();
+                                                            e.stopPropagation();
                                                             if (!activeTiles.includes('CONTACT')) {
                                                                 handleTileClick('CONTACT');
                                                             } else {
@@ -879,6 +882,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({
                                                             href={`/blog/${post.slug}`}
                                                             onClick={(e) => {
                                                                 e.preventDefault();
+                                                                e.stopPropagation();
                                                                 setSelectedPost(post);
                                                             }}
                                                             className="block border-b border-gray-200 pb-3 last:border-0 hover:opacity-75"
