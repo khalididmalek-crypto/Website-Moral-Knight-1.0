@@ -279,72 +279,42 @@ export const MobileHome: React.FC<MobileHomeProps> = ({
 
     // This function handles the scroll after the animation finishes
     const handleLayoutComplete = (tileKey: string) => {
-        // Only scroll if the tile is outside the viewport
-        if (activeTiles.includes(tileKey)) {
-            const container = containerRef.current;
-            if (!container) return;
+        if (!activeTiles.includes(tileKey)) return;
+        
+        const container = containerRef.current;
+        if (!container) return;
 
-            if (tileKey === 'CONTACT') {
-                // Wait for layout to settle, then scroll
-                setTimeout(() => {
-                    const contactForm = contactFormRef.current;
-                    if (!contactForm || !container) return;
+        if (tileKey === 'CONTACT') {
+            // Wait for expansion to fully settle
+            setTimeout(() => {
+                const contactForm = contactFormRef.current;
+                if (!contactForm) return;
 
-                    // Calculate position relative to container's scroll position
-                    const containerRect = container.getBoundingClientRect();
-                    const formRect = contactForm.getBoundingClientRect();
-                    const targetPos = container.scrollTop + formRect.top - containerRect.top - (window.innerHeight / 4);
-                    const startPos = container.scrollTop;
-                    const distance = targetPos - startPos;
+                // Native smooth scroll is more reliable on mobile hardware
+                contactForm.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
 
-                    // Only animate if there's meaningful distance
-                    if (Math.abs(distance) < 50) return;
+                // Play glitch once as a visual confirmation
+                if (!glitchPlayed) {
+                    setContactGlitchActive(true);
+                    setTimeout(() => {
+                        setContactGlitchActive(false);
+                        setGlitchPlayed(true);
+                    }, 350); // Quick burst
+                }
+            }, 500);
+        } else {
+            const tileElement = tileRefs[tileKey as keyof typeof tileRefs].current;
+            if (!tileElement) return;
 
-                    const duration = 1200;
-                    const startTime = performance.now();
-
-                    const animateScroll = (currentTime: number) => {
-                        const elapsed = currentTime - startTime;
-                        const progress = Math.min(elapsed / duration, 1);
-                        const ease = (t: number) => 1 - Math.pow(1 - t, 3); // Cubic ease out
-
-                        container.scrollTop = startPos + (distance * ease(progress));
-
-                        // Glitch timing - only if not played yet
-                        if (!glitchPlayed && progress > 0.4 && progress < 0.6) {
-                            setContactGlitchActive(true);
-                        } else {
-                            setContactGlitchActive(false);
-                        }
-
-                        if (progress < 1) {
-                            // Check if tile is still active before continuing animation
-                            if (activeTiles.includes('CONTACT')) {
-                                requestAnimationFrame(animateScroll);
-                            } else {
-                                setContactGlitchActive(false);
-                            }
-                        } else {
-                            setContactGlitchActive(false);
-                            setGlitchPlayed(true); // Mark as played after animation finish
-                        }
-                    };
-
-                    requestAnimationFrame(animateScroll);
-                }, 400); // Wait for expansion animation to complete
-            } else {
-                const tileElement = tileRefs[tileKey as keyof typeof tileRefs].current;
-                if (!tileElement) return;
-
-                // Native smooth scroll for other tiles
-                setTimeout(() => {
-                    tileElement.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start',
-                        inline: 'nearest'
-                    });
-                }, 350);
-            }
+            setTimeout(() => {
+                tileElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }, 350);
         }
     };
 

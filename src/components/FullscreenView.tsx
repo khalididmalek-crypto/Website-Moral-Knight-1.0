@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Suspense, lazy, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useRef, Suspense, lazy, useCallback, useMemo } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSwipeable } from 'react-swipeable';
@@ -30,7 +30,7 @@ interface FullscreenViewProps {
 export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, posts = [], allTiles = [], onNavigate, onOpenMeldpunt, activeBlogSlug, onSelectBlogPost }) => {
   // Focus trap for accessibility
   const modalRef = useFocusTrap(true);
-  const closeButtonRef = React.useRef<HTMLButtonElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
 
 
   const [activeSubTile, setActiveSubTile] = useState<TileData | null>(null);
@@ -54,52 +54,68 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
   // Auto-scroll for Contact tile
   useEffect(() => {
     if (tile.type === ContentType.CONTACT) {
-      const modal = modalRef.current;
-      if (!modal) return;
+      // Dynamic calculation after a short delay to allow the form to mount
+      const animationTimer = setTimeout(() => {
+        const modal = modalRef.current;
+        if (!modal) return;
 
-      const targetScroll = 600; // Approximate distance to contact form
-      const startScroll = modal.scrollTop;
-      const duration = 2000;
-      const startTime = performance.now();
+        try {
+          const formElement = modal.querySelector('form') || modal.querySelector('.contact-form-container');
+          if (!formElement) return;
 
-      const animate = (currentTime: number) => {
-        const elapsed = currentTime - startTime;
-        const progress = Math.min(elapsed / duration, 1);
-        const ease = (t: number) => 1 - Math.pow(1 - t, 3);
+          const containerRect = modal.getBoundingClientRect();
+          const formRect = formElement.getBoundingClientRect();
+          
+          // Calculate target: current scroll + relative top - small offset
+          const targetScroll = modal.scrollTop + formRect.top - containerRect.top - 40;
+          const startScroll = modal.scrollTop;
+          const distance = targetScroll - startScroll;
 
-        if (modal) {
-          modal.scrollTo(0, startScroll + (targetScroll * ease(progress)));
+          if (Math.abs(distance) < 20) return;
+
+          const duration = 1500; 
+          const startTime = performance.now();
+
+          const animate = (currentTime: number) => {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const ease = (t: number) => 1 - Math.pow(1 - t, 4);
+
+            if (modalRef.current) {
+              modalRef.current.scrollTo(0, startScroll + (distance * ease(progress)));
+            }
+
+            // Trigger glitch "mid-way"
+            if (!glitchPlayed && progress > 0.42 && progress < 0.50) {
+              setContactGlitchActive(true);
+            } else {
+              setContactGlitchActive(false);
+            }
+
+            if (progress < 1) {
+              if (tile.type === ContentType.CONTACT && modalRef.current) {
+                requestAnimationFrame(animate);
+              } else {
+                setContactGlitchActive(false);
+              }
+            } else {
+              setContactGlitchActive(false);
+              setGlitchPlayed(true);
+            }
+          };
+
+          requestAnimationFrame(animate);
+        } catch (err) {
+          console.error('[FullscreenView] Scroll error:', err);
         }
-
-        // Trigger glitch "mid-way" (approx 1s in) - only if not played yet
-        if (!glitchPlayed && progress > 0.45 && progress < 0.55) {
-          setContactGlitchActive(true);
-        } else {
-          setContactGlitchActive(false);
-        }
-
-        if (progress < 1) {
-          // Check if still in contact view
-          if (tile.type === ContentType.CONTACT) {
-            requestAnimationFrame(animate);
-          } else {
-            setContactGlitchActive(false);
-          }
-        } else {
-          setContactGlitchActive(false);
-          setGlitchPlayed(true); // Mark as played
-        }
-      };
-
-      // Slight delay to allow render
-      const animationTimer = setTimeout(() => requestAnimationFrame(animate), 500);
+      }, 600);
 
       return () => {
         clearTimeout(animationTimer);
         setContactGlitchActive(false);
       };
     } else {
-      setGlitchPlayed(false); // Reset when switching away from contact
+      setGlitchPlayed(false);
     }
   }, [tile.type, modalRef, glitchPlayed]);
 
@@ -744,5 +760,3 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
     </>
   );
 };
-
-
