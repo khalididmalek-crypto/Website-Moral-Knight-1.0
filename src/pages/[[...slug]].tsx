@@ -4,6 +4,7 @@ import { GetStaticProps, GetStaticPaths } from 'next'
 import { MobileHome } from '../components/MobileHome'
 import App from '../App'
 import { getSharedStaticProps, SharedPageProps } from '../lib/staticProps'
+import { GlitchIntro } from '../components/GlitchIntro'
 
 interface PageProps extends SharedPageProps {
     initialMeldpuntOpen?: boolean;
@@ -152,6 +153,8 @@ export default function Page(props: PageProps) {
 
     return (
         <>
+            {/* Glitch Intro — fast B&W effect during page load */}
+            <GlitchIntro duration={800} />
             <Head>
                 <title>{props.initialActiveBlogSlug && props.posts.find(p => p.slug === props.initialActiveBlogSlug) ? `${props.posts.find(p => p.slug === props.initialActiveBlogSlug)?.title} - Moral Knight` : props.seoTitle}</title>
                 {!props.initialActiveBlogSlug && (

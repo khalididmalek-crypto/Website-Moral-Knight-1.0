@@ -43,7 +43,7 @@ export const BlogTile: React.FC<BlogTileProps> = ({ post, onClick }) => {
         rounded-sm
         transition-all duration-200 ease-out
         cursor-pointer
-        hover:shadow-sm hover:!bg-[#EBC6C1] active:!bg-[#EBC6C1] md:hover:!bg-accent-light
+        hover:shadow-sm hover:!bg-[#EBC6C1] active:!bg-[#EBC6C1] md:hover:!bg-transparent md:active:!bg-transparent
         focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#194D25]
         flex flex-col
         overflow-hidden
@@ -81,7 +81,7 @@ export const BlogTile: React.FC<BlogTileProps> = ({ post, onClick }) => {
         {/* Middle: Title (Centered) */}
         <div className="flex flex-col justify-center my-auto">
           <h3
-            className="font-mono font-medium tracking-tight"
+            className="font-mono font-medium tracking-tight transition-colors duration-200 md:group-hover:!text-[#B0C4D4]"
             style={{
               color: '#226632',
               fontSize: 'clamp(0.88rem, 0.9vw + 0.66rem, 1.05rem)',

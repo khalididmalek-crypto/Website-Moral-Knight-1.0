@@ -101,14 +101,18 @@ export const Tile: React.FC<TileProps> = memo(({
   const shouldShowIcon = isPreview && iconConfig && titleTypingComplete;
 
   // Label content
+  // Blog tile (tile-6) starts typing after "Wat is de oplossing?" is ~90% done
+  const isBlogTile = data.id === 'tile-6';
+  const effectiveDelay = isBlogTile ? 1800 : delay;
+
   const labelContent = data.id === 'tile-1' || titleTypingComplete ? (
     data.title
   ) : (
     <Typewriter
       text={data.title}
-      buggy
-      delay={delay}
-      speed={ANIMATION_DELAYS.TYPEWRITER_TITLE_SPEED}
+      buggy={!isBlogTile}
+      delay={effectiveDelay}
+      speed={isBlogTile ? 280 : ANIMATION_DELAYS.TYPEWRITER_TITLE_SPEED}
       onComplete={() => setTitleTypingComplete(true)}
     />
   );

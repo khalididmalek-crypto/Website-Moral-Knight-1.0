@@ -83,6 +83,65 @@ export default function Document() {
                 margin: 0;
                 font-family: 'Inter', sans-serif;
               }
+
+              /* Glitch Intro: body starts grayscale */
+              body.mk-glitch-active {
+                filter: grayscale(100%) contrast(1.2);
+                transition: filter 0.4s ease-out;
+              }
+              body.mk-glitch-transition {
+                filter: grayscale(0%) contrast(1);
+              }
+
+              /* Glitch noise overlay */
+              #mk-glitch-noise {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                pointer-events: none;
+                z-index: 99999;
+                opacity: 1;
+                mix-blend-mode: overlay;
+                background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+                background-size: 256px 256px;
+                animation: mk-noise-shift 0.1s steps(4) infinite;
+              }
+              #mk-glitch-noise.mk-noise-fade {
+                opacity: 0;
+                transition: opacity 0.35s ease-out;
+              }
+              @keyframes mk-noise-shift {
+                0% { transform: translate(0, 0); }
+                25% { transform: translate(-3.5%, -3.5%); }
+                50% { transform: translate(3.5%, 1.4%); }
+                75% { transform: translate(-1.4%, 3.5%); }
+                100% { transform: translate(2%, -2%); }
+              }
+
+              /* Glitch scanlines */
+              #mk-glitch-scanlines {
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100vw;
+                height: 100vh;
+                pointer-events: none;
+                z-index: 99998;
+                opacity: 0.08;
+                background: repeating-linear-gradient(
+                  0deg,
+                  transparent,
+                  transparent 2px,
+                  rgba(0, 0, 0, 0.4) 2px,
+                  rgba(0, 0, 0, 0.4) 4px
+                );
+              }
+              #mk-glitch-scanlines.mk-scanlines-fade {
+                opacity: 0;
+                transition: opacity 0.3s ease-out;
+              }
           
               .ral-6035-text {
                 color: #194D25;
@@ -151,7 +210,11 @@ export default function Document() {
           }}
         />
       </Head>
-      <body>
+      <body className="mk-glitch-active">
+        {/* Glitch intro overlays — rendered before React, removed by GlitchIntro component */}
+        <div id="mk-glitch-noise" />
+        <div id="mk-glitch-scanlines" />
+
         <Main />
         <NextScript />
       </body>
