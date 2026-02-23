@@ -82,7 +82,6 @@ export const MobileHome: React.FC<MobileHomeProps> = ({
 
     const containerRef = useRef<HTMLDivElement>(null);
     const contactFormRef = useRef<HTMLDivElement>(null);
-    const contactScrolledRef = useRef(false);
 
     const BG_COLORS = {
         PROBLEM: '#EBC6C1', // Pale Bordeaux
@@ -161,51 +160,11 @@ export const MobileHome: React.FC<MobileHomeProps> = ({
         }
     }, [view, meldpuntOpen, selectedPost]);
 
-    // Smooth scroll to contact form when CONTACT tile opens
-    // Gebruikt window.scrollTo() want de motion.div heeft min-h-[100dvh] zonder max-height en scrollt nooit intern
-    const activeTilesKey = activeTiles.join(',');
-    useEffect(() => {
-        const isContactOpen = activeTilesKey.includes('CONTACT');
-
-        if (!isContactOpen) {
-            contactScrolledRef.current = false;
-            return;
-        }
-
-        if (contactScrolledRef.current) return;
-        contactScrolledRef.current = true;
-
-        const timer = setTimeout(() => {
-            const contactForm = contactFormRef.current;
-            if (!contactForm) return;
-
-            const formRect = contactForm.getBoundingClientRect();
-            const targetScroll = window.scrollY + formRect.top - 140;
-            const startScroll = window.scrollY;
-            const distance = targetScroll - startScroll;
-
-            if (Math.abs(distance) < 20) return;
-
-            const duration = 2000;
-            const startTime = performance.now();
-
-            const animate = (currentTime: number) => {
-                const elapsed = currentTime - startTime;
-                const t = Math.min(elapsed / duration, 1);
-                const eased = 1 - Math.pow(1 - t, 5);
-                window.scrollTo(0, startScroll + distance * eased);
-                if (t < 1) requestAnimationFrame(animate);
-            };
-
-            requestAnimationFrame(animate);
-        }, 600);
-
-        return () => clearTimeout(timer);
-    }, [activeTilesKey]); // eslint-disable-line react-hooks/exhaustive-deps
-
 
 
     const handleTileClick = (tile: string) => {
+        const isOpening = !activeTiles.includes(tile);
+
         setActiveTiles(prev => {
             if (prev.includes(tile)) {
                 return prev.filter(t => t !== tile);
@@ -213,6 +172,37 @@ export const MobileHome: React.FC<MobileHomeProps> = ({
                 return [...prev, tile];
             }
         });
+
+        // Trigger premium scroll only when OPENING the CONTACT tile
+        if (tile === 'CONTACT' && isOpening) {
+            setTimeout(() => {
+                const contactForm = contactFormRef.current;
+                if (!contactForm) return;
+
+                const formRect = contactForm.getBoundingClientRect();
+                const targetScroll = window.scrollY + formRect.top - 140;
+                const startScroll = window.scrollY;
+                const distance = targetScroll - startScroll;
+
+                if (Math.abs(distance) < 20) return;
+
+                const duration = 2000;
+                const startTime = performance.now();
+                const ease = (t: number) => 1 - Math.pow(1 - t, 5); // Quintic ease-out
+
+                const animate = (currentTime: number) => {
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+                    window.scrollTo(0, startScroll + distance * ease(progress));
+
+                    if (progress < 1) {
+                        requestAnimationFrame(animate);
+                    }
+                };
+
+                requestAnimationFrame(animate);
+            }, 500); // Small delay to allow accordion to start expanding
+        }
     };
 
     // URL Synchronization: State -> URL
