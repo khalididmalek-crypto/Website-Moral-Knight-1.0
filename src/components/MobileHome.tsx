@@ -213,9 +213,9 @@ export const MobileHome: React.FC<MobileHomeProps> = ({
                     if (!blogTile) return;
 
                     const tileRect = blogTile.getBoundingClientRect();
-                    const targetScroll = window.scrollY + tileRect.top - 140; // More offset to bring title higher
-                    premiumScrollTo(targetScroll, 1000);
-                }, 200); // Snappier delay for blog
+                    const targetScroll = window.scrollY + tileRect.top - 140;
+                    premiumScrollTo(targetScroll, 600);
+                }, 150);
             }
         }
     };
@@ -937,9 +937,9 @@ export const MobileHome: React.FC<MobileHomeProps> = ({
                     if (blogTile) {
                         const tileRect = blogTile.getBoundingClientRect();
                         const targetScroll = window.scrollY + tileRect.top - 140;
-                        premiumScrollTo(targetScroll, 800);
+                        premiumScrollTo(targetScroll, 500);
                     }
-                }, 100);
+                }, 50);
             }} onOpenMeldpunt={() => setMeldpuntOpen(true)} />}
             {(view === 'MELDPUNT' || meldpuntOpen) && <Meldpunt onClose={() => setMeldpuntOpen(false)} />}
         </>
