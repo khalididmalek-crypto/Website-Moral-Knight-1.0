@@ -390,6 +390,7 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
                     }
                     activeSlug={activeBlogSlug}
                     onSelectSlug={onSelectBlogPost}
+                    onClose={onClose}
                   />
                 </Suspense>
               </div>

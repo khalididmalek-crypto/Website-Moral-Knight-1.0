@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { X, ArrowLeft, Cpu, Briefcase, Send, BookOpen } from 'lucide-react';
+import { X, ArrowLeft, Cpu, Briefcase, BookOpen, FileText } from 'lucide-react';
 import { COLORS } from '../constants';
 import { BlogPost } from '../types';
 
@@ -743,7 +743,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({
                     >
 
                         <div className="absolute top-4 right-4 opacity-50">
-                            <Send size={20} strokeWidth={1.2} color="#374151" />
+                            <FileText size={20} strokeWidth={1.2} color="#374151" />
                         </div>
                         {!activeTiles.includes('CONTACT') && (
                             <div className="px-3 py-1.5 bg-white border border-black w-fit">
@@ -814,9 +814,19 @@ export const MobileHome: React.FC<MobileHomeProps> = ({
                                             {/* Contact Form Details - Styled as a separate block */}
                                             <div
                                                 ref={contactFormRef}
-                                                className="w-full bg-white flex flex-col gap-4 border border-black p-4 scroll-mt-[140px]"
+                                                className="w-full bg-white flex flex-col gap-4 border border-black p-4 scroll-mt-[140px] relative"
                                                 onClick={(e) => e.stopPropagation()}
                                             >
+                                                <div
+                                                    className="absolute top-4 right-4 cursor-pointer z-50 hover:scale-110 active:scale-95 transition-all duration-300"
+                                                    onClick={() => handleTileClick('CONTACT')}
+                                                >
+                                                    <FileText
+                                                        size={22}
+                                                        strokeWidth={1.5}
+                                                        color={COLORS.BORDEAUX_RED}
+                                                    />
+                                                </div>
                                                 <div className="inline-block bg-white border border-black px-3 py-1.5 w-fit">
                                                     <h3 className="font-mono text-[13.2px] font-semibold uppercase tracking-widest m-0 text-gray-900">
                                                         Contact

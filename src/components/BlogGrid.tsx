@@ -18,9 +18,10 @@ interface BlogGridProps {
   onOpenMeldpunt?: () => void;
   activeSlug?: string | null;
   onSelectSlug?: (slug: string | null) => void;
+  onClose?: () => void;
 }
 
-export const BlogGrid: React.FC<BlogGridProps> = ({ posts, introContent, onOpenMeldpunt, activeSlug, onSelectSlug }) => {
+export const BlogGrid: React.FC<BlogGridProps> = ({ posts, introContent, onOpenMeldpunt, activeSlug, onSelectSlug, onClose }) => {
   const [selectedTag, setSelectedTag] = React.useState<string | null>(null);
 
   // Use prop if available, otherwise local state (though we intend to use prop now)
@@ -81,13 +82,37 @@ export const BlogGrid: React.FC<BlogGridProps> = ({ posts, introContent, onOpenM
       </div>
 
       <div
-        className="bg-white border border-black rounded-sm flex flex-col bg-white"
+        className="bg-white border border-black rounded-sm flex flex-col bg-white relative"
         style={{
           width: '100%',
           padding: 'clamp(20px, 4vw, 56px)',
           boxSizing: 'border-box'
         }}
       >
+        {/* Close Button - Added as requested */}
+        {onClose && (
+          <button
+            onClick={onClose}
+            className="absolute top-4 right-4 group p-2 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#194D25] z-20"
+            aria-label="Sluit blog overzicht"
+          >
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="text-[#194D25] group-hover:text-[#8B1A3D] transition-colors duration-200"
+            >
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        )}
+
         {/* Blog Grid Content */}
         <div className="flex-1 flex flex-col">
           {/* Optional Introduction Content */}
