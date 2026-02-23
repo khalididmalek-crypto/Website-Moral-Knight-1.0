@@ -183,7 +183,7 @@ async function sendEmail(data: any, isWhistleblower: boolean): Promise<{ success
         },
         // Support for older or self-signed certs if necessary
         tls: {
-            rejectUnauthorized: false, // Changed from true to allow unverified certificates
+            rejectUnauthorized: true, // Enabled to align with PRIVACY.md claims
             minVersion: 'TLSv1.2'
         }
     });
