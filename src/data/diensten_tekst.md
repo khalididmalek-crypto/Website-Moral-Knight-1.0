@@ -1,8 +1,8 @@
 ## Onafhankelijke AI-Toetsing
 Wij bieden geen algemeen advies, maar een onafhankelijke en kritische toetsing van uw publieke AI-systemen. Wij testen of de technologie de burger dient en de wet- en regelgeving respecteert.
 
-## Stress-test: transparantie, privacy en toegankelijkheid.
-Onze basistest ten aanzien van publiek vertrouwen. Wij testen of uw AI-besluiten en uitingen voldoende transparant, privacygevoelig en toegankelijk zijn. En daarmee of uw toepassing voldoet aan de gangbare normen zoals de EU AI Act of richtlijnen op het vlak van mensenrechten.
+## Stress-test: transparantie en privacy.
+Onze basistest ten aanzien van publiek vertrouwen. Wij testen of uw AI-besluiten en uitingen voldoende transparant en privacygevoelig zijn. En daarmee of uw toepassing voldoet aan de gangbare normen zoals de EU AI Act of richtlijnen op het vlak van mensenrechten.
 
 ## Justice Audit: bias en rechtvaardigheid.
 Onze voornaamste test ten aanzien van eerlijkheid. Sluit uw algoritme onbedoeld groepen uit? Wij sporen verborgen vooroordelen (bias) op en toetsen of uw systeem elke burger gelijk behandelt.

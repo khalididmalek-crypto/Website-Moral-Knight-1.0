@@ -183,7 +183,7 @@ async function sendEmail(data: any, isWhistleblower: boolean): Promise<{ success
         },
         // Support for older or self-signed certs if necessary
         tls: {
-            rejectUnauthorized: true, // Enabled to align with PRIVACY.md claims
+            rejectUnauthorized: process.env.NODE_ENV === 'production', // Strict in production, relaxed for local dev
             minVersion: 'TLSv1.2'
         }
     });
