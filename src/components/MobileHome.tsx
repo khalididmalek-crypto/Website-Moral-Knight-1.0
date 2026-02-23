@@ -162,6 +162,29 @@ export const MobileHome: React.FC<MobileHomeProps> = ({
 
 
 
+    // Shared premium scroll function with quintic easing
+    const premiumScrollTo = (targetY: number, duration: number = 1000) => {
+        const startScroll = window.scrollY;
+        const distance = targetY - startScroll;
+
+        if (Math.abs(distance) < 20) return;
+
+        const startTime = performance.now();
+        const ease = (t: number) => 1 - Math.pow(1 - t, 5); // Quintic ease-out
+
+        const animate = (currentTime: number) => {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            window.scrollTo(0, startScroll + distance * ease(progress));
+
+            if (progress < 1) {
+                requestAnimationFrame(animate);
+            }
+        };
+
+        requestAnimationFrame(animate);
+    };
+
     const handleTileClick = (tile: string) => {
         const isOpening = !activeTiles.includes(tile);
 
@@ -173,35 +196,27 @@ export const MobileHome: React.FC<MobileHomeProps> = ({
             }
         });
 
-        // Trigger premium scroll only when OPENING the CONTACT tile
-        if (tile === 'CONTACT' && isOpening) {
-            setTimeout(() => {
-                const contactForm = contactFormRef.current;
-                if (!contactForm) return;
+        // Trigger premium scroll when OPENING select tiles
+        if (isOpening) {
+            if (tile === 'CONTACT') {
+                setTimeout(() => {
+                    const contactForm = contactFormRef.current;
+                    if (!contactForm) return;
 
-                const formRect = contactForm.getBoundingClientRect();
-                const targetScroll = window.scrollY + formRect.top - 140;
-                const startScroll = window.scrollY;
-                const distance = targetScroll - startScroll;
+                    const formRect = contactForm.getBoundingClientRect();
+                    const targetScroll = window.scrollY + formRect.top - 140;
+                    premiumScrollTo(targetScroll, 1000);
+                }, 200); // Snappier delay
+            } else if (tile === 'BLOG') {
+                setTimeout(() => {
+                    const blogTile = tileRefs.BLOG.current;
+                    if (!blogTile) return;
 
-                if (Math.abs(distance) < 20) return;
-
-                const duration = 1000;
-                const startTime = performance.now();
-                const ease = (t: number) => 1 - Math.pow(1 - t, 5); // Quintic ease-out
-
-                const animate = (currentTime: number) => {
-                    const elapsed = currentTime - startTime;
-                    const progress = Math.min(elapsed / duration, 1);
-                    window.scrollTo(0, startScroll + distance * ease(progress));
-
-                    if (progress < 1) {
-                        requestAnimationFrame(animate);
-                    }
-                };
-
-                requestAnimationFrame(animate);
-            }, 300); // Small delay to allow accordion to start expanding
+                    const tileRect = blogTile.getBoundingClientRect();
+                    const targetScroll = window.scrollY + tileRect.top - 100;
+                    premiumScrollTo(targetScroll, 1000);
+                }, 200); // Snappier delay for blog
+            }
         }
     };
 
@@ -307,20 +322,9 @@ export const MobileHome: React.FC<MobileHomeProps> = ({
 
         console.log(`[DEBUG] handleLayoutComplete called for tile: ${tileKey}, active: ${activeTiles.includes(tileKey)}`);
 
-        if (tileKey === 'CONTACT') {
-            console.log('[DEBUG] Using native scrollIntoView for CONTACT');
-            // Small delay to ensure the accordion has started its expansion
-            setTimeout(() => {
-                const contactForm = contactFormRef.current;
-                if (!contactForm) return;
-
-                // Native smooth scroll is highly optimized by mobile browsers
-                // The scroll-margin-top (added below in JSX) handles the 140px offset
-                contactForm.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }, 300);
+        if (tileKey === 'CONTACT' || tileKey === 'BLOG') {
+            // Already handled in handleTileClick for premium feel
+            return;
         } else {
             const tileElement = tileRefs[tileKey as keyof typeof tileRefs].current;
             if (!tileElement) return;
@@ -883,7 +887,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({
                                                                 e.stopPropagation();
                                                                 setSelectedPost(post);
                                                             }}
-                                                            className="block border-b border-gray-200 pb-3 last:border-0 hover:opacity-75"
+                                                            className="block border-b border-gray-200 pb-3 last:border-0 hover:opacity-75 active:bg-[#EBC6C1] rounded-sm transition-colors"
                                                         >
                                                             <div className="text-[10px] font-mono text-gray-500 mb-1">{post.date} | {post.tag}</div>
                                                             <h4 className="font-bold text-base text-[#194D25] mb-1 leading-tight">{post.title}</h4>

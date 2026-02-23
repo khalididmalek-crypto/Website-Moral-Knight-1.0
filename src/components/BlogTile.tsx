@@ -43,7 +43,7 @@ export const BlogTile: React.FC<BlogTileProps> = ({ post, onClick }) => {
         rounded-sm
         transition-all duration-200 ease-out
         cursor-pointer
-        hover:shadow-sm hover:bg-accent-light
+        hover:shadow-sm hover:!bg-[#EBC6C1] active:!bg-[#EBC6C1] md:hover:!bg-accent-light
         focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#194D25]
         flex flex-col
         overflow-hidden
