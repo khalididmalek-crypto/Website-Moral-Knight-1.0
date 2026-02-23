@@ -271,51 +271,61 @@ export const MobileHome: React.FC<MobileHomeProps> = ({
         const container = containerRef.current;
         if (!container) return;
 
+        console.log(`[DEBUG] handleLayoutComplete called for tile: ${tileKey}, active: ${activeTiles.includes(tileKey)}`);
+
         if (tileKey === 'CONTACT') {
-            // Wait for expansion AND for content/images to be more stable (800ms)
+            console.log('[DEBUG] Starting robust CONTACT scroll sequence');
+            // Wait a short bit for the initial layout to settle (400ms)
             setTimeout(() => {
                 const contactForm = contactFormRef.current;
                 const container = containerRef.current;
-                if (!contactForm || !container) return;
-
-                // Re-calculate rects at the very last moment for maximum accuracy
-                const getTargetPosition = () => {
-                    const formRect = contactForm.getBoundingClientRect();
-                    const containerRect = container.getBoundingClientRect();
-                    // Same 140px offset as desktop for a beautiful, spacious feel
-                    return container.scrollTop + formRect.top - containerRect.top - 140;
-                };
-
-                const targetScroll = getTargetPosition();
-                const startScroll = container.scrollTop;
-                const distance = targetScroll - startScroll;
-
-                // Only scroll if there is a meaningful distance to cover
-                if (Math.abs(distance) < 5) return;
+                if (!contactForm || !container) {
+                    console.log('[DEBUG] Missing refs, aborting scroll');
+                    return;
+                }
 
                 // Slow and luxurious duration (2500ms) matching desktop
                 const duration = 2500;
                 const startTime = performance.now();
+                const startScroll = container.scrollTop;
 
                 const animate = (currentTime: number) => {
-                    if (!containerRef.current || !activeTiles.includes('CONTACT')) return;
+                    // Safety checks
+                    if (!containerRef.current || !contactFormRef.current || !activeTiles.includes('CONTACT')) {
+                        return;
+                    }
 
                     const elapsed = currentTime - startTime;
                     const progress = Math.min(elapsed / duration, 1);
 
-                    // Quintic ease out for that signature soft, "minder strak" landing
+                    // Quintic ease out
                     const ease = (t: number) => 1 - Math.pow(1 - t, 5);
 
-                    // We use the initial targetScroll to avoid "jumping" if layout shifts slightly during scroll
-                    containerRef.current.scrollTo(0, startScroll + (distance * ease(progress)));
+                    // Re-calculate target EVERY frame to handle layout shifts (images loading, text reflow)
+                    const formRect = contactFormRef.current.getBoundingClientRect();
+                    const containerRect = containerRef.current.getBoundingClientRect();
+                    const currentScroll = containerRef.current.scrollTop;
+                    
+                    // The absolute position of the form within the container
+                    const absoluteFormTop = currentScroll + formRect.top - containerRect.top;
+                    const currentTarget = absoluteFormTop - 140; // 140px offset
+
+                    // Smoothly interpolate from current scroll towards the target based on progress
+                    // This creates a "magnetic" effect that follows the form even if it moves
+                    const nextPos = startScroll + (currentTarget - startScroll) * ease(progress);
+                    
+                    containerRef.current.scrollTo(0, nextPos);
 
                     if (progress < 1) {
                         requestAnimationFrame(animate);
+                    } else {
+                        console.log('[DEBUG] Scroll finished at pos:', containerRef.current.scrollTop);
                     }
                 };
 
+                console.log('[DEBUG] Magnetic animation starting...');
                 requestAnimationFrame(animate);
-            }, 800);
+            }, 400);
         } else {
             const tileElement = tileRefs[tileKey as keyof typeof tileRefs].current;
             if (!tileElement) return;
