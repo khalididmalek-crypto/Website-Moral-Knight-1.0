@@ -70,8 +70,8 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
 
           if (Math.abs(distance) < 20) return;
 
-          // Slower duration for a more luxurious feel (2500ms)
-          const duration = 2500;
+          // Slower duration for a more luxurious feel (1000ms)
+          const duration = 1000;
           const startTime = performance.now();
 
           const animate = (currentTime: number) => {
@@ -94,7 +94,7 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
         } catch (err) {
           console.error('[FullscreenView] Slow scroll error:', err);
         }
-      }, 1000); // Wait a bit longer for the view to open
+      }, 300); // Wait a bit longer for the view to open
 
       return () => clearTimeout(scrollTimer);
     }

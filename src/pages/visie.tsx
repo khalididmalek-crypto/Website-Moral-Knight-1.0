@@ -189,6 +189,14 @@ export default function VisiePage({ content }: VisieProps) {
                     </div>
 
                     {/* Header (Nav) - Screen Only */}
+                    {/* Back Link - Screen Only */}
+                    <div className="mb-[26px] no-print text-left">
+                        <Link href="/aanpak" className="font-mono text-xs uppercase tracking-widest text-gray-400 hover:text-black transition-colors">
+                            ← Terug naar onze aanpak
+                        </Link>
+                    </div>
+
+                    {/* Header (Nav) - Screen Only */}
                     <div className="mb-8 flex flex-nowrap justify-between items-center bg-white p-4 border border-[#8B1A3D] shadow-sm no-print">
                         <Link href="/" className="font-mono font-bold uppercase tracking-widest transition-colors duration-300 whitespace-nowrap text-sm md:text-base leading-none flex items-center">
                             <span style={{ color: '#194D25' }}>/</span>
@@ -279,8 +287,8 @@ export default function VisiePage({ content }: VisieProps) {
                             </button>
                         </div>
                         <div className="text-left mt-4">
-                            <Link href="/" className="font-mono text-xs uppercase tracking-widest text-gray-400 hover:text-black transition-colors">
-                                ← Terug naar Home
+                            <Link href="/aanpak" className="font-mono text-xs uppercase tracking-widest text-gray-400 hover:text-black transition-colors">
+                                ← Terug naar onze aanpak
                             </Link>
                         </div>
                     </footer>

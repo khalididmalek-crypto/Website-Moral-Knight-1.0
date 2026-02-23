@@ -186,7 +186,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({
 
                 if (Math.abs(distance) < 20) return;
 
-                const duration = 2000;
+                const duration = 1000;
                 const startTime = performance.now();
                 const ease = (t: number) => 1 - Math.pow(1 - t, 5); // Quintic ease-out
 
@@ -201,7 +201,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({
                 };
 
                 requestAnimationFrame(animate);
-            }, 500); // Small delay to allow accordion to start expanding
+            }, 300); // Small delay to allow accordion to start expanding
         }
     };
 
@@ -320,7 +320,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({
                     behavior: 'smooth',
                     block: 'start'
                 });
-            }, 500);
+            }, 300);
         } else {
             const tileElement = tileRefs[tileKey as keyof typeof tileRefs].current;
             if (!tileElement) return;
