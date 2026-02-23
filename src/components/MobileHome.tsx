@@ -274,59 +274,19 @@ export const MobileHome: React.FC<MobileHomeProps> = ({
         console.log(`[DEBUG] handleLayoutComplete called for tile: ${tileKey}, active: ${activeTiles.includes(tileKey)}`);
 
         if (tileKey === 'CONTACT') {
-            console.log('[DEBUG] Starting ultra-robust CONTACT scroll');
-            // Give extra time for React/Framer/URL-sync to settle (600ms)
+            console.log('[DEBUG] Using native scrollIntoView for CONTACT');
+            // Small delay to ensure the accordion has started its expansion
             setTimeout(() => {
                 const contactForm = contactFormRef.current;
-                const container = containerRef.current;
-                if (!contactForm || !container) return;
+                if (!contactForm) return;
 
-                const duration = 2500;
-                const startTime = performance.now();
-                const initialStartScroll = container.scrollTop;
-
-                // Simple check: can we even scroll this container?
-                // If we scroll 1px and nothing happens, the container might not be the scroller
-                const originalPos = container.scrollTop;
-                container.scrollTop = originalPos + 1;
-                const canScrollContainer = container.scrollTop !== originalPos;
-                container.scrollTop = originalPos; // Reset
-                
-                console.log(`[DEBUG] Container scrollable: ${canScrollContainer}`);
-
-                const animate = (currentTime: number) => {
-                    const currentContainer = containerRef.current;
-                    const currentForm = contactFormRef.current;
-                    
-                    if (!currentContainer || !currentForm || !activeTiles.includes('CONTACT')) return;
-
-                    const elapsed = currentTime - startTime;
-                    const progress = Math.min(elapsed / duration, 1);
-                    const ease = (t: number) => 1 - Math.pow(1 - t, 5);
-
-                    // Re-calculate absolute target relative to container's current state
-                    const formRect = currentForm.getBoundingClientRect();
-                    const containerRect = currentContainer.getBoundingClientRect();
-                    const absoluteTarget = currentContainer.scrollTop + formRect.top - containerRect.top - 140;
-
-                    // Direct manipulation of both scrollTop AND scrollTo for maximum compatibility
-                    const nextPos = initialStartScroll + (absoluteTarget - initialStartScroll) * ease(progress);
-                    
-                    if (canScrollContainer) {
-                        currentContainer.scrollTop = nextPos;
-                        currentContainer.scrollTo(0, nextPos);
-                    } else {
-                        // Fallback to window scroll if container is locked or browser uses window
-                        window.scrollTo(0, nextPos);
-                    }
-
-                    if (progress < 1) {
-                        requestAnimationFrame(animate);
-                    }
-                };
-
-                requestAnimationFrame(animate);
-            }, 600);
+                // Native smooth scroll is highly optimized by mobile browsers
+                // The scroll-margin-top (added below in JSX) handles the 140px offset
+                contactForm.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }, 500);
         } else {
             const tileElement = tileRefs[tileKey as keyof typeof tileRefs].current;
             if (!tileElement) return;
@@ -821,7 +781,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({
                                             {/* Contact Form Details - Styled as a separate block */}
                                             <div
                                                 ref={contactFormRef}
-                                                className="w-full bg-white flex flex-col gap-4 border border-black p-4"
+                                                className="w-full bg-white flex flex-col gap-4 border border-black p-4 scroll-mt-[140px]"
                                                 onClick={(e) => e.stopPropagation()}
                                             >
                                                 <div className="inline-block bg-white border border-black px-3 py-1.5 w-fit">
