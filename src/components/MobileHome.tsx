@@ -890,7 +890,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({
                                                             className="block border-b border-gray-200 pb-3 last:border-0 hover:opacity-75 transition-opacity group"
                                                         >
                                                             <div className="text-[10px] font-mono text-gray-500 mb-1">{post.date} | {post.tag}</div>
-                                                            <h4 className="font-bold text-base text-[#194D25] mb-1 leading-tight group-active:text-[#e3b5a3] transition-colors">{post.title}</h4>
+                                                            <h4 className="font-bold text-base text-[#194D25] mb-1 leading-tight group-active:text-[#B0C4D4] transition-colors">{post.title}</h4>
                                                             <p className="text-xs font-mono text-gray-600 line-clamp-2">{post.excerpt}</p>
                                                         </a>
                                                     ))}
@@ -929,7 +929,18 @@ export const MobileHome: React.FC<MobileHomeProps> = ({
             {view === 'DASHBOARD' && <Dashboard onClose={handleBack} />
             }
             {view === 'KENNISBANK' && <Kennisbank onClose={handleBack} />}
-            {selectedPost && <BlogPostDetail post={selectedPost} onClose={() => setSelectedPost(null)} onOpenMeldpunt={() => setMeldpuntOpen(true)} />}
+            {selectedPost && <BlogPostDetail post={selectedPost} onClose={() => {
+                setSelectedPost(null);
+                // Scroll blog tile back into view after closing a post
+                setTimeout(() => {
+                    const blogTile = tileRefs.BLOG.current;
+                    if (blogTile) {
+                        const tileRect = blogTile.getBoundingClientRect();
+                        const targetScroll = window.scrollY + tileRect.top - 140;
+                        premiumScrollTo(targetScroll, 800);
+                    }
+                }, 100);
+            }} onOpenMeldpunt={() => setMeldpuntOpen(true)} />}
             {(view === 'MELDPUNT' || meldpuntOpen) && <Meldpunt onClose={() => setMeldpuntOpen(false)} />}
         </>
     );
