@@ -213,7 +213,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({
                     if (!blogTile) return;
 
                     const tileRect = blogTile.getBoundingClientRect();
-                    const targetScroll = window.scrollY + tileRect.top - 100;
+                    const targetScroll = window.scrollY + tileRect.top - 140; // More offset to bring title higher
                     premiumScrollTo(targetScroll, 1000);
                 }, 200); // Snappier delay for blog
             }
@@ -887,10 +887,10 @@ export const MobileHome: React.FC<MobileHomeProps> = ({
                                                                 e.stopPropagation();
                                                                 setSelectedPost(post);
                                                             }}
-                                                            className="block border-b border-gray-200 pb-3 last:border-0 hover:opacity-75 active:bg-[#EBC6C1] rounded-sm transition-colors"
+                                                            className="block border-b border-gray-200 pb-3 last:border-0 hover:opacity-75 transition-opacity group"
                                                         >
                                                             <div className="text-[10px] font-mono text-gray-500 mb-1">{post.date} | {post.tag}</div>
-                                                            <h4 className="font-bold text-base text-[#194D25] mb-1 leading-tight">{post.title}</h4>
+                                                            <h4 className="font-bold text-base text-[#194D25] mb-1 leading-tight group-active:text-[#e3b5a3] transition-colors">{post.title}</h4>
                                                             <p className="text-xs font-mono text-gray-600 line-clamp-2">{post.excerpt}</p>
                                                         </a>
                                                     ))}
