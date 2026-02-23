@@ -47,14 +47,12 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
   const isHowView = tile.id === 'tile-3';
   const isServicesView = tile.id === 'tile-4';
 
-  // State for glitch effect on Contact tile scroll
-  const [contactGlitchActive, setContactGlitchActive] = useState(false);
-  const [glitchPlayed, setGlitchPlayed] = useState(false);
+  // No states needed for glitch as it is being removed
 
-  // Auto-scroll for Contact tile
+  // Slow & Smooth Auto-scroll for Contact tile form positioning
   useEffect(() => {
     if (tile.type === ContentType.CONTACT) {
-      const animationTimer = setTimeout(() => {
+      const scrollTimer = setTimeout(() => {
         const modal = modalRef.current;
         if (!modal) return;
 
@@ -65,67 +63,42 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
           const containerRect = modal.getBoundingClientRect();
           const formRect = formElement.getBoundingClientRect();
 
-          const targetScroll = modal.scrollTop + formRect.top - containerRect.top - 40;
+          // Target well above the form for a beautiful, airy view (140px offset)
+          const targetScroll = modal.scrollTop + formRect.top - containerRect.top - 140;
           const startScroll = modal.scrollTop;
           const distance = targetScroll - startScroll;
 
           if (Math.abs(distance) < 20) return;
 
-          const duration = 1800;
+          // Slower duration for a more luxurious feel (2500ms)
+          const duration = 2500;
           const startTime = performance.now();
 
           const animate = (currentTime: number) => {
+            if (!modalRef.current || tile.type !== ContentType.CONTACT) return;
+
             const elapsed = currentTime - startTime;
             const progress = Math.min(elapsed / duration, 1);
-            const ease = (t: number) => 1 - Math.pow(1 - t, 4);
 
-            if (modalRef.current) {
-              modalRef.current.scrollTo(0, startScroll + (distance * ease(progress)));
-            }
+            // "Minder strak" easing - Quintic ease out for a very soft landing
+            const ease = (t: number) => 1 - Math.pow(1 - t, 5);
 
-            if (!glitchPlayed && progress > 0.15 && progress < 0.85) {
-              if (!contactGlitchActive) {
-                console.log('[DEBUG] Glitch Active: YES');
-                setContactGlitchActive(true);
-              }
-            } else {
-              if (contactGlitchActive) {
-                console.log('[DEBUG] Glitch Active: NO');
-                setContactGlitchActive(false);
-              }
-            }
+            modalRef.current.scrollTo(0, startScroll + (distance * ease(progress)));
 
             if (progress < 1) {
-              if (tile.type === ContentType.CONTACT && modalRef.current) {
-                requestAnimationFrame(animate);
-              }
-            } else {
-              setContactGlitchActive(false);
-              setGlitchPlayed(true);
+              requestAnimationFrame(animate);
             }
           };
 
           requestAnimationFrame(animate);
         } catch (err) {
-          console.error('[FullscreenView] Scroll error:', err);
+          console.error('[FullscreenView] Slow scroll error:', err);
         }
-      }, 700);
+      }, 1000); // Wait a bit longer for the view to open
 
-      return () => {
-        clearTimeout(animationTimer);
-        setContactGlitchActive(false);
-      };
-    } else {
-      if (glitchPlayed) setGlitchPlayed(false);
+      return () => clearTimeout(scrollTimer);
     }
-  }, [tile.type, modalRef, glitchPlayed, contactGlitchActive]);
-
-  // Safety reset for glitch state
-  useEffect(() => {
-    if (tile.type !== ContentType.CONTACT) {
-      setContactGlitchActive(false);
-    }
-  }, [tile.type]);
+  }, [tile.type, modalRef]);
 
   // Main tile navigation
   const currentIndex = allTiles.findIndex(t => t.id === tile.id);
@@ -335,23 +308,6 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
 
   return (
     <>
-      <style jsx global>{`
-        @keyframes border-noise {
-          0% { border-color: rgba(255, 0, 0, 0.4); box-shadow: inset 0 0 0 2px rgba(255, 0, 0, 0.4), 0 0 10px rgba(255, 0, 0, 0.2); }
-          20% { border-color: rgba(255, 0, 0, 0.6); box-shadow: inset 0 0 0 4px rgba(255, 0, 0, 0.5), 0 0 20px rgba(255, 0, 0, 0.3); }
-          40% { border-color: rgba(255, 0, 0, 0.3); box-shadow: inset 0 0 0 1px rgba(255, 0, 0, 0.3), 0 0 5px rgba(255, 0, 0, 0.1); }
-          60% { border-color: rgba(255, 0, 0, 0.7); box-shadow: inset 0 0 0 5px rgba(255, 0, 0, 0.6), 0 0 25px rgba(255, 0, 0, 0.4); }
-          80% { border-color: rgba(255, 0, 0, 0.5); box-shadow: inset 0 0 0 3px rgba(255, 0, 0, 0.4), 0 0 15px rgba(255, 0, 0, 0.2); }
-          100% { border-color: rgba(255, 0, 0, 0.4); box-shadow: inset 0 0 0 2px rgba(255, 0, 0, 0.4), 0 0 10px rgba(255, 0, 0, 0.2); }
-        }
-        @keyframes vibrate-slash {
-          0% { transform: translate(0, 0) rotate(12deg) scale(1); opacity: 0.9; }
-          25% { transform: translate(-8px, 8px) rotate(10deg) scale(1.15); opacity: 1; }
-          50% { transform: translate(8px, -8px) rotate(15deg) scale(0.85); opacity: 0.8; }
-          75% { transform: translate(-5px, -5px) rotate(8deg) scale(1.1); opacity: 1; }
-          100% { transform: translate(0, 0) rotate(12deg) scale(1); opacity: 0.9; }
-        }
-      `}</style>
       <div
         {...swipeHandlers}
         ref={modalRef}
@@ -365,33 +321,6 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
         aria-labelledby="modal-title"
         aria-describedby="modal-description"
       >
-        {/* Extreme Security/Glitch Overlay - Corrected with Top/Left borders & vibrating slash */}
-        {contactGlitchActive && (
-          <div className="fixed inset-0 z-[999] pointer-events-none flex items-center justify-center overflow-hidden"
-            style={{
-              borderTop: '16px solid rgba(139, 26, 61, 1)',
-              borderLeft: '16px solid rgba(139, 26, 61, 1)',
-              animation: 'border-noise 0.1s infinite',
-              background: 'rgba(139, 26, 61, 0.08)',
-              boxShadow: 'inset 30px 30px 100px rgba(139, 26, 61, 0.3)',
-              filter: 'contrast(1.8) brightness(1.2)'
-            }}
-          >
-            {/* The Vibrating Slash */}
-            <div className="text-[50vh] font-bold text-[#FF0000] opacity-60 select-none pointer-events-none"
-              style={{
-                fontFamily: 'serif',
-                animation: 'vibrate-slash 0.04s infinite',
-                textShadow: '15px 0 #FF0000, -15px 0 #00FFFF',
-                willChange: 'transform, opacity'
-              }}>
-              /
-            </div>
-
-            {/* Digital Noise grain */}
-            <div className="absolute inset-0 opacity-40 bg-[url('data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.85\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E')]" />
-          </div>
-        )}
 
         {/* Hidden description for screen readers */}
         <span id="modal-description" className="sr-only">
@@ -401,7 +330,7 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
         {/* Header / Navigation Bar simulation */}
         <div
           className={`w-full max-w-[1400px] ${SPACING.MODAL_HEADER_PADDING} flex justify-between items-center`}
-          style={{ filter: contactGlitchActive ? 'grayscale(100%)' : 'none' }}
+          style={{ filter: 'none' }}
         >
           <div className="flex items-center gap-3">
             <h2 id="modal-title" className="font-mono uppercase tracking-widest" style={{ color: COLORS.PRIMARY_GREEN }}>
@@ -436,7 +365,7 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
         {/* Main Content Area - Blog Grid or Single Tile */}
         <main
           className={`relative flex-1 w-full max-w-[1400px] ${SPACING.MODAL_CONTENT_PADDING} ${isBlogView ? '' : SPACING.MODAL_BOTTOM_SPACING} flex flex-col items-center ${(isHowView || isServicesView) ? 'justify-center' : 'justify-start pt-20 md:pt-28'}`}
-          style={{ filter: contactGlitchActive ? 'grayscale(100%)' : 'none' }}
+          style={{ filter: 'none' }}
         >
           <div className={`w-full flex flex-col items-center justify-center transition-opacity duration-300 ${activeSubTile ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
             {isBlogView ? (

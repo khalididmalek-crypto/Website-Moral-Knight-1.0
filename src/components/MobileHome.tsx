@@ -77,8 +77,6 @@ export const MobileHome: React.FC<MobileHomeProps> = ({
         return [];
     });
     const [hasMounted, setHasMounted] = useState(false);
-    const [contactGlitchActive, setContactGlitchActive] = useState(false);
-    const [glitchPlayed, setGlitchPlayed] = useState(false);
     // Animation state - reserved for future scroll lock implementation during animation window
 
 
@@ -162,21 +160,10 @@ export const MobileHome: React.FC<MobileHomeProps> = ({
         }
     }, [view, meldpuntOpen, selectedPost]);
 
-    // Safety cleanup for glitch effect
-    useEffect(() => {
-        if (!activeTiles.includes('CONTACT')) {
-            setContactGlitchActive(false);
-        }
-    }, [activeTiles]);
 
     const handleTileClick = (tile: string) => {
         setActiveTiles(prev => {
             if (prev.includes(tile)) {
-                // Reset glitch state when closing the tile manually
-                if (tile === 'CONTACT') {
-                    setGlitchPlayed(false);
-                    setContactGlitchActive(false);
-                }
                 return prev.filter(t => t !== tile);
             } else {
                 return [...prev, tile];
@@ -285,37 +272,44 @@ export const MobileHome: React.FC<MobileHomeProps> = ({
         if (!container) return;
 
         if (tileKey === 'CONTACT') {
-            console.log('[DEBUG] Contact Tile layout complete - preparing scroll');
-            // Wait for expansion to fully settle
+            // Wait for expansion to fully settle - slightly longer for mobile (650ms)
             setTimeout(() => {
                 const contactForm = contactFormRef.current;
-                if (!contactForm) {
-                    console.warn('[DEBUG] Contact form ref not found on mobile');
-                    return;
-                }
+                if (!contactForm || !containerRef.current) return;
 
-                console.log('[DEBUG] Triggering mobile scroll');
-                // Native smooth scroll is more reliable on mobile hardware
-                contactForm.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
+                const container = containerRef.current;
+                const formRect = contactForm.getBoundingClientRect();
+                const containerRect = container.getBoundingClientRect();
 
-                // Play glitch burst as visual confirmation
-                if (!glitchPlayed) {
-                    console.log('[DEBUG] Triggering Glitch Burst - Mobile');
-                    // Start glitch slightly after scroll starts
-                    setTimeout(() => {
-                        setContactGlitchActive(true);
-                        // Significant burst for visibility
-                        setTimeout(() => {
-                            setContactGlitchActive(false);
-                            setGlitchPlayed(true);
-                            console.log('[DEBUG] Glitch Burst Finished - Mobile');
-                        }, 1500);
-                    }, 200);
-                }
-            }, 550);
+                // Target position with a generous 140px offset (same as desktop) for an airy view
+                const targetScroll = container.scrollTop + formRect.top - containerRect.top - 140;
+                const startScroll = container.scrollTop;
+                const distance = targetScroll - startScroll;
+
+                if (Math.abs(distance) < 5) return;
+
+                // Slow and luxurious duration (2500ms) exactly as desktop
+                const duration = 2500;
+                const startTime = performance.now();
+
+                const animate = (currentTime: number) => {
+                    if (!containerRef.current || !activeTiles.includes('CONTACT')) return;
+
+                    const elapsed = currentTime - startTime;
+                    const progress = Math.min(elapsed / duration, 1);
+
+                    // Quintic ease out for that very soft, non-abrupt "minder strak" landing
+                    const ease = (t: number) => 1 - Math.pow(1 - t, 5);
+
+                    containerRef.current.scrollTo(0, startScroll + (distance * ease(progress)));
+
+                    if (progress < 1) {
+                        requestAnimationFrame(animate);
+                    }
+                };
+
+                requestAnimationFrame(animate);
+            }, 650);
         } else {
             const tileElement = tileRefs[tileKey as keyof typeof tileRefs].current;
             if (!tileElement) return;
@@ -379,33 +373,6 @@ export const MobileHome: React.FC<MobileHomeProps> = ({
                     backgroundImage: activeTiles.length > 0 ? getActiveGradient(lastActiveTile) : 'none',
                 }}
             >
-                {/* Extreme Security/Glitch Overlay - Mobile prioritized with Top/Left borders & vibrating slash */}
-                {contactGlitchActive && (
-                    <div className="fixed inset-0 z-[9999] pointer-events-none flex items-center justify-center overflow-hidden"
-                        style={{
-                            borderTop: '16px solid rgba(255, 0, 0, 1)',
-                            borderLeft: '16px solid rgba(255, 0, 0, 1)',
-                            animation: 'border-noise 0.1s infinite',
-                            backgroundColor: 'rgba(255, 0, 0, 0.12)',
-                            filter: 'contrast(1.8) brightness(1.3)',
-                            boxShadow: 'inset 25px 25px 80px rgba(255, 0, 0, 0.4)'
-                        }}
-                    >
-                        {/* The Vibrating Slash for Mobile */}
-                        <div className="text-[50vh] font-bold text-[#FF0000] opacity-60"
-                            style={{
-                                fontFamily: 'serif',
-                                animation: 'vibrate-slash 0.04s infinite',
-                                textShadow: '12px 0 #FF0000, -12px 0 #00FFFF',
-                                transform: 'rotate(12deg)',
-                                willChange: 'transform, opacity'
-                            }}>
-                            /
-                        </div>
-
-                        <div className="absolute inset-0 opacity-40 bg-[url('data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.95\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E')]" />
-                    </div>
-                )}
                 {/* Projector Noise Layer for the background when active */}
                 {activeTiles.length > 0 && (
                     <div className="fixed inset-0 pointer-events-none opacity-[0.10] mix-blend-multiply bg-[url('data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'noiseFilter\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.65\' numOctaves=\'3\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23noiseFilter)\'/%3E%3C/svg%3E')] z-0" />
@@ -427,14 +394,6 @@ export const MobileHome: React.FC<MobileHomeProps> = ({
                     }
                     @keyframes drawPath {
                         to { stroke-dashoffset: 0; }
-                    }
-                    @keyframes border-noise {
-                        0% { border-color: rgba(139, 26, 61, 0.4); box-shadow: inset 0 0 0 2px rgba(139, 26, 61, 0.4), 0 0 10px rgba(139, 26, 61, 0.2); }
-                        20% { border-color: rgba(139, 26, 61, 0.6); box-shadow: inset 0 0 0 4px rgba(139, 26, 61, 0.5), 0 0 20px rgba(139, 26, 61, 0.3); }
-                        40% { border-color: rgba(139, 26, 61, 0.3); box-shadow: inset 0 0 0 1px rgba(139, 26, 61, 0.3), 0 0 5px rgba(139, 26, 61, 0.1); }
-                        60% { border-color: rgba(139, 26, 61, 0.7); box-shadow: inset 0 0 0 5px rgba(139, 26, 61, 0.6), 0 0 25px rgba(139, 26, 61, 0.4); }
-                        80% { border-color: rgba(139, 26, 61, 0.5); box-shadow: inset 0 0 0 3px rgba(139, 26, 61, 0.4), 0 0 15px rgba(139, 26, 61, 0.2); }
-                        100% { border-color: rgba(139, 26, 61, 0.4); box-shadow: inset 0 0 0 2px rgba(139, 26, 61, 0.4), 0 0 10px rgba(139, 26, 61, 0.2); }
                     }
                 `}</style>
                 <div className="pt-12 mx-4 pb-2 flex justify-between items-start relative">
