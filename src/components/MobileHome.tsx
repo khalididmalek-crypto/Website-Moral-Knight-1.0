@@ -272,23 +272,28 @@ export const MobileHome: React.FC<MobileHomeProps> = ({
         if (!container) return;
 
         if (tileKey === 'CONTACT') {
-            // Wait for expansion to fully settle - slightly longer for mobile (650ms)
+            // Wait for expansion AND for content/images to be more stable (800ms)
             setTimeout(() => {
                 const contactForm = contactFormRef.current;
-                if (!contactForm || !containerRef.current) return;
-
                 const container = containerRef.current;
-                const formRect = contactForm.getBoundingClientRect();
-                const containerRect = container.getBoundingClientRect();
+                if (!contactForm || !container) return;
 
-                // Target position with a generous 140px offset (same as desktop) for an airy view
-                const targetScroll = container.scrollTop + formRect.top - containerRect.top - 140;
+                // Re-calculate rects at the very last moment for maximum accuracy
+                const getTargetPosition = () => {
+                    const formRect = contactForm.getBoundingClientRect();
+                    const containerRect = container.getBoundingClientRect();
+                    // Same 140px offset as desktop for a beautiful, spacious feel
+                    return container.scrollTop + formRect.top - containerRect.top - 140;
+                };
+
+                const targetScroll = getTargetPosition();
                 const startScroll = container.scrollTop;
                 const distance = targetScroll - startScroll;
 
+                // Only scroll if there is a meaningful distance to cover
                 if (Math.abs(distance) < 5) return;
 
-                // Slow and luxurious duration (2500ms) exactly as desktop
+                // Slow and luxurious duration (2500ms) matching desktop
                 const duration = 2500;
                 const startTime = performance.now();
 
@@ -298,9 +303,10 @@ export const MobileHome: React.FC<MobileHomeProps> = ({
                     const elapsed = currentTime - startTime;
                     const progress = Math.min(elapsed / duration, 1);
 
-                    // Quintic ease out for that very soft, non-abrupt "minder strak" landing
+                    // Quintic ease out for that signature soft, "minder strak" landing
                     const ease = (t: number) => 1 - Math.pow(1 - t, 5);
 
+                    // We use the initial targetScroll to avoid "jumping" if layout shifts slightly during scroll
                     containerRef.current.scrollTo(0, startScroll + (distance * ease(progress)));
 
                     if (progress < 1) {
@@ -309,7 +315,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({
                 };
 
                 requestAnimationFrame(animate);
-            }, 650);
+            }, 800);
         } else {
             const tileElement = tileRefs[tileKey as keyof typeof tileRefs].current;
             if (!tileElement) return;
