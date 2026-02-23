@@ -274,58 +274,59 @@ export const MobileHome: React.FC<MobileHomeProps> = ({
         console.log(`[DEBUG] handleLayoutComplete called for tile: ${tileKey}, active: ${activeTiles.includes(tileKey)}`);
 
         if (tileKey === 'CONTACT') {
-            console.log('[DEBUG] Starting robust CONTACT scroll sequence');
-            // Wait a short bit for the initial layout to settle (400ms)
+            console.log('[DEBUG] Starting ultra-robust CONTACT scroll');
+            // Give extra time for React/Framer/URL-sync to settle (600ms)
             setTimeout(() => {
                 const contactForm = contactFormRef.current;
                 const container = containerRef.current;
-                if (!contactForm || !container) {
-                    console.log('[DEBUG] Missing refs, aborting scroll');
-                    return;
-                }
+                if (!contactForm || !container) return;
 
-                // Slow and luxurious duration (2500ms) matching desktop
                 const duration = 2500;
                 const startTime = performance.now();
-                const startScroll = container.scrollTop;
+                const initialStartScroll = container.scrollTop;
+
+                // Simple check: can we even scroll this container?
+                // If we scroll 1px and nothing happens, the container might not be the scroller
+                const originalPos = container.scrollTop;
+                container.scrollTop = originalPos + 1;
+                const canScrollContainer = container.scrollTop !== originalPos;
+                container.scrollTop = originalPos; // Reset
+                
+                console.log(`[DEBUG] Container scrollable: ${canScrollContainer}`);
 
                 const animate = (currentTime: number) => {
-                    // Safety checks
-                    if (!containerRef.current || !contactFormRef.current || !activeTiles.includes('CONTACT')) {
-                        return;
-                    }
+                    const currentContainer = containerRef.current;
+                    const currentForm = contactFormRef.current;
+                    
+                    if (!currentContainer || !currentForm || !activeTiles.includes('CONTACT')) return;
 
                     const elapsed = currentTime - startTime;
                     const progress = Math.min(elapsed / duration, 1);
-
-                    // Quintic ease out
                     const ease = (t: number) => 1 - Math.pow(1 - t, 5);
 
-                    // Re-calculate target EVERY frame to handle layout shifts (images loading, text reflow)
-                    const formRect = contactFormRef.current.getBoundingClientRect();
-                    const containerRect = containerRef.current.getBoundingClientRect();
-                    const currentScroll = containerRef.current.scrollTop;
-                    
-                    // The absolute position of the form within the container
-                    const absoluteFormTop = currentScroll + formRect.top - containerRect.top;
-                    const currentTarget = absoluteFormTop - 140; // 140px offset
+                    // Re-calculate absolute target relative to container's current state
+                    const formRect = currentForm.getBoundingClientRect();
+                    const containerRect = currentContainer.getBoundingClientRect();
+                    const absoluteTarget = currentContainer.scrollTop + formRect.top - containerRect.top - 140;
 
-                    // Smoothly interpolate from current scroll towards the target based on progress
-                    // This creates a "magnetic" effect that follows the form even if it moves
-                    const nextPos = startScroll + (currentTarget - startScroll) * ease(progress);
+                    // Direct manipulation of both scrollTop AND scrollTo for maximum compatibility
+                    const nextPos = initialStartScroll + (absoluteTarget - initialStartScroll) * ease(progress);
                     
-                    containerRef.current.scrollTo(0, nextPos);
+                    if (canScrollContainer) {
+                        currentContainer.scrollTop = nextPos;
+                        currentContainer.scrollTo(0, nextPos);
+                    } else {
+                        // Fallback to window scroll if container is locked or browser uses window
+                        window.scrollTo(0, nextPos);
+                    }
 
                     if (progress < 1) {
                         requestAnimationFrame(animate);
-                    } else {
-                        console.log('[DEBUG] Scroll finished at pos:', containerRef.current.scrollTop);
                     }
                 };
 
-                console.log('[DEBUG] Magnetic animation starting...');
                 requestAnimationFrame(animate);
-            }, 400);
+            }, 600);
         } else {
             const tileElement = tileRefs[tileKey as keyof typeof tileRefs].current;
             if (!tileElement) return;
