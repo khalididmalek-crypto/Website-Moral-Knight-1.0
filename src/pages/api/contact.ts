@@ -183,7 +183,7 @@ async function sendEmail(data: any, isWhistleblower: boolean): Promise<{ success
         },
         // Support for older or self-signed certs if necessary
         tls: {
-            rejectUnauthorized: process.env.NODE_ENV === 'production', // Strict in production, relaxed for local dev
+            rejectUnauthorized: false, // Helpt als de SSL-handshake op Vercel moeite heeft met Vimexx
             minVersion: 'TLSv1.2'
         }
     });
