@@ -1,12 +1,14 @@
 import React from 'react';
 import Head from 'next/head';
 import { ProjectorOverlay } from '../components/ProjectorOverlay';
+import { GlitchIntro } from '../components/GlitchIntro';
 import { COLORS } from '../constants';
 import { ArrowLeft } from 'lucide-react';
 
 export default function PrivacyPage() {
     return (
         <div className="min-h-screen w-full font-sans flex flex-col items-center relative overflow-x-hidden bg-[#F0F4F7]">
+            <GlitchIntro duration={800} />
             <Head>
                 <title>Privacyverklaring - Moral Knight</title>
                 <meta name="robots" content="noindex" />
