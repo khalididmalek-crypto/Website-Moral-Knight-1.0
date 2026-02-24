@@ -47,11 +47,9 @@ export const Typewriter: React.FC<Props> = ({
 
     let i = 0;
     let timeoutId: ReturnType<typeof setTimeout> | null = null;
-    let intervalId: ReturnType<typeof setInterval> | null = null;
 
     const cleanup = () => {
       if (timeoutId) clearTimeout(timeoutId);
-      if (intervalId) clearInterval(intervalId);
     };
 
     if (buggy) {
@@ -67,15 +65,22 @@ export const Typewriter: React.FC<Props> = ({
       };
       type();
     } else {
-      intervalId = setInterval(() => {
+      const type = () => {
         if (i < text.length) {
           setDisplayedText(text.slice(0, i + 1));
           i += 1;
+
+          // Accelerated start: first 10% of characters are 50% faster
+          // Math.max(1, ...) ensures at least the first character is faster for short strings like "Blog"
+          const threshold = Math.max(1, Math.ceil(text.length * 0.1));
+          const currentSpeed = i <= threshold ? speed * 0.5 : speed;
+
+          timeoutId = setTimeout(type, currentSpeed);
         } else {
           if (onCompleteRef.current) onCompleteRef.current();
-          cleanup();
         }
-      }, speed);
+      };
+      type();
     }
 
     return cleanup;
