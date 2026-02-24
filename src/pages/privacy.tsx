@@ -123,38 +123,71 @@ export default function PrivacyPage() {
 
             <style jsx global>{`
                 @media print {
-                    html, body, #__next, main { 
-                        height: auto !important; 
-                        overflow: visible !important; 
-                        display: block !important; 
-                        position: static !important;
-                    }
-                    nav, footer, .no-print, button { display: none !important; }
-                    .print-content { 
-                        display: block !important; 
-                        width: 100% !important; 
-                        color: black !important; 
+                    @page {
+                        margin: 1.5cm;
+                        size: A4 portrait;
                     }
                     
-                    /* Zorg dat tekst zwart is op wit voor de printer */
-                    * {
-                        color: black !important;
+                    /* Hide EVERYTHING by default and reset basics */
+                    html, body, #__next, .min-h-screen, div { 
                         background: white !important;
+                        height: auto !important;
+                        min-height: 0 !important;
+                        overflow: visible !important;
+                        display: block !important;
+                        position: static !important;
+                        filter: none !important;
                         box-shadow: none !important;
-                        text-shadow: none !important;
-                        opacity: 1 !important;
-                        visibility: visible !important;
-                        transition: none !important;
-                        animation: none !important;
+                    }
+                    
+                    /* Hide non-essential elements */
+                    nav, footer, .no-print, button, 
+                    .projector-noise, .projector-dust, .projector-scratch, .projector-sand,
+                    #mk-glitch-noise, #mk-glitch-scanlines { 
+                        display: none !important; 
+                        visibility: hidden !important;
+                        opacity: 0 !important;
+                    }
+                    
+                    /* Reset container that wraps main */
+                    .w-full.max-w-4xl {
+                        max-width: none !important;
+                        width: 100% !important;
+                        padding: 0 !important;
+                        margin: 0 !important;
+                        display: block !important;
                     }
 
                     main {
-                        box-shadow: none !important;
-                        border: none !important;
-                        margin: 0 !important;
-                        padding: 0 !important;
+                        display: block !important;
                         width: 100% !important;
+                        color: black !important;
+                        background: white !important;
+                        border: none !important;
+                        padding: 0 !important;
+                        margin: 0 !important;
                         position: static !important;
+                        box-shadow: none !important;
+                        visibility: visible !important;
+                        opacity: 1 !important;
+                    }
+
+                    .print-content { 
+                        display: block !important; 
+                        visibility: visible !important;
+                        opacity: 1 !important;
+                    }
+
+                    /* Ensure all text elements are visible and black */
+                    h1, h2, p, span, li, strong {
+                        color: black !important;
+                        visibility: visible !important;
+                        opacity: 1 !important;
+                    }
+
+                    * {
+                        -webkit-print-color-adjust: exact;
+                        print-color-adjust: exact;
                     }
                 }
             `}</style>
