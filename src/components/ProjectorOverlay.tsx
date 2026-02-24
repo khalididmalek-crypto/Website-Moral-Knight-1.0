@@ -12,9 +12,9 @@ export const ProjectorOverlay: React.FC<Props> = memo(({ active }) => {
       {/* Static Grain */}
       <div className="projector-noise" aria-hidden="true" />
 
-      {/* Subtle Flicker Animation */}
+      {/* Subtle Flicker Animation - 25% increase */}
       <div
-        className="fixed inset-0 pointer-events-none z-[100] bg-white mix-blend-overlay opacity-[0.015]"
+        className="fixed inset-0 pointer-events-none z-[100] bg-white mix-blend-overlay opacity-[0.019]"
         aria-hidden="true"
       />
 
@@ -39,9 +39,9 @@ export const ProjectorOverlay: React.FC<Props> = memo(({ active }) => {
         aria-hidden="true"
       />
 
-      {/* Top Right Sand Grain Effect - Minimal */}
+      {/* Top Right Sand Grain Effect - Minimal but +25% intensity */}
       <div
-        className="fixed top-0 right-0 w-[50vw] h-[50vh] pointer-events-none z-[97] opacity-60"
+        className="fixed top-0 right-0 w-[50vw] h-[50vh] pointer-events-none z-[97] opacity-75"
         style={{
           maskImage: 'radial-gradient(circle at 100% 0%, black 0%, transparent 40%)',
           WebkitMaskImage: 'radial-gradient(circle at 100% 0%, black 0%, transparent 40%)'
@@ -49,6 +49,19 @@ export const ProjectorOverlay: React.FC<Props> = memo(({ active }) => {
         aria-hidden="true"
       >
         <div className="projector-sand w-full h-full" />
+      </div>
+
+      {/* Top-focused Noise Overlay - Focus intensity at top as requested */}
+      <div
+        className="fixed top-0 left-0 w-full h-[30vh] pointer-events-none z-[96]"
+        style={{
+          maskImage: 'linear-gradient(to bottom, black, transparent)',
+          WebkitMaskImage: 'linear-gradient(to bottom, black, transparent)',
+          opacity: 0.03
+        }}
+        aria-hidden="true"
+      >
+        <div className="projector-noise w-full h-full" />
       </div>
     </>
   );

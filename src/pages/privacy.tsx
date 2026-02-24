@@ -18,7 +18,7 @@ export default function PrivacyPage() {
 
             <div className="w-full max-w-4xl px-6 py-12 md:py-20 z-10 flex flex-col gap-10">
                 {/* Navigation & Actions */}
-                <div className="flex border-b border-black pb-4 print:hidden no-print">
+                <div className="flex justify-between items-center border-b border-black pb-4 print:hidden no-print">
                     <button
                         onClick={() => {
                             if (window.history.length > 1) {
@@ -32,6 +32,14 @@ export default function PrivacyPage() {
                     >
                         <ArrowLeft size={16} />
                         Terug naar formulier
+                    </button>
+
+                    <button
+                        onClick={() => window.print()}
+                        className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest hover:opacity-75 transition-opacity cursor-pointer bg-transparent border-none p-0"
+                        style={{ color: '#8B1A3D' }}
+                    >
+                        <span>↓ Downloaden als PDF</span>
                     </button>
                 </div>
 
