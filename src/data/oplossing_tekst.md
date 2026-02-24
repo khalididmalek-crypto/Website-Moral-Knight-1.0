@@ -1,4 +1,4 @@
-## Ethische AI
+## AI-ethiek
 Moral Knight is een onafhankelijke waakhond van publieke AI. Wij waarborgen de menselijke regie over technologie. Gevraagd en ongevraagd toetsen we een AI-toepassing in het publieke domein, zodat publieke uitingen en besluiten voor iedereen begrijpelijk, rechtvaardig en betwistbaar blijven.
 
 ## Weerstand van burgers
