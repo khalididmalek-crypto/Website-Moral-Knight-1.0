@@ -7,6 +7,8 @@ interface Props {
   className?: string;
   buggy?: boolean;
   onComplete?: () => void;
+  repeatOnce?: boolean;
+  repeatSpeedMultiplier?: number;
 }
 
 export const Typewriter: React.FC<Props> = ({
@@ -16,9 +18,12 @@ export const Typewriter: React.FC<Props> = ({
   className = '',
   buggy = false,
   onComplete,
+  repeatOnce = false,
+  repeatSpeedMultiplier = 1,
 }) => {
   const [displayedText, setDisplayedText] = useState('');
   const [startTyping, setStartTyping] = useState(false);
+  const [hasRepeated, setHasRepeated] = useState(false);
 
   const isFirstRender = useRef(true);
 
@@ -71,20 +76,28 @@ export const Typewriter: React.FC<Props> = ({
           i += 1;
 
           // Accelerated start: first 10% of characters are 50% faster
-          // Math.max(1, ...) ensures at least the first character is faster for short strings like "Blog"
           const threshold = Math.max(1, Math.ceil(text.length * 0.1));
-          const currentSpeed = i <= threshold ? speed * 0.5 : speed;
+          const baseSpeed = hasRepeated ? speed * repeatSpeedMultiplier : speed;
+          const currentSpeed = i <= threshold ? baseSpeed * 0.5 : baseSpeed;
 
           timeoutId = setTimeout(type, currentSpeed);
         } else {
-          if (onCompleteRef.current) onCompleteRef.current();
+          if (repeatOnce && !hasRepeated) {
+            // Wait a bit, then repeat once at different speed
+            timeoutId = setTimeout(() => {
+              setDisplayedText('');
+              setHasRepeated(true);
+            }, 500);
+          } else if (onCompleteRef.current) {
+            onCompleteRef.current();
+          }
         }
       };
       type();
     }
 
     return cleanup;
-  }, [startTyping, text, speed, buggy]);
+  }, [startTyping, text, speed, buggy, hasRepeated, repeatOnce, repeatSpeedMultiplier]);
 
   return <span className={className}>{displayedText}</span>;
 };

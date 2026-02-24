@@ -113,6 +113,8 @@ export const Tile: React.FC<TileProps> = memo(({
       buggy={!isBlogTile}
       delay={effectiveDelay}
       speed={isBlogTile ? 600 : ANIMATION_DELAYS.TYPEWRITER_TITLE_SPEED}
+      repeatOnce={isBlogTile}
+      repeatSpeedMultiplier={0.5}
       onComplete={() => setTitleTypingComplete(true)}
     />
   );
