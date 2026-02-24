@@ -63,7 +63,9 @@ export const Typewriter: React.FC<Props> = ({
           setDisplayedText(text.slice(0, i + 1));
           i += 1;
           const randomSpeed = Math.random() * 150 + 20;
-          timeoutId = setTimeout(type, randomSpeed);
+          // First character types 50% faster
+          const effectiveSpeed = i === 1 ? randomSpeed * 0.5 : randomSpeed;
+          timeoutId = setTimeout(type, effectiveSpeed);
         } else if (onCompleteRef.current) {
           onCompleteRef.current();
         }
