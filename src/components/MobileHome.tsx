@@ -725,12 +725,12 @@ export const MobileHome: React.FC<MobileHomeProps> = ({
                                             </ReactMarkdown>
 
                                             {/* Added CTA for Services - matching Desktop FullscreenView style but adapted for mobile */}
-                                            <div className="w-full mt-2">
-                                                <h4 className="font-bold text-base mb-2 text-[#194D25] text-left w-full uppercase tracking-wider">
+                                            <div className="w-full mt-1">
+                                                <h4 className="font-bold text-base mb-1 text-[#194D25] text-left w-full uppercase tracking-wider">
                                                     HEEFT U BEHOEFTE AAN ONAFHANKELIJKE TOETSING?
                                                 </h4>
                                                 <p className="mb-4 text-[14px] font-mono leading-relaxed text-gray-700">
-                                                    Wilt u een geheel vrijblijvend en inhoudelijk gesprek over onze manier van toetsing? Weet ons te vinden en stuur een{' '}
+                                                    Wilt u een geheel vrijblijvend en inhoudelijk gesprek over onze manier van toetsing? Weet ons te vinden en{' '}
                                                     <button
                                                         onClick={(e) => {
                                                             e.preventDefault();
@@ -743,7 +743,7 @@ export const MobileHome: React.FC<MobileHomeProps> = ({
                                                         }}
                                                         className="text-[#8B1A3D] font-bold hover:underline cursor-pointer"
                                                     >
-                                                        bericht
+                                                        stuur een bericht
                                                     </button>
                                                     .
                                                 </p>
