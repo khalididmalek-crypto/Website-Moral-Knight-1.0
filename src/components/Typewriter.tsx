@@ -21,14 +21,14 @@ export const Typewriter: React.FC<Props> = ({
   repeatOnce = false,
   repeatSpeedMultiplier = 1,
 }) => {
-  const [displayedText, setDisplayedText] = useState('');
+  const [displayedText, setDisplayedText] = useState(text.slice(0, 1));
   const [startTyping, setStartTyping] = useState(false);
   const [hasRepeated, setHasRepeated] = useState(false);
 
   const isFirstRender = useRef(true);
 
   useEffect(() => {
-    setDisplayedText('');
+    setDisplayedText(text.slice(0, 1));
     setStartTyping(false);
 
     const effectiveDelay = isFirstRender.current ? delay : 0;
@@ -50,7 +50,8 @@ export const Typewriter: React.FC<Props> = ({
   useEffect(() => {
     if (!startTyping) return;
 
-    let i = 0;
+    // Start after the first character which is already displayed
+    let i = 1;
     let timeoutId: ReturnType<typeof setTimeout> | null = null;
 
     const cleanup = () => {
@@ -87,7 +88,7 @@ export const Typewriter: React.FC<Props> = ({
           if (repeatOnce && !hasRepeated) {
             // Wait a bit, then repeat once at different speed
             timeoutId = setTimeout(() => {
-              setDisplayedText('');
+              setDisplayedText(text.slice(0, 1));
               setHasRepeated(true);
             }, 500);
           } else if (onCompleteRef.current) {

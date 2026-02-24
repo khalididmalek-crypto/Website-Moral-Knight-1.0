@@ -81,9 +81,7 @@ export const BlogGrid: React.FC<BlogGridProps> = ({ posts, introContent, onOpenM
               text="HOE WIJ NAAR AI KIJKEN"
               buggy
               speed={ANIMATION_DELAYS.TYPEWRITER_TITLE_SPEED}
-              delay={400} // Small delay for entrance polish
-            />
-          </div>
+            />          </div>
         </div>
       </div>
 
