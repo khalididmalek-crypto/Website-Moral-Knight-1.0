@@ -101,10 +101,9 @@ export const Tile: React.FC<TileProps> = memo(({
   const shouldShowIcon = isPreview && iconConfig && titleTypingComplete;
 
   // Label content
-  // Blog tile (tile-6) starts and finishes in sync with "Wat is de oplossing?" (tile-2)
+  // Blog tile (tile-6) starts immediately and finishes slightly later
   const isBlogTile = data.id === 'tile-6';
-  // Tile 2 delay is 1 * STAGGER = 25ms
-  const effectiveDelay = isBlogTile ? ANIMATION_DELAYS.TILE_STAGGER : delay;
+  const effectiveDelay = isBlogTile ? 0 : delay;
 
   const labelContent = data.id === 'tile-1' || titleTypingComplete ? (
     data.title
@@ -113,7 +112,7 @@ export const Tile: React.FC<TileProps> = memo(({
       text={data.title}
       buggy={!isBlogTile}
       delay={effectiveDelay}
-      speed={isBlogTile ? 475 : ANIMATION_DELAYS.TYPEWRITER_TITLE_SPEED}
+      speed={isBlogTile ? 600 : ANIMATION_DELAYS.TYPEWRITER_TITLE_SPEED}
       onComplete={() => setTitleTypingComplete(true)}
     />
   );
