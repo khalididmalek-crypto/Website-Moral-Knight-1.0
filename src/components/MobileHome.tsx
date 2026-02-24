@@ -723,6 +723,31 @@ export const MobileHome: React.FC<MobileHomeProps> = ({
                                             >
                                                 {servicesTileContent}
                                             </ReactMarkdown>
+
+                                            {/* Added CTA for Services - matching Desktop FullscreenView style but adapted for mobile */}
+                                            <div className="w-full mt-2">
+                                                <h4 className="font-bold text-base mb-2 text-[#194D25] text-left w-full uppercase tracking-wider">
+                                                    HEEFT U BEHOEFTE AAN ONAFHANKELIJKE TOETSING?
+                                                </h4>
+                                                <p className="mb-4 text-[14px] font-mono leading-relaxed text-gray-700">
+                                                    Wilt u een geheel vrijblijvend en inhoudelijk gesprek over onze manier van toetsing? Weet ons te vinden en stuur een{' '}
+                                                    <button
+                                                        onClick={(e) => {
+                                                            e.preventDefault();
+                                                            e.stopPropagation();
+                                                            if (!activeTiles.includes('CONTACT')) {
+                                                                handleTileClick('CONTACT');
+                                                            } else {
+                                                                tileRefs.CONTACT.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                                                            }
+                                                        }}
+                                                        className="text-[#8B1A3D] font-bold hover:underline cursor-pointer"
+                                                    >
+                                                        bericht
+                                                    </button>
+                                                    .
+                                                </p>
+                                            </div>
                                         </div>
                                     </motion.div>
                                 </motion.div>
