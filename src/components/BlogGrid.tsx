@@ -7,7 +7,8 @@
 import React from 'react';
 import { BlogPost } from '../types';
 import { BlogTile } from './BlogTile';
-import { A11Y_COLORS } from '../constants';
+import { A11Y_COLORS, ANIMATION_DELAYS } from '../constants';
+import { Typewriter } from './Typewriter';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import rehypeRaw from 'rehype-raw';
@@ -76,7 +77,12 @@ export const BlogGrid: React.FC<BlogGridProps> = ({ posts, introContent, onOpenM
       <div className="flex w-full">
         <div className="border border-black px-3 py-1.5 inline-block bg-white">
           <div className="font-mono text-xs md:text-sm uppercase tracking-widest text-black leading-none">
-            HOE WIJ NAAR AI KIJKEN
+            <Typewriter
+              text="HOE WIJ NAAR AI KIJKEN"
+              buggy
+              speed={ANIMATION_DELAYS.TYPEWRITER_TITLE_SPEED}
+              delay={400} // Small delay for entrance polish
+            />
           </div>
         </div>
       </div>
