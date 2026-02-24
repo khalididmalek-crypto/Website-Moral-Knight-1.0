@@ -465,7 +465,7 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
 
                 {isServicesView && (
                   <div className="mt-8 border-t border-black/10 pt-8 pb-4">
-                    <h3 className="font-mono text-[1.1rem] uppercase tracking-widest font-bold mb-1.5" style={{ color: COLORS.PRIMARY_GREEN }}>
+                    <h3 className="font-mono text-[1.1rem] uppercase tracking-widest font-bold mb-0.5 leading-tight" style={{ color: COLORS.PRIMARY_GREEN }}>
                       HEEFT U BEHOEFTE AAN ONAFHANKELIJKE TOETSING?
                     </h3>
                     <p className="font-mono text-[15px] leading-relaxed max-w-2xl text-gray-600">
@@ -698,7 +698,7 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
 
                 {(isServicesView || activeSubTile?.id.startsWith('serv-')) && (
                   <div className="mt-8 border-t border-black/10 pt-8 pb-4">
-                    <h3 className="font-mono text-[1.1rem] uppercase tracking-widest font-bold mb-1.5" style={{ color: COLORS.PRIMARY_GREEN }}>
+                    <h3 className="font-mono text-[1.1rem] uppercase tracking-widest font-bold mb-0.5 leading-tight" style={{ color: COLORS.PRIMARY_GREEN }}>
                       HEEFT U BEHOEFTE AAN ONAFHANKELIJKE TOETSING?
                     </h3>
                     <p className="font-mono text-[15px] leading-relaxed max-w-2xl text-gray-600">

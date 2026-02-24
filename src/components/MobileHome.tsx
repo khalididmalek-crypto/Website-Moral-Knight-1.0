@@ -725,8 +725,8 @@ export const MobileHome: React.FC<MobileHomeProps> = ({
                                             </ReactMarkdown>
 
                                             {/* Added CTA for Services - matching Desktop FullscreenView style but adapted for mobile */}
-                                            <div className="w-full mt-1">
-                                                <h4 className="font-bold text-base mb-1 text-[#194D25] text-left w-full uppercase tracking-wider">
+                                            <div className="w-full mt-0">
+                                                <h4 className="font-bold text-base mb-0 text-[#194D25] text-left w-full uppercase tracking-wider leading-tight">
                                                     HEEFT U BEHOEFTE AAN ONAFHANKELIJKE TOETSING?
                                                 </h4>
                                                 <p className="mb-4 text-[14px] font-mono leading-relaxed text-gray-700">
