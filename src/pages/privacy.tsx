@@ -93,7 +93,7 @@ export default function PrivacyPage() {
                                 {`4. Uw Rechten`}
                             </h2>
                             <p>
-                                {`U heeft te allen tijde het recht op inzage, correctie of verwijdering van uw persoonsgegevens. Voor anonieme meldingen bezitten wij technisch geen gegevens die herleidbaar zijn naar uw persoon. Wij hanteren een zero-trace policy voor klokkenluiders.`}
+                                {`U heeft te allen tijde het recht op inzage, correctie of verwijdering van uw persoonsgegevens. Voor anonieme meldingen bezitten wij technisch geen gegevens die herleidbaar zijn naar uw persoon. Wij hanteren een zero-trace policy for klokkenluiders.`}
                             </p>
                         </section>
 
@@ -124,65 +124,75 @@ export default function PrivacyPage() {
             <style jsx global>{`
                 @media print {
                     @page {
-                        margin: 1.5cm;
+                        margin: 2cm;
                         size: A4 portrait;
                     }
                     
-                    /* Hide EVERYTHING by default and reset basics */
-                    html, body, #__next, .min-h-screen, div { 
+                    /* Reset ALL containers for print */
+                    html, body, #__next, .app-main-wrapper, div, main, section {
                         background: white !important;
+                        color: black !important;
                         height: auto !important;
                         min-height: 0 !important;
                         overflow: visible !important;
-                        display: block !important;
                         position: static !important;
-                        filter: none !important;
-                        box-shadow: none !important;
-                    }
-                    
-                    /* Hide non-essential elements */
-                    nav, footer, .no-print, button, 
-                    .projector-noise, .projector-dust, .projector-scratch, .projector-sand,
-                    #mk-glitch-noise, #mk-glitch-scanlines { 
-                        display: none !important; 
-                        visibility: hidden !important;
-                        opacity: 0 !important;
-                    }
-                    
-                    /* Reset container that wraps main */
-                    .w-full.max-w-4xl {
+                        display: block !important;
+                        width: 100% !important;
                         max-width: none !important;
-                        width: 100% !important;
-                        padding: 0 !important;
                         margin: 0 !important;
-                        display: block !important;
-                    }
-
-                    main {
-                        display: block !important;
-                        width: 100% !important;
-                        color: black !important;
-                        background: white !important;
-                        border: none !important;
                         padding: 0 !important;
-                        margin: 0 !important;
-                        position: static !important;
                         box-shadow: none !important;
-                        visibility: visible !important;
-                        opacity: 1 !important;
+                        filter: none !important;
+                        transform: none !important;
                     }
 
-                    .print-content { 
-                        display: block !important; 
-                        visibility: visible !important;
-                        opacity: 1 !important;
+                    /* Specific container reset */
+                    .min-h-screen {
+                        min-height: 0 !important;
                     }
 
-                    /* Ensure all text elements are visible and black */
-                    h1, h2, p, span, li, strong {
+                    /* Hide UI elements */
+                    .no-print, nav, footer, button, 
+                    .projector-noise, .projector-dust, .projector-scratch, .projector-sand,
+                    #mk-glitch-noise, #mk-glitch-scanlines, .ProjectorOverlay {
+                        display: none !important;
+                    }
+
+                    /* Content specific padding */
+                    main {
+                        padding: 0 !important;
+                        border: none !important;
+                    }
+
+                    .print-content {
+                        display: block !important;
+                    }
+
+                    /* Typo adjustments for print */
+                    h1 { 
+                        font-size: 24pt !important; 
+                        margin-bottom: 20pt !important;
                         color: black !important;
-                        visibility: visible !important;
-                        opacity: 1 !important;
+                    }
+                    h2 { 
+                        font-size: 16pt !important; 
+                        margin-top: 20pt !important; 
+                        margin-bottom: 10pt !important;
+                        border-left: 3pt solid black !important;
+                        padding-left: 10pt !important;
+                        color: black !important;
+                    }
+                    p, li { 
+                        font-size: 11pt !important; 
+                        line-height: 1.4 !important;
+                        margin-bottom: 10pt !important;
+                    }
+
+                    /* Breadcrumbs and small text */
+                    header p {
+                        font-size: 9pt !important;
+                        margin-bottom: 30pt !important;
+                        display: block !important;
                     }
 
                     * {
