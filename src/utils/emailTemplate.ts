@@ -63,16 +63,25 @@ export const generateEmailHtml = (data: EmailTemplateData, isForUser: boolean, i
     <title>${title}</title>
     <style>
         /* Force light mode in all clients */
-        :root { color-scheme: light; }
+        :root { color-scheme: light only; }
 
-        /* Gmail dark mode override - lock all key colors */
+        /* Gmail Android dark mode override (u + .body is Gmail-specific) */
+        u + .body .email-header-td { background-color: #061424 !important; }
+        u + .body .logo-wrapper { background-color: #061424 !important; }
+        u + .body .email-header-td * { color: #FFFFFF !important; }
+        u + .body .email-statusbar-td { background-color: #FFFFFF !important; }
+        u + .body .email-content-td { background-color: #FFFFFF !important; }
+        u + .body .email-footer-td { background-color: #F8FAFC !important; }
+
+        /* Gmail iOS/web dark mode override */
         @media (prefers-color-scheme: dark) {
             body, table { background-color: #F8FAFC !important; }
-            .email-header td { background-color: #061424 !important; color: #FFFFFF !important; }
+            .email-header-td, .email-header td, [data-ogsb="#061424"] { background-color: #061424 !important; color: #FFFFFF !important; }
+            .logo-wrapper { background-color: #061424 !important; }
             .header-title, .header-subtitle { color: #FFFFFF !important; }
-            .email-statusbar td { background-color: #FFFFFF !important; }
-            .email-content td { background-color: #FFFFFF !important; color: #1e293b !important; }
-            .email-footer td { background-color: #F8FAFC !important; color: #061424 !important; }
+            .email-statusbar-td, .email-statusbar td { background-color: #FFFFFF !important; }
+            .email-content-td, .email-content td { background-color: #FFFFFF !important; color: #1e293b !important; }
+            .email-footer-td, .email-footer td { background-color: #F8FAFC !important; color: #061424 !important; }
             h2.main-title { color: #061424 !important; }
             p.intro-text, td.data-value { color: #1e293b !important; }
         }
@@ -203,7 +212,7 @@ export const generateEmailHtml = (data: EmailTemplateData, isForUser: boolean, i
         }
     </style>
 </head>
-<body style="margin: 0; padding: 0; background-color: ${colors.background}; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%;">
+<body class="body" style="margin: 0; padding: 0; background-color: ${colors.background}; -webkit-text-size-adjust: 100%; -ms-text-size-adjust: 100%;">
     
     <!-- Main Wrapper -->
     <table border="0" cellpadding="0" cellspacing="0" width="100%" style="background-color: ${colors.background};">
@@ -215,7 +224,7 @@ export const generateEmailHtml = (data: EmailTemplateData, isForUser: boolean, i
                     
                     <!-- Header (Custom HTML layout for better logo control) -->
                     <tr class="email-header">
-                        <td bgcolor="${colors.primary}" style="background-color: ${colors.primary} !important; padding: 30px 30px;" data-ogsc="${colors.primary}" data-ogsb="${colors.primary}">
+                        <td class="email-header-td" bgcolor="${colors.primary}" style="background-color: ${colors.primary} !important; padding: 30px 30px;" data-ogsc="${colors.primary}" data-ogsb="${colors.primary}">
                             <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                 <tr>
                                     <td align="left" valign="middle">
@@ -226,16 +235,18 @@ export const generateEmailHtml = (data: EmailTemplateData, isForUser: boolean, i
                                             De onafhankelijke waakhond voor publieke AI
                                         </div>
                                     </td>
-                                    <td align="right" valign="middle" class="header-cell">
-                                        <a href="https://www.moralknight.nl" style="display: block; border: 0; outline: 0;">
-                                            <img
-                                                src="https://www.moralknight.nl/images/logo-email.png"
-                                                alt="Moral Knight Logo"
-                                                width="130"
-                                                class="header-logo"
-                                                style="display: block; width: 130px; height: auto; border: 0; outline: 0; margin-right: 5px;"
-                                            />
-                                        </a>
+                                    <td align="right" valign="middle" class="header-cell" bgcolor="${colors.primary}" style="background-color: ${colors.primary} !important;" data-ogsb="${colors.primary}">
+                                        <div class="logo-wrapper" style="background-color: ${colors.primary} !important; display: inline-block; border-radius: 0;" data-ogsb="${colors.primary}">
+                                            <a href="https://www.moralknight.nl" style="display: block; border: 0; outline: 0; background-color: ${colors.primary};">
+                                                <img
+                                                    src="https://www.moralknight.nl/images/logo-email.png"
+                                                    alt="Moral Knight Logo"
+                                                    width="130"
+                                                    class="header-logo"
+                                                    style="display: block; width: 130px; height: auto; border: 0; outline: 0; margin-right: 5px;"
+                                                />
+                                            </a>
+                                        </div>
                                     </td>
                                 </tr>
                             </table>
@@ -245,7 +256,7 @@ export const generateEmailHtml = (data: EmailTemplateData, isForUser: boolean, i
 
                     <!-- Status Bar / Badge -->
                     <tr class="email-statusbar">
-                        <td bgcolor="#FFFFFF" style="background-color: #FFFFFF !important; padding: 20px 30px; border-bottom: 1px solid #F3F4F6;" data-ogsb="#FFFFFF">
+                        <td class="email-statusbar-td" bgcolor="#FFFFFF" style="background-color: #FFFFFF !important; padding: 20px 30px; border-bottom: 1px solid #F3F4F6;" data-ogsb="#FFFFFF">
                             <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                 <tr>
                                     <td align="left" class="status-cell">
@@ -265,7 +276,7 @@ export const generateEmailHtml = (data: EmailTemplateData, isForUser: boolean, i
 
                     <!-- Main Content -->
                     <tr class="email-content">
-                        <td class="content-cell" bgcolor="#FFFFFF" style="background-color: #FFFFFF !important; padding: 40px 30px;" data-ogsb="#FFFFFF">
+                        <td class="content-cell email-content-td" bgcolor="#FFFFFF" style="background-color: #FFFFFF !important; padding: 40px 30px;" data-ogsb="#FFFFFF">
                             <!-- Title -->
                             <h2 class="main-title" style="margin: 0 0 20px 0; font-family: 'Courier New', Courier, monospace; font-size: 16px; color: ${colors.primary}; font-weight: 700; letter-spacing: -0.5px; text-transform: uppercase;">
                                 ${title}
@@ -304,7 +315,7 @@ export const generateEmailHtml = (data: EmailTemplateData, isForUser: boolean, i
 
                     <!-- Footer -->
                     <tr class="email-footer">
-                        <td class="footer-cell" bgcolor="#F8FAFC" style="background-color: #F8FAFC !important; padding: 30px; border-top: 2px solid ${colors.primary}; text-align: left;" data-ogsb="#F8FAFC">
+                        <td class="footer-cell email-footer-td" bgcolor="#F8FAFC" style="background-color: #F8FAFC !important; padding: 30px; border-top: 2px solid ${colors.primary}; text-align: left;" data-ogsb="#F8FAFC">
                             <p class="footer-text" style="margin: 0; font-family: 'Courier New', Courier, monospace; font-size: 12px; color: ${colors.footerText}; letter-spacing: 1px; text-transform: uppercase; margin-left: -2px;">
                                 / Moral Knight since 2025 - Auditing public AI
                             </p>
