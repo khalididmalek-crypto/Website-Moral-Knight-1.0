@@ -66,22 +66,23 @@ export const generateEmailHtml = (data: EmailTemplateData, isForUser: boolean, i
         :root { color-scheme: light only; }
 
         /* Gmail Android dark mode override (u + .body is Gmail-specific) */
-        u + .body .email-header-td { background-color: #061424 !important; }
-        u + .body .logo-wrapper { background-color: #061424 !important; }
+        u + .body .email-header-td { background-image: linear-gradient(#061424, #061424) !important; }
+        u + .body .logo-wrapper { background-image: linear-gradient(#061424, #061424) !important; }
         u + .body .email-header-td * { color: #FFFFFF !important; }
-        u + .body .email-statusbar-td { background-color: #FFFFFF !important; }
-        u + .body .email-content-td { background-color: #FFFFFF !important; }
-        u + .body .email-footer-td { background-color: #F8FAFC !important; }
+        u + .body .email-statusbar-td { background-color: #FFFFFF !important; background-image: linear-gradient(#FFFFFF, #FFFFFF) !important; color: #1e293b !important; }
+        u + .body .email-content-td { background-color: #FFFFFF !important; background-image: linear-gradient(#FFFFFF, #FFFFFF) !important; color: #1e293b !important; }
+        u + .body .email-footer-td { background-color: #F8FAFC !important; background-image: linear-gradient(#F8FAFC, #F8FAFC) !important; }
 
         /* Gmail iOS/web dark mode override */
         @media (prefers-color-scheme: dark) {
-            body, table { background-color: #F8FAFC !important; }
-            .email-header-td, .email-header td, [data-ogsb="#061424"] { background-color: #061424 !important; color: #FFFFFF !important; }
-            .logo-wrapper { background-color: #061424 !important; }
+            body, table { background-color: #F8FAFC !important; background-image: linear-gradient(#F8FAFC, #F8FAFC) !important; }
+            .email-header-td, .email-header td, [data-ogsb="#061424"] { background-color: #061424 !important; background-image: linear-gradient(#061424, #061424) !important; color: #FFFFFF !important; }
+            .header-cell, .logo-wrapper { background-color: #061424 !important; background-image: linear-gradient(#061424, #061424) !important; }
             .header-title, .header-subtitle { color: #FFFFFF !important; }
-            .email-statusbar-td, .email-statusbar td { background-color: #FFFFFF !important; }
-            .email-content-td, .email-content td { background-color: #FFFFFF !important; color: #1e293b !important; }
-            .email-footer-td, .email-footer td { background-color: #F8FAFC !important; color: #061424 !important; }
+            .email-statusbar-td, .email-statusbar td { background-color: #FFFFFF !important; background-image: linear-gradient(#FFFFFF, #FFFFFF) !important; color: #1e293b !important; }
+            .email-statusbar-td span { color: #1e293b !important; }
+            .email-content-td, .email-content td { background-color: #FFFFFF !important; background-image: linear-gradient(#FFFFFF, #FFFFFF) !important; color: #1e293b !important; }
+            .email-footer-td, .email-footer td { background-color: #F8FAFC !important; background-image: linear-gradient(#F8FAFC, #F8FAFC) !important; color: #061424 !important; }
             h2.main-title { color: #061424 !important; }
             p.intro-text, td.data-value { color: #1e293b !important; }
         }
@@ -224,7 +225,7 @@ export const generateEmailHtml = (data: EmailTemplateData, isForUser: boolean, i
                     
                     <!-- Header (Custom HTML layout for better logo control) -->
                     <tr class="email-header">
-                        <td class="email-header-td" bgcolor="${colors.primary}" style="background-color: ${colors.primary} !important; padding: 30px 30px;" data-ogsc="${colors.primary}" data-ogsb="${colors.primary}">
+                        <td class="email-header-td" bgcolor="${colors.primary}" style="background-color: ${colors.primary}; background-image: linear-gradient(${colors.primary}, ${colors.primary}); padding: 30px 30px;" data-ogsc="${colors.primary}" data-ogsb="${colors.primary}">
                             <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                 <tr>
                                     <td align="left" valign="middle">
@@ -235,9 +236,9 @@ export const generateEmailHtml = (data: EmailTemplateData, isForUser: boolean, i
                                             De onafhankelijke waakhond voor publieke AI
                                         </div>
                                     </td>
-                                    <td align="right" valign="middle" class="header-cell" bgcolor="${colors.primary}" style="background-color: ${colors.primary} !important;" data-ogsb="${colors.primary}">
-                                        <div class="logo-wrapper" style="background-color: ${colors.primary} !important; display: inline-block; border-radius: 0;" data-ogsb="${colors.primary}">
-                                            <a href="https://www.moralknight.nl" style="display: block; border: 0; outline: 0; background-color: ${colors.primary};">
+                                    <td align="right" valign="middle" class="header-cell" bgcolor="${colors.primary}" style="background-color: ${colors.primary}; background-image: linear-gradient(${colors.primary}, ${colors.primary});" data-ogsb="${colors.primary}">
+                                        <div class="logo-wrapper" style="background-color: ${colors.primary}; background-image: linear-gradient(${colors.primary}, ${colors.primary}); display: inline-block; border-radius: 0;" data-ogsb="${colors.primary}">
+                                            <a href="https://www.moralknight.nl" style="display: block; border: 0; outline: 0;">
                                                 <img
                                                     src="https://www.moralknight.nl/images/logo-email.png"
                                                     alt="Moral Knight Logo"
