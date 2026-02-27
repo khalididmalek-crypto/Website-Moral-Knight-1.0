@@ -69,22 +69,37 @@ export const generateEmailHtml = (data: EmailTemplateData, isForUser: boolean, i
         u + .body .email-header-td { background-image: linear-gradient(#061424, #061424) !important; }
         u + .body .logo-wrapper { background-image: linear-gradient(#061424, #061424) !important; }
         u + .body .email-header-td * { color: #FFFFFF !important; }
-        u + .body .email-statusbar-td { background-color: #FFFFFF !important; background-image: linear-gradient(#FFFFFF, #FFFFFF) !important; color: #1e293b !important; }
-        u + .body .email-content-td { background-color: #FFFFFF !important; background-image: linear-gradient(#FFFFFF, #FFFFFF) !important; color: #1e293b !important; }
-        u + .body .email-footer-td { background-color: #F8FAFC !important; background-image: linear-gradient(#F8FAFC, #F8FAFC) !important; }
+        
+        /* Let Gmail naturally invert the rest of the email */
+        u + .body .email-statusbar-td { background-color: #FFFFFF !important; }
+        u + .body .email-content-td { background-color: #FFFFFF !important; }
+        u + .body .email-footer-td { background-color: #F8FAFC !important; }
 
         /* Gmail iOS/web dark mode override */
         @media (prefers-color-scheme: dark) {
-            body, table { background-color: #F8FAFC !important; background-image: linear-gradient(#F8FAFC, #F8FAFC) !important; }
+            body, table { background-color: #1e293b !important; }
             .email-header-td, .email-header td, [data-ogsb="#061424"] { background-color: #061424 !important; background-image: linear-gradient(#061424, #061424) !important; color: #FFFFFF !important; }
             .header-cell, .logo-wrapper { background-color: #061424 !important; background-image: linear-gradient(#061424, #061424) !important; }
             .header-title, .header-subtitle { color: #FFFFFF !important; }
-            .email-statusbar-td, .email-statusbar td { background-color: #FFFFFF !important; background-image: linear-gradient(#FFFFFF, #FFFFFF) !important; color: #1e293b !important; }
-            .email-statusbar-td span { color: #1e293b !important; }
-            .email-content-td, .email-content td { background-color: #FFFFFF !important; background-image: linear-gradient(#FFFFFF, #FFFFFF) !important; color: #1e293b !important; }
-            .email-footer-td, .email-footer td { background-color: #F8FAFC !important; background-image: linear-gradient(#F8FAFC, #F8FAFC) !important; color: #061424 !important; }
-            h2.main-title { color: #061424 !important; }
-            p.intro-text, td.data-value { color: #1e293b !important; }
+            
+            /* Let body elements adapt to dark mode natively */
+            .email-container { background-color: #0f172a !important; border-color: #334155 !important; }
+            .email-statusbar-td, .email-statusbar td { background-color: #0f172a !important; border-color: #334155 !important; }
+            .email-statusbar-td span, .status-date { color: #94a3b8 !important; }
+            .status-badge { background-color: #1e293b !important; border-color: #475569 !important; color: #cbd5e1 !important; }
+            .status-badge span { color: #f8fafc !important; }
+            
+            .email-content-td, .email-content td { background-color: #0f172a !important; }
+            h2.main-title { color: #f8fafc !important; }
+            p.intro-text { color: #cbd5e1 !important; }
+            
+            .data-label span { color: #94a3b8 !important; }
+            .data-value { color: #f8fafc !important; border-color: #334155 !important; }
+            .data-label, .data-row { border-color: #334155 !important; }
+            
+            .email-footer-td, .email-footer td { background-color: #1e293b !important; border-top-color: #334155 !important; }
+            p.footer-text { color: #94a3b8 !important; }
+            p.privacy-text, .privacy-link { color: #64748b !important; }
         }
         .privacy-link {
             text-decoration: underline;
@@ -257,7 +272,7 @@ export const generateEmailHtml = (data: EmailTemplateData, isForUser: boolean, i
 
                     <!-- Status Bar / Badge -->
                     <tr class="email-statusbar">
-                        <td class="email-statusbar-td" bgcolor="#FFFFFF" style="background-color: #FFFFFF !important; padding: 20px 30px; border-bottom: 1px solid #F3F4F6;" data-ogsb="#FFFFFF">
+                        <td class="email-statusbar-td" bgcolor="#FFFFFF" style="background-color: #FFFFFF; padding: 20px 30px; border-bottom: 1px solid #F3F4F6;" data-ogsb="#FFFFFF">
                             <table border="0" cellpadding="0" cellspacing="0" width="100%">
                                 <tr>
                                     <td align="left" class="status-cell">
@@ -277,7 +292,7 @@ export const generateEmailHtml = (data: EmailTemplateData, isForUser: boolean, i
 
                     <!-- Main Content -->
                     <tr class="email-content">
-                        <td class="content-cell email-content-td" bgcolor="#FFFFFF" style="background-color: #FFFFFF !important; padding: 40px 30px;" data-ogsb="#FFFFFF">
+                        <td class="content-cell email-content-td" bgcolor="#FFFFFF" style="background-color: #FFFFFF; padding: 40px 30px;" data-ogsb="#FFFFFF">
                             <!-- Title -->
                             <h2 class="main-title" style="margin: 0 0 20px 0; font-family: 'Courier New', Courier, monospace; font-size: 16px; color: ${colors.primary}; font-weight: 700; letter-spacing: -0.5px; text-transform: uppercase;">
                                 ${title}
@@ -316,7 +331,7 @@ export const generateEmailHtml = (data: EmailTemplateData, isForUser: boolean, i
 
                     <!-- Footer -->
                     <tr class="email-footer">
-                        <td class="footer-cell email-footer-td" bgcolor="#F8FAFC" style="background-color: #F8FAFC !important; padding: 30px; border-top: 2px solid ${colors.primary}; text-align: left;" data-ogsb="#F8FAFC">
+                        <td class="footer-cell email-footer-td" bgcolor="#F8FAFC" style="background-color: #F8FAFC; padding: 30px; border-top: 2px solid ${colors.primary}; text-align: left;" data-ogsb="#F8FAFC">
                             <p class="footer-text" style="margin: 0; font-family: 'Courier New', Courier, monospace; font-size: 12px; color: ${colors.footerText}; letter-spacing: 1px; text-transform: uppercase; margin-left: -2px;">
                                 / Moral Knight since 2025 - Auditing public AI
                             </p>
