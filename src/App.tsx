@@ -170,7 +170,8 @@ const App: React.FC<AppProps> = ({
       return;
     }
 
-    const currentPath = router.asPath.split('?')[0]; // Ignore query params for now
+    const currentPathWithoutQuery = router.asPath.split('?')[0];
+    const currentPathWithoutHash = currentPathWithoutQuery.split('#')[0];
     let targetPath = '/';
 
     if (activeBlogSlug) targetPath = `/blog/${activeBlogSlug}`;
@@ -185,8 +186,12 @@ const App: React.FC<AppProps> = ({
     else if (activeTileId === 'tile-6') targetPath = '/blog';
 
     // Only push if different to avoid redundant history entries
-    if (currentPath !== targetPath) {
-      router.push(targetPath, undefined, { shallow: true });
+    if (currentPathWithoutHash !== targetPath) {
+      // Preserve hash if we are still on the same base path but the state matches
+      const newUrl = currentPathWithoutHash === targetPath && window.location.hash 
+        ? `${targetPath}${window.location.hash}` 
+        : targetPath;
+      router.push(newUrl, undefined, { shallow: true });
     }
   }, [activeTileId, meldpuntOpen, dashboardOpen, kennisbankOpen, activeBlogSlug, router]);
 

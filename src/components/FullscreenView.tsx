@@ -135,6 +135,38 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
           ? SERVICES_TILES
           : [], [isProblemView, isSolutionView, isHowView, isServicesView]);
 
+  // Deeplinking (URL #hash) support for sub-tiles -> Desktop only
+  const slugify = useCallback((text: string) => {
+    return text.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+  }, []);
+
+  // Sync state to URL hash
+  useEffect(() => {
+    if (activeSubTile && activeSubTile.title) {
+      window.history.replaceState(null, '', `#${slugify(activeSubTile.title)}`);
+    } else if (activeSubTile === null) {
+      // Clear hash when modal closes
+      window.history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
+  }, [activeSubTile, slugify]);
+
+  // Read URL hash on mount to automatically open the matching sub-tile
+  useEffect(() => {
+    const hash = window.location.hash.replace('#', '');
+    if (hash && subTileGroup.length > 0 && !activeSubTile) {
+      const tileMatch = subTileGroup.find(t => slugify(t.title) === hash);
+      if (tileMatch) {
+         if (isServicesView) {
+            const detailContent = SERVICES_DETAILS[tileMatch.id];
+            setActiveSubTile(detailContent ? { ...tileMatch, content: { text: detailContent } as TextContent } : tileMatch);
+         } else {
+            setActiveSubTile(tileMatch);
+         }
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [subTileGroup, isServicesView, slugify]); // Only run on mount / view change
+
   const activeSubIndex = activeSubTile ? subTileGroup.findIndex(t => t.id === activeSubTile.id) : -1;
   const hasPrevSub = activeSubIndex > 0;
   const hasNextSub = activeSubIndex >= 0 && activeSubIndex < subTileGroup.length - 1;

@@ -4,6 +4,20 @@ import { getSortedPostsData } from '../lib/blog';
 const EXTERNAL_DATA_URL = 'https://moralknight.nl'; // Replace with actual domain
 
 function generateSiteMap(posts: any[]) {
+    const staticPaths = [
+        'probleem',
+        'oplossing',
+        'aanpak',
+        'diensten',
+        'contact',
+        'meldpunt',
+        'dashboard',
+        'kennisbank',
+        'visie',
+        'architectuur',
+        'privacy'
+    ];
+
     return `<?xml version="1.0" encoding="UTF-8"?>
    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
      <url>
@@ -18,6 +32,18 @@ function generateSiteMap(posts: any[]) {
        <changefreq>daily</changefreq>
        <priority>0.8</priority>
      </url>
+     ${staticPaths
+            .map((path) => {
+                return `
+       <url>
+           <loc>${`${EXTERNAL_DATA_URL}/${path}`}</loc>
+           <lastmod>${new Date().toISOString()}</lastmod>
+           <changefreq>weekly</changefreq>
+           <priority>0.8</priority>
+       </url>
+     `;
+            })
+            .join('')}
      ${posts
             .map(({ slug, date }) => {
                 return `
