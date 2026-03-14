@@ -350,7 +350,7 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
             ref={closeButtonRef}
             data-modal-close
             onClick={onClose}
-            className="group p-2 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#194D25] min-w-[44px] min-h-[44px] flex items-center justify-center"
+            className="group p-2 transition-colors focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#194D25] min-w-[44px] min-h-[44px] flex items-center justify-center"
             aria-label="Sluit venster"
           >
             <X
