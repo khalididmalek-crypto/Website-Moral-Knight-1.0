@@ -216,8 +216,12 @@ export const FullscreenView: React.FC<FullscreenViewProps> = ({ tile, onClose, p
     document.body.style.overflow = 'hidden';
 
     // Focus close button after a short delay to ensure DOM is ready
+    // Use preventScroll + immediate blur to avoid showing the focus-visible ring
     const timer = setTimeout(() => {
-      closeButtonRef.current?.focus();
+      if (closeButtonRef.current) {
+        closeButtonRef.current.focus({ preventScroll: true });
+        closeButtonRef.current.blur();
+      }
     }, 100);
 
     return () => {

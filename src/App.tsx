@@ -344,10 +344,13 @@ const App: React.FC<AppProps> = ({
   useEffect(() => {
     if (activeTileId) {
       previousTileIdRef.current = activeTileId;
-      // Focus the close button when modal opens
+      // Focus the close button when modal opens (without visible ring)
       setTimeout(() => {
         const closeButton = document.querySelector('[data-modal-close]') as HTMLElement;
-        closeButton?.focus();
+        if (closeButton) {
+          closeButton.focus({ preventScroll: true });
+          closeButton.blur();
+        }
       }, 100);
     } else if (previousTileIdRef.current) {
       // Return focus to previously focused tile when modal closes
