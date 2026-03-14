@@ -83,6 +83,9 @@ export const MobileHome: React.FC<MobileHomeProps> = ({
     const containerRef = useRef<HTMLDivElement>(null);
     const contactFormRef = useRef<HTMLDivElement>(null);
 
+    // Guard to prevent router.push ↔ routeChangeComplete feedback loop
+    const isUpdatingFromRoute = useRef(false);
+
     const BG_COLORS = {
         PROBLEM: '#EBC6C1', // Pale Bordeaux
         SOLUTION: '#E0E4DC', // Much lighter green
@@ -221,8 +224,16 @@ export const MobileHome: React.FC<MobileHomeProps> = ({
     };
 
     // URL Synchronization: State -> URL
+    // GUARD: Skip when the state change was triggered by a route event (back/forward)
     useEffect(() => {
         if (!router.isReady) return;
+
+        // If this state change was triggered by a routeChangeComplete event,
+        // do NOT push a new route — the URL is already correct.
+        if (isUpdatingFromRoute.current) {
+            isUpdatingFromRoute.current = false;
+            return;
+        }
 
         const currentPath = router.asPath.split('?')[0];
         let targetPath = '/';
@@ -251,6 +262,10 @@ export const MobileHome: React.FC<MobileHomeProps> = ({
 
         const handleRouteChange = (url: string) => {
             const path = url.split('?')[0];
+
+            // Set guard BEFORE updating state — prevents the state→URL effect
+            // from calling router.push again (which would create an infinite loop)
+            isUpdatingFromRoute.current = true;
 
             // Map paths to state
             const isMeldpunt = path === '/meldpunt';

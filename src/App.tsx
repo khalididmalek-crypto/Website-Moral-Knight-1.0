@@ -114,6 +114,9 @@ const App: React.FC<AppProps> = ({
   const mainContainerRef = useRef<HTMLDivElement>(null);
   const gridRef = useRef<HTMLDivElement>(null);
 
+  // Guard to prevent router.push ↔ routeChangeComplete feedback loop
+  const isUpdatingFromRoute = useRef(false);
+
   // Toast notifications
   const { showToast, ToastContainer } = useToast();
 
@@ -156,8 +159,16 @@ const App: React.FC<AppProps> = ({
 
   // 1. Sync State -> URL
   // When state changes, update the URL without reloading (shallow)
+  // GUARD: Skip when the state change was triggered by a route event (back/forward)
   useEffect(() => {
     if (!router.isReady) return;
+
+    // If this state change was triggered by a routeChangeComplete event,
+    // do NOT push a new route — the URL is already correct.
+    if (isUpdatingFromRoute.current) {
+      isUpdatingFromRoute.current = false;
+      return;
+    }
 
     const currentPath = router.asPath.split('?')[0]; // Ignore query params for now
     let targetPath = '/';
@@ -185,6 +196,10 @@ const App: React.FC<AppProps> = ({
 
     const handleRouteChange = (url: string) => {
       const path = url.split('?')[0];
+
+      // Set guard BEFORE updating state — prevents the state→URL effect
+      // from calling router.push again (which would create an infinite loop)
+      isUpdatingFromRoute.current = true;
 
       // If we navigate to a modal, only update the modal state and keep the background (tile) state
       const isMeldpunt = path === '/meldpunt';

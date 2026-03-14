@@ -211,6 +211,31 @@ export default function Document() {
         />
       </Head>
       <body className="mk-glitch-active">
+        {/* Instant glitch suppression for back/forward navigation — runs before React hydration */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var nav = performance.getEntriesByType('navigation');
+                  var type = nav && nav[0] && nav[0].type;
+                  if (type === 'back_forward') {
+                    document.body.classList.remove('mk-glitch-active');
+                    document.body.style.filter = '';
+                    requestAnimationFrame(function() {
+                      var noise = document.getElementById('mk-glitch-noise');
+                      var scanlines = document.getElementById('mk-glitch-scanlines');
+                      if (noise) noise.style.display = 'none';
+                      if (scanlines) scanlines.style.display = 'none';
+                    });
+                  } else if (type === 'reload') {
+                    document.body.style.filter = 'grayscale(10%) contrast(1.03)';
+                  }
+                } catch(e) {}
+              })();
+            `,
+          }}
+        />
         {/* Glitch intro overlays — rendered before React, removed by GlitchIntro component */}
         <div id="mk-glitch-noise" />
         <div id="mk-glitch-scanlines" />
