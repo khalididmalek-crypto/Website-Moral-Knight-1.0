@@ -452,7 +452,7 @@ const App: React.FC<AppProps> = ({
             <div className="w-full max-w-[1400px] mb-10 pl-[calc(5.9rem+2.9rem)] -mt-10" style={{ transform: 'translate(-42px, 20px)' }}>
               <div>
                 <h2 className="sr-only">Onze aanpak</h2>
-                <p
+                <div
                   className={`font-mono text-[1.1rem] uppercase tracking-widest font-normal transition-opacity duration-200 delay-50 text-left cursor-default ${typingComplete ? 'opacity-100' : 'opacity-0'
                     }`}
                   style={{ color: COLORS.PRIMARY_GREEN }}
@@ -467,7 +467,7 @@ const App: React.FC<AppProps> = ({
                   ) : (
                     'De onafhankelijke waakhond van publieke AI'
                   )}
-                </p>
+                </div>
               </div>
             </div>
 
