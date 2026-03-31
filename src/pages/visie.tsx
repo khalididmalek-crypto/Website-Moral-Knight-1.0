@@ -8,6 +8,7 @@ import { GetStaticProps } from 'next';
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 import { X } from 'lucide-react';
+import { GlitchIntro } from '../components/GlitchIntro';
 
 interface VisieProps {
     content: string;
@@ -168,6 +169,7 @@ export default function VisiePage({ content }: VisieProps) {
             </Head>
 
             <div className="min-h-screen py-10 px-6 md:px-0 relative print-white-bg" style={{ backgroundColor: BG_COLOR, color: TEXT_COLOR }}>
+                <GlitchIntro duration={800} />
                 <div className="max-w-3xl mx-auto">
                     {/* Print-only Header (Matches Website Header Style) */}
                     <div id="print-header" className="mb-8 flex flex-nowrap justify-between items-center bg-white p-4 border border-[#8B1A3D] shadow-sm">

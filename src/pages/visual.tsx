@@ -7,6 +7,7 @@ import { GetStaticProps } from 'next';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import remarkGfm from 'remark-gfm';
+import { GlitchIntro } from '../components/GlitchIntro';
 
 interface VisualProps {
     content: string;
@@ -57,6 +58,7 @@ export default function VisualPage({ content }: VisualProps) {
             </Head>
 
             <div className="min-h-screen py-10 px-6 md:px-0 bg-[#FAFAFA] text-[#222222] selection:bg-[#8B1A3D]/10">
+                <GlitchIntro duration={800} />
                 <div className="max-w-4xl mx-auto">
                     
                     {/* Header Nav */}
